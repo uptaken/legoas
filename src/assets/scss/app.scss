@@ -1,0 +1,29 @@
+/*
+Template Name: Nazox - Responsive Bootstrap 4 Admin Dashboard
+Author: Themesdesign
+Contact: themesdesign.in@gmail.com
+File: Main Css File
+*/
+
+//Fonts
+@import "custom/font";
+
+//Core files
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import '~bootstrap/scss/bootstrap';
+// @import 'bootstrap';
+
+@import "variables";
+
+// RTL
+// @import "custom/rtl/general-rtl";
+// @import "custom/rtl/bootstrap-rtl";
+// @import "custom/rtl/spacing-rtl";
+// @import "custom/rtl/float-rtl";
+// @import "custom/rtl/text-rtl";
+// @import "custom/rtl/structure-rtl";
+// @import "custom/rtl/plugins-rtl";
+// @import "custom/rtl/components-rtl";
+// @import "custom/rtl/pages-rtl";

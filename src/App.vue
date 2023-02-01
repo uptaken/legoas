@@ -1,28 +1,43 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" v-if="!this.$route.path.match(/\/auth*/g)">
+    <div id="content">
+      <navbar/>
+      <div class="">
+        <router-view/>
+      </div>
+    </div>
+    <footer1/>
+  </div>
+  <div v-else>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import footer1 from './layout/footer'
+import navbar from './layout/navbar'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    footer1, navbar,
+  },
+  created(){
+    // if(sessionStorage.message != null){
+    //   this.$toasted.show(sessionStorage.message)
+    //   sessionStorage.removeItem('message')
+    // }
+  },
+  mounted(){
+    // if(!this.$route.path.match(/\/auth*/g))
+    //   this.get_profile()
+  },
+  methods:{
   }
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+html, body{
+  font-family: poppins-regular;
 }
 </style>
