@@ -5,6 +5,8 @@ import $ from 'jquery'
 import axios from 'axios'
 import I18n from "i18n-js"
 import Toasted from 'vue-toasted'
+import Select2 from 'v-select2-component';
+import VueSlickCarousel from 'vue-slick-carousel'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faUserSecret, faPhone, } from '@fortawesome/free-solid-svg-icons'
@@ -12,6 +14,9 @@ import { faFacebook, faTwitter, faLinkedin, faInstagram, faYoutube, } from '@for
 
 // Register components in your 'main.js'
 import "@/assets/scss/app.scss";
+import 'vue-slick-carousel/dist/vue-slick-carousel.css'
+// optional style for arrows & dots
+import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 
 import App from './App.vue'
 import router from './router'
@@ -26,6 +31,8 @@ library.add(faInstagram)
 library.add(faYoutube)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('Select2', Select2);
+Vue.component('VueSlickCarousel', VueSlickCarousel);
 Vue.config.productionTip = false
 
 window.$ = $

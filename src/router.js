@@ -3,6 +3,7 @@ import Router from 'vue-router'
 // import router_view from '@/router_view'
 
 import home from '@/pages/home/index'
+import schedule from '@/pages/auction/schedule'
 
 Vue.use(Router)
 
@@ -11,6 +12,13 @@ var router = new Router({
     {
       path: '',
       component: home,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/schedule',
+      component: schedule,
       meta: {
         requiresAuth: false
       },
