@@ -4,8 +4,8 @@
 
     <div class="d-flex align-items-center navbar-header">
       <a href="/">{{ $t("home") }}</a>
-      <a class="ml-4" href="/">{{ $t("auction_schedule") }}</a>
-      <a class="ml-4" href="/">{{ $t("auction_info") }}</a>
+      <a class="ml-4" href="/schedule">{{ $t("auction_schedule") }}</a>
+      <a class="ml-4" href="/definiton">{{ $t("auction_info") }}</a>
       <a class="ml-4" href="/">{{ $t("auction_location") }}</a>
       <a class="ml-4" href="/">{{ $t("about_us") }}</a>
       <button class="btn btn-primary ml-4" href="/">{{ $t("register") }}</button>

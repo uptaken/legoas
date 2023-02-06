@@ -4,6 +4,8 @@ import Router from 'vue-router'
 
 import home from '@/pages/home/index'
 import schedule from '@/pages/auction/schedule'
+import definiton from '@/pages/auction/definition'
+import how_to from '@/pages/auction/how_to'
 
 Vue.use(Router)
 
@@ -19,6 +21,20 @@ var router = new Router({
     {
       path: '/schedule',
       component: schedule,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/definiton',
+      component: definiton,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/how-to',
+      component: how_to,
       meta: {
         requiresAuth: false
       },
