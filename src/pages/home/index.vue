@@ -1,51 +1,8 @@
 <template>
   <div class="">
-    <div class="position-relative d-flex flex-column align-items-center px-5">
-      <img src="@/assets/home_banner.png" width="100%"/>
-      <div class="" style="width: 90%; margin-top: -4rem">
-        <div class="card ">
-          <div class="card-body p-3">
-            <p>{{ $t("search_auction") }}</p>
-            <div class="row">
-              <div class="col-3">
-                <div class="form-group">
-                  <label>{{ $t("location") }}</label>
-                  <Select2 v-model="location" 
-                    :options="arr_location" 
-                    @change="onLocationChanged($event)" 
-                    @select="onLocationSelect($event)" />
-                </div>
-              </div>
-
-              <div class="col-3 d-flex">
-                <div class="vertical"></div>
-                <div class="form-group ml-3 flex-fill">
-                  <label>{{ $t("brand") }}</label>
-                  <Select2 v-model="brand" 
-                    :options="arr_brand" 
-                    @change="onBrandChanged($event)" 
-                    @select="onBrandSelect($event)" />
-                </div>
-              </div>
-
-              <div class="col-3 d-flex">
-                <div class="vertical"></div>
-                <div class="form-group ml-3 flex-fill">
-                  <label>{{ $t("model") }}</label>
-                  <Select2 v-model="model" 
-                    :options="arr_model" 
-                    @change="onModelChanged($event)" 
-                    @select="onModelSelect($event)" />
-                </div>
-              </div>
-
-              <div class="col-3">
-                <button class="btn btn-lg btn-dark w-100">{{ $t("search") }}</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div>
+      <HomeSearch :homeBannerFlag="flag.homeBanner" 
+        :homeSearchFlag="flag.homeSearch"/>
     </div>
 
     <div class="p-5">
@@ -54,15 +11,8 @@
       </div>
     </div>
 
-    <div class="p-5">
-      <p class="m-0 why-title text-center">{{ $t("recommendation") }}</p>
-      <p class="m-0 why-title2 text-center">{{ $t("recommendation_list") }}</p>
-
-      <div class="mt-3 d-flex justify-content-center">
-        <div v-for="(car, index) in arr_car" :key="index" style="width: 200rem;">
-          <CarItem :data="car" :index="index" :total_data="arr_car.length"/>
-        </div>
-      </div>
+    <div>
+      <Recommendation :recommendationTitle1Flag="flag.recommendationTitle1" :recommendationTitle2Flag="flag.recommendationTitle2"/>
     </div>
 
     <div class="p-5 why-container">
@@ -127,17 +77,25 @@ import Mercedes from '@/assets/Mercedes Benz.png';
 import Nissan from '@/assets/Nissan.png';
 import Volkswagen from '@/assets/Volkswagen.png';
 
-import CarItem from '@/pages/auction/component/car_item.vue'
 import TestimonyItem from '@/pages/home/component/testimony_item.vue'
+import HomeSearch from '@/pages/home/component/home_search.vue'
+import Recommendation from '@/pages/home/component/recommendation.vue'
 
 export default {
   components: {
-    'CarItem': CarItem,
     'TestimonyItem': TestimonyItem,
+    'HomeSearch': HomeSearch,
+    'Recommendation': Recommendation,
   },
   data(){
     return{
       base: null,
+      flag: {
+        homeBanner: false,
+        homeSearch: false,
+        recommendationTitle1: false,
+        recommendationTitle2: false,
+      },
       slick_setting: {
         dots: true,
         arrows: true,
@@ -148,75 +106,6 @@ export default {
         slidesToScroll: 3,
         touchThreshold: 5
       },
-      location: {},
-      brand: {},
-      model: {},
-      arr_location: [
-        {
-          id: "1",
-          text: "Jakarta",
-        },
-        {
-          id: "2",
-          text: "Surabaya",
-        },
-      ],
-      arr_brand: [
-        {
-          id: "1",
-          text: "Volkswagen",
-        },
-        {
-          id: "2",
-          text: "Nissan",
-        },
-        {
-          id: "3",
-          text: "Mazda",
-        },
-      ],
-      arr_model: [
-        {
-          id: "1",
-          text: "Type S",
-        },
-        {
-          id: "2",
-          text: "Type A",
-        },
-      ],
-      arr_car: [
-        {
-          id: "1",
-          image: Audi,
-          title: "WULING CORTEZ 1.5 S T LUX",
-          odometer: "21,921 km",
-          year: "2019",
-          transmission: "Manual",
-          place: "Jakarta Utara",
-          price: 147000000,
-        },
-        {
-          id: "1",
-          image: Audi,
-          title: "WULING CORTEZ 1.5 S T LUX",
-          odometer: "21,921 km",
-          year: "2019",
-          transmission: "Manual",
-          place: "Jakarta Utara",
-          price: 147000000,
-        },
-        {
-          id: "1",
-          image: Audi,
-          title: "WULING CORTEZ 1.5 S T LUX",
-          odometer: "21,921 km",
-          year: "2019",
-          transmission: "Manual",
-          place: "Jakarta Utara",
-          price: 147000000,
-        },
-      ],
       arr_testimony: [
         {
           id: "1",
@@ -239,13 +128,31 @@ export default {
           testimony: "Transaksi kedua saya di LEGOAS",
         },
       ],
-      arr_car_brand: [Audi, BMW, Ford, Ford, Mazda, Mercedes, Nissan, Volkswagen,]
+      arr_car_brand: [Audi, BMW, Ford, Ford, Mazda, Mercedes, Nissan, Volkswagen,],
+      scrollY: 0,
     }
   },
-  mounted(){
+  watch: {
+    scrollY(val){
+      this.flag.homeBanner = val >= 0
+      this.flag.homeSearch = val >= 0
+      this.flag.recommendationTitle1 = val >= 500
+      this.flag.recommendationTitle2 = val >= 500
+    },
+  },
+  created(){
     this.base = new Base()
+    window.addEventListener('scroll', this.handleScroll)
+    this.scrollY = 1
   },
   methods: {
+    handleScroll(){
+      
+      this.scrollY = window.scrollY
+    },
+    search(){
+      this.flag = !this.flag
+    },
     onLocationChanged(val){
       console.log(val);
     },
@@ -297,4 +204,5 @@ export default {
 .slick-prev:before, .slick-next:before {
   background-color: $black !important;
 }
+
 </style>
