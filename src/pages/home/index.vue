@@ -15,7 +15,12 @@
       <Recommendation :recommendationTitle1Flag="flag.recommendationTitle1" :recommendationTitle2Flag="flag.recommendationTitle2"/>
     </div>
 
-    <WhyChooseUs/>
+    <WhyChooseUs
+      :whyChooseTitle1Flag="flag.whyChooseTitle1"
+      :whyChooseTitle2Flag="flag.whyChooseTitle2"
+      :whyChooseUs1Flag="flag.whyChooseUs1"
+      :whyChooseUs2Flag="flag.whyChooseUs2"
+      :whyChooseUs3Flag="flag.whyChooseUs3"/>
 
     <div class="p-5">
       <p class="m-0 why-title text-center">{{ $t("testimony") }}</p>
@@ -63,6 +68,11 @@ export default {
         homeSearch: false,
         recommendationTitle1: false,
         recommendationTitle2: false,
+        whyChooseTitle1: false,
+        whyChooseTitle2: false,
+        whyChooseUs1: false,
+        whyChooseUs2: false,
+        whyChooseUs3: false,
       },
       slick_setting: {
         dots: true,
@@ -102,10 +112,16 @@ export default {
   },
   watch: {
     scrollY(val){
+      console.log(val)
       this.flag.homeBanner = val >= 0
       this.flag.homeSearch = val >= 0
       this.flag.recommendationTitle1 = val >= 500
       this.flag.recommendationTitle2 = val >= 500
+      this.flag.whyChooseTitle1 = val >= 1100
+      this.flag.whyChooseTitle2 = val >= 1100
+      this.flag.whyChooseUs1 = val >= 1200
+      this.flag.whyChooseUs2 = val >= 1300
+      this.flag.whyChooseUs3 = val >= 1400
     },
   },
   created(){

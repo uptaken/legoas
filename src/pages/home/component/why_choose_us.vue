@@ -1,35 +1,55 @@
 <template>
   <div class="p-5 why-container">
     <div class="row" style="margin: 0 10rem;">
-      <div class="col-12 col-lg-6"></div>
       <div class="col-12 col-lg-6">
-        <p class="m-0 why-title">{{ $t("why_choose_us") }}</p>
-        <p class="m-0 why-title2 mt-2">{{ $t("auction_center_with") }}</p>
-        <p class="m-0 text-primary why-title2">{{ $t("first_e_auction") }}</p>
+        <div style="height: 30rem; width: 100%"></div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <Transition name="why-choose-title1">
+          <p class="m-0 why-title" v-show="whyChooseTitle1Flag">{{ $t("why_choose_us") }}</p>
+        </Transition>
+        <Transition name="why-choose-title2">
+          <div v-show="whyChooseTitle2Flag">
+            <p class="m-0 why-title2 mt-2">{{ $t("auction_center_with") }}</p>
+            <p class="m-0 text-primary why-title2">{{ $t("first_e_auction") }}</p>
+          </div>
+        </Transition>
         <div class="mt-4">
-          <div class="d-flex">
-            <img/>
-            <div>
-              <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us1_title") }}</p>
-              <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us1_desc") }}</p>
+          <Transition name="why-choose-us1">
+            <div v-show="whyChooseUs1Flag">
+              <div class="d-flex">
+                <img/>
+                <div>
+                  <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us1_title") }}</p>
+                  <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us1_desc") }}</p>
+                </div>
+              </div>
             </div>
-          </div>
+          </Transition>
 
-          <div class="d-flex mt-4">
-            <img/>
-            <div>
-              <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us2_title") }}</p>
-              <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us2_desc") }}</p>
+          <Transition name="why-choose-us1">
+            <div v-show="whyChooseUs2Flag">
+              <div class="d-flex mt-4">
+                <img/>
+                <div>
+                  <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us2_title") }}</p>
+                  <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us2_desc") }}</p>
+                </div>
+              </div>
             </div>
-          </div>
+          </Transition>
 
-          <div class="d-flex mt-4">
-            <img/>
-            <div>
-              <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us3_title") }}</p>
-              <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us3_desc") }}</p>
+          <Transition name="why-choose-us1">
+            <div v-show="whyChooseUs3Flag">
+              <div class="d-flex mt-4">
+                <img/>
+                <div>
+                  <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us3_title") }}</p>
+                  <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us3_desc") }}</p>
+                </div>
+              </div>
             </div>
-          </div>
+          </Transition>
         </div>
       </div>
     </div>
@@ -40,6 +60,13 @@
 import Base from '@/utils/base';
 
 export default {
+  props: [
+    "whyChooseTitle1Flag",
+    "whyChooseTitle2Flag",
+    "whyChooseUs1Flag",
+    "whyChooseUs2Flag",
+    "whyChooseUs3Flag",
+  ],
   data(){
     return{
       base: null,
@@ -73,5 +100,27 @@ export default {
   font-family: poppins-regular;
   color: $gray6;
   margin-top: .5rem;
+}
+
+.why-choose-title1-enter-active, .why-choose-title1-leave-active{
+  transition: all 2s;
+}
+.why-choose-title1-leave-to, .why-choose-title1-enter {
+  margin-left: -10rem !important;
+  opacity: 0;
+}
+.why-choose-title2-enter-active, .why-choose-title2-leave-active{
+  transition: all 2s;
+}
+.why-choose-title2-leave-to, .why-choose-title2-enter {
+  margin-left: -10rem !important;
+  opacity: 0;
+}
+.why-choose-us1-enter-active, .why-choose-us1-leave-active{
+  transition: all 2s;
+}
+.why-choose-us1-leave-to, .why-choose-us1-enter {
+  margin-left: 10rem !important;
+  opacity: 0;
 }
 </style>
