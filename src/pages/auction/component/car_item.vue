@@ -9,23 +9,23 @@
         <div class="row">
           <div class="col-6">
             <div class="d-flex align-items-center">
-              <img src="@/assets/road.png"/>
+              <img src="@/assets/road.png" style="width: 1.1rem;"/>
               <p class="ml-3 mb-0 car-info">{{ data.odometer }}</p>
             </div>
 
             <div class="d-flex align-items-center mt-1">
-              <img src="@/assets/time.png"/>
+              <img src="@/assets/time.png" style="width: 1.1rem;"/>
               <p class="ml-3 mb-0 car-info">{{ data.year }}</p>
             </div>
           </div>
           <div class="col-6">
             <div class="d-flex align-items-center">
-              <img src="@/assets/transmission.png"/>
+              <img src="@/assets/transmission.png" style="width: 1.1rem;"/>
               <p class="ml-3 mb-0 car-info">{{ data.transmission }}</p>
             </div>
 
             <div class="d-flex align-items-center mt-1">
-              <img src="@/assets/map_icon.png"/>
+              <img src="@/assets/map_icon.png" style="width: 1.1rem;"/>
               <p class="ml-3 mb-0 car-info">{{ data.place }}</p>
             </div>
           </div>

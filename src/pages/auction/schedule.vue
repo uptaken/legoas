@@ -9,21 +9,21 @@
         <div class="d-flex align-items-center">
           <p class=" mb-0">{{ $t("filter") }}</p>
 
-          <div class="form-group ml-3 mb-0">
+          <div class="form-group ml-3 mb-0" style="width: 10rem">
             <Select2 v-model="sort" 
               :options="arr_sort" 
               @change="onSortChanged($event)" 
               @select="onSortSelect($event)" />
           </div>
 
-          <div class="form-group ml-3 mb-0">
+          <div class="form-group ml-3 mb-0" style="width: 10rem">
             <Select2 v-model="model" 
               :options="arr_model" 
               @change="onModelChanged($event)" 
               @select="onModelSelect($event)" />
           </div>
 
-          <button class="btn btn-outline-primary">{{ $t("reset_filter") }}</button>
+          <button class="btn btn-outline-primary ml-3">{{ $t("reset_filter") }}</button>
         </div>
 
         <div>
@@ -33,8 +33,10 @@
 
       <div class="mt-3 d-flex justify-content-center">
         <div class="row">
-          <div v-for="(car, index) in arr_car" :key="index" class="col-4">
-            <CarItem :data="car" :index="index" :total_data="arr_car.length"/>
+          <div v-for="(car, index) in arr_car" :key="index" class="col-4 mb-3">
+            <a href="#">
+              <CarItem :data="car" :index="index" :total_data="arr_car.length"/>
+            </a>
           </div>
         </div>
       </div>

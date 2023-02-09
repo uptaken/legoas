@@ -13,15 +13,15 @@
       <div class="col-6 col-lg-2 d-flex flex-column mt-3 mt-lg-0">
         <p class="footer-title">{{ $t("app_name") }}</p>
         <a href="/" class="footer-link">{{ $t("about_us") }}</a>
-        <a href="/" class="mt-3 footer-link">{{ $t("auction_schedule") }}</a>
+        <a href="/schedule" class="mt-3 footer-link">{{ $t("auction_schedule") }}</a>
         <a href="/" class="mt-3 footer-link">{{ $t("auction_location") }}</a>
         <a href="/" class="mt-3 footer-link">{{ $t("contact_us") }}</a>
       </div>
 
       <div class="col-6 col-lg-2 d-flex flex-column mt-3 mt-lg-0">
         <p class="footer-title">{{ $t("auction_info") }}</p>
-        <a href="/" class="footer-link">{{ $t("auction_definition") }}</a>
-        <a href="/" class="mt-3 footer-link">{{ $t("auction_how_to") }}</a>
+        <a href="/definiton" class="footer-link">{{ $t("auction_definition") }}</a>
+        <a href="/how-to" class="mt-3 footer-link">{{ $t("auction_how_to") }}</a>
         <a href="/" class="mt-3 footer-link">{{ $t("auction_rules") }}</a>
         <a href="/" class="mt-3 footer-link">{{ $t("auction_news") }}</a>
       </div>
