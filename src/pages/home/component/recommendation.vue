@@ -1,11 +1,13 @@
 <template>
   <div class="p-5">
-    <Transition name="recommendation-title1">
-      <p class="m-0 why-title text-center" v-show="recommendationTitle1Flag">{{ $t("recommendation") }}</p>
-    </Transition>
-    <Transition name="recommendation-title2">
-      <p class="m-0 why-title2 text-center" v-show="recommendationTitle2Flag">{{ $t("recommendation_list") }}</p>
-    </Transition>
+    <div style="width: 100%; height: 3.6rem;">
+      <Transition name="recommendation-title1">
+        <p class="m-0 why-title text-center" v-show="recommendationTitle1Flag">{{ $t("recommendation") }}</p>
+      </Transition>
+      <Transition name="recommendation-title2">
+        <p class="m-0 why-title2 text-center" v-show="recommendationTitle2Flag">{{ $t("recommendation_list") }}</p>
+      </Transition>
+    </div>
 
     <div class="mt-3 d-flex justify-content-center">
       <div v-for="(car, index) in arr_car" :key="index" style="width: 200rem;">

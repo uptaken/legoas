@@ -119,9 +119,9 @@ export default {
       this.flag.recommendationTitle2 = val >= 500
       this.flag.whyChooseTitle1 = val >= 1100
       this.flag.whyChooseTitle2 = val >= 1100
-      this.flag.whyChooseUs1 = val >= 1200
-      this.flag.whyChooseUs2 = val >= 1300
-      this.flag.whyChooseUs3 = val >= 1400
+      this.flag.whyChooseUs1 = val >= 1150
+      this.flag.whyChooseUs2 = val >= 1200
+      this.flag.whyChooseUs3 = val >= 1250
     },
   },
   created(){

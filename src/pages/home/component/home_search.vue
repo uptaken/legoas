@@ -1,55 +1,62 @@
 <template>
-  <div class="position-relative d-flex flex-column align-items-center px-5">
-    <Transition name="home-banner">
-      <img src="@/assets/home_banner.png" width="100%" v-show="homeBannerFlag"/>
-    </Transition>
+  <div class="d-flex justify-content-center">
+    <div class="position-relative px-5 d-inline-block" style="width: 100%; height: 40rem">
+      <div class="d-flex flex-column align-items-center ">
+        <Transition name="home-banner">
+          <img src="@/assets/home_banner.png" width="100%" v-show="homeBannerFlag"/>
+        </Transition>
 
-    <Transition name="home-search">
-      <div class="" style="width: 90%; margin-top: -4rem" v-show="homeSearchFlag">
-        <div class="card ">
-          <div class="card-body p-3">
-            <p>{{ $t("search_auction") }}</p>
-            <div class="row">
-              <div class="col-3">
-                <div class="form-group">
-                  <label>{{ $t("location") }}</label>
-                  <Select2 v-model="location" 
-                    :options="arr_location" 
-                    @change="onLocationChanged($event)" 
-                    @select="onLocationSelect($event)" />
+        <Transition name="home-search">
+          <div class="" style="width: 90%; margin-top: -4rem" v-show="homeSearchFlag">
+            <div class="card ">
+              <div class="card-body p-3">
+                <p>{{ $t("search_auction") }}</p>
+                <div class="row">
+                  <div class="col-3">
+                    <div class="form-group">
+                      <label>{{ $t("location") }}</label>
+                      <Select2 v-model="location"
+                        :settings="{width: '100%',}"
+                        :options="arr_location" 
+                        @change="onLocationChanged($event)" 
+                        @select="onLocationSelect($event)" />
+                    </div>
+                  </div>
+
+                  <div class="col-3 d-flex">
+                    <div class="vertical"></div>
+                    <div class="form-group ml-3 flex-fill">
+                      <label>{{ $t("brand") }}</label>
+                      <Select2 v-model="brand" 
+                        :options="arr_brand" 
+                        :settings="{width: '100%',}"
+                        @change="onBrandChanged($event)" 
+                        @select="onBrandSelect($event)" />
+                    </div>
+                  </div>
+
+                  <div class="col-3 d-flex">
+                    <div class="vertical"></div>
+                    <div class="form-group ml-3 flex-fill">
+                      <label>{{ $t("model") }}</label>
+                      <Select2 v-model="model" 
+                        :options="arr_model" 
+                        :settings="{width: '100%',}"
+                        @change="onModelChanged($event)" 
+                        @select="onModelSelect($event)" />
+                    </div>
+                  </div>
+
+                  <div class="col-3">
+                    <button class="btn btn-lg btn-dark w-100" @click="search">{{ $t("search") }}</button>
+                  </div>
                 </div>
-              </div>
-
-              <div class="col-3 d-flex">
-                <div class="vertical"></div>
-                <div class="form-group ml-3 flex-fill">
-                  <label>{{ $t("brand") }}</label>
-                  <Select2 v-model="brand" 
-                    :options="arr_brand" 
-                    @change="onBrandChanged($event)" 
-                    @select="onBrandSelect($event)" />
-                </div>
-              </div>
-
-              <div class="col-3 d-flex">
-                <div class="vertical"></div>
-                <div class="form-group ml-3 flex-fill">
-                  <label>{{ $t("model") }}</label>
-                  <Select2 v-model="model" 
-                    :options="arr_model" 
-                    @change="onModelChanged($event)" 
-                    @select="onModelSelect($event)" />
-                </div>
-              </div>
-
-              <div class="col-3">
-                <button class="btn btn-lg btn-dark w-100" @click="search">{{ $t("search") }}</button>
               </div>
             </div>
           </div>
-        </div>
+        </Transition>
       </div>
-    </Transition>
+    </div>
   </div>
 </template>
 
