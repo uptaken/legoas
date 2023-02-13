@@ -1,39 +1,43 @@
 <template>
   <div class="">
-    <div class="position-relative d-flex flex-column align-items-center px-5">
+    <div class="position-relative d-flex flex-column align-items-center px-3 px-lg-5">
       <img src="@/assets/auction_schedule_banner.png" width="100%"/>
     </div>
 
-    <div class="p-5 m-5">
-      <div class="d-flex justify-content-between">
-        <div class="d-flex align-items-center">
-          <p class=" mb-0">{{ $t("filter") }}</p>
+    <div class="p-5 p-lg-5 m-0 m-lg-5">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <div class="d-flex align-items-center">
+            <p class=" mb-0">{{ $t("filter") }}</p>
 
-          <div class="form-group ml-3 mb-0" style="width: 10rem">
-            <Select2 v-model="sort" 
-              :options="arr_sort" 
-              @change="onSortChanged($event)" 
-              @select="onSortSelect($event)" />
+            <div class="form-group ml-3 mb-0" style="width: 10rem">
+              <Select2 v-model="sort" 
+                :options="arr_sort" 
+                @change="onSortChanged($event)" 
+                @select="onSortSelect($event)" />
+            </div>
+
+            <div class="form-group ml-3 mb-0" style="width: 10rem">
+              <Select2 v-model="model" 
+                :options="arr_model" 
+                @change="onModelChanged($event)" 
+                @select="onModelSelect($event)" />
+            </div>
+
+            <button class="btn btn-outline-primary ml-3">{{ $t("reset_filter") }}</button>
           </div>
-
-          <div class="form-group ml-3 mb-0" style="width: 10rem">
-            <Select2 v-model="model" 
-              :options="arr_model" 
-              @change="onModelChanged($event)" 
-              @select="onModelSelect($event)" />
-          </div>
-
-          <button class="btn btn-outline-primary ml-3">{{ $t("reset_filter") }}</button>
         </div>
 
-        <div>
-          <p>{{ start_data }}-{{ end_data }} {{ $t('of') }} {{ total_data }}</p>
+        <div class="col-12 col-lg-6 mt-3 mt-lg-0">
+          <div class="d-lg-flex justify-content-end align-items-center">
+            <p class="m-0">{{ start_data }}-{{ end_data }} {{ $t('of') }} {{ total_data }}</p>
+          </div>
         </div>
       </div>
 
       <div class="mt-3 d-flex justify-content-center">
         <div class="row">
-          <div v-for="(car, index) in arr_car" :key="index" class="col-4 mb-3">
+          <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mb-3">
             <a href="#">
               <CarItem :data="car" :index="index" :total_data="arr_car.length"/>
             </a>

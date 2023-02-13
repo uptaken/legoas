@@ -1,15 +1,44 @@
 <template>
-  <div class="d-flex justify-content-between align-items-center py-4 px-5">
-    <img src="@/assets/image_logo.png"/>
+  <div class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-4 px-5">
+    <a class="navbar-brand" href="/">
+      <img src="@/assets/image_logo.png" />
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="d-flex align-items-center navbar-header">
+
+    <div class="collapse navbar-collapse" id="navbarToggle">
+      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+        <li class="d-flex align-items-center nav-item active">
+          <a class="nav-link" href="/">{{ $t("home") }}</a>
+        </li>
+        <li class="d-flex align-items-center nav-item">
+          <a class="nav-link" href="/schedule">{{ $t("auction_schedule") }}</a>
+        </li>
+        <li class="d-flex align-items-center nav-item">
+          <a class="nav-link" href="/definiton">{{ $t("auction_info") }}</a>
+        </li>
+        <li class="d-flex align-items-center nav-item">
+          <a class="nav-link" href="/">{{ $t("auction_location") }}</a>
+        </li>
+        <li class="d-flex align-items-center nav-item">
+          <a class="nav-link" href="/">{{ $t("about_us") }}</a>
+        </li>
+        <li class="d-flex align-items-center nav-item">
+          <a class="btn btn-primary nav-link text-white px-3" href="/">{{ $t("register") }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- <div class="d-flex align-items-center navbar-header">
       <a href="/">{{ $t("home") }}</a>
       <a class="ml-4" href="/schedule">{{ $t("auction_schedule") }}</a>
       <a class="ml-4" href="/definiton">{{ $t("auction_info") }}</a>
       <a class="ml-4" href="/">{{ $t("auction_location") }}</a>
       <a class="ml-4" href="/">{{ $t("about_us") }}</a>
       <button class="btn btn-primary ml-4" href="/">{{ $t("register") }}</button>
-    </div>
+    </div> -->
   </div>
 </template>
 
