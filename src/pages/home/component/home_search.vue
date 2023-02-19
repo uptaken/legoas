@@ -1,73 +1,112 @@
 <template>
-  <div class="d-flex justify-content-center">
-    <div class="position-relative px-5 d-inline-block" style="width: 100%; height: 40rem">
-      <div class="d-flex flex-column align-items-center ">
-        <Transition name="home-banner">
-          <img src="@/assets/home_banner.png" width="100%" v-show="homeBannerFlag"/>
-        </Transition>
+  <div class="d-flex flex-column align-items-center ">
+    <div class="home-top w-100 pl-5 pb-5">
+      <div class="d-flex align-items-center">
+        <div class="mr-3">
+          <p class="m-0" style="font-size: 4rem; line-height: 5rem; font-family: poppins-medium;" v-html="selected_banner.title"></p>
+          <p class="m-0 banner-subtitle mt-3">{{ selected_banner.subtitle }}</p>
 
-        <Transition name="home-search">
-          <div class="" style="width: 90%; margin-top: -4rem" v-show="homeSearchFlag">
-            <div class="card ">
-              <div class="card-body p-3">
-                <p>{{ $t("search_auction") }}</p>
-                <div class="row">
-                  <div class="col-3">
-                    <div class="form-group">
-                      <label>{{ $t("location") }}</label>
-                      <Select2 v-model="location"
-                        :settings="{width: '100%',}"
-                        :options="arr_location" 
-                        @change="onLocationChanged($event)" 
-                        @select="onLocationSelect($event)" />
-                    </div>
-                  </div>
+          <div class="mt-5 d-flex">
+            <font-awesome-icon icon="fa-solid fa-chevron-left" class="navigation-arrow mr-3" v-show="selected_banner_index > 0" @click="onBannerNavigationClick('previous')"/>
+            <div class="d-flex ">
+              <div class="rounded-circle banner-dots" 
+                :class="{'ml-4': index > 0, 'active': selected_banner_index == index}" 
+                v-for="(banner, index) in arr_banner" 
+                :key="'banner'+index"
+                @click="onBannerDotClick(index)"></div>
+            </div>
+            <font-awesome-icon icon="fa-solid fa-chevron-right" class="navigation-arrow ml-3" v-show="selected_banner_index < arr_banner.length - 1" @click="onBannerNavigationClick('next')"/>
+          </div>
+        </div>
 
-                  <div class="col-3 d-flex">
-                    <div class="vertical"></div>
-                    <div class="form-group ml-3 flex-fill">
-                      <label>{{ $t("brand") }}</label>
-                      <Select2 v-model="brand" 
-                        :options="arr_brand" 
-                        :settings="{width: '100%',}"
-                        @change="onBrandChanged($event)" 
-                        @select="onBrandSelect($event)" />
-                    </div>
-                  </div>
+        <div class="w-50 d-inline-block ml-3">
+          <img :src="selected_banner.image" class="" width="100%"/>
+        </div>
+      </div>
+    </div>
 
-                  <div class="col-3 d-flex">
-                    <div class="vertical"></div>
-                    <div class="form-group ml-3 flex-fill">
-                      <label>{{ $t("model") }}</label>
-                      <Select2 v-model="model" 
-                        :options="arr_model" 
-                        :settings="{width: '100%',}"
-                        @change="onModelChanged($event)" 
-                        @select="onModelSelect($event)" />
-                    </div>
-                  </div>
-
-                  <div class="col-3">
-                    <button class="btn btn-lg btn-dark w-100" @click="search">{{ $t("search") }}</button>
-                  </div>
+    <!-- <Transition name="home-search"> -->
+      <div class="" style="width: 70%; margin-top: -4rem;" v-show="homeSearchFlag">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-3">
+            <p>{{ $t("search_auction") }}</p>
+            <div class="row">
+              <div class="col-4">
+                <div class="form-group">
+                  <label>{{ $t("location") }}</label>
+                  <Select2 v-model="location"
+                    :settings="{width: '100%',}"
+                    :options="arr_location" 
+                    @change="onLocationChanged($event)" 
+                    @select="onLocationSelect($event)" />
                 </div>
+              </div>
+
+              <div class="col-4 d-flex">
+                <div class="vertical"></div>
+                <div class="form-group ml-3 flex-fill">
+                  <label>{{ $t("product_type") }}</label>
+                  <Select2 v-model="product_type" 
+                    :options="arr_product_type" 
+                    :settings="{width: '100%',}"
+                    @change="onProductTypeChanged($event)" 
+                    @select="onProductTypeSelect($event)" />
+                </div>
+              </div>
+
+              <div class="col-4 text-center">
+                <button class="btn btn-lg btn-dark w-75" @click="search">{{ $t("search") }}</button>
               </div>
             </div>
           </div>
-        </Transition>
+        </div>
       </div>
-    </div>
+    <!-- </Transition> -->
   </div>
 </template>
 
 <script>
 import Base from '@/utils/base';
 
+import MazdaCar from '@/assets/mazda_car.png'
+import Underline from '@/assets/underline.png'
+
 export default {
   props: ['homeBannerFlag', 'homeSearchFlag', ],
   data(){
     return{
       base: null,
+      selected_banner_index: 0,
+      selected_banner: {},
+      arr_banner: [
+        {
+          title: `
+            Jadikan<br/>
+            Lelang <label class="m-0 banner-title-custom1 position-relative">Mudah<img src="${Underline}" class="position-absolute" style="bottom: 0; left: 2rem"/></label><br/>
+            & Terpercaya
+          `,
+          subtitle: 'Get a car wherever and whenever you need it with your iOS or Android device.',
+          image: MazdaCar,
+        },
+        {
+          title: `
+            Jadikan<br/>
+            Lelang <label class="m-0 banner-title-custom1 position-relative">Mudah<img src="${Underline}" class="position-absolute" style="bottom: 0; left: 2rem"/></label><br/>
+            & Terpercaya
+          `,
+          subtitle: 'Get a car wherever and whenever you need it with your iOS or Android device.',
+          image: MazdaCar,
+        },
+        {
+          title: `
+            Jadikan<br/>
+            Lelang <label class="m-0 banner-title-custom1 position-relative">Mudah<img src="${Underline}" class="position-absolute" style="bottom: 0; left: 2rem"/></label><br/>
+            & Terpercaya
+          `,
+          subtitle: 'Get a car wherever and whenever you need it with your iOS or Android device.',
+          image: MazdaCar,
+        },
+      ],
       arr_location: [
         {
           id: "1",
@@ -78,7 +117,7 @@ export default {
           text: "Surabaya",
         },
       ],
-      arr_brand: [
+      arr_product_type: [
         {
           id: "1",
           text: "Volkswagen",
@@ -92,33 +131,60 @@ export default {
           text: "Mazda",
         },
       ],
-      arr_model: [
-        {
-          id: "1",
-          text: "Type S",
-        },
-        {
-          id: "2",
-          text: "Type A",
-        },
-      ],
       location: {},
-      brand: {},
-      model: {},
+      product_type: {},
+    }
+  },
+  watch: {
+    selected_banner_index(val){
+      this.selected_banner = this.arr_banner[val]
     }
   },
   created(){
     this.base = new Base()
+
+    this.selected_banner = this.arr_banner[0]
   },
   methods:{
     search(){
 
     },
+    onBannerDotClick(index){
+      this.selected_banner_index = index
+    },
+    onBannerNavigationClick(type){
+      this.selected_banner_index = type == "next" ? this.selected_banner_index + 1 : this.selected_banner_index - 1
+    }
   }
 }
 </script>
 
 <style lang="scss">
+.home-top{
+  background-color: $gray1;
+}
+.navigation-arrow{
+  color: $primary;
+  cursor: pointer;
+}
+.banner-title-custom1{
+  color: $primary;
+}
+.banner-subtitle{
+  color: $gray6;
+}
+.banner-dots.active{
+  width: 1rem; 
+  height: 1rem;
+  background-color: $primary;
+  cursor: pointer;
+}
+.banner-dots{
+  width: 1rem; 
+  height: 1rem;
+  background-color: $white;
+  cursor: pointer;
+}
 .home-banner-enter-active, .home-banner-leave-active{
   transition: all 2s;
 }

@@ -9,7 +9,7 @@ import Select2 from 'v-select2-component';
 import VueSlickCarousel from 'vue-slick-carousel'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUserSecret, faPhone, } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faPhone, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faTwitter, faLinkedin, faInstagram, faYoutube, } from '@fortawesome/free-brands-svg-icons'
 
 // Register components in your 'main.js'
@@ -29,6 +29,8 @@ library.add(faTwitter)
 library.add(faLinkedin)
 library.add(faInstagram)
 library.add(faYoutube)
+library.add(faChevronLeft)
+library.add(faChevronRight)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('Select2', Select2);

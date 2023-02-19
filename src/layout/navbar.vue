@@ -20,13 +20,18 @@
           <a class="nav-link" href="/definiton">{{ $t("auction_info") }}</a>
         </li>
         <li class="d-flex align-items-center nav-item">
-          <a class="nav-link" href="/">{{ $t("auction_location") }}</a>
+          <a class="nav-link" href="/location">{{ $t("auction_location") }}</a>
         </li>
         <li class="d-flex align-items-center nav-item">
-          <a class="nav-link" href="/">{{ $t("about_us") }}</a>
+          <a class="nav-link" href="/about-us">{{ $t("about_us") }}</a>
         </li>
         <li class="d-flex align-items-center nav-item">
-          <a class="btn btn-primary nav-link text-white px-3" href="/">{{ $t("register") }}</a>
+          <a class="nav-link" href="/">{{ $t("sell") }}</a>
+        </li>
+        <li class="d-flex align-items-center nav-item">
+          <div class="nav-link">
+            <a class="btn btn-primary text-white px-3" href="/">{{ $t("register") }}</a>
+          </div>
         </li>
       </ul>
     </div>

@@ -5,13 +5,7 @@
         :homeSearchFlag="flag.homeSearch"/>
     </div>
 
-    <div class="p-5">
-      <div v-for="(brand, index) in arr_car_brand" :key="index" class="d-inline-block text-center" :style="{width: (100 / arr_car_brand.length) + '%'}">
-        <img :src="brand" />
-      </div>
-    </div>
-
-    <div>
+    <div class="text-center">
       <Recommendation :recommendationTitle1Flag="flag.recommendationTitle1" :recommendationTitle2Flag="flag.recommendationTitle2"/>
     </div>
 
@@ -24,7 +18,7 @@
 
     <div class="p-5">
       <p class="m-0 why-title text-center">{{ $t("testimony") }}</p>
-      <p class="m-0 why-title2 text-center">{{ $t("testimony_title") }}</p>
+      <p class="mb-0 why-title2 text-center mt-2">{{ $t("testimony_title") }}</p>
 
       <div class="my-5 mx-5">
         <VueSlickCarousel v-bind="slick_setting">
@@ -33,6 +27,10 @@
           </div>
         </VueSlickCarousel>
       </div>
+    </div>
+
+    <div class="text-center">
+      <Article :articleTitle1Flag="flag.articleTitle1" :articleTitle2Flag="flag.articleTitle2"/>
     </div>
   </div>
 </template>
@@ -47,10 +45,12 @@ import Mazda from '@/assets/Mazda.png';
 import Mercedes from '@/assets/Mercedes Benz.png';
 import Nissan from '@/assets/Nissan.png';
 import Volkswagen from '@/assets/Volkswagen.png';
+import Testimony from '@/assets/testimony.png';
 
 import TestimonyItem from '@/pages/home/component/testimony_item.vue'
 import HomeSearch from '@/pages/home/component/home_search.vue'
 import Recommendation from '@/pages/home/component/recommendation.vue'
+import Article from '@/pages/home/component/article.vue'
 import WhyChooseUs from '@/pages/home/component/why_choose_us.vue'
 
 export default {
@@ -58,6 +58,7 @@ export default {
     'TestimonyItem': TestimonyItem,
     'HomeSearch': HomeSearch,
     'Recommendation': Recommendation,
+    'Article': Article,
     'WhyChooseUs': WhyChooseUs,
   },
   data(){
@@ -68,6 +69,8 @@ export default {
         homeSearch: false,
         recommendationTitle1: false,
         recommendationTitle2: false,
+        articleTitle1: false,
+        articleTitle2: false,
         whyChooseTitle1: false,
         whyChooseTitle2: false,
         whyChooseUs1: false,
@@ -76,34 +79,46 @@ export default {
       },
       slick_setting: {
         dots: true,
-        arrows: true,
+        arrows: false,
         focusOnSelect: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 2,
+        slidesToScroll: 2,
         touchThreshold: 5
       },
       arr_testimony: [
         {
           id: "1",
-          image: Audi,
+          image: Testimony,
           testimony: "Transaksi kedua saya di LEGOAS",
+          testimony_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut",
+          testimony_user: "Jane Smith",
+          testimony_user_description: "Pelanggan cabang Jakarta Utara",
         },
         {
           id: "1",
-          image: Audi,
+          image: Testimony,
           testimony: "Transaksi kedua saya di LEGOAS",
+          testimony_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut",
+          testimony_user: "Jane Smith",
+          testimony_user_description: "Pelanggan cabang Jakarta Utara",
         },
         {
           id: "1",
-          image: Audi,
+          image: Testimony,
           testimony: "Transaksi kedua saya di LEGOAS",
+          testimony_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut",
+          testimony_user: "Jane Smith",
+          testimony_user_description: "Pelanggan cabang Jakarta Utara",
         },
         {
           id: "1",
-          image: Audi,
+          image: Testimony,
           testimony: "Transaksi kedua saya di LEGOAS",
+          testimony_description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut",
+          testimony_user: "Jane Smith",
+          testimony_user_description: "Pelanggan cabang Jakarta Utara",
         },
       ],
       arr_car_brand: [Audi, BMW, Ford, Ford, Mazda, Mercedes, Nissan, Volkswagen,],
@@ -168,5 +183,17 @@ export default {
 .slick-prev:before, .slick-next:before {
   background-color: $black !important;
 }
-
+.slick-dots {
+  bottom: -5rem;
+}
+.slick-dots button:before {
+  color: $gray8 !important; /* color of dots */
+  font-size: .8rem !important;
+  opacity: 1 !important;
+}
+.slick-dots .slick-active button:before {
+  color: $primary !important;
+  font-size: .8rem !important;
+  opacity: 1 !important;
+}
 </style>

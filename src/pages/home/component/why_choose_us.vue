@@ -2,7 +2,9 @@
   <div class="p-5 why-container">
     <div class="row" style="margin: 0 10rem;">
       <div class="col-12 col-lg-6">
-        <div style="height: 30rem; width: 100%"></div>
+        <div style="width: 100%; height: 100%;" class="d-flex align-items-center">
+          <img src="@/assets/why_choose_us.png" width="100%"/>
+        </div>
       </div>
       <div class="col-12 col-lg-6">
         <Transition name="why-choose-title1">
@@ -18,7 +20,7 @@
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs1Flag">
               <div class="d-flex">
-                <img/>
+                <img src="@/assets/why_choose_us1.png"/>
                 <div>
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us1_title") }}</p>
                   <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us1_desc") }}</p>
@@ -29,8 +31,8 @@
 
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs2Flag">
-              <div class="d-flex mt-4">
-                <img/>
+              <div class="d-flex mt-1">
+                <img src="@/assets/why_choose_us2.png"/>
                 <div>
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us2_title") }}</p>
                   <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us2_desc") }}</p>
@@ -41,8 +43,8 @@
 
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs3Flag">
-              <div class="d-flex mt-4">
-                <img/>
+              <div class="d-flex mt-1">
+                <img src="@/assets/why_choose_us3.png"/>
                 <div>
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us3_title") }}</p>
                   <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us3_desc") }}</p>
@@ -94,11 +96,13 @@ export default {
   line-height: 110%;
 }
 .why-breakdown-title{
+  font-size: 1.2rem;
   font-family: poppins-bold;
 }
 .why-breakdown-description{
   font-family: poppins-regular;
   color: $gray6;
+  font-size: .8rem;
   margin-top: .5rem;
 }
 

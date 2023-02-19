@@ -40,4 +40,15 @@ export default {
 html, body{
   font-family: poppins-regular;
 }
+.general-title{
+  font-family: poppins-bold;
+  font-size: 2rem;
+}
+.navigation{
+  color: $gray8;
+}
+.navigation.navigation-now{
+  font-family: poppins-medium;
+  text-decoration: underline;
+}
 </style>

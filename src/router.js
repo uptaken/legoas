@@ -3,9 +3,17 @@ import Router from 'vue-router'
 // import router_view from '@/router_view'
 
 import home from '@/pages/home/index'
+
 import schedule from '@/pages/auction/schedule'
-import definiton from '@/pages/auction/definition'
-import how_to from '@/pages/auction/how_to'
+
+import how_to from '@/pages/auction/info/how_to'
+import definiton from '@/pages/auction/info/definition'
+import rules from '@/pages/auction/info/rules'
+import news from '@/pages/auction/info/news'
+
+import about_us from '@/pages/about_us/index'
+import location from '@/pages/location/index'
+import search from '@/pages/search/index'
 
 Vue.use(Router)
 
@@ -33,8 +41,43 @@ var router = new Router({
       },
     },
     {
+      path: '/rules',
+      component: rules,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/news',
+      component: news,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
       path: '/how-to',
       component: how_to,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/about-us',
+      component: about_us,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/location',
+      component: location,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/search',
+      component: search,
       meta: {
         requiresAuth: false
       },

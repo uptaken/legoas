@@ -1,17 +1,17 @@
 <template>
-  <div class="p-5">
+  <div class="m-5 d-inline-block" style="width: 70%;">
     <div style="width: 100%; height: 3.6rem;">
       <Transition name="recommendation-title1">
         <p class="m-0 why-title text-center" v-show="recommendationTitle1Flag">{{ $t("recommendation") }}</p>
       </Transition>
       <Transition name="recommendation-title2">
-        <p class="m-0 why-title2 text-center" v-show="recommendationTitle2Flag">{{ $t("recommendation_list") }}</p>
+        <p class="mb-0 why-title2 text-center mt-2" v-show="recommendationTitle2Flag">{{ $t("recommendation_list") }}</p>
       </Transition>
     </div>
 
-    <div class="mt-3 d-flex justify-content-center">
-      <div v-for="(car, index) in arr_car" :key="index" style="width: 200rem;">
-        <CarItem :data="car" :index="index" :total_data="arr_car.length"/>
+    <div class="d-flex justify-content-center" style="margin-top: 3.375rem;">
+      <div v-for="(car, index) in arr_car" :key="index" :style="{width: (100 / arr_car.length) + '%'}" :class="{'ml-3': index > 0}">
+        <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
       </div>
     </div>
   </div>
@@ -20,13 +20,13 @@
 <script>
 import Base from '@/utils/base';
 
-import CarItem from '@/pages/auction/component/car_item.vue'
+import RecommendationItem from '@/pages/home/component/recommendation_item.vue'
 
 import Audi from '@/assets/Audi.png';
 
 export default {
   components: {
-    'CarItem': CarItem,
+    'RecommendationItem': RecommendationItem,
   },
   props: ['recommendationTitle1Flag', 'recommendationTitle2Flag', ],
   data(){
@@ -37,29 +37,32 @@ export default {
           id: "1",
           image: Audi,
           title: "WULING CORTEZ 1.5 S T LUX",
-          odometer: "21,921 km",
-          year: "2019",
-          transmission: "Manual",
+          seller: {
+            name: "Amanah Decoration supplier interior Dan exsterior",
+          },
+          type: "MOBIL",
           place: "Jakarta Utara",
           price: 147000000,
         },
         {
           id: "1",
           image: Audi,
-          title: "WULING CORTEZ 1.5 S T LUX",
-          odometer: "21,921 km",
-          year: "2019",
-          transmission: "Manual",
+          title: "Ban Bridgestone Ecopia 195/65 R15",
+          seller: {
+            name: "Ban Bridgestone Ecopia 195/65 R15",
+          },
+          type: "BAN",
           place: "Jakarta Utara",
           price: 147000000,
         },
         {
           id: "1",
           image: Audi,
-          title: "WULING CORTEZ 1.5 S T LUX",
-          odometer: "21,921 km",
-          year: "2019",
-          transmission: "Manual",
+          title: "Orient Titanium Sliderule Automatic Caliber 469",
+          seller: {
+            name: "Amanah Decoration supplier interior Dan exsterior",
+          },
+          type: "JAM TANGAN",
           place: "Jakarta Utara",
           price: 147000000,
         },
