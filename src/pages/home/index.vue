@@ -16,11 +16,11 @@
       :whyChooseUs2Flag="flag.whyChooseUs2"
       :whyChooseUs3Flag="flag.whyChooseUs3"/>
 
-    <div class="p-5">
+    <div class="py-5 px-3 p-lg-5">
       <p class="m-0 why-title text-center">{{ $t("testimony") }}</p>
       <p class="mb-0 why-title2 text-center mt-2">{{ $t("testimony_title") }}</p>
 
-      <div class="my-5 mx-5">
+      <div class="my-5 mx-0 mx-lg-5">
         <VueSlickCarousel v-bind="slick_setting">
           <div v-for="(testimony, index) in arr_testimony" :key="index">
             <TestimonyItem :data="testimony" :index="index" :total_data="arr_testimony.length"/>
@@ -85,7 +85,23 @@ export default {
         speed: 500,
         slidesToShow: 2,
         slidesToScroll: 2,
-        touchThreshold: 5
+        touchThreshold: 5,
+        responsive: [
+          {
+            breakpoint: 800,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 1000,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+        ]
       },
       arr_testimony: [
         {

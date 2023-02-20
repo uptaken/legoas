@@ -1,10 +1,14 @@
 <template>
   <div class="d-flex flex-column align-items-center ">
     <div class="home-top w-100 pl-5 pb-5">
-      <div class="d-flex align-items-center">
-        <div class="mr-3">
-          <p class="m-0" style="font-size: 4rem; line-height: 5rem; font-family: poppins-medium;" v-html="selected_banner.title"></p>
-          <p class="m-0 banner-subtitle mt-3">{{ selected_banner.subtitle }}</p>
+      <div class="d-flex align-items-center mt-3 mt-lg-0">
+        <div class="w-50 d-inline-block mr-3">
+          <Transition name="banner-home-title" >
+            <p class="m-0" v-show="banner_flag" style="font-size: 3.5rem; line-height: 5rem; font-family: poppins-medium;" v-html="selected_banner.title"></p>
+          </Transition>
+          <Transition name="banner-home-title" >
+            <p class="m-0 banner-subtitle mt-3" v-show="banner_flag">{{ selected_banner.subtitle }}</p>
+          </Transition>
 
           <div class="mt-5 d-flex">
             <font-awesome-icon icon="fa-solid fa-chevron-left" class="navigation-arrow mr-3" v-show="selected_banner_index > 0" @click="onBannerNavigationClick('previous')"/>
@@ -20,18 +24,20 @@
         </div>
 
         <div class="w-50 d-inline-block ml-3">
-          <img :src="selected_banner.image" class="" width="100%"/>
+          <Transition name="banner-home-image" >
+            <img :src="selected_banner.image" class="" width="100%" v-show="banner_flag"/>
+          </Transition>
         </div>
       </div>
     </div>
 
     <!-- <Transition name="home-search"> -->
-      <div class="" style="width: 70%; margin-top: -4rem;" v-show="homeSearchFlag">
+      <div class="home-search-card" style="width: 70%; " v-show="homeSearchFlag">
         <div class="card border-0 shadow-sm">
           <div class="card-body p-3">
             <p>{{ $t("search_auction") }}</p>
             <div class="row">
-              <div class="col-4">
+              <div class="col-12 col-lg-4">
                 <div class="form-group">
                   <label>{{ $t("location") }}</label>
                   <Select2 v-model="location"
@@ -42,9 +48,9 @@
                 </div>
               </div>
 
-              <div class="col-4 d-flex">
+              <div class="col-12 col-lg-4 d-flex">
                 <div class="vertical"></div>
-                <div class="form-group ml-3 flex-fill">
+                <div class="form-group ml-0 ml-lg-3 flex-fill">
                   <label>{{ $t("product_type") }}</label>
                   <Select2 v-model="product_type" 
                     :options="arr_product_type" 
@@ -54,7 +60,7 @@
                 </div>
               </div>
 
-              <div class="col-4 text-center">
+              <div class="col-12 col-lg-4 text-center">
                 <button class="btn btn-lg btn-dark w-75" @click="search">{{ $t("search") }}</button>
               </div>
             </div>
@@ -76,7 +82,8 @@ export default {
   data(){
     return{
       base: null,
-      selected_banner_index: 0,
+      banner_flag: false,
+      selected_banner_index: -1,
       selected_banner: {},
       arr_banner: [
         {
@@ -138,11 +145,22 @@ export default {
   watch: {
     selected_banner_index(val){
       this.selected_banner = this.arr_banner[val]
+
+      var context = this
+      if(this.banner_flag){
+        this.banner_flag = false
+        setTimeout(() => {
+          context.banner_flag = true
+        }, 2000)
+      }
+      else
+        this.banner_flag = true
     }
   },
   created(){
     this.base = new Base()
 
+    this.selected_banner_index = 0
     this.selected_banner = this.arr_banner[0]
   },
   methods:{
@@ -160,6 +178,17 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 960px) {
+  .home-search-card{
+    margin-top: -2rem;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .home-search-card{
+    margin-top: -4rem;
+  }
+}
+
 .home-top{
   background-color: $gray1;
 }
@@ -185,19 +214,17 @@ export default {
   background-color: $white;
   cursor: pointer;
 }
-.home-banner-enter-active, .home-banner-leave-active{
+.banner-home-title-enter-active, .banner-home-title-leave-active{
   transition: all 2s;
 }
-.home-banner-leave-to, .home-banner-enter {
-  margin-top: -10rem !important;
+.banner-home-title-leave-to, .banner-home-title-enter {
   margin-left: -10rem !important;
   opacity: 0;
 }
-.home-search-enter-active, .home-search-leave-active{
+.banner-home-image-enter-active, .banner-home-image-leave-active{
   transition: all 2s;
 }
-.home-search-leave-to, .home-search-enter {
-  margin-bottom: -10rem !important;
+.banner-home-image-leave-to, .banner-home-image-enter {
   margin-right: -10rem !important;
   opacity: 0;
 }

@@ -18,7 +18,7 @@
 
       <div style="bottom: 0;" class="position-relative mt-2">
         <div class="mx-3 mb-3">
-          <a href="" style="font-size: .7rem;">{{ $t("view_more") }}</a>
+          <a href="/article" style="font-size: .7rem;">{{ $t("view_more") }}</a>
         </div>
       </div>
     </div>

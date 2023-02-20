@@ -37,8 +37,20 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 960px) {
+  html, body{
+    font-size: 12px;
+  }
+}
+@media only screen and (min-width: 960px) {
+  html, body{
+    font-size: 16px;
+  }
+}
+
 html, body{
   font-family: poppins-regular;
+  
 }
 .general-title{
   font-family: poppins-bold;

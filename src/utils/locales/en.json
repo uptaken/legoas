@@ -89,18 +89,26 @@
   "search_product": "Pencarian Barang",
   "auction_date": "Tanggal Lelang",
   "open_house": "Open House",
+  "search_article": "Cari Artikel",
   "lot_list": "Daftar Lot",
+  "your_name": "Nama Anda",
+  "your_email": "Email Anda",
+  "seller_category": "Kategori Penjual",
+  "your_phone": "Nomor Ponsel Anda",
+  "your_message": "Pesan Anda",
+  "input_your_name": "Input Nama Anda",
+  "input_your_email": "Input Email Anda",
+  "input_your_phone": "Input Nomor Ponsel Anda",
+  "input_your_message": "Input Pesan Anda",
 
 
   "old_password_empty": "Empty Old Password",
   "new_password_empty": "New Password Empty",
   "confirm_password_empty": "Confirm Password Empty",
   "confirm_password_not_same_new_password": "Confirm Password does not match New Password",
-  "name_empty": "Empty Name",
-  "password_empty": "Empty Password",
-  "address_empty": "Empty Address",
-  "email_empty": "Empty Email",
-  "not_email_format": "Email address is not in email format",
-  "change_password_success": "Change Password Successfully",
-  "change_profile_success": "Change Profile Success"
+  "name_empty": "Nama Kosong",
+  "password_empty": "Password Kosong",
+  "phone_empty": "Nomor Ponsel Kosong",
+  "email_empty": "Email Kosong",
+  "not_email_format": "Alamat Email is not in email format"
 }

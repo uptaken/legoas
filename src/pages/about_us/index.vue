@@ -18,7 +18,7 @@
         <div class="card trust-card mt-5">
           <div class="card-body p-5">
             <div class="row">
-              <div class="col-6 col-lg-3 d-flex align-items-center flex-column" v-for="(trust, index) in arr_trust" :key="'trust' + index">
+              <div class="col-6 col-lg-3 d-flex align-items-center flex-column mt-3 mt-lg-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
                 <img :src="trust.image" style="width: 3rem; height: 3rem;"/>
                 <p class="mb-0 custom-title text-center mt-2">{{ trust.title }}</p>
                 <p class="mb-0 text-center">{{ trust.content }}</p>
@@ -32,7 +32,7 @@
         <p class="mb-0 title-section">{{ $t('our_team') }}</p>
 
         <div class="row mt-5">
-          <div class="col-6 col-lg-3 d-flex flex-column" v-for="(team, index) in arr_team" :key="'team' + index">
+          <div class="col-6 col-lg-3 d-flex flex-column mt-3 mt-lg-0" v-for="(team, index) in arr_team" :key="'team' + index">
             <img :src="team.image" width="100%"/>
             <p class="mb-0 team-role mt-2">{{ team.role }}</p>
             <p class="mb-0 team-name">{{ team.name }}</p>
@@ -41,7 +41,7 @@
       </div>
 
       <div class="mt-5 text-center">
-        <img src="@/assets/about_us_bottom.png" class="my-5"/>
+        <img src="@/assets/about_us_bottom.png" class="my-5 w-100" style="max-width: 36rem;"/>
       </div>
     </div>
   </div>

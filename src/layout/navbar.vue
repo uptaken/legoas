@@ -30,7 +30,7 @@
         </li>
         <li class="d-flex align-items-center nav-item">
           <div class="nav-link">
-            <a class="btn btn-primary text-white px-3" href="/">{{ $t("register") }}</a>
+            <a class="btn btn-primary text-white px-3" href="/register">{{ $t("register") }}</a>
           </div>
         </li>
       </ul>

@@ -6,8 +6,10 @@
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top: 3.375rem;">
-      <div v-for="(article, index) in arr_article" :key="index" :style="{width: (100 / arr_article.length) + '%'}" :class="{'ml-3': index > 0}">
-        <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
+      <div class="row">
+        <div v-for="(article, index) in arr_article" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" >
+          <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
+        </div>
       </div>
     </div>
   </div>

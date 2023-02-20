@@ -10,10 +10,12 @@ import how_to from '@/pages/auction/info/how_to'
 import definiton from '@/pages/auction/info/definition'
 import rules from '@/pages/auction/info/rules'
 import news from '@/pages/auction/info/news'
+import article from '@/pages/auction/info/article'
 
 import about_us from '@/pages/about_us/index'
 import location from '@/pages/location/index'
 import search from '@/pages/search/index'
+import register from '@/pages/register/index'
 
 Vue.use(Router)
 
@@ -78,6 +80,20 @@ var router = new Router({
     {
       path: '/search',
       component: search,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/register',
+      component: register,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/article',
+      component: article,
       meta: {
         requiresAuth: false
       },

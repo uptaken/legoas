@@ -1,12 +1,12 @@
 <template>
   <div class="p-5 why-container">
-    <div class="row" style="margin: 0 10rem;">
+    <div class="row" >
       <div class="col-12 col-lg-6">
         <div style="width: 100%; height: 100%;" class="d-flex align-items-center">
           <img src="@/assets/why_choose_us.png" width="100%"/>
         </div>
       </div>
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-6 mt-5 mt-lg-0">
         <Transition name="why-choose-title1">
           <p class="m-0 why-title" v-show="whyChooseTitle1Flag">{{ $t("why_choose_us") }}</p>
         </Transition>
@@ -20,7 +20,9 @@
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs1Flag">
               <div class="d-flex">
-                <img src="@/assets/why_choose_us1.png"/>
+                <div style="width: 2.75rem; height: 2.75rem;">
+                  <img src="@/assets/why_choose_us1.png" width="100%"/>
+                </div>
                 <div>
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us1_title") }}</p>
                   <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us1_desc") }}</p>
@@ -32,7 +34,9 @@
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs2Flag">
               <div class="d-flex mt-1">
-                <img src="@/assets/why_choose_us2.png"/>
+                <div style="width: 2.75rem; height: 2.75rem;">
+                  <img src="@/assets/why_choose_us2.png" width="100%"/>
+                </div>
                 <div>
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us2_title") }}</p>
                   <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us2_desc") }}</p>
@@ -44,7 +48,9 @@
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs3Flag">
               <div class="d-flex mt-1">
-                <img src="@/assets/why_choose_us3.png"/>
+                <div style="width: 2.75rem; height: 2.75rem;">
+                  <img src="@/assets/why_choose_us3.png" width="100%"/>
+                </div>
                 <div>
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us3_title") }}</p>
                   <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us3_desc") }}</p>

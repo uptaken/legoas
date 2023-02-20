@@ -2,10 +2,10 @@
   <div class="card w-100" style="border: none;">
     <div class="card-body">
       <div class="row">
-        <div class="col-12 col-lg-4">
+        <div class="col-4">
           <img :src="data.image" class="" style="width: 100%"/>
         </div>
-        <div class="col-12 col-lg-8">
+        <div class="col-8">
           <p class="car-title">{{ data.title }}</p>
 
           <div>

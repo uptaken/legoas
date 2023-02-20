@@ -10,8 +10,10 @@
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top: 3.375rem;">
-      <div v-for="(car, index) in arr_car" :key="index" :style="{width: (100 / arr_car.length) + '%'}" :class="{'ml-3': index > 0}">
-        <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
+      <div class="row">
+        <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0">
+          <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
+        </div>
       </div>
     </div>
   </div>

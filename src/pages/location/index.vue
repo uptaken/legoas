@@ -29,16 +29,16 @@
           </div>
 
           <div class="col-12 col-lg-6 mt-5 mt-lg-0">
-            <div class="d-flex w-100" style="height: 16rem">
+            <div class="d-flex justify-content-center">
               <div class="position-relative" style="width: 12rem;">
-                <img src="@/assets/location1.png" class="position-absolute" style="width: 8rem; left: 5rem;"/>
-                <div class="position-absolute p-1 bg-white rounded" style="top: 5rem;">
-                  <img src="@/assets/location2.png"  style="width: 8rem;"/>
+                <img src="@/assets/location1.png" class="position-absolute" style="width: 8rem; left: 5rem; z-index: -1"/>
+                <div class="p-1 bg-white rounded" style="margin-top: 5rem; width: 8rem;">
+                  <img src="@/assets/location2.png" width="100%"/>
                 </div>
               </div>
 
               <div class="position-relative">
-                <img src="@/assets/location3.png" class="position-absolute" style="width: 8rem; left: 5rem;"/>
+                <img src="@/assets/location3.png" class="" style="width: 8rem; margin-left: 5rem;"/>
                 <div class="position-absolute bg-white rounded" style="top: 5rem;">
                   <img src="@/assets/location4.png"  style="width: 8rem;"/>
                 </div>
