@@ -1,8 +1,8 @@
 <template>
-  <div class="card d-inline-block text-left w-100 h-100 flex-grow-1" style="border-radius: 1rem;">
+  <div class="card d-inline-block text-left w-100 h-100 flex-grow-1" style="border-radius: .8rem;">
     <div class="card-body p-0 w-100 h-100 d-flex flex-column justify-content-between">
       <div>
-        <div class="">
+        <div class="px-1 pt-1">
           <img :src="data.image" class="" style="width: 100%"/>
         </div>
         <div class="mt-3 mx-3">
@@ -18,7 +18,7 @@
           <p class="ml-3 mb-0 recommendation-info">{{ data.place }}</p>
         </div>
 
-        <div class="horizontal my-3"></div>
+        <div class="horizontal my-2"></div>
 
         <div class="mx-3 my-2">
           <p class="m-0 base-price">{{ $t('base_price') }}</p>
@@ -51,8 +51,8 @@ export default {
 .recommendation-type{
   background-color: $primary;
   color: $white;
-  font-size: .7rem;
-  line-height: 100%;
+  font-size: .5rem;
+  line-height: .5rem;
 }
 .recommendation-title{
   font-family: poppins-bold;

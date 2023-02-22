@@ -24,7 +24,9 @@ import Base from '@/utils/base';
 
 import RecommendationItem from '@/pages/home/component/recommendation_item.vue'
 
-import Audi from '@/assets/Audi.png';
+import ProductImage1 from '@/assets/product_image1.png';
+import ProductImage2 from '@/assets/product_image2.png';
+import ProductImage3 from '@/assets/product_image3.png';
 
 export default {
   components: {
@@ -37,7 +39,7 @@ export default {
       arr_car: [
         {
           id: "1",
-          image: Audi,
+          image: ProductImage1,
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
@@ -48,7 +50,7 @@ export default {
         },
         {
           id: "1",
-          image: Audi,
+          image: ProductImage2,
           title: "Ban Bridgestone Ecopia 195/65 R15",
           seller: {
             name: "Ban Bridgestone Ecopia 195/65 R15",
@@ -59,7 +61,7 @@ export default {
         },
         {
           id: "1",
-          image: Audi,
+          image: ProductImage3,
           title: "Orient Titanium Sliderule Automatic Caliber 469",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",

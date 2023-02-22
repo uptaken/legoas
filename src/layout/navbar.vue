@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar navbar-expand-lg d-flex justify-content-between align-items-center py-4 px-5">
+  <div class="navbar navbar-expand-lg custom-navbar-padding d-flex justify-content-between align-items-center" :class="{'navbar-home': currentRoute === '/'}">
     <a class="navbar-brand" href="/">
       <img src="@/assets/image_logo.png" />
     </a>
@@ -11,22 +11,41 @@
     <div class="collapse navbar-collapse" id="navbarToggle">
       <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
         <li class="d-flex align-items-center nav-item active">
-          <a class="nav-link" href="/">{{ $t("home") }}</a>
+          <a class="nav-link" :class="{'active': currentRoute === '/'}" href="/">{{ $t("home") }}</a>
         </li>
         <li class="d-flex align-items-center nav-item">
-          <a class="nav-link" href="/schedule">{{ $t("auction_schedule") }}</a>
+          <a class="nav-link" :class="{'active': currentRoute === '/schedule'}" href="/schedule">{{ $t("auction_schedule") }}</a>
+        </li>
+        <li class="d-flex align-items-center nav-item dropdown nav-dropdown">
+          <!-- <a class="nav-link" href="/definiton">{{ $t("auction_info") }}</a> -->
+          <div>
+            <a class="nav-link dropdown-toggle" 
+              :class="{'active': currentRoute === '/definiton' || currentRoute === '/how-to' || currentRoute === '/rules' || currentRoute === '/news'}" 
+              href="#" 
+              role="button" 
+              data-toggle="dropdown" 
+              aria-expanded="false">
+              <div class="d-flex align-items-center">
+                {{ $t("auction_info") }}
+                <font-awesome-icon icon="fa-solid fa-chevron-down" class="nav-arrow ml-2"/>
+              </div>
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" :class="{'active': currentRoute === '/definiton'}" href="/definiton">{{ $t("auction_definition") }}</a>
+              <a class="dropdown-item" :class="{'active': currentRoute === '/how-to'}" href="/how-to">{{ $t("auction_how_to") }}</a>
+              <a class="dropdown-item" :class="{'active': currentRoute === '/rules'}" href="/rules">{{ $t("auction_rules") }}</a>
+              <a class="dropdown-item" :class="{'active': currentRoute === '/news'}" href="/news">{{ $t("auction_news") }}</a>
+            </div>
+          </div>
         </li>
         <li class="d-flex align-items-center nav-item">
-          <a class="nav-link" href="/definiton">{{ $t("auction_info") }}</a>
+          <a class="nav-link" :class="{'active': currentRoute === '/location'}" href="/location">{{ $t("auction_location") }}</a>
         </li>
         <li class="d-flex align-items-center nav-item">
-          <a class="nav-link" href="/location">{{ $t("auction_location") }}</a>
+          <a class="nav-link" :class="{'active': currentRoute === '/about-us'}" href="/about-us">{{ $t("about_us") }}</a>
         </li>
         <li class="d-flex align-items-center nav-item">
-          <a class="nav-link" href="/about-us">{{ $t("about_us") }}</a>
-        </li>
-        <li class="d-flex align-items-center nav-item">
-          <a class="nav-link" href="/">{{ $t("sell") }}</a>
+          <a class="nav-link" :class="{'active': currentRoute === '/sell'}" href="/">{{ $t("sell") }}</a>
         </li>
         <li class="d-flex align-items-center nav-item">
           <div class="nav-link">
@@ -53,10 +72,12 @@ export default{
   data(){
     return{
       base: null,
+      currentRoute: '/',
     }
   },
   created(){
     this.base = Base
+    this.currentRoute = this.$router.currentRoute.path
   },
   methods: {
     logout(){
@@ -77,5 +98,30 @@ export default{
 }
 .navbar-header button{
   border-radius: .5rem;
+}
+.navbar-home{
+  background-color: $gray1;
+}
+.nav-dropdown .dropdown-toggle::after{
+  display: none;
+}
+.nav-dropdown .dropdown-item, .nav-arrow{
+  color: $black;
+  font-family: poppins-medium;
+  font-size: .8rem;
+}
+.nav-link{
+  color: $black;
+  font-family: poppins-medium;
+}
+.nav-link.active{
+  color: $primary !important;
+  font-family: poppins-bold;
+}
+.nav-dropdown .dropdown-item.active{
+  background-color: $primary !important;
+  font-size: .8rem;
+  color: $white !important;
+  font-family: poppins-bold;
 }
 </style>

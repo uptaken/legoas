@@ -57,9 +57,13 @@
               </div>
             </div>
 
-            <div class="col-12 col-lg-6 px-5">
-              <p class="mb-0 register-banner">Cara Baru Jual Mobil Yang Terpercaya.</p>
-              <img src="@/assets/register_image.png" width="100%"/>
+            <div class="col-12 col-lg-6 px-5 mt-3 mt-lg-0">
+              <Transition name="register-title1">
+                <div v-show="flag.registerTitle1Flag">
+                  <p class="mb-0 register-banner">Cara Baru Jual Mobil Yang Terpercaya.</p>
+                  <img src="@/assets/register_image.png" width="100%"/>
+                </div>
+              </Transition>
             </div>
           </div>
         </div>
@@ -75,6 +79,10 @@ export default {
   data(){
     return{
       base: null,
+      scrollY: 0,
+      flag: {
+        registerTitle1Flag: false,
+      },
       name: "",
       email: "",
       category: "",
@@ -95,12 +103,20 @@ export default {
   watch: {
     phone(val){
       this.phone = this.base.phone_validation(val)
-    }
+    },
+    scrollY(val){
+      this.flag.registerTitle1Flag = val >= this.base.responsive_scroll_threshold(0)
+    },
   },
   created(){
     this.base = new Base()
+    window.addEventListener('scroll', this.handleScroll)
+    this.scrollY = 1
   },
   methods: {
+    handleScroll(){
+      this.scrollY = window.scrollY
+    },
     async submit(){
       if(this.name === "")
         this.base.show_error(this.$t('name_empty'))
@@ -146,5 +162,12 @@ export default {
 }
 .form-card{
   border-radius: 1rem;
+}
+.register-title1-enter-active, .register-title1-leave-active{
+  transition: all 2s;
+}
+.register-title1-leave-to, .register-title1-enter {
+  margin-left: 10rem !important;
+  opacity: 0;
 }
 </style>

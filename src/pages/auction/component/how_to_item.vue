@@ -1,9 +1,13 @@
 <template>
   <div class="">
-    <div class="d-flex align-items-center">
-      <img src="@/assets/how_to_icon.png" style="width: 6rem;"/>
-      <p class="mb-0 ml-2 section-title" v-html="title"></p>
-    </div>
+    <Transition name="how-to-title1">
+      <div v-show="howToTitle1Flag">
+        <div class="d-flex align-items-center">
+          <img src="@/assets/how_to_icon.png" style="width: 6rem;"/>
+          <p class="mb-0 ml-2 section-title" v-html="title"></p>
+        </div>
+      </div>
+    </Transition>
 
     <div class="row mx-3">
       <div class="col-12 col-lg-6">
@@ -45,19 +49,19 @@
 import Base from '@/utils/base';
 
 export default {
-  props: ["arr", "title",],
+  props: ["arr", "title", "howToTitle1Flag", ],
   components: {
   },
   data(){
     return{
       base: null,
+      
     }
   },
   created(){
     this.base = new Base()
   },
   methods: {
-    
   }
 }
 </script>
@@ -74,5 +78,12 @@ export default {
 }
 .content-content{
   color: $gray6;
+}
+.how-to-title1-enter-active, .how-to-title1-leave-active{
+  transition: all 2s;
+}
+.how-to-title1-leave-to, .how-to-title1-enter {
+  // margin-left: -10rem !important;
+  opacity: 0;
 }
 </style>

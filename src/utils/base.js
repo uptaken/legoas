@@ -83,6 +83,14 @@ export default class Base{
     return value
   }
 
+  responsive_scroll_threshold(value, additional_margin = 0){
+    if(window.screen.width < 720)
+      value = value * (12 / 16) + additional_margin
+    else if(window.screen.width >= 720 && window.screen.width < 960)
+      value = value * (12 / 16) + additional_margin
+    return value
+  }
+
   phone_validation(data, max_length = 12){
     data = String(this.str_to_double(data, ''))
     if(isNaN(data))

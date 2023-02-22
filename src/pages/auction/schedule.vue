@@ -1,12 +1,16 @@
 <template>
   <div class="">
-    <div class="position-relative px-5 mt-5 ml-5">
+    <div class="position-relative mt-5 ml-5 custom-navbar-padding-right custom-navbar-padding-left">
       <p class="m-0 general-title">{{ $t('auction_schedule') }}</p>
     </div>
 
-    <div class="p-5 p-lg-5">
+    <div class="py-5 py-lg-5 custom-navbar-padding-right custom-navbar-padding-left">
       <div class="mt-5 px-5">
-        <div class="row">
+        <div>
+          <ScheduleMonth :month="month" :week_num="week_num" @previous_action="schedule_previous_action" @next_action="schedule_next_action" :arr_group_auction="arr_group_auction"/>
+        </div>
+
+        <div class="row schedule-filter-card">
           <div class="col-6 d-flex align-items-center">
             <p class="mb-0 content-content">Terdapat 10 Jadwal Lelang</p>
           </div>
@@ -25,6 +29,10 @@
             <AuctionGroupItem :data="group_auction"/>
           </div>
         </div>
+
+        <div class="custom-pagination-container">
+          <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
+        </div>
       </div>
     </div>
   </div>
@@ -37,14 +45,22 @@ import moment from 'moment';
 import ScheduleImage from '@/assets/schedule_image.png';
 
 import AuctionGroupItem from '@/pages/auction/component/auction_group_item.vue'
+import CustomPagination from '@/layout/custom_pagination.vue'
+import ScheduleMonth from '@/pages/auction/component/schedule_month.vue'
 
 export default {
   components: {
     'AuctionGroupItem': AuctionGroupItem,
+    'CustomPagination': CustomPagination,
+    'ScheduleMonth': ScheduleMonth,
   },
   data(){
     return{
       base: null,
+      month: moment(),
+      week_num: 1,
+      total_page: 10,
+      current_page: 1,
       start_data: 1,
       end_data: 10,
       total_data: 2000,
@@ -122,13 +138,63 @@ export default {
   },
   created(){
     this.base = new Base()
+    this.week_num = Math.floor(moment().format('D') / 7)
   },
   methods: {
-    
+    next_action(){
+      this.current_page = this.current_page + 1
+    },
+    previous_action(){
+      this.current_page = this.current_page - 1
+    },
+    select_page(page){
+      this.current_page = page
+    },
+    schedule_previous_action(){
+      this.week_num = this.week_num - 1
+      this.month = this.month.clone().subtract(1, 'week')
+      this.manage_week_num()
+    },
+    schedule_next_action(){
+      this.week_num = this.week_num + 1
+      this.manage_week_num()
+      this.month = this.month.clone().add(1, 'week')
+    },
+    manage_week_num(){
+      // var start_date = this.month.clone().startOf('week')
+      var end_date = this.month.clone().endOf('week')
+      if(this.week_num == 0){
+        var counter_date = this.month.clone().startOf('month').startOf('week')
+        var total_week = 0
+        while(counter_date.isBefore(this.month.clone().endOf('month'))){
+          if(counter_date.isSame(this.month.clone(), 'month'))
+            total_week++
+          counter_date.add(7, 'days')
+        }
+        this.week_num = total_week
+      }
+      else if(this.week_num > 4){
+        if(end_date.isAfter(this.month.clone().endOf('month'), 'day'))
+          this.week_num = 1
+      }
+    },
   }
 }
 </script>
 
 <style lang="scss">
-
+.home-search-input, .select2-container .select2-selection--single, .select2-container--open .select2-dropdown--below, .select2-container--open .select2-dropdown--above{
+  background-color: $white;
+  border: 1px solid $gray13;
+}
+.select2-search__field{
+  background-color: $white;
+  border: 1px solid $gray13 !important;
+}
+.custom-pagination-container{
+  margin-top: 6rem;
+}
+.schedule-filter-card{
+  margin-top: 9rem;
+}
 </style>

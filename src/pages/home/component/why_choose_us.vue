@@ -1,6 +1,6 @@
 <template>
-  <div class="p-5 why-container">
-    <div class="row" >
+  <div class="py-5 why-container custom-navbar-padding-right custom-navbar-padding-left">
+    <div class="row mx-5" >
       <div class="col-12 col-lg-6">
         <div style="width: 100%; height: 100%;" class="d-flex align-items-center">
           <img src="@/assets/why_choose_us.png" width="100%"/>
@@ -23,7 +23,7 @@
                 <div style="width: 2.75rem; height: 2.75rem;">
                   <img src="@/assets/why_choose_us1.png" width="100%"/>
                 </div>
-                <div>
+                <div class="ml-4">
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us1_title") }}</p>
                   <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us1_desc") }}</p>
                 </div>
@@ -33,11 +33,11 @@
 
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs2Flag">
-              <div class="d-flex mt-1">
+              <div class="d-flex mt-4">
                 <div style="width: 2.75rem; height: 2.75rem;">
                   <img src="@/assets/why_choose_us2.png" width="100%"/>
                 </div>
-                <div>
+                <div class="ml-4">
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us2_title") }}</p>
                   <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us2_desc") }}</p>
                 </div>
@@ -47,11 +47,11 @@
 
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs3Flag">
-              <div class="d-flex mt-1">
+              <div class="d-flex mt-4">
                 <div style="width: 2.75rem; height: 2.75rem;">
                   <img src="@/assets/why_choose_us3.png" width="100%"/>
                 </div>
-                <div>
+                <div class="ml-4">
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us3_title") }}</p>
                   <p class="mb-0 why-breakdown-description">{{ $t("why_choose_us3_desc") }}</p>
                 </div>

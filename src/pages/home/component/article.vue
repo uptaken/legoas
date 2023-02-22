@@ -1,8 +1,12 @@
 <template>
   <div class="m-5 d-inline-block" style="width: 70%;">
     <div style="width: 100%;">
-      <p class="m-0 why-title text-center">{{ $t("article") }}</p>
-      <p class="mb-0 why-title2 text-center mt-3">{{ $t("article_list") }}</p>
+      <Transition name="article-title1">
+        <p class="m-0 why-title text-center" v-show="articleTitle1Flag">{{ $t("article") }}</p>
+      </Transition>
+      <Transition name="article-title2">
+        <p class="mb-0 why-title2 text-center mt-3" v-show="articleTitle1Flag">{{ $t("article_list") }}</p>
+      </Transition>
     </div>
 
     <div class="d-flex justify-content-center" style="margin-top: 3.375rem;">

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="custom-navbar-padding-right custom-navbar-padding-left">
     <div class="position-relative px-5 mt-5">
       <div class="d-flex">
         <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
@@ -11,17 +11,21 @@
 
     <div class="p-5 w-100">
       <div class="mt-3 d-flex justify-content-center align-items-center w-100">
-        <div class="w-50 d-inline-block">
-          <img src="@/assets/Intersect.png" width="100%"/>
-        </div>
-        <div class="w-50 d-inline-block ml-5">
-          <p class="mb-0 title-section">{{ title }}</p>
-          <p class="mb-0 content-section mt-3">{{ description }}</p>
-          <div class="d-flex align-items-center mt-3">
-            <img src="@/assets/clock_icon.png" style="width: 1.1rem;"/>
-            <p class="ml-2 mb-0 recommendation-info">{{ date.format('DD MMMM YYYY') }}</p>
+        <Transition name="article-image1">
+          <div class="w-50" v-show="flag.articleImage1Flag">
+            <img src="@/assets/Intersect.png" width="100%"/>
           </div>
-        </div>
+        </Transition>
+        <Transition name="article-title1">
+          <div class="w-50 ml-5" v-show="flag.articleTitle1Flag">
+            <p class="mb-0 title-section">{{ title }}</p>
+            <p class="mb-0 content-section mt-3">{{ description }}</p>
+            <div class="d-flex align-items-center mt-3">
+              <img src="@/assets/clock_icon.png" style="width: 1.1rem;"/>
+              <p class="ml-2 mb-0 recommendation-info">{{ date.format('DD MMMM YYYY') }}</p>
+            </div>
+          </div>
+        </Transition>
       </div>
 
       <div class="mt-5 w-100">
@@ -31,14 +35,17 @@
               <div class="d-flex align-items-center">
                 <p class="mb-0 content-content">Filter</p>
                 <Select2 v-model="filter"
-                  class="ml-3" 
+                  class="ml-3 filter-select h-100" 
                   :options="arr_filter" 
                   :settings="{width: '10rem',}"
                   @change="onFilterChanged($event)" 
                   @select="onFilterSelect($event)" />
               </div>
               <div>
-                <input class="form-control" v-model="search" :placeholder="$t('search_article')"/>
+                <div class="d-flex align-items-center article-search-input-card py-1 px-3">
+                  <img src="@/assets/icon_search.png" style="width: 1rem; height: 1rem;"/>
+                  <input class="form-control article-search-input ml-3" v-model="search" :placeholder="$t('search_article')"/>
+                </div>
               </div>
             </div>
           </div>
@@ -48,9 +55,15 @@
       <div class="mt-5 w-100">
         <div class="row">
           <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
-            <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
+            <Transition name="article-item">
+              <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
+            </Transition>
           </div>
         </div>
+      </div>
+
+      <div class="custom-pagination-container">
+        <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
       </div>
         
     </div>
@@ -64,17 +77,28 @@ import moment from 'moment';
 import Image from '@/assets/Intersect.png';
 
 import ArticleItem from '@/pages/home/component/article_item.vue'
+import CustomPagination from '@/layout/custom_pagination.vue'
 
 export default {
   components: {
     'ArticleItem': ArticleItem,
+    'CustomPagination': CustomPagination,
   },
   data(){
     return{
       base: null,
+      scrollY: 0,
+      flag: {
+        articleImage1Flag: false,
+        articleTitle1Flag: false,
+        articleItemFlag: false,
+      },
+      total_page: 10,
+      current_page: 1,
       title: "Lorem ipsum dolor sit amet consectetur adipisc",
       description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur ....",
       date: moment(),
+      search: "",
       filter: {},
       arr_filter: [
         {
@@ -153,11 +177,31 @@ export default {
       ],
     }
   },
+  watch: {
+    scrollY(val){
+      this.flag.articleImage1Flag = val >= this.base.responsive_scroll_threshold(0)
+      this.flag.articleTitle1Flag = val >= this.base.responsive_scroll_threshold(0)
+      this.flag.articleItemFlag = val >= this.base.responsive_scroll_threshold(1000)
+    },
+  },
   created(){
     this.base = new Base()
+    window.addEventListener('scroll', this.handleScroll)
+    this.scrollY = 1
   },
   methods: {
-    
+    handleScroll(){
+      this.scrollY = window.scrollY
+    },
+    next_action(){
+      this.current_page = this.current_page + 1
+    },
+    previous_action(){
+      this.current_page = this.current_page - 1
+    },
+    select_page(page){
+      this.current_page = page
+    },
   }
 }
 </script>
@@ -167,11 +211,51 @@ export default {
   background-color: $gray4;
   border: none;
 }
+.article-search-input::placeholder{
+  color: $gray13;
+}
+.article-search-input{
+  border: none;
+  padding: 0;
+}
+.article-search-input-card{
+  border: 1px solid $gray13;
+  background-color: $white;
+  border-radius: .5rem;
+}
+.filter-select .select2-container, .filter-select .selection, .filter-select .select2-selection{
+  height: 100%;
+  display: block;
+}
 .title-section{
   font-size: 2rem;
   font-family: poppins-medium;
 }
 .content-section{
   color: $gray6;
+}
+.article-title1-enter-active, .article-title1-leave-active{
+  transition: all 2s;
+}
+.article-title1-leave-to, .article-title1-enter {
+  margin-left: 10rem !important;
+  opacity: 0;
+}
+.article-image1-enter-active, .article-image1-leave-active{
+  transition: all 2s;
+}
+.article-image1-leave-to, .article-image1-enter {
+  // margin-left: -10rem !important;
+  opacity: 0;
+}
+.article-item-enter-active, .article-item-leave-active{
+  transition: all 2s;
+}
+.article-item-leave-to, .article-item-enter {
+  // margin-left: -10rem !important;
+  opacity: 0;
+}
+.custom-pagination-container{
+  margin-top: 5.5rem;
 }
 </style>
