@@ -62,9 +62,9 @@
           </div>
         </div>
         <div class="row mt-5">
-          <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mb-3">
+          <div v-for="(product, index) in arr_product" :key="index" class="col-12 col-lg-4 mb-3">
             <a href="#">
-              <RecommendationItem :data="car" :index="index" :total_data="arr_car.length"/>
+              <RecommendationItem :data="product" :index="index" :total_data="arr_product.length"/>
             </a>
           </div>
         </div>
@@ -139,7 +139,7 @@ export default {
           text: "Mazda",
         },
       ],
-      arr_car: [
+      arr_product: [
         {
           id: "1",
           image: ProductImage1,
@@ -254,6 +254,26 @@ export default {
     },
     select_page(page){
       this.current_page = page
+    },
+    async get_product(){
+      var response = await this.base.request(this.base.url_api + `/product?is_publish=1&city_id=${this.location.id}&product_type_id=${this.product_type.id}`)
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let product of response.data){
+            product.image = this.base.host + "/media/product?file_name=" + product.file_name
+            product.place = product.city.name
+            product.title = product.name
+            product.type = product.product_type.name
+            product.seller.name = product.vendor
+          }
+          this.arr_product = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
   }
 }

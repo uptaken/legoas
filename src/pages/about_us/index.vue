@@ -6,15 +6,17 @@
 
     <div class="p-5 w-100">
       <div class="mt-3">
-        <Transition name="about-us-title1">
-          <p class="mb-0 title-section" v-show="flag.aboutUsTitle1Flag">{{ $t('our_story') }}</p>
-        </Transition>
-        <Transition name="about-us-content1">
-          <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent1Flag">Berdiri dari tahun 2018, <label class="custom-title">LEGOAS</label> merupakan perusahaan yang berdiri dalam bidang lelang, yang melayani jasa pelelalngan barang anda. </p>
-        </Transition>
-        <Transition name="about-us-image1">
-          <img src="@/assets/about_us_top.png" width="100%" class="mt-5" v-show="flag.aboutUsImage1Flag"/>
-        </Transition>
+        <div v-for="(section, index) in arr_section" :key="'section' + index" :class="{'mt-5': index > 0}">
+          <Transition name="about-us-title1">
+            <p class="mb-0 title-section" v-show="flag.aboutUsTitle1Flag" v-html="section.title"></p>
+          </Transition>
+          <Transition name="about-us-content1">
+            <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent1Flag" v-html="section.content"></p>
+          </Transition>
+          <Transition name="about-us-image1">
+            <img :src="section.image" width="100%" class="mt-5" v-show="flag.aboutUsImage1Flag"/>
+          </Transition>
+        </div>
       </div>
 
       <div class="mt-5">
@@ -31,8 +33,8 @@
               <div class="row">
                 <div class="col-6 col-lg-3 d-flex align-items-center flex-column mt-3 mt-lg-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
                   <img :src="trust.image" style="width: 3rem; height: 3rem;"/>
-                  <p class="mb-0 custom-title text-center mt-2">{{ trust.title }}</p>
-                  <p class="mb-0 text-center">{{ trust.content }}</p>
+                  <p class="mb-0 custom-title text-center mt-2" v-html="trust.title"></p>
+                  <p class="mb-0 text-center" v-html="trust.content"></p>
                 </div>
               </div>
             </div>
@@ -70,6 +72,7 @@ import Wallet from '@/assets/wallet.png'
 import OurTeam1 from '@/assets/our_team1.png'
 import OurTeam2 from '@/assets/our_team2.png'
 import OurTeam3 from '@/assets/our_team3.png'
+import SectionImage from '@/assets/about_us_top.png'
 
 export default {
   components: {
@@ -141,6 +144,13 @@ export default {
           name: "Nama 4",
         },
       ],
+      arr_section: [
+        {
+          title: this.$t('our_story'),
+          content: `Berdiri dari tahun 2018, <label class="custom-title">LEGOAS</label> merupakan perusahaan yang berdiri dalam bidang lelang, yang melayani jasa pelelalngan barang anda.`,
+          image: SectionImage,
+        },
+      ],
     }
   },
   watch: {
@@ -164,6 +174,39 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    async get_our_team_section(){
+      var response = await this.base.request(this.base.url_api + "/our-team/all?is_publish=1")
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let our_team of response.data){
+            our_team.image = this.base.host + "/media/section/our_team?file_name=" + our_team.file_name
+            our_team.name = our_team.title
+          }
+          this.arr_team = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+    async get_about_us_section(){
+      var response = await this.base.request(this.base.url_api + "/section/about-us/all?is_publish=1")
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let about_us of response.data){
+            about_us.image = this.base.host + "/media/section/about_us?file_name=" + about_us.file_name
+          }
+          this.arr_section = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
   }
 }

@@ -24,49 +24,7 @@
       </Transition>
 
       <Transition name="news-content">
-        <div class="my-5 mx-0 m-lg-5" v-show="flag.newsContentFlag">
-          <p class="news-content">PT. DIGITAL SARANA LEGOAS bekerjasama dengan pejabat lelang kelas II, mengadakan LELANG SUKARELA secara ONLINE (OPEN BIDDING) puluhan unit barang bergerak berbagai merk dan tipe.Terbuka untuk umum dan dapat diikuti oleh siapapun.</p>
-
-          <div>
-            <img src="@/assets/news_table.png" width="100%"/>
-          </div>
-
-          <p class="news-content">
-            Syarat & ketentuan lelang<br/>
-            <ol>
-              <li>Lelang dilakukan secara online melalui website www.legoas.co.id atau dengan mengunduh via google play dengan mencari kata 'legoas"</li>
-              <li>Peserta harus menjadi member terlebih dahulu dan memilih paket uang jaminan berupa token agar dapat mengikuti lelang.</li>
-              <li>
-                Pilihan uang jaminan adalah sebagai berikut :
-                <ol>
-                  <li>Rp. 2.000.000,- (Dua Juta Rupiah) untuk 1 lot mobi</li>
-                  <li>Rp. 1.000.000,- (Satu Juta Rupiah) untuk 1 lot motor</li>
-                  <li>Rp. 500.000,- (Lima Ratus Rupiah) untuk 1 lot non otomotif A</li>
-                  <li>Rp. 2.500.000,- (Dua Juta Lima Ratus Ribu Rupiah) untuk 1 lot non otomotif B</li>
-                  <li>Rp. 10.000.000,- (Sepuluh Juta Rupiah) untuk 1 lot non otomotif C</li>
-                  <li>Rp. 25.000.000,- (Dua Puluh Lima Juta Rupiah) untuk 1 lot non otomotif D</li>
-                  <li>Rp. 100.000.000,- (Seratus Juta Rupiah) untuk 1 lot non otomotif E</li>
-                </ol>
-              </li>
-              <li>Barang dilelang dalam kondisi sebagaimana apa adanya. Peserta lelang dapat mengakses kondisi kendaraan melalui website dan mobile aplikasi LEGOAS dan yang terafiliasi.</li>
-              <li>Penawaran dilakukan secara online dengan kenaikan harga yang sudah ditentukan.</li>
-              <li>
-                Pemenang lelang wajib membayar harga terbentuk dan uang administrasi dengan nilai sebagai berikut :
-                <ol>
-                  <li>Rp. 2.000.000,- / unit mobil</li>
-                  <li>Rp. 300.000,- / unit motor</li>
-                  <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif</li> 
-                  <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif B</li>
-                  <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif </li>
-                  <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif D</li>
-                  <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif E maksimum dibayarkan 3 hari kerja atau dianggap wanprestasi</li>
-                </ol>
-              </li>
-            </ol>
-
-            Selamat mencoba #LELANGBEBASRIBET
-          </p>
-        </div>
+        <div class="my-5 mx-0 m-lg-5" v-show="flag.newsContentFlag" v-html="content"></div>
       </Transition>
     </div>
   </div>
@@ -75,6 +33,9 @@
 <script>
 import Base from '@/utils/base';
 import moment from 'moment';
+
+import Image from '@/assets/definition_bottom.png';
+import Image1 from '@/assets/news_table.png';
 
 export default {
   components: {
@@ -90,6 +51,50 @@ export default {
       },
       date: moment(),
       title: "Jadwal Lelang LEGOAS Januari - Maret 2023",
+      image: Image,
+      content: `
+        <p class="news-content">PT. DIGITAL SARANA LEGOAS bekerjasama dengan pejabat lelang kelas II, mengadakan LELANG SUKARELA secara ONLINE (OPEN BIDDING) puluhan unit barang bergerak berbagai merk dan tipe.Terbuka untuk umum dan dapat diikuti oleh siapapun.</p>
+
+        <div>
+          <img src="${Image1}" width="100%"/>
+        </div>
+
+        <div class="news-content">
+          Syarat & ketentuan lelang<br/>
+          <ol>
+            <li>Lelang dilakukan secara online melalui website www.legoas.co.id atau dengan mengunduh via google play dengan mencari kata 'legoas"</li>
+            <li>Peserta harus menjadi member terlebih dahulu dan memilih paket uang jaminan berupa token agar dapat mengikuti lelang.</li>
+            <li>
+              Pilihan uang jaminan adalah sebagai berikut :
+              <ol>
+                <li>Rp. 2.000.000,- (Dua Juta Rupiah) untuk 1 lot mobi</li>
+                <li>Rp. 1.000.000,- (Satu Juta Rupiah) untuk 1 lot motor</li>
+                <li>Rp. 500.000,- (Lima Ratus Rupiah) untuk 1 lot non otomotif A</li>
+                <li>Rp. 2.500.000,- (Dua Juta Lima Ratus Ribu Rupiah) untuk 1 lot non otomotif B</li>
+                <li>Rp. 10.000.000,- (Sepuluh Juta Rupiah) untuk 1 lot non otomotif C</li>
+                <li>Rp. 25.000.000,- (Dua Puluh Lima Juta Rupiah) untuk 1 lot non otomotif D</li>
+                <li>Rp. 100.000.000,- (Seratus Juta Rupiah) untuk 1 lot non otomotif E</li>
+              </ol>
+            </li>
+            <li>Barang dilelang dalam kondisi sebagaimana apa adanya. Peserta lelang dapat mengakses kondisi kendaraan melalui website dan mobile aplikasi LEGOAS dan yang terafiliasi.</li>
+            <li>Penawaran dilakukan secara online dengan kenaikan harga yang sudah ditentukan.</li>
+            <li>
+              Pemenang lelang wajib membayar harga terbentuk dan uang administrasi dengan nilai sebagai berikut :
+              <ol>
+                <li>Rp. 2.000.000,- / unit mobil</li>
+                <li>Rp. 300.000,- / unit motor</li>
+                <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif</li> 
+                <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif B</li>
+                <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif </li>
+                <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif D</li>
+                <li>2% dari Harga Terbentuk atau Minimal Rp. 300.000,- / unit non otomotif E maksimum dibayarkan 3 hari kerja atau dianggap wanprestasi</li>
+              </ol>
+            </li>
+          </ol>
+
+          Selamat mencoba #LELANGBEBASRIBET
+        </div>
+      `,
     }
   },
   watch: {
@@ -107,6 +112,22 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    async get_news_info(){
+      var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=news")
+
+      if(response != null){
+        if(response.status === "success"){
+          this.title = response.data.title
+          this.content = response.data.content
+          this.image = this.base.host + "/media/info?file_name=" + response.data.file_name
+          this.date = moment(response.data.created_at_format, 'YYYY-MM-DD')
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
   }
 }

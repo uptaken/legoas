@@ -30,7 +30,6 @@
                         <Select2 v-model="category"
                           :settings="{width: '100%', height: '100%',}"
                           :options="arr_category" 
-                          @change="onCategoryChanged($event)" 
                           @select="onCategorySelect($event)" />
                       </div>
                     </div>
@@ -85,7 +84,7 @@ export default {
       },
       name: "",
       email: "",
-      category: "",
+      category_id: "",
       phone: "",
       arr_category: [
         {
@@ -112,10 +111,32 @@ export default {
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+
+    this.get_seller_category()
   },
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    onCategorySelect(val){
+      this.category_id = val.id
+    },
+    async get_seller_category(){
+      var response = await this.base.request(this.base.url_api + `/seller-category/all`)
+
+      if(response != null){
+        if(response.status === "success"){
+          
+          for(let category of response.data){
+            category.text = category.name
+          }
+          this.arr_category = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
     async submit(){
       if(this.name === "")
@@ -126,17 +147,31 @@ export default {
         this.base.show_error(this.$t('category_empty'))
       else if(this.phone === "")
         this.base.show_error(this.$t('phone_empty'))
-      else if(this.base.validate_email(this.email))
+      else if(!this.base.validate_email(this.email))
         this.base.show_error(this.$t('not_email_format'))
       else{
-        // var data = {
-        //   name: this.name,
-        //   email: this.email,
-        //   category: this.category,
-        //   phone: this.phone,
-        //   message: this.message,
-        // }
-      }
+        var data = {
+          name: this.name,
+          email: this.email,
+          seller_category: {
+            id: this.category,
+          },
+          phone: this.phone,
+          message: this.message,
+        }
+
+        var response = await this.base.request(this.base.url_api + `/request-sell`, "post", data)
+        if(response != null){
+          if(response.status === "success"){
+            location.href = "/"
+          }
+          else
+            this.base.show_error(response.message)
+            
+        }
+        else
+          this.base.show_error(this.$t('server_error'))
+        }
     }
   }
 }

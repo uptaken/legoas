@@ -18,7 +18,7 @@
 
       <div class="custom-navbar-padding-right custom-navbar-padding-left mt-5">
         <div class="px-5">
-          <iframe  width="420" height="315" src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+          <iframe  width="420" height="315" :src="url_video"></iframe>
         </div>
       </div>
 
@@ -51,6 +51,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      url_video: 'https://www.youtube.com/embed/tgbNymZ7vqY',
       flag: {
         howToParticipantTitle1Flag: false,
         howToSellerTitle1Flag: false,
@@ -140,10 +141,44 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+
+    this.get_how_to_info()
   },
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    async get_how_to_info(){
+      var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=how_to")
+
+      if(response != null){
+        if(response.status === "success"){
+          this.url_video = response.data.url_video
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+    async get_how_to_section(type = "participant"){
+      var response = await this.base.request(this.base.url_api + "/section/how-to/all?is_publish=1&type=" + type)
+
+      if(response != null){
+        if(response.status === "success"){
+          // for(let how_to of response.data){
+          //   how_to.image = this.base.host + "/media/section/how_to?file_name=" + how_to.file_name
+          // }
+          if(type === "participant")
+            this.arr_participant = response.data
+          else if(type === "seller")
+            this.arr_seller = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
   }
 }

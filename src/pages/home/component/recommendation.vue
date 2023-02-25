@@ -77,6 +77,26 @@ export default {
     this.base = new Base()
   },
   methods:{
+    async get_product(){
+      var response = await this.base.request(this.base.url_api + "/product?num_data=3&is_publish=1")
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let product of response.data){
+            product.image = this.base.host + "/media/product?file_name=" + product.file_name
+            product.place = product.city.name
+            product.title = product.name
+            product.type = product.product_type.name
+            product.seller.name = product.vendor
+          }
+          this.arr_product = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
   }
 }
 </script>

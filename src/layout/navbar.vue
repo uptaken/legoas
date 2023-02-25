@@ -45,11 +45,11 @@
           <a class="nav-link" :class="{'active': currentRoute === '/about-us'}" href="/about-us">{{ $t("about_us") }}</a>
         </li>
         <li class="d-flex align-items-center nav-item">
-          <a class="nav-link" :class="{'active': currentRoute === '/sell'}" href="/">{{ $t("sell") }}</a>
+          <a class="nav-link" :class="{'active': currentRoute === '/sell'}" href="/sell">{{ $t("sell") }}</a>
         </li>
         <li class="d-flex align-items-center nav-item">
           <div class="nav-link">
-            <a class="btn btn-primary text-white px-3" href="/register">{{ $t("register") }}</a>
+            <a class="btn btn-primary text-white px-3" href="/">{{ $t("register") }}</a>
           </div>
         </li>
       </ul>

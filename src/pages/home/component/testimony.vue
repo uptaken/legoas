@@ -98,6 +98,26 @@ export default {
     this.base = new Base()
   },
   methods:{
+    async get_testimony(){
+      var response = await this.base.request(this.base.url_api + "/testimony/all?is_publish=1")
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let testimony of response.data){
+            testimony.image = this.base.host + "/media/testimony?file_name=" + testimony.file_name
+            testimony.testimony = testimony.title
+            testimony.testimony_description = testimony.content
+            testimony.testimony_user = testimony.user_name
+            testimony.testimony_user_description = testimony.user_description
+          }
+          this.arr_testimony = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
   }
 }
 </script>

@@ -15,7 +15,7 @@ import article from '@/pages/auction/info/article'
 import about_us from '@/pages/about_us/index'
 import location from '@/pages/location/index'
 import search from '@/pages/search/index'
-import register from '@/pages/register/index'
+import sell from '@/pages/sell/index'
 
 Vue.use(Router)
 
@@ -85,8 +85,8 @@ var router = new Router({
       },
     },
     {
-      path: '/register',
-      component: register,
+      path: '/sell',
+      component: sell,
       meta: {
         requiresAuth: false
       },

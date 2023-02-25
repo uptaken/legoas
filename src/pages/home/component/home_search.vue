@@ -173,6 +173,22 @@ export default {
     this.selected_banner = this.arr_banner[0]
   },
   methods:{
+    async get_banner(){
+      var response = await this.base.request(this.base.url_api + "/banner/all?is_publish=1")
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let banner of response.data){
+            banner.image = this.base.host + "/media/banner?file_name=" + banner.file_name
+          }
+          this.arr_banner = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
     search_action(){
 
     },

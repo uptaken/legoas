@@ -50,6 +50,8 @@
 import Base from '@/utils/base';
 import moment from 'moment';
 
+import Image from '@/assets/definition_bottom.png';
+
 export default {
   components: {
   },
@@ -62,6 +64,7 @@ export default {
         rulesTitleFlag: false,
         rulesContentFlag: false,
       },
+      image: Image,
       last_updated_at: moment(),
       arr_rules: [
         {
@@ -266,6 +269,37 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    async get_rules_info(){
+      var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=rules")
+
+      if(response != null){
+        if(response.status === "success"){
+          this.image = this.base.host + "/media/info?file_name=" + response.data.file_name
+          this.last_updated_at = moment(response.data.updated_at_format, 'YYYY-MM-DD')
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+    async get_rules_list(){
+      var response = await this.base.request(this.base.url_api + "/rules/all?is_publish=1")
+
+      if(response != null){
+        if(response.status === "success"){
+          // for(let rules of response.data){
+          //   rules.title = rules.name
+          //   rules.content = rules.content
+          // }
+          this.arr_rules = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
   }
 }

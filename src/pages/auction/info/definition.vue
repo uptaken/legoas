@@ -13,42 +13,23 @@
       <div class="mt-3 d-flex justify-content-center align-items-center w-100">
         <Transition name="definition-image1">
           <div class="w-50 d-inline-block" v-show="flag.definitionImage1Flag">
-            <img src="@/assets/why_choose_us.png" width="100%"/>
+            <img :src="image" width="100%"/>
           </div>
         </Transition>
         <Transition name="definition-title1">
           <div class="w-50 d-inline-block" v-show="flag.definitionTitle1Flag">
-            <p class="mb-0 title-section">Apa itu <label class="custom-title">Lelang</label> ?</p>
-            <p class="mb-0 content-section">
-              Lelang adalah proses membeli dan menjual barang atau jasa dengan cara menawarkan kepada penawar, peserta lelang memberikan penawaran harga lebih tinggi, dan kemudian barang terjual kepada penawar harga tertinggi.
-            </p>
+            <p class="mb-0 title-section" v-html="title"></p>
+            <p class="mb-0 content-section" v-html="content"></p>
           </div>
         </Transition>
       </div>
 
-      <div class="mt-5 w-100">
+      <div class="mt-5 w-100" v-for="(section, index) in arr_section" :key="'section' + index">
         <Transition name="definition-title2">
-          <p class="mb-0 title-section" v-show="flag.definitionTitle2Flag">Sejarah <label class="custom-title">Lelang</label> Indonesia</p>
+          <p class="mb-0 title-section" v-show="flag.definitionTitle2Flag" v-html="section.title"></p>
         </Transition>
         <Transition name="definition-content2">
-          <p class="mb-0 content-section" v-show="flag.definitionContent2Flag">
-            Sejarah lelang di Indonesia dimulai oleh East India Company yang menyelenggarakan lelang untuk teh (1750) dah masih bertahan sampai sekarang di London. Ada juga lelang tembakau Indonesia yang masih bertahan di Bremen, Jerman. Sehingga dunia lelang sebenarnya tidak terlalu asing di Indonesia. Hanya saja keterbatasan pelaksanaan lelang saja yang membuat proses lelang di Indonesia tidak terlalu dikenal.
-
-  Saat ini lelang di Indonesia digunakan sebagai alternatif penjualan kendaraan, property, dan komoditi. Pada dasarnya semua barang dapat dilakukan lelang. Ketika ada kebutuhan atas penjualan dengan cepat dan harga tertinggi dan atau penjualan dalam skala banyak, maka penjualan melalui lelang adalah cara yang paling tepat.
-          </p>
-        </Transition>
-      </div>
-
-      <div class="mt-5 w-100">
-        <Transition name="definition-title3">
-          <p class="mb-0 title-section" v-show="flag.definitionTitle3Flag">Pelaksanaan <label class="custom-title">Lelang</label></p>
-        </Transition>
-        <Transition name="definition-content3">
-          <p class="mb-0 content-section" v-show="flag.definitionContent3Flag">
-            Pelaksanaan lelang yang dilakukan biasanya saat ini adalah dengan menghadiri/datang ke tempat lelang, melakukan proses administrasi yang rumit, dan mengikuti pelaksanaan lelang di lokasi dengan konsep mengacungkan tangan/NPL (nomor peserta lelang) untuk menunjukkan keikutsertaannya.
-
-  Legoas mengadakan lelang dengan berbasis digital membuat pelaksanaan lelang tidak dibatasi jarak dan waktu. Peserta lelang dapat melihat unit, mendaftar, dan mengikuti lelang melalui website dan atau mobile apps milik Legoas. Peserta dapat mengikuti lelang dimanapun dan tanpa mengganggu aktifitas utamanya untuk mendapatkan produk/barang sesuai keinginannya. Dengan system online ini pula lah, peserta tidak perlu diburu oleh waktu untuk hadir ke tempat lelang.
-          </p>
+          <p class="mb-0 content-section" v-show="flag.definitionContent2Flag"  v-html="section.content"></p>
         </Transition>
       </div>
 
@@ -62,6 +43,8 @@
 <script>
 import Base from '@/utils/base';
 
+import Image from '@/assets/why_choose_us.png'
+
 export default {
   components: {
   },
@@ -69,6 +52,9 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      title: `Apa itu <label class="custom-title">Lelang</label> ?`,
+      content: `Lelang adalah proses membeli dan menjual barang atau jasa dengan cara menawarkan kepada penawar, peserta lelang memberikan penawaran harga lebih tinggi, dan kemudian barang terjual kepada penawar harga tertinggi.`,
+      image: Image,
       flag: {
         definitionImage1Flag: false,
         definitionTitle1Flag: false,
@@ -77,7 +63,20 @@ export default {
         definitionTitle3Flag: false,
         definitionContent3Flag: false,
       },
-      
+      arr_section: [
+        {
+          title: `Sejarah <label class="custom-title">Lelang</label> Indonesia`,
+          content: `Sejarah lelang di Indonesia dimulai oleh East India Company yang menyelenggarakan lelang untuk teh (1750) dah masih bertahan sampai sekarang di London. Ada juga lelang tembakau Indonesia yang masih bertahan di Bremen, Jerman. Sehingga dunia lelang sebenarnya tidak terlalu asing di Indonesia. Hanya saja keterbatasan pelaksanaan lelang saja yang membuat proses lelang di Indonesia tidak terlalu dikenal.
+
+Saat ini lelang di Indonesia digunakan sebagai alternatif penjualan kendaraan, property, dan komoditi. Pada dasarnya semua barang dapat dilakukan lelang. Ketika ada kebutuhan atas penjualan dengan cepat dan harga tertinggi dan atau penjualan dalam skala banyak, maka penjualan melalui lelang adalah cara yang paling tepat.`,
+        },
+        {
+          title: `Pelaksanaan <label class="custom-title">Lelang</label>`,
+          content: `Pelaksanaan lelang yang dilakukan biasanya saat ini adalah dengan menghadiri/datang ke tempat lelang, melakukan proses administrasi yang rumit, dan mengikuti pelaksanaan lelang di lokasi dengan konsep mengacungkan tangan/NPL (nomor peserta lelang) untuk menunjukkan keikutsertaannya.
+
+Legoas mengadakan lelang dengan berbasis digital membuat pelaksanaan lelang tidak dibatasi jarak dan waktu. Peserta lelang dapat melihat unit, mendaftar, dan mengikuti lelang melalui website dan atau mobile apps milik Legoas. Peserta dapat mengikuti lelang dimanapun dan tanpa mengganggu aktifitas utamanya untuk mendapatkan produk/barang sesuai keinginannya. Dengan system online ini pula lah, peserta tidak perlu diburu oleh waktu untuk hadir ke tempat lelang.`,
+        },
+      ],
     }
   },
   watch: {
@@ -98,6 +97,37 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    async get_definition_info(){
+      var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=definition")
+
+      if(response != null){
+        if(response.status === "success"){
+          this.title = response.data.title
+          this.content = response.data.content
+          this.image = this.base.host + "/media/info?file_name=" + response.data.file_name
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+    async get_definition_section(){
+      var response = await this.base.request(this.base.url_api + "/section/definition/all?is_publish=1")
+
+      if(response != null){
+        if(response.status === "success"){
+          // for(let definition of response.data){
+          //   definition.image = this.base.host + "/media/section/definition?file_name=" + definition.file_name
+          // }
+          this.arr_section = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
   }
 }

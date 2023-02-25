@@ -64,6 +64,23 @@ export default {
     this.base = new Base()
   },
   methods:{
+    async get_article(){
+      var response = await this.base.request(this.base.url_api + "/article?num_data=3&is_publish=1")
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let article of response.data){
+            article.image = this.base.host + "/media/article?file_name=" + article.file_name
+            article.date = moment(article.date_format, "YYYY-MM-DD")
+          }
+          this.arr_article = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
   }
 }
 </script>

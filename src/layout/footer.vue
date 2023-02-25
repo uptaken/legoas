@@ -32,8 +32,8 @@
 
         <div class="col-6 col-lg-2 d-flex flex-column mt-3 mt-lg-0">
           <p class="footer-title">{{ $t("join_app") }}</p>
-          <a href="/" class="footer-link">{{ $t("sell_car") }}</a>
-          <a href="/register" class="mt-3 footer-link">{{ $t("registration") }}</a>
+          <a href="/sell" class="footer-link">{{ $t("sell_car") }}</a>
+          <a href="/" class="mt-3 footer-link">{{ $t("registration") }}</a>
           <a href="/" class="mt-3 footer-link">{{ $t("login") }}</a>
         </div>
 

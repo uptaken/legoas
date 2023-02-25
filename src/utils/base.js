@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export default class Base{
-  // host = "https://inlist.quantumtri.com"
-  host = ""
+  host = "https://legoas-api.quantumtri.com"
+  // host = ""
   url_api = this.host + "/api"
   version = ""
   locale_string = "id-ID"
@@ -17,6 +17,7 @@ export default class Base{
     try{
       axios.defaults.headers.common['Accept'] = 'application/json'
 
+      var context = this
       var header = {
         "Content-Type": "application/json",
         "Accept": "application/json",
@@ -34,20 +35,40 @@ export default class Base{
         response = await axios.get(url, {
           headers: header,
         })
+        .catch(function (error) {
+          if (error.response.code != 200) {
+            context.show_error(error.response.data)
+          }
+        })
       }
       else if(method === 'post')
         response = await axios.post(url, data, {
           headers: header,
           onUploadProgress
         })
+        .catch(function (error) {
+          if (error.response.code != 200) {
+            context.show_error(error.response.data)
+          }
+        })
       else if(method === 'put')
         response = await axios.post(url, data, {
           headers: header,
           onUploadProgress
         })
+        .catch(function (error) {
+          if (error.response.code != 200) {
+            context.show_error(error.response.data)
+          }
+        })
       else if(method === 'delete')
         response = await axios.post(url, data, {
           headers: header,
+        })
+        .catch(function (error) {
+          if (error.response.code != 200) {
+            context.show_error(error.response.data)
+          }
         })
 
       if(with_modal){
@@ -55,7 +76,6 @@ export default class Base{
         }, 500)
       }
 
-      // console.log(response)
       return response.data
     } catch(error){
       console.log(error.response.data)
@@ -144,7 +164,8 @@ export default class Base{
     //   confirmText: '', // button text.
     //   duration: 2000,   // (in ms), duartion for which snackbar is visible.
     // })
-    this.$toasted.show(message)
-    sessionStorage.removeItem('message')
+    console.log(message)
+    // this.$toasted.show(message)
+    // sessionStorage.removeItem('message')
   }
 }

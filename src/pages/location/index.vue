@@ -12,7 +12,7 @@
           <div class="col-12 col-lg-6">
             <div class="ml-5">
               <Transition name="location-title2">
-                <p class="mb-0 info-title" v-show="flag.locationTitle2Flag">Kunjungi Legoas, PT Digital Sarana Legoas <label class="custom-title">Lokasi Lelang di Jakarta</label></p>
+                <p class="mb-0 info-title" v-show="flag.locationTitle2Flag" v-html="title"></p>
               </Transition>
 
               <div class="mt-3">
@@ -20,7 +20,7 @@
                   <p class="mb-0 info-title" v-show="flag.locationTitle3Flag">{{ $t('address') }}</p>
                 </Transition>
                 <Transition name="location-content3">
-                  <p class="mb-0 mt-1 content-section" v-show="flag.locationContent3Flag">Jl. Meruya Selatan N0. 12 RT 08 RW 04 Kel. Meruya Utara Kec. Kembangan Jakarta Barat 11620 Indonesia</p>
+                  <p class="mb-0 mt-1 content-section" v-show="flag.locationContent3Flag" v-html="address"></p>
                 </Transition>
               </div>
 
@@ -29,7 +29,7 @@
                   <p class="mb-0 info-title" v-show="flag.locationTitle4Flag">{{ $t('email') }}</p>
                 </Transition>
                 <Transition name="location-content4">
-                  <p class="mb-0 mt-1 content-section" v-show="flag.locationContent4Flag">cs@legoas.co.id</p>
+                  <p class="mb-0 mt-1 content-section" v-show="flag.locationContent4Flag" v-html="email"></p>
                 </Transition>
               </div>
 
@@ -38,7 +38,7 @@
                   <p class="mb-0 info-title" v-show="flag.locationTitle5Flag">{{ $t('phone') }}</p>
                 </Transition>
                 <Transition name="location-content5">
-                  <p class="mb-0 mt-1 content-section" v-show="flag.locationContent5Flag">021-12312-2312</p>
+                  <p class="mb-0 mt-1 content-section" v-show="flag.locationContent5Flag" v-html="phone"></p>
                 </Transition>
               </div>
             </div>
@@ -49,16 +49,16 @@
               <div v-show="flag.locationContent6Flag">
                 <div class="d-flex justify-content-center">
                   <div class="position-relative" style="width: 12rem;">
-                    <img src="@/assets/location1.png" class="position-absolute" style="width: 8rem; left: 5rem; z-index: -1"/>
+                    <img :src="arr_image[0]" class="position-absolute" style="width: 8rem; left: 5rem; z-index: -1"/>
                     <div class="p-1 bg-white rounded" style="margin-top: 5rem; width: 8rem;">
-                      <img src="@/assets/location2.png" width="100%"/>
+                      <img :src="arr_image[1]" width="100%"/>
                     </div>
                   </div>
 
                   <div class="position-relative">
-                    <img src="@/assets/location3.png" class="" style="width: 8rem; margin-left: 5rem;"/>
+                    <img :src="arr_image[2]" class="" style="width: 8rem; margin-left: 5rem;"/>
                     <div class="position-absolute bg-white rounded" style="top: 5rem;">
-                      <img src="@/assets/location4.png"  style="width: 8rem;"/>
+                      <img :src="arr_image[3]"  style="width: 8rem;"/>
                     </div>
                   </div>
                 </div>
@@ -76,8 +76,8 @@
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAGvT7vk9EkzIusHwBSKXGc-bYsp1vLrAs
-            &q=Space+Needle,Seattle+WA">
+          :src="`https://www.google.com/maps/embed/v1/place?key=AIzaSyAGvT7vk9EkzIusHwBSKXGc-bYsp1vLrAs
+            &q=${latitude},${longitude}`">
         </iframe>
       </div>
     </div>
@@ -87,6 +87,11 @@
 <script>
 import Base from '@/utils/base';
 
+import Image1 from '@/assets/location1.png';
+import Image2 from '@/assets/location2.png';
+import Image3 from '@/assets/location3.png';
+import Image4 from '@/assets/location4.png';
+
 export default {
   components: {
   },
@@ -94,6 +99,18 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      title: `Kunjungi Legoas, PT Digital Sarana Legoas <label class="custom-title">Lokasi Lelang di Jakarta</label>`,
+      address: `Jl. Meruya Selatan N0. 12 RT 08 RW 04 Kel. Meruya Utara Kec. Kembangan Jakarta Barat 11620 Indonesia`,
+      email: `cs@legoas.co.id`,
+      phone: `021-12312-2312`,
+      latitude: -7.2940871,
+      longitude: 112.648735,
+      arr_image: [
+        Image1,
+        Image2,
+        Image3,
+        Image4,
+      ],
       flag: {
         locationTitle1Flag: false,
         locationContent1Flag: false,
@@ -130,10 +147,66 @@ export default {
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+
+    this.get_setting()
   },
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    async get_image(){
+      var response = await this.base.request(this.base.url_api + "/location/media?is_publish=1")
+
+      if(response != null){
+        if(response.status === "success"){
+          var arr_image = []
+          for(let image of response.data){
+            arr_image.push(this.base.host + "/media/location?file_name=" + image.file_name)
+          }
+          this.arr_image = arr_image
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+    async get_location_info(){
+      var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=location")
+
+      if(response != null){
+        if(response.status === "success"){
+          this.title = response.data.title
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+    async get_setting(){
+      var response = await this.base.request(this.base.url_api + "/setting")
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let setting of response.data){
+            if(setting.key === "address")
+              this.address = setting.value
+            else if(setting.key === "email")
+              this.email = setting.value
+            else if(setting.key === "phone")
+              this.phone = setting.value
+            else if(setting.key === "latitude")
+              this.latitude = setting.value
+            else if(setting.key === "longitude")
+              this.longitude = setting.value
+          }
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
   }
 }
