@@ -20,8 +20,8 @@
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs1Flag">
               <div class="d-flex">
-                <div style="width: 2.75rem; height: 2.75rem;">
-                  <img src="@/assets/why_choose_us1.png" width="100%"/>
+                <div>
+                  <img src="@/assets/why_choose_us1.png" style="width: 2.75rem; height: 2.75rem;"/>
                 </div>
                 <div class="ml-4">
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us1_title") }}</p>
@@ -34,8 +34,8 @@
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs2Flag">
               <div class="d-flex mt-4">
-                <div style="width: 2.75rem; height: 2.75rem;">
-                  <img src="@/assets/why_choose_us2.png" width="100%"/>
+                <div>
+                  <img src="@/assets/why_choose_us2.png" style="width: 2.75rem; height: 2.75rem;"/>
                 </div>
                 <div class="ml-4">
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us2_title") }}</p>
@@ -48,8 +48,8 @@
           <Transition name="why-choose-us1">
             <div v-show="whyChooseUs3Flag">
               <div class="d-flex mt-4">
-                <div style="width: 2.75rem; height: 2.75rem;">
-                  <img src="@/assets/why_choose_us3.png" width="100%"/>
+                <div>
+                  <img src="@/assets/why_choose_us3.png" style="width: 2.75rem; height: 2.75rem;"/>
                 </div>
                 <div class="ml-4">
                   <p class="mb-0 why-breakdown-title">{{ $t("why_choose_us3_title") }}</p>
@@ -117,6 +117,7 @@ export default {
 }
 .why-choose-title1-leave-to, .why-choose-title1-enter {
   margin-left: -10rem !important;
+  margin-right: 10rem !important;
   opacity: 0;
 }
 .why-choose-title2-enter-active, .why-choose-title2-leave-active{
@@ -124,6 +125,7 @@ export default {
 }
 .why-choose-title2-leave-to, .why-choose-title2-enter {
   margin-left: -10rem !important;
+  margin-right: 10rem !important;
   opacity: 0;
 }
 .why-choose-us1-enter-active, .why-choose-us1-leave-active{
@@ -131,6 +133,7 @@ export default {
 }
 .why-choose-us1-leave-to, .why-choose-us1-enter {
   margin-left: 10rem !important;
+  margin-right: -10rem !important;
   opacity: 0;
 }
 </style>

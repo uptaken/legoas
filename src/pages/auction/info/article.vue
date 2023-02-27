@@ -256,6 +256,7 @@ export default {
 }
 .article-title1-leave-to, .article-title1-enter {
   margin-left: 10rem !important;
+  margin-right: -10rem !important;
   opacity: 0;
 }
 .article-image1-enter-active, .article-image1-leave-active{

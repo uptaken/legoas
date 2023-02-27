@@ -253,6 +253,7 @@ export default {
 .location-title5-leave-to, .location-title5-enter,
 .location-title6-leave-to, .location-title6-enter {
   margin-left: -10rem !important;
+  margin-right: 10rem !important;
   opacity: 0;
 }
 .location-content1-enter-active, .location-content1-leave-active,
@@ -270,6 +271,7 @@ export default {
 .location-content5-leave-to, .location-content5-enter,
 .location-content6-leave-to, .location-content6-enter {
   margin-left: 10rem !important;
+  margin-right: -10rem !important;
   opacity: 0;
 }
 </style>

@@ -138,6 +138,7 @@ export default {
 }
 .testimony-title1-leave-to, .testimony-title1-enter {
   margin-left: -10rem !important;
+  margin-right: 10rem !important;
   opacity: 0;
 }
 .testimony-title2-enter-active, .testimony-title2-leave-active{
@@ -145,6 +146,7 @@ export default {
 }
 .testimony-title2-leave-to, .testimony-title2-enter {
   margin-right: -10rem !important;
+  margin-left: 10rem !important;
   opacity: 0;
 }
 </style>

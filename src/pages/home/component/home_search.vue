@@ -267,6 +267,7 @@ export default {
 }
 .banner-home-title-leave-to, .banner-home-title-enter {
   margin-left: -10rem !important;
+  margin-right: 10rem !important;
   opacity: 0;
 }
 .banner-home-image-enter-active, .banner-home-image-leave-active{
@@ -274,6 +275,7 @@ export default {
 }
 .banner-home-image-leave-to, .banner-home-image-enter {
   margin-right: -10rem !important;
+  margin-left: 10rem !important;
   opacity: 0;
 }
 </style>

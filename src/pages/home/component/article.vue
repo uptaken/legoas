@@ -1,10 +1,10 @@
 <template>
   <div class="m-5 d-inline-block" style="width: 70%;">
     <div style="width: 100%;">
-      <Transition name="article-title1">
+      <Transition name="home-article-title1">
         <p class="m-0 why-title text-center" v-show="articleTitle1Flag">{{ $t("article") }}</p>
       </Transition>
-      <Transition name="article-title2">
+      <Transition name="home-article-title2">
         <p class="mb-0 why-title2 text-center mt-3" v-show="articleTitle1Flag">{{ $t("article_list") }}</p>
       </Transition>
     </div>
@@ -86,17 +86,19 @@ export default {
 </script>
 
 <style lang="scss">
-.article-title1-enter-active, .article-title1-leave-active{
+.home-article-title1-enter-active, .home-article-title1-leave-active{
   transition: all 2s;
 }
-.article-title1-leave-to, .article-title1-enter {
+.home-article-title1-leave-to, .home-article-title1-enter {
   margin-left: -10rem !important;
+  margin-right: 10rem !important;
   opacity: 0;
 }
-.article-title2-enter-active, .article-title2-leave-active{
+.home-article-title2-enter-active, .home-article-title2-leave-active{
   transition: all 2s;
 }
-.article-title2-leave-to, .article-title2-enter {
+.home-article-title2-leave-to, .home-article-title2-enter {
+  margin-left: 10rem !important;
   margin-right: -10rem !important;
   opacity: 0;
 }

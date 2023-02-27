@@ -244,6 +244,7 @@ export default {
 .about-us-title2-leave-to, .about-us-title2-enter,
 .about-us-title3-leave-to, .about-us-title3-enter {
   margin-left: -10rem !important;
+  margin-right: 10rem !important;
   opacity: 0;
 }
 .about-us-content1-enter-active, .about-us-content1-leave-active,
@@ -255,6 +256,7 @@ export default {
 .about-us-content2-leave-to, .about-us-content2-enter,
 .about-us-content3-leave-to, .about-us-content3-enter {
   margin-left: 10rem !important;
+  margin-right: -10rem !important;
   opacity: 0;
 }
 .about-us-image1-enter-active, .about-us-image1-leave-active,

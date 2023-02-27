@@ -17,20 +17,21 @@
           </div>
         </Transition>
         <Transition name="definition-title1">
-          <div class="w-50 d-inline-block" v-show="flag.definitionTitle1Flag">
-            <p class="mb-0 title-section" v-html="title"></p>
-            <p class="mb-0 content-section" v-html="content"></p>
+          <div class="w-50 d-inline-block" v-show="flag.definitionTitle1Flag" v-html="content">
           </div>
         </Transition>
       </div>
 
       <div class="mt-5 w-100" v-for="(section, index) in arr_section" :key="'section' + index">
-        <Transition name="definition-title2">
+        <Transition name="definition-content2">
+          <div v-html="section.content" v-show="flag.definitionContent2Flag"></div>
+        </Transition>
+        <!-- <Transition name="definition-title2">
           <p class="mb-0 title-section" v-show="flag.definitionTitle2Flag" v-html="section.title"></p>
         </Transition>
         <Transition name="definition-content2">
           <p class="mb-0 content-section" v-show="flag.definitionContent2Flag"  v-html="section.content"></p>
-        </Transition>
+        </Transition> -->
       </div>
 
       <div class="mt-5 w-100">
@@ -52,8 +53,11 @@ export default {
     return{
       base: null,
       scrollY: 0,
-      title: `Apa itu <label class="custom-title">Lelang</label> ?`,
-      content: `Lelang adalah proses membeli dan menjual barang atau jasa dengan cara menawarkan kepada penawar, peserta lelang memberikan penawaran harga lebih tinggi, dan kemudian barang terjual kepada penawar harga tertinggi.`,
+      title: ``,
+      content: `
+      <p class="mb-0 title-section">Apa itu <label class="custom-title">Lelang</label> ?</p>
+      <p class="mb-0 content-section">Lelang adalah proses membeli dan menjual barang atau jasa dengan cara menawarkan kepada penawar, peserta lelang memberikan penawaran harga lebih tinggi, dan kemudian barang terjual kepada penawar harga tertinggi.</p>
+      `,
       image: Image,
       flag: {
         definitionImage1Flag: false,
@@ -63,18 +67,47 @@ export default {
         definitionTitle3Flag: false,
         definitionContent3Flag: false,
       },
+      definition_section_content: `
+        <div class="mt-5 w-100">
+          <p class="mb-0 title-section">Sejarah <label class="custom-title">Lelang</label> Indonesia</p>
+          <p class="mb-0 content-section">
+          Sejarah lelang di Indonesia dimulai oleh East India Company yang menyelenggarakan lelang untuk teh (1750) dah masih bertahan sampai sekarang di London. Ada juga lelang tembakau Indonesia yang masih bertahan di Bremen, Jerman. Sehingga dunia lelang sebenarnya tidak terlalu asing di Indonesia. Hanya saja keterbatasan pelaksanaan lelang saja yang membuat proses lelang di Indonesia tidak terlalu dikenal.
+
+          Saat ini lelang di Indonesia digunakan sebagai alternatif penjualan kendaraan, property, dan komoditi. Pada dasarnya semua barang dapat dilakukan lelang. Ketika ada kebutuhan atas penjualan dengan cepat dan harga tertinggi dan atau penjualan dalam skala banyak, maka penjualan melalui lelang adalah cara yang paling tepat.
+          </p>
+        </div>
+
+        <div class="mt-5 w-100">
+          <p class="mb-0 title-section">Pelaksanaan <label class="custom-title">Lelang</label></p>
+          <p class="mb-0 content-section">
+          Pelaksanaan lelang yang dilakukan biasanya saat ini adalah dengan menghadiri/datang ke tempat lelang, melakukan proses administrasi yang rumit, dan mengikuti pelaksanaan lelang di lokasi dengan konsep mengacungkan tangan/NPL (nomor peserta lelang) untuk menunjukkan keikutsertaannya.
+
+          Legoas mengadakan lelang dengan berbasis digital membuat pelaksanaan lelang tidak dibatasi jarak dan waktu. Peserta lelang dapat melihat unit, mendaftar, dan mengikuti lelang melalui website dan atau mobile apps milik Legoas. Peserta dapat mengikuti lelang dimanapun dan tanpa mengganggu aktifitas utamanya untuk mendapatkan produk/barang sesuai keinginannya. Dengan system online ini pula lah, peserta tidak perlu diburu oleh waktu untuk hadir ke tempat lelang.
+          </p>
+        </div>
+      `,
       arr_section: [
         {
-          title: `Sejarah <label class="custom-title">Lelang</label> Indonesia`,
-          content: `Sejarah lelang di Indonesia dimulai oleh East India Company yang menyelenggarakan lelang untuk teh (1750) dah masih bertahan sampai sekarang di London. Ada juga lelang tembakau Indonesia yang masih bertahan di Bremen, Jerman. Sehingga dunia lelang sebenarnya tidak terlalu asing di Indonesia. Hanya saja keterbatasan pelaksanaan lelang saja yang membuat proses lelang di Indonesia tidak terlalu dikenal.
+          title: ``,
+          content: `
+          <p class="mb-0 title-section">Sejarah <label class="custom-title">Lelang</label> Indonesia</p>
+          <p class="mb-0 content-section">
+          Sejarah lelang di Indonesia dimulai oleh East India Company yang menyelenggarakan lelang untuk teh (1750) dah masih bertahan sampai sekarang di London. Ada juga lelang tembakau Indonesia yang masih bertahan di Bremen, Jerman. Sehingga dunia lelang sebenarnya tidak terlalu asing di Indonesia. Hanya saja keterbatasan pelaksanaan lelang saja yang membuat proses lelang di Indonesia tidak terlalu dikenal.
 
-Saat ini lelang di Indonesia digunakan sebagai alternatif penjualan kendaraan, property, dan komoditi. Pada dasarnya semua barang dapat dilakukan lelang. Ketika ada kebutuhan atas penjualan dengan cepat dan harga tertinggi dan atau penjualan dalam skala banyak, maka penjualan melalui lelang adalah cara yang paling tepat.`,
+          Saat ini lelang di Indonesia digunakan sebagai alternatif penjualan kendaraan, property, dan komoditi. Pada dasarnya semua barang dapat dilakukan lelang. Ketika ada kebutuhan atas penjualan dengan cepat dan harga tertinggi dan atau penjualan dalam skala banyak, maka penjualan melalui lelang adalah cara yang paling tepat.
+          </p>
+          `,
         },
         {
-          title: `Pelaksanaan <label class="custom-title">Lelang</label>`,
-          content: `Pelaksanaan lelang yang dilakukan biasanya saat ini adalah dengan menghadiri/datang ke tempat lelang, melakukan proses administrasi yang rumit, dan mengikuti pelaksanaan lelang di lokasi dengan konsep mengacungkan tangan/NPL (nomor peserta lelang) untuk menunjukkan keikutsertaannya.
+          title: ``,
+          content: `
+          <p class="mb-0 title-section">Pelaksanaan <label class="custom-title">Lelang</label></p>
+          <p class="mb-0 content-section">
+          Pelaksanaan lelang yang dilakukan biasanya saat ini adalah dengan menghadiri/datang ke tempat lelang, melakukan proses administrasi yang rumit, dan mengikuti pelaksanaan lelang di lokasi dengan konsep mengacungkan tangan/NPL (nomor peserta lelang) untuk menunjukkan keikutsertaannya.
 
-Legoas mengadakan lelang dengan berbasis digital membuat pelaksanaan lelang tidak dibatasi jarak dan waktu. Peserta lelang dapat melihat unit, mendaftar, dan mengikuti lelang melalui website dan atau mobile apps milik Legoas. Peserta dapat mengikuti lelang dimanapun dan tanpa mengganggu aktifitas utamanya untuk mendapatkan produk/barang sesuai keinginannya. Dengan system online ini pula lah, peserta tidak perlu diburu oleh waktu untuk hadir ke tempat lelang.`,
+          Legoas mengadakan lelang dengan berbasis digital membuat pelaksanaan lelang tidak dibatasi jarak dan waktu. Peserta lelang dapat melihat unit, mendaftar, dan mengikuti lelang melalui website dan atau mobile apps milik Legoas. Peserta dapat mengikuti lelang dimanapun dan tanpa mengganggu aktifitas utamanya untuk mendapatkan produk/barang sesuai keinginannya. Dengan system online ini pula lah, peserta tidak perlu diburu oleh waktu untuk hadir ke tempat lelang.
+          </p>
+          `,
         },
       ],
     }
@@ -129,6 +162,19 @@ Legoas mengadakan lelang dengan berbasis digital membuat pelaksanaan lelang tida
       else
         this.base.show_error(this.$t('server_error'))
     },
+    async get_definition_section2(){
+      var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=definition_section")
+
+      if(response != null){
+        if(response.status === "success"){
+          this.definition_section_content = response.data.content
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
   }
 }
 </script>
@@ -165,6 +211,7 @@ Legoas mengadakan lelang dengan berbasis digital membuat pelaksanaan lelang tida
 .definition-title2-leave-to, .definition-title2-enter,
 .definition-title3-leave-to, .definition-title3-enter {
   margin-left: -10rem !important;
+  margin-right: 10rem !important;
   opacity: 0;
 }
 .definition-content2-enter-active, .definition-content2-leave-active,
@@ -174,6 +221,7 @@ Legoas mengadakan lelang dengan berbasis digital membuat pelaksanaan lelang tida
 .definition-content2-leave-to, .definition-content2-enter,
 .definition-content3-leave-to, .definition-content3-enter {
   margin-left: 10rem !important;
+  margin-right: -10rem !important;
   opacity: 0;
 }
 </style>

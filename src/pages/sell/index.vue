@@ -203,6 +203,7 @@ export default {
 }
 .register-title1-leave-to, .register-title1-enter {
   margin-left: 10rem !important;
+  margin-right: -10rem !important;
   opacity: 0;
 }
 </style>
