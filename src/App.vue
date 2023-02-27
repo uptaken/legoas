@@ -1,7 +1,14 @@
 <template>
   <div id="app" v-if="!this.$route.path.match(/\/auth*/g)">
     <div id="content">
-      <navbar/>
+      <div>
+        <navbar/>
+      </div>
+      <Transition name="navbar-fixed">
+        <div class="position-fixed w-100" style="z-index: 10; top: 0" v-show="flag.navbar">
+          <navbar :scrollY="scrollY"/>
+        </div>
+      </Transition>
       <div class="">
         <router-view/>
       </div>
@@ -14,6 +21,8 @@
 </template>
 
 <script>
+import Base from '@/utils/base'
+
 import footer1 from './layout/footer'
 import navbar from './layout/navbar'
 
@@ -21,17 +30,29 @@ export default {
   components: {
     footer1, navbar,
   },
-  created(){
-    // if(sessionStorage.message != null){
-    //   this.$toasted.show(sessionStorage.message)
-    //   sessionStorage.removeItem('message')
-    // }
+  data(){
+    return{
+      scrollY: 0,
+      flag: {
+        navbar: false,
+      },
+    }
   },
-  mounted(){
-    // if(!this.$route.path.match(/\/auth*/g))
-    //   this.get_profile()
+  watch: {
+    scrollY(val){
+      // console.log(this.base.responsive_scroll_threshold(500))
+      this.flag.navbar = val >= this.base.responsive_scroll_threshold(200)
+    },
+  },
+  created(){
+    this.base = new Base()
+    window.addEventListener('scroll', this.handleScroll)
+    this.scrollY = 1
   },
   methods:{
+    handleScroll(){
+      this.scrollY = window.scrollY
+    },
   }
 }
 </script>
@@ -106,5 +127,12 @@ html, body{
   display: flex !important;
   align-items: center;
   line-height: 100% !important;
+}
+.navbar-fixed-enter-active, .navbar-fixed-leave-active{
+  transition: all .5s;
+}
+.navbar-fixed-leave-to, .navbar-fixed-enter {
+  margin-top: -10rem;
+  opacity: 0;
 }
 </style>

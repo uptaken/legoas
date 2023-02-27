@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar navbar-expand-lg custom-navbar-padding d-flex justify-content-between align-items-center" :class="{'navbar-home': currentRoute === '/'}">
+  <div class="navbar navbar-expand-lg custom-navbar-padding d-flex justify-content-between align-items-center w-100" style="z-index: 10; top: 0" :class="customClass">
     <a class="navbar-brand" href="/">
       <img src="@/assets/image_logo.png" />
     </a>
@@ -69,15 +69,31 @@
 <script>
 import Base from '@/utils/base'
 export default{
+  props: ['scrollY', ],
   data(){
     return{
       base: null,
       currentRoute: '/',
+      customClass: 'navbar-home-gray1',
+    }
+  },
+  watch: {
+    scrollY(val){
+      console.log(val)
+      if(this.currentRoute === '/'){
+        if(val >= this.base.responsive_scroll_threshold(500) && val < this.base.responsive_scroll_threshold(1100))
+          this.customClass = 'navbar-home-white'
+        else if(val >= this.base.responsive_scroll_threshold(1200) && val < this.base.responsive_scroll_threshold(1600))
+          this.customClass = 'navbar-home-gray4'
+        else
+          this.customClass = 'navbar-home-white'
+      }
     }
   },
   created(){
-    this.base = Base
+    this.base = new Base()
     this.currentRoute = this.$router.currentRoute.path
+    this.customClass = this.currentRoute === '/' ? 'navbar-home-gray1' : 'navbar-home-white'
   },
   methods: {
     logout(){
@@ -99,8 +115,17 @@ export default{
 .navbar-header button{
   border-radius: .5rem;
 }
-.navbar-home{
+.navbar-home-gray1{
+  transition: all 1s;
   background-color: $gray1;
+}
+.navbar-home-white{
+  transition: all 1s;
+  background-color: $white;
+}
+.navbar-home-gray4{
+  transition: all 1s;
+  background-color: $gray4;
 }
 .nav-dropdown .dropdown-toggle::after{
   display: none;
@@ -124,4 +149,5 @@ export default{
   color: $white !important;
   font-family: poppins-bold;
 }
+
 </style>

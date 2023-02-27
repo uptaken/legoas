@@ -1,13 +1,13 @@
 <template>
   <div class="text-center">
-    <div class="container">
-      <img src="@/assets/download_app_section.png" width="100%" />
+    <div class="custom-navbar-padding-right custom-navbar-padding-left">
+      <img src="@/assets/download_app_section.png" width="92%" />
     </div>
     <div class="footer-container text-left" style="margin-top: -10rem; padding: 3rem 0;">
       <div class="row" style="margin-top: 10rem; margin-left: 7rem; margin-right: 7rem;">
         <div class="col-12 col-lg-3">
           <img src="@/assets/image_logo.png"/>
-          <p class="mt-3">Alamat Legoas Indonesia<br/>120121</p>
+          <p class="mt-3 footer-content">Alamat Legoas Indonesia<br/>120121</p>
           <div class="d-flex align-items-center">
             <font-awesome-icon icon="fa-solid fa-phone" />
             <p class="mb-0 ml-3 phone-number">+ 62 031 4784 372 12</p>
@@ -55,7 +55,7 @@
         <div class="horizontal-footer"></div>
       </div>
 
-      <div class="mt-3 text-center">
+      <div class="mt-3 text-center footer-content">
         Copyright 2022 © Legoas, All Rights Reserved.
       </div>
     </div>
@@ -72,14 +72,19 @@
 }
 .phone-number{
   font-family: poppins-bold;
+  font-size: .8rem;
 }
 .footer-link{
   text-decoration: none;
+  font-size: .8rem;
   color: $black;
 }
 .footer-title{
   font-family: poppins-medium;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: $black;
+}
+.footer-content{
+  font-size: .8rem;
 }
 </style>
