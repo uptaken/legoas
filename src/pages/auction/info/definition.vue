@@ -1,41 +1,45 @@
 <template>
-  <div class="custom-navbar-padding-right custom-navbar-padding-left">
-    <div class="position-relative px-5 mt-5">
-      <div class="d-flex">
-        <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
-        <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
-        <p class="mb-0 navigation navigation-now">{{ $t('auction_definition') }}</p>
+  <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+    <div class="content-container text-left">
+      <div class="position-relative " style="margin-top: 3.8rem;">
+        <div class="d-flex">
+          <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
+          <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
+          <p class="mb-0 navigation navigation-now">{{ $t('auction_definition') }}</p>
+        </div>
+        <p class="mb-0 general-title">{{ $t('auction_definition') }}</p>
       </div>
-      <p class="mb-0 general-title">{{ $t('auction_definition') }}</p>
-    </div>
 
-    <div class="p-5 w-100">
-      <div class="mt-3 d-flex justify-content-center align-items-center w-100">
-        <Transition name="definition-image1">
-          <div class="w-50 d-inline-block" v-show="flag.definitionImage1Flag">
-            <img :src="image" width="100%"/>
+      <div class="w-100">
+        <div class="mt-3 d-flex justify-content-center align-items-center w-100">
+          <Transition name="definition-image1">
+            <div class="w-50 d-inline-block" v-show="flag.definitionImage1Flag">
+              <img :src="image" width="100%"/>
+            </div>
+          </Transition>
+          <Transition name="definition-title1">
+            <div class="w-50 d-inline-block" v-show="flag.definitionTitle1Flag" v-html="content">
+            </div>
+          </Transition>
+        </div>
+
+        <div style="margin-top: 9rem">
+          <div class="w-100" :style="{marginTop: index > 0 ? '3.3rem' : 0}" v-for="(section, index) in arr_section" :key="'section' + index">
+            <Transition name="definition-content2">
+              <div v-html="section.content" v-show="flag.definitionContent2Flag"></div>
+            </Transition>
+            <!-- <Transition name="definition-title2">
+              <p class="mb-0 title-section" v-show="flag.definitionTitle2Flag" v-html="section.title"></p>
+            </Transition>
+            <Transition name="definition-content2">
+              <p class="mb-0 content-section" v-show="flag.definitionContent2Flag"  v-html="section.content"></p>
+            </Transition> -->
           </div>
-        </Transition>
-        <Transition name="definition-title1">
-          <div class="w-50 d-inline-block" v-show="flag.definitionTitle1Flag" v-html="content">
-          </div>
-        </Transition>
-      </div>
+        </div>
 
-      <div class="mt-5 w-100" v-for="(section, index) in arr_section" :key="'section' + index">
-        <Transition name="definition-content2">
-          <div v-html="section.content" v-show="flag.definitionContent2Flag"></div>
-        </Transition>
-        <!-- <Transition name="definition-title2">
-          <p class="mb-0 title-section" v-show="flag.definitionTitle2Flag" v-html="section.title"></p>
-        </Transition>
-        <Transition name="definition-content2">
-          <p class="mb-0 content-section" v-show="flag.definitionContent2Flag"  v-html="section.content"></p>
-        </Transition> -->
-      </div>
-
-      <div class="mt-5 w-100">
-        <img src="@/assets/definition_bottom.png" width="100%"/>
+        <div class="w-100" style="margin-top: 5.6rem; margin-bottom: 16rem;">
+          <img src="@/assets/definition_bottom.png" width="100%"/>
+        </div>
       </div>
     </div>
   </div>
@@ -114,12 +118,12 @@ export default {
   },
   watch: {
     scrollY(val){
-      this.flag.definitionImage1Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.definitionTitle1Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.definitionTitle2Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.definitionContent2Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.definitionTitle3Flag = val >= this.base.responsive_scroll_threshold(300)
-      this.flag.definitionContent3Flag = val >= this.base.responsive_scroll_threshold(300)
+      this.flag.definitionImage1Flag = this.flag.definitionImage1Flag || (!this.flag.definitionImage1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.definitionTitle1Flag = this.flag.definitionTitle1Flag || (!this.flag.definitionTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.definitionTitle2Flag = this.flag.definitionTitle2Flag || (!this.flag.definitionTitle2Flag && val >= this.base.responsive_scroll_threshold(500))
+      this.flag.definitionContent2Flag = this.flag.definitionContent2Flag || (!this.flag.definitionContent2Flag && val >= this.base.responsive_scroll_threshold(500))
+      this.flag.definitionTitle3Flag = this.flag.definitionTitle3Flag || (!this.flag.definitionTitle3Flag && val >= this.base.responsive_scroll_threshold(700))
+      this.flag.definitionContent3Flag = this.flag.definitionContent3Flag || (!this.flag.definitionContent3Flag && val >= this.base.responsive_scroll_threshold(700))
     },
   },
   created(){
@@ -201,7 +205,7 @@ export default {
   transition: all 2s;
 }
 .definition-image1-leave-to, .definition-image1-enter {
-  // margin-bottom: 10rem !important;
+  transform: translateY(10rem);
   opacity: 0;
 }
 .definition-title2-enter-active, .definition-title2-leave-active,
@@ -210,8 +214,7 @@ export default {
 }
 .definition-title2-leave-to, .definition-title2-enter,
 .definition-title3-leave-to, .definition-title3-enter {
-  margin-left: -10rem !important;
-  margin-right: 10rem !important;
+  transform: translateX(10rem);
   opacity: 0;
 }
 .definition-content2-enter-active, .definition-content2-leave-active,
@@ -220,8 +223,7 @@ export default {
 }
 .definition-content2-leave-to, .definition-content2-enter,
 .definition-content3-leave-to, .definition-content3-enter {
-  margin-left: 10rem !important;
-  margin-right: -10rem !important;
+  transform: translateX(10rem);
   opacity: 0;
 }
 </style>

@@ -1,31 +1,33 @@
 <template>
-  <div class="custom-navbar-padding-right custom-navbar-padding-left">
-    <div class="position-relative px-5 mt-5">
-      <div class="d-flex">
-        <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
-        <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
-        <p class="mb-0 navigation navigation-now">{{ $t('auction_news') }}</p>
+  <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+    <div class="content-container text-left">
+      <div class="position-relative" style="margin-top: 3.8rem;">
+        <div class="d-flex">
+          <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
+          <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
+          <p class="mb-0 navigation navigation-now">{{ $t('auction_news') }}</p>
+        </div>
+        <p class="mb-0 general-title">{{ $t('auction_news') }}</p>
       </div>
-      <p class="mb-0 general-title">{{ $t('auction_news') }}</p>
-    </div>
 
-    <div class="p-5 w-100">
-      <Transition name="news-title">
-        <div class="" v-show="flag.newsTitleFlag">
-          <p class="mb-0 news-date">{{ $t('news') + " " + date.format('DD MMMM YYYY') }}</p>
-          <p class="mb-0 news-title">{{ title }}</p>
-        </div>
-      </Transition>
+      <div class="w-100" style="padding-top: 5.1rem; padding-bottom: 17.8rem;">
+        <Transition name="news-title">
+          <div class="" v-show="flag.newsTitleFlag">
+            <p class="mb-0 news-date">{{ $t('news') + " " + date.format('DD MMMM YYYY') }}</p>
+            <p class="mb-0 news-title mt-3">{{ title }}</p>
+          </div>
+        </Transition>
 
-      <Transition name="news-image">
-        <div class="mt-5" v-show="flag.newsImageFlag">
-          <img src="@/assets/definition_bottom.png" width="100%"/>
-        </div>
-      </Transition>
+        <Transition name="news-image">
+          <div class="" style="margin-top: 3.6rem;" v-show="flag.newsImageFlag">
+            <img src="@/assets/definition_bottom.png" width="100%"/>
+          </div>
+        </Transition>
 
-      <Transition name="news-content">
-        <div class="my-5 mx-0 m-lg-5" v-show="flag.newsContentFlag" v-html="content"></div>
-      </Transition>
+        <Transition name="news-content">
+          <div class="mx-0 m-lg-5" style="margin-top: 4.5rem;" v-show="flag.newsContentFlag" v-html="content"></div>
+        </Transition>
+      </div>
     </div>
   </div>
 </template>
@@ -99,9 +101,9 @@ export default {
   },
   watch: {
     scrollY(val){
-      this.flag.newsTitleFlag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.newsImageFlag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.newsContentFlag = val >= this.base.responsive_scroll_threshold(0)
+      this.flag.newsTitleFlag = this.flag.newsTitleFlag || (!this.flag.newsTitleFlag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.newsImageFlag = this.flag.newsImageFlag || (!this.flag.newsImageFlag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.newsContentFlag = this.flag.newsContentFlag || (!this.flag.newsContentFlag && val >= this.base.responsive_scroll_threshold(0))
     },
   },
   created(){
@@ -136,6 +138,9 @@ export default {
 <style lang="scss">
 .news-date{
   color: $gray5;
+  letter-spacing: .2rem;
+  line-height: 100%;
+  text-transform: uppercase;
 }
 .news-title{
   font-family: poppins-medium;
@@ -156,7 +161,7 @@ ol{
 .news-title-leave-to, .news-title-enter,
 .news-image-leave-to, .news-image-enter,
 .news-content-leave-to, .news-content-enter {
-  // margin-left: -10rem !important;
+  transform: translateY(-10rem);
   opacity: 0;
 }
 </style>

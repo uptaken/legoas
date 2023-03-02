@@ -1,21 +1,25 @@
 <template>
-  <div class="m-5 d-inline-block" style="width: 70%;">
+  <div class="m-5 d-inline-block">
     <div style="width: 100%;">
       <Transition name="home-article-title1">
-        <p class="m-0 why-title text-center" v-show="articleTitle1Flag">{{ $t("article") }}</p>
+        <p class="m-0 why-title text-center"  v-show="articleTitle1Flag">{{ $t("article") }}</p>
       </Transition>
       <Transition name="home-article-title2">
         <p class="mb-0 why-title2 text-center mt-3" v-show="articleTitle1Flag">{{ $t("article_list") }}</p>
       </Transition>
     </div>
 
-    <div class="d-flex justify-content-center" style="margin-top: 3.375rem;">
-      <div class="row">
-        <div v-for="(article, index) in arr_article" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" >
-          <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
+    <Transition name="home-article-content">
+      <div v-show="articleTitle1Flag">
+        <div class="d-flex justify-content-center"  style="margin-top: 3.375rem;">
+          <div class="row">
+            <div v-for="(article, index) in arr_article" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" >
+              <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
@@ -35,6 +39,8 @@ export default {
   data(){
     return{
       base: null,
+      articleTitleHeight: 0,
+      articleSubtitleHeight: 0,
       arr_article: [
         {
           id: "1",
@@ -62,6 +68,9 @@ export default {
   },
   created(){
     this.base = new Base()
+
+    this.articleTitleHeight = window.$('#article-title').innerHeight()
+    this.articleSubtitleHeight = window.$('#article-subtitle').innerHeight()
   },
   methods:{
     async get_article(){
@@ -90,16 +99,23 @@ export default {
   transition: all 2s;
 }
 .home-article-title1-leave-to, .home-article-title1-enter {
-  margin-left: -10rem !important;
-  margin-right: 10rem !important;
+  transform: translateY(-10rem);
+  // margin-bottom: 5rem !important;
   opacity: 0;
 }
 .home-article-title2-enter-active, .home-article-title2-leave-active{
   transition: all 2s;
 }
 .home-article-title2-leave-to, .home-article-title2-enter {
-  margin-left: 10rem !important;
-  margin-right: -10rem !important;
+  transform: translateY(-10rem);
+  opacity: 0;
+}
+.home-article-content-enter-active, .home-article-content-leave-active{
+  transition: all 2s;
+}
+.home-article-content-leave-to, .home-article-content-enter {
+  transform: translateX(-10rem);
+  // margin-bottom: 5rem !important;
   opacity: 0;
 }
 </style>

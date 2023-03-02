@@ -1,37 +1,41 @@
 <template>
   <div class="">
-    <div class="position-relative mt-5 ml-5 custom-navbar-padding-right custom-navbar-padding-left">
-      <p class="m-0 general-title">{{ $t('auction_schedule') }}</p>
+    <div class="custom-navbar-padding-right custom-navbar-padding-left text-center" style="margin-top: 5rem;">
+      <div class="content-container text-left">
+        <p class="m-0 general-title">{{ $t('auction_schedule') }}</p>
+      </div>
     </div>
 
-    <div class="py-5 py-lg-5 custom-navbar-padding-right custom-navbar-padding-left">
-      <div class="mt-5 px-5">
-        <div>
-          <ScheduleMonth :month="month" :week_num="week_num" @previous_action="schedule_previous_action" @next_action="schedule_next_action" :arr_group_auction="arr_group_auction"/>
-        </div>
+    <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+      <div class="content-container text-left">
+        <div class="mt-5">
+          <div>
+            <ScheduleMonth :month="month" :week_num="week_num" @previous_action="schedule_previous_action" @next_action="schedule_next_action" :arr_group_auction="arr_group_auction"/>
+          </div>
 
-        <div class="row schedule-filter-card">
-          <div class="col-6 d-flex align-items-center">
-            <p class="mb-0 content-content">Terdapat 10 Jadwal Lelang</p>
+          <div class="row schedule-filter-card">
+            <div class="col-6 d-flex align-items-center">
+              <p class="mb-0 content-content">Terdapat 10 Jadwal Lelang</p>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-end">
+              <p class="mb-0 content-content">Filter</p>
+              <Select2 v-model="sort"
+                class="ml-3" 
+                :options="arr_sort" 
+                :settings="{width: '10rem',}"
+                @change="onSortChanged($event)" 
+                @select="onSortSelect($event)" />
+            </div>
           </div>
-          <div class="col-6 d-flex align-items-center justify-content-end">
-            <p class="mb-0 content-content">Filter</p>
-            <Select2 v-model="sort"
-              class="ml-3" 
-              :options="arr_sort" 
-              :settings="{width: '10rem',}"
-              @change="onSortChanged($event)" 
-              @select="onSortSelect($event)" />
+          <div style="margin-top: 5rem">
+            <div v-for="(group_auction, index) in arr_group_auction" :key="'group' + index" style="margin-bottom: 6.25rem;">
+              <AuctionGroupItem :data="group_auction"/>
+            </div>
           </div>
-        </div>
-        <div style="margin-top: 5rem">
-          <div v-for="(group_auction, index) in arr_group_auction" :key="'group' + index" class="mb-5">
-            <AuctionGroupItem :data="group_auction"/>
-          </div>
-        </div>
 
-        <div class="custom-pagination-container">
-          <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
+          <div class="custom-pagination-container">
+            <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
+          </div>
         </div>
       </div>
     </div>
@@ -193,6 +197,7 @@ export default {
 }
 .custom-pagination-container{
   margin-top: 6rem;
+  margin-bottom: 14.5rem;
 }
 .schedule-filter-card{
   margin-top: 9rem;

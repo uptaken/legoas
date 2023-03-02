@@ -2,13 +2,15 @@
   <div id="app" v-if="!this.$route.path.match(/\/auth*/g)">
     <div id="content">
       <div>
-        <navbar/>
+        <navbar @onNavbarToggle="onNavbarToggle"/>
+        
       </div>
       <Transition name="navbar-fixed">
         <div class="position-fixed w-100" style="z-index: 10; top: 0" v-show="flag.navbar">
-          <navbar :scrollY="scrollY"/>
+          <navbar :scrollY="scrollY" @onNavbarToggle="onNavbarToggle"/>
         </div>
       </Transition>
+      <side-navbar-mobile :isNavbarToggle="isNavbarToggle"/>
       <div class="">
         <router-view/>
       </div>
@@ -25,10 +27,11 @@ import Base from '@/utils/base'
 
 import footer1 from './layout/footer'
 import navbar from './layout/navbar'
+import SideNavbarMobile from './layout/side_navbar_mobile'
 
 export default {
   components: {
-    footer1, navbar,
+    footer1, navbar, 'side-navbar-mobile': SideNavbarMobile,
   },
   data(){
     return{
@@ -36,6 +39,7 @@ export default {
       flag: {
         navbar: false,
       },
+      isNavbarToggle: false,
     }
   },
   watch: {
@@ -50,6 +54,9 @@ export default {
     this.scrollY = 1
   },
   methods:{
+    onNavbarToggle(){
+      this.isNavbarToggle = !this.isNavbarToggle
+    },
     handleScroll(){
       this.scrollY = window.scrollY
     },
@@ -63,7 +70,7 @@ export default {
     font-size: 12px;
   }
   .custom-navbar-padding{
-    padding: 1.5rem 3rem;
+    padding: 1.8rem 3rem;
   }
   .custom-navbar-padding-right{
     padding-right: 1rem;
@@ -71,13 +78,17 @@ export default {
   .custom-navbar-padding-left{
     padding-left: 1rem;
   }
+  .content-container{
+    width: 100%;
+    padding: 0 1rem;
+  }
 }
 @media only screen and (min-width: 576px) and (max-width: 960px) {
   html, body{
     font-size: 12px;
   }
   .custom-navbar-padding{
-    padding: 1.5rem 3rem;
+    padding: 1.8rem 3rem;
   }
   .custom-navbar-padding-right{
     padding-right: 3rem;
@@ -85,13 +96,17 @@ export default {
   .custom-navbar-padding-left{
     padding-left: 3rem;
   }
+  .content-container{
+    width: 100%;
+    padding: 0 1rem;
+  }
 }
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 960px) and (max-width: 1517px) {
   html, body{
     font-size: 16px;
   }
   .custom-navbar-padding{
-    padding: 1.5rem 10rem;
+    padding: 1.8rem 10rem;
   }
   .custom-navbar-padding-right{
     padding-right: 10rem;
@@ -99,15 +114,44 @@ export default {
   .custom-navbar-padding-left{
     padding-left: 10rem;
   }
+  .content-container{
+    width: $content-width;
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 1517px) {
+  html, body{
+    font-size: 18px;
+  }
+  .custom-navbar-padding{
+    padding: 1.8rem 10rem;
+  }
+  .custom-navbar-padding-right{
+    padding-right: 10rem;
+  }
+  .custom-navbar-padding-left{
+    padding-left: 10rem;
+  }
+  .content-container{
+    width: $content-width;
+    display: inline-block;
+  }
 }
 
 html, body{
   font-family: poppins-regular;
-  
+  // overflow-x: hidden;
+}
+button:focus{
+  outline:none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 .general-title{
   font-family: poppins-bold;
   font-size: 2rem;
+  text-transform: uppercase;
 }
 .navigation{
   color: $gray8;
@@ -115,6 +159,7 @@ html, body{
 .navigation.navigation-now{
   font-family: poppins-medium;
   text-decoration: underline;
+  text-transform: uppercase;
 }
 .select2-container .select2-selection--single {
   height: 2.3rem;
@@ -127,6 +172,10 @@ html, body{
   display: flex !important;
   align-items: center;
   line-height: 100% !important;
+}
+.select2-results{
+  z-index: 1;
+  background-color: white;
 }
 .navbar-fixed-enter-active, .navbar-fixed-leave-active{
   transition: all .5s;

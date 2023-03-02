@@ -5,7 +5,7 @@
         :homeSearchFlag="flag.homeSearch"/>
     </div>
 
-    <div class="text-center">
+    <div class="text-center" style="margin-top: 5rem; margin-bottom: 2.3rem;">
       <Recommendation :recommendationTitle1Flag="flag.recommendationTitle1" :recommendationTitle2Flag="flag.recommendationTitle2"/>
     </div>
 
@@ -16,11 +16,11 @@
       :whyChooseUs2Flag="flag.whyChooseUs2"
       :whyChooseUs3Flag="flag.whyChooseUs3"/>
 
-    <div class="py-5 px-3 p-lg-5">
+    <div class="text-center" style="margin-top: 6.5rem; margin-bottom: 11.5rem;">
       <Testimony :testimonyTitle1Flag="flag.testimonyTitle1" :testimonyTitle2Flag="flag.testimonyTitle2"/>
     </div>
 
-    <div class="text-center">
+    <div class="text-center" style="margin-top: 6.5rem; margin-bottom: 6.5rem;">
       <Article :articleTitle1Flag="flag.articleTitle1" :articleTitle2Flag="flag.articleTitle2"/>
     </div>
   </div>
@@ -78,20 +78,20 @@ export default {
   watch: {
     scrollY(val){
       // console.log(this.base.responsive_scroll_threshold(500))
-      this.flag.homeBanner = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.homeSearch = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.recommendationTitle1 = val >= this.base.responsive_scroll_threshold(500)
-      this.flag.recommendationTitle2 = val >= this.base.responsive_scroll_threshold(500)
+      this.flag.homeBanner = this.flag.homeBanner || (!this.flag.homeBanner && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.homeSearch = this.flag.homeSearch || (!this.flag.homeSearch && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.recommendationTitle1 = this.flag.recommendationTitle1 || (!this.flag.recommendationTitle1 && val >= this.base.responsive_scroll_threshold(200))
+      this.flag.recommendationTitle2 = this.flag.recommendationTitle2 || (!this.flag.recommendationTitle2 && val >= this.base.responsive_scroll_threshold(200))
       var whyChooseImage = 900
-      this.flag.whyChooseTitle1 = val >= this.base.responsive_scroll_threshold(1100, whyChooseImage)
-      this.flag.whyChooseTitle2 = val >= this.base.responsive_scroll_threshold(1100, whyChooseImage)
-      this.flag.whyChooseUs1 = val >= this.base.responsive_scroll_threshold(1150, whyChooseImage)
-      this.flag.whyChooseUs2 = val >= this.base.responsive_scroll_threshold(1200, whyChooseImage)
-      this.flag.whyChooseUs3 = val >= this.base.responsive_scroll_threshold(1250, whyChooseImage)
-      this.flag.testimonyTitle1 = val >= this.base.responsive_scroll_threshold(1500, whyChooseImage)
-      this.flag.testimonyTitle2 = val >= this.base.responsive_scroll_threshold(1500, whyChooseImage)
-      this.flag.articleTitle1 = val >= this.base.responsive_scroll_threshold(2000, whyChooseImage)
-      this.flag.articleTitle2 = val >= this.base.responsive_scroll_threshold(2000, whyChooseImage)
+      this.flag.whyChooseTitle1 = this.flag.whyChooseTitle1 || (!this.flag.whyChooseTitle1 && val >= this.base.responsive_scroll_threshold(1100, whyChooseImage))
+      this.flag.whyChooseTitle2 = this.flag.whyChooseTitle2 || (!this.flag.whyChooseTitle2 && val >= this.base.responsive_scroll_threshold(1100, whyChooseImage))
+      this.flag.whyChooseUs1 = this.flag.whyChooseUs1 || (!this.flag.whyChooseUs1 && val >= this.base.responsive_scroll_threshold(1150, whyChooseImage))
+      this.flag.whyChooseUs2 = this.flag.whyChooseUs2 || (!this.flag.whyChooseUs2 && val >= this.base.responsive_scroll_threshold(1200, whyChooseImage))
+      this.flag.whyChooseUs3 = this.flag.whyChooseUs3 || (!this.flag.whyChooseUs3 && val >= this.base.responsive_scroll_threshold(1250, whyChooseImage))
+      this.flag.testimonyTitle1 = this.flag.testimonyTitle1 || (!this.flag.testimonyTitle1 && val >= this.base.responsive_scroll_threshold(2000, whyChooseImage))
+      this.flag.testimonyTitle2 = this.flag.testimonyTitle2 || (!this.flag.testimonyTitle2 && val >= this.base.responsive_scroll_threshold(2000, whyChooseImage))
+      this.flag.articleTitle1 = this.flag.articleTitle1 || (!this.flag.articleTitle1 && val >= this.base.responsive_scroll_threshold(2400, whyChooseImage))
+      this.flag.articleTitle2 = this.flag.articleTitle2 || (!this.flag.articleTitle2 && val >= this.base.responsive_scroll_threshold(2400, whyChooseImage))
     },
   },
   created(){

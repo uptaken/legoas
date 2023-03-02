@@ -1,21 +1,25 @@
 <template>
-  <div class="m-5 d-inline-block" style="width: 70%;">
-    <div style="width: 100%; height: 3.6rem;">
+  <div class="m-5 d-inline-block">
+    <div style="width: 100%;">
       <Transition name="recommendation-title1">
         <p class="m-0 why-title text-center" v-show="recommendationTitle1Flag">{{ $t("recommendation") }}</p>
       </Transition>
       <Transition name="recommendation-title2">
-        <p class="mb-0 why-title2 text-center mt-2" v-show="recommendationTitle2Flag">{{ $t("recommendation_list") }}</p>
+        <p class="mb-0 why-title2 text-center mt-3" v-show="recommendationTitle2Flag">{{ $t("recommendation_list") }}</p>
       </Transition>
     </div>
 
-    <div class="d-flex justify-content-center" style="margin-top: 3.375rem;">
-      <div class="row">
-        <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0">
-          <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
+    <Transition name="recommendation-title1">
+      <div v-show="recommendationTitle1Flag">
+        <div class="d-flex justify-content-center" style="margin-top: 3.375rem;">
+          <div class="row">
+            <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0">
+              <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
@@ -116,16 +120,14 @@ export default {
   transition: all 2s;
 }
 .recommendation-title1-leave-to, .recommendation-title1-enter {
-  margin-left: -10rem !important;
-  margin-right: 10rem !important;
+  transform: translateX(-10rem);
   opacity: 0;
 }
 .recommendation-title2-enter-active, .recommendation-title2-leave-active{
   transition: all 2s;
 }
 .recommendation-title2-leave-to, .recommendation-title2-enter {
-  margin-right: -10rem !important;
-  margin-left: 10rem !important;
+  transform: translateX(10rem);
   opacity: 0;
 }
 </style>

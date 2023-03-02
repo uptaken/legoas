@@ -1,17 +1,21 @@
 <template>
-  <div class="py-5 why-container custom-navbar-padding-right custom-navbar-padding-left">
+  <div class="why-container custom-navbar-padding-right custom-navbar-padding-left">
     <div class="row mx-5" >
       <div class="col-12 col-lg-6">
-        <div style="width: 100%; height: 100%;" class="d-flex align-items-center">
-          <img src="@/assets/why_choose_us.png" width="100%"/>
-        </div>
+        <Transition name="why-choose-title1">
+          <div v-show="whyChooseTitle1Flag">
+            <div style="width: 100%; height: 100%;" class="d-flex align-items-center">
+              <img src="@/assets/why_choose_us.png" width="100%"/>
+            </div>
+          </div>
+        </Transition>
       </div>
-      <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+      <div class="col-12 col-lg-6 mt-5 mt-lg-0 d-flex flex-column justify-content-center">
         <Transition name="why-choose-title1">
           <p class="m-0 why-title" v-show="whyChooseTitle1Flag">{{ $t("why_choose_us") }}</p>
         </Transition>
         <Transition name="why-choose-title2">
-          <div v-show="whyChooseTitle2Flag">
+          <div v-show="whyChooseTitle2Flag" class="mt-3">
             <p class="m-0 why-title2 mt-2">{{ $t("auction_center_with") }}</p>
             <p class="m-0 text-primary why-title2">{{ $t("first_e_auction") }}</p>
           </div>
@@ -91,10 +95,14 @@ export default {
 <style lang="scss">
 .why-container{
   background-color: $gray4;
+  padding: 5.5rem 0;
 }
 .why-title{
   font-family: poppins-light;
   color: $gray5;
+  letter-spacing: .2rem;
+  line-height: 100%;
+  text-transform: uppercase;
 }
 .why-title2{
   font-family: poppins-medium;
@@ -116,24 +124,21 @@ export default {
   transition: all 2s;
 }
 .why-choose-title1-leave-to, .why-choose-title1-enter {
-  margin-left: -10rem !important;
-  margin-right: 10rem !important;
+  transform: translateX(-10rem);
   opacity: 0;
 }
 .why-choose-title2-enter-active, .why-choose-title2-leave-active{
   transition: all 2s;
 }
 .why-choose-title2-leave-to, .why-choose-title2-enter {
-  margin-left: -10rem !important;
-  margin-right: 10rem !important;
+  transform: translateX(-10rem);
   opacity: 0;
 }
 .why-choose-us1-enter-active, .why-choose-us1-leave-active{
   transition: all 2s;
 }
 .why-choose-us1-leave-to, .why-choose-us1-enter {
-  margin-left: 10rem !important;
-  margin-right: -10rem !important;
+  transform: translateX(10rem);
   opacity: 0;
 }
 </style>

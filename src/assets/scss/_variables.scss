@@ -37,6 +37,10 @@ $gray15: #5C5F62;
 $gray16: #4B506D;
 $gray17: #585757;
 
+$navbar-gray1: #F1F3FCBB;
+$navbar-white: #FFFFFFBB;
+$navbar-gray4: #FAFAFABB;
+
 $blue:    #0270B5 !default;
 $blue1:    #037DC9;
 $blue2:    #3C64B1;
@@ -66,3 +70,6 @@ $warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
+
+$content-width-per-item: 18rem;
+$content-width: $content-width-per-item * 3 + 3;

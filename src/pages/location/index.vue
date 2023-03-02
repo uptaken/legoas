@@ -1,84 +1,106 @@
 <template>
-  <div class="custom-navbar-padding-right custom-navbar-padding-left">
-    <Transition name="location-title1">
-      <div class="position-relative px-5 mt-5" v-show="flag.locationTitle1Flag">
-        <p class="mb-0 general-title ml-5">{{ $t('auction_location') }}</p>
-      </div>
-    </Transition>
+  <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+    <div class="content-container text-left">
+      <Transition name="location-title1">
+        <div class="position-relative " style="margin-top: 6.75rem;" v-show="flag.locationTitle1Flag">
+          <p class="mb-0 general-title">{{ $t('auction_location') }}</p>
+        </div>
+      </Transition>
 
-    <div class="p-5 w-100">
-      <div class="mt-3">
-        <div class="row">
-          <div class="col-12 col-lg-6">
-            <div class="ml-5">
-              <Transition name="location-title2">
-                <p class="mb-0 info-title" v-show="flag.locationTitle2Flag" v-html="title"></p>
-              </Transition>
+      <div class="w-100" style="padding-top: 4.5rem; padding-bottom: 10rem;">
+        <div class="">
+          <div class="row">
+            <div class="col-12 col-lg-6">
+              <div class="">
+                <Transition name="location-title2">
+                  <p class="mb-0 info-title1" v-show="flag.locationTitle2Flag" v-html="title"></p>
+                </Transition>
 
-              <div class="mt-3">
-                <Transition name="location-title3">
-                  <p class="mb-0 info-title" v-show="flag.locationTitle3Flag">{{ $t('address') }}</p>
-                </Transition>
-                <Transition name="location-content3">
-                  <p class="mb-0 mt-1 content-section" v-show="flag.locationContent3Flag" v-html="address"></p>
-                </Transition>
-              </div>
+                <div class="mt-5">
+                  <Transition name="location-title3">
+                    <p class="mb-0 info-title" v-show="flag.locationTitle3Flag">{{ $t('address') }}</p>
+                  </Transition>
+                  <Transition name="location-content3">
+                    <p class="mb-0 mt-1 content-section" v-show="flag.locationContent3Flag" v-html="address"></p>
+                  </Transition>
+                </div>
 
-              <div class="mt-3">
-                <Transition name="location-title4">
-                  <p class="mb-0 info-title" v-show="flag.locationTitle4Flag">{{ $t('email') }}</p>
-                </Transition>
-                <Transition name="location-content4">
-                  <p class="mb-0 mt-1 content-section" v-show="flag.locationContent4Flag" v-html="email"></p>
-                </Transition>
-              </div>
+                <div class="mt-4">
+                  <Transition name="location-title4">
+                    <p class="mb-0 info-title" v-show="flag.locationTitle4Flag">{{ $t('email') }}</p>
+                  </Transition>
+                  <Transition name="location-content4">
+                    <p class="mb-0 mt-1 content-section" v-show="flag.locationContent4Flag" v-html="email"></p>
+                  </Transition>
+                </div>
 
-              <div class="mt-3">
-                <Transition name="location-title5">
-                  <p class="mb-0 info-title" v-show="flag.locationTitle5Flag">{{ $t('phone') }}</p>
-                </Transition>
-                <Transition name="location-content5">
-                  <p class="mb-0 mt-1 content-section" v-show="flag.locationContent5Flag" v-html="phone"></p>
-                </Transition>
+                <div class="mt-4">
+                  <Transition name="location-title5">
+                    <p class="mb-0 info-title" v-show="flag.locationTitle5Flag">{{ $t('phone') }}</p>
+                  </Transition>
+                  <Transition name="location-content5">
+                    <p class="mb-0 mt-1 content-section" v-show="flag.locationContent5Flag" v-html="phone"></p>
+                  </Transition>
+                </div>
               </div>
             </div>
-          </div>
 
-          <div class="col-12 col-lg-6 mt-5 mt-lg-0">
-            <Transition name="location-content6">
-              <div v-show="flag.locationContent6Flag">
-                <div class="d-flex justify-content-center">
-                  <div class="position-relative" style="width: 12rem;">
-                    <img :src="arr_image[0]" class="position-absolute" style="width: 8rem; left: 5rem; z-index: -1"/>
-                    <div class="p-1 bg-white rounded" style="margin-top: 5rem; width: 8rem;">
-                      <img :src="arr_image[1]" width="100%"/>
+            <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+              <Transition name="location-content6">
+                <div v-show="flag.locationContent6Flag">
+                  <div class="d-flex justify-content-center">
+                    <div class="position-relative" style="width: 12rem;">
+                      <vue-skeleton-loader
+                        width="8rem"
+                        height="8rem"
+                        animation="fade"
+                        v-show="!arr_image[0].is_image_loaded"/>
+                      <img :src="arr_image[0].image" @load="onImageLoad(0)" v-show="arr_image[0].is_image_loaded" class="position-absolute" style="width: 8rem; left: 5rem; z-index: -1"/>
+                      <div class="p-1 bg-white rounded" style="margin-top: 5rem; width: 8rem;">
+                        <vue-skeleton-loader
+                          width="8rem"
+                          height="8rem"
+                          animation="fade"
+                          v-show="!arr_image[1].is_image_loaded"/>
+                        <img :src="arr_image[1].image" @load="onImageLoad(1)" v-show="arr_image[1].is_image_loaded" width="100%"/>
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="position-relative">
-                    <img :src="arr_image[2]" class="" style="width: 8rem; margin-left: 5rem;"/>
-                    <div class="position-absolute bg-white rounded" style="top: 5rem;">
-                      <img :src="arr_image[3]"  style="width: 8rem;"/>
+                    <div class="position-relative">
+                      <vue-skeleton-loader
+                        width="8rem"
+                        height="8rem"
+                        animation="fade"
+                        v-show="!arr_image[2].is_image_loaded"/>
+                      <img :src="arr_image[2].image" class="" @load="onImageLoad(2)" v-show="arr_image[2].is_image_loaded" style="width: 8rem; margin-left: 5rem;"/>
+                      <div class="position-absolute bg-white rounded" style="top: 5rem;">
+                        <vue-skeleton-loader
+                          width="8rem"
+                          height="8rem"
+                          animation="fade"
+                          v-show="!arr_image[3].is_image_loaded"/>
+                        <img :src="arr_image[3].image" @load="onImageLoad(3)" v-show="arr_image[3].is_image_loaded" style="width: 8rem;"/>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </Transition>
+              </Transition>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="mt-5 text-center">
-        <iframe
-          width="100%"
-          height="316"
-          style="border:0"
-          loading="lazy"
-          allowfullscreen
-          referrerpolicy="no-referrer-when-downgrade"
-          :src="`https://www.google.com/maps/embed/v1/place?key=AIzaSyAGvT7vk9EkzIusHwBSKXGc-bYsp1vLrAs
-            &q=${latitude},${longitude}`">
-        </iframe>
+        <div class=" text-center" style="margin-top: 7.6rem;">
+          <iframe
+            width="100%"
+            height="316"
+            style="border:0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            :src="`https://www.google.com/maps/embed/v1/place?key=AIzaSyAGvT7vk9EkzIusHwBSKXGc-bYsp1vLrAs
+              &q=${latitude},${longitude}`">
+          </iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -106,10 +128,26 @@ export default {
       latitude: -7.2940871,
       longitude: 112.648735,
       arr_image: [
-        Image1,
-        Image2,
-        Image3,
-        Image4,
+        {
+          id: "1",
+          is_image_loaded: false,
+          image: Image1,
+        },
+        {
+          id: "1",
+          is_image_loaded: false,
+          image: Image2,
+        },
+        {
+          id: "1",
+          is_image_loaded: false,
+          image: Image3,
+        },
+        {
+          id: "1",
+          is_image_loaded: false,
+          image: Image4,
+        },
       ],
       flag: {
         locationTitle1Flag: false,
@@ -129,18 +167,18 @@ export default {
   },
   watch: {
     scrollY(val){
-      this.flag.locationTitle1Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationContent1Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationTitle2Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationContent2Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationTitle3Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationContent3Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationTitle4Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationContent4Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationTitle5Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationContent5Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationTitle6Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.locationContent6Flag = val >= this.base.responsive_scroll_threshold(0)
+      this.flag.locationTitle1Flag = this.flag.locationTitle1Flag || (!this.flag.locationTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationContent1Flag = this.flag.locationContent1Flag || (!this.flag.locationContent1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationTitle2Flag = this.flag.locationTitle2Flag || (!this.flag.locationTitle2Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationContent2Flag = this.flag.locationContent2Flag || (!this.flag.locationContent2Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationTitle3Flag = this.flag.locationTitle3Flag || (!this.flag.locationTitle3Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationContent3Flag = this.flag.locationContent3Flag || (!this.flag.locationContent3Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationTitle4Flag = this.flag.locationTitle4Flag || (!this.flag.locationTitle4Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationContent4Flag = this.flag.locationContent4Flag || (!this.flag.locationContent4Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationTitle5Flag = this.flag.locationTitle5Flag || (!this.flag.locationTitle5Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationContent5Flag = this.flag.locationContent5Flag || (!this.flag.locationContent5Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationTitle6Flag = this.flag.locationTitle6Flag || (!this.flag.locationTitle6Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.locationContent6Flag = this.flag.locationContent6Flag || (!this.flag.locationContent6Flag && val >= this.base.responsive_scroll_threshold(0))
     },
   },
   created(){
@@ -151,6 +189,11 @@ export default {
     this.get_setting()
   },
   methods: {
+    onImageLoad(index){
+      var image = this.arr_image[index]
+      image.is_image_loaded = true
+      this.$set(this.arr_image, index, image)
+    },
     handleScroll(){
       this.scrollY = window.scrollY
     },
@@ -228,6 +271,11 @@ export default {
 .info-title{
   font-family: poppins-medium;
 }
+.info-title1{
+  font-size: 2rem;
+  line-height: 120%;
+  font-family: poppins-medium;
+}
 .content-section{
   color: $gray6;
 }
@@ -252,8 +300,7 @@ export default {
 .location-title4-leave-to, .location-title4-enter,
 .location-title5-leave-to, .location-title5-enter,
 .location-title6-leave-to, .location-title6-enter {
-  margin-left: -10rem !important;
-  margin-right: 10rem !important;
+  transform: translateX(-10rem);
   opacity: 0;
 }
 .location-content1-enter-active, .location-content1-leave-active,
@@ -270,8 +317,7 @@ export default {
 .location-content4-leave-to, .location-content4-enter,
 .location-content5-leave-to, .location-content5-enter,
 .location-content6-leave-to, .location-content6-enter {
-  margin-left: 10rem !important;
-  margin-right: -10rem !important;
+  transform: translateX(10rem);
   opacity: 0;
 }
 </style>

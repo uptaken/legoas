@@ -1,47 +1,49 @@
 <template>
-  <div class="custom-navbar-padding-right custom-navbar-padding-left">
-    <div class="position-relative px-5 mt-5">
-      <div class="d-flex">
-        <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
-        <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
-        <p class="mb-0 navigation navigation-now">{{ $t('auction_rules') }}</p>
+  <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+    <div class="content-container text-left">
+      <div class="position-relative" style="margin-top: 3.8rem;">
+        <div class="d-flex">
+          <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
+          <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
+          <p class="mb-0 navigation navigation-now">{{ $t('auction_rules') }}</p>
+        </div>
+        <p class="mb-0 general-title">{{ $t('auction_rules') }}</p>
       </div>
-      <p class="mb-0 general-title">{{ $t('auction_rules') }}</p>
-    </div>
 
-    <div class="p-5 w-100">
-      <Transition name="rules-image">
-        <div class="w-100" v-show="flag.rulesImageFlag">
-          <img src="@/assets/definition_bottom.png" width="100%"/>
-        </div>
-      </Transition>
+      <div class="w-100" style="margin-top: 4.5rem; margin-bottom: 15rem;">
+        <Transition name="rules-image">
+          <div class="w-100" v-show="flag.rulesImageFlag">
+            <img src="@/assets/definition_bottom.png" width="100%"/>
+          </div>
+        </Transition>
 
-      <Transition name="rules-title">
-        <div class="mt-5 px-5 w-100" v-show="flag.rulesTitleFlag">
-          <p class="mb-0 last-updated">{{ $t('updated') + " " + last_updated_at.format('DD MMMM YYYY') }}</p>
-        </div>
-      </Transition>
-      
-      <Transition name="rules-content">
-        <div class="mt-5 accordion" id="accordionExample" v-show="flag.rulesContentFlag">
-          <div :id="'heading' + index" v-for="(rules, index) in arr_rules" :key="'rules' + index">
-            <div class="card custom-card">
-              <div class="card-body p-0">
-                <div class="px-5 py-3 position-relative">
-                  <img src="@/assets/car.png" class="position-absolute" style="left: -2rem; width: 3.3rem;"/>
-                  <button class="btn p-0 w-100 text-left collapse-title" type="button" data-toggle="collapse" :data-target="'#collapse' + index" aria-expanded="true" :aria-controls="'collapse' + index">
-                    {{ rules.title }}
-                  </button>
+        <Transition name="rules-title">
+          <div class="px-5 w-100" style="margin: 3.75rem 0;" v-show="flag.rulesTitleFlag">
+            <p class="mb-0 last-updated">{{ $t('updated') + " " + last_updated_at.format('DD MMMM YYYY') }}</p>
+          </div>
+        </Transition>
+        
+        <Transition name="rules-content">
+          <div class="accordion" id="accordionExample" v-show="flag.rulesContentFlag">
+            <div :id="'heading' + index" v-for="(rules, index) in arr_rules" :key="'rules' + index">
+              <div class="card custom-card">
+                <div class="card-body p-0">
+                  <div class="px-5 py-3 position-relative">
+                    <img src="@/assets/car.png" class="position-absolute" style="left: -2rem; width: 3.3rem;"/>
+                    <button class="btn p-0 w-100 text-left collapse-title" type="button" data-toggle="collapse" :data-target="'#collapse' + index" aria-expanded="true" :aria-controls="'collapse' + index">
+                      {{ rules.title }}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div :id="'collapse' + index" class="collapse" :class="{'show': index == 0}" :aria-labelledby="'heading' + index" data-parent="#accordionExample" v-html="rules.content">
-              
+              <div :id="'collapse' + index" class="collapse" :class="{'show': index == 0}" :aria-labelledby="'heading' + index" style="margin: 5.6rem 5.6rem;" data-parent="#accordionExample" v-html="rules.content">
+                
+              </div>
             </div>
           </div>
-        </div>
-      </Transition>
+        </Transition>
+      </div>
     </div>
   </div>
 </template>
@@ -71,7 +73,7 @@ export default {
           id: "1",
           title: this.$t("definition"),
           content: `
-          <div class="p-5">
+          <div class="">
                 <p class="mb-0 content-title">Definisi Lelang di Legoas</p>
                 <p class="mb-0 content-content mt-3">
                   Mobile aplikasi LEGOAS adalah aplikasi milik PT. Digital Sarana Legoas (�LEGOAS�) yang dapat didownload melalui situs web resmi LEGOAS maupun media distribusi aplikasi/software resmi yang ditunjuk dan digunakan LEGOAS yang dimiliki oleh mobile operating system yang terdapat di handphone pelanggan untuk melakukan proses pendaftaran, pembelian token, hingga pelaksanaan lelang.
@@ -94,7 +96,7 @@ export default {
           id: "1",
           title: this.$t("general_usement"),
           content: `
-          <div class="p-5">
+          <div class="">
                 <p class="mb-0 content-title">Definisi Lelang di Legoas</p>
                 <p class="mb-0 content-content mt-3">
                   Mobile aplikasi LEGOAS adalah aplikasi milik PT. Digital Sarana Legoas (�LEGOAS�) yang dapat didownload melalui situs web resmi LEGOAS maupun media distribusi aplikasi/software resmi yang ditunjuk dan digunakan LEGOAS yang dimiliki oleh mobile operating system yang terdapat di handphone pelanggan untuk melakukan proses pendaftaran, pembelian token, hingga pelaksanaan lelang.
@@ -117,7 +119,7 @@ export default {
           id: "1",
           title: this.$t("auction_participant"),
           content: `
-          <div class="p-5">
+          <div class="">
                 <p class="mb-0 content-title">Definisi Lelang di Legoas</p>
                 <p class="mb-0 content-content mt-3">
                   Mobile aplikasi LEGOAS adalah aplikasi milik PT. Digital Sarana Legoas (�LEGOAS�) yang dapat didownload melalui situs web resmi LEGOAS maupun media distribusi aplikasi/software resmi yang ditunjuk dan digunakan LEGOAS yang dimiliki oleh mobile operating system yang terdapat di handphone pelanggan untuk melakukan proses pendaftaran, pembelian token, hingga pelaksanaan lelang.
@@ -140,7 +142,7 @@ export default {
           id: "1",
           title: this.$t("auction_winner"),
           content: `
-          <div class="p-5">
+          <div class="">
                 <p class="mb-0 content-title">Definisi Lelang di Legoas</p>
                 <p class="mb-0 content-content mt-3">
                   Mobile aplikasi LEGOAS adalah aplikasi milik PT. Digital Sarana Legoas (�LEGOAS�) yang dapat didownload melalui situs web resmi LEGOAS maupun media distribusi aplikasi/software resmi yang ditunjuk dan digunakan LEGOAS yang dimiliki oleh mobile operating system yang terdapat di handphone pelanggan untuk melakukan proses pendaftaran, pembelian token, hingga pelaksanaan lelang.
@@ -163,7 +165,7 @@ export default {
           id: "1",
           title: this.$t("term_payment"),
           content: `
-          <div class="p-5">
+          <div class="">
                 <p class="mb-0 content-title">Definisi Lelang di Legoas</p>
                 <p class="mb-0 content-content mt-3">
                   Mobile aplikasi LEGOAS adalah aplikasi milik PT. Digital Sarana Legoas (�LEGOAS�) yang dapat didownload melalui situs web resmi LEGOAS maupun media distribusi aplikasi/software resmi yang ditunjuk dan digunakan LEGOAS yang dimiliki oleh mobile operating system yang terdapat di handphone pelanggan untuk melakukan proses pendaftaran, pembelian token, hingga pelaksanaan lelang.
@@ -186,7 +188,7 @@ export default {
           id: "1",
           title: this.$t("intellectual_property"),
           content: `
-          <div class="p-5">
+          <div class="">
                 <p class="mb-0 content-title">Definisi Lelang di Legoas</p>
                 <p class="mb-0 content-content mt-3">
                   Mobile aplikasi LEGOAS adalah aplikasi milik PT. Digital Sarana Legoas (�LEGOAS�) yang dapat didownload melalui situs web resmi LEGOAS maupun media distribusi aplikasi/software resmi yang ditunjuk dan digunakan LEGOAS yang dimiliki oleh mobile operating system yang terdapat di handphone pelanggan untuk melakukan proses pendaftaran, pembelian token, hingga pelaksanaan lelang.
@@ -209,7 +211,7 @@ export default {
           id: "1",
           title: this.$t("change_term_condition"),
           content: `
-          <div class="p-5">
+          <div class="">
                 <p class="mb-0 content-title">Definisi Lelang di Legoas</p>
                 <p class="mb-0 content-content mt-3">
                   Mobile aplikasi LEGOAS adalah aplikasi milik PT. Digital Sarana Legoas (�LEGOAS�) yang dapat didownload melalui situs web resmi LEGOAS maupun media distribusi aplikasi/software resmi yang ditunjuk dan digunakan LEGOAS yang dimiliki oleh mobile operating system yang terdapat di handphone pelanggan untuk melakukan proses pendaftaran, pembelian token, hingga pelaksanaan lelang.
@@ -232,7 +234,7 @@ export default {
           id: "1",
           title: this.$t("force_majeur"),
           content: `
-          <div class="p-5">
+          <div class="">
                 <p class="mb-0 content-title">Definisi Lelang di Legoas</p>
                 <p class="mb-0 content-content mt-3">
                   Mobile aplikasi LEGOAS adalah aplikasi milik PT. Digital Sarana Legoas (�LEGOAS�) yang dapat didownload melalui situs web resmi LEGOAS maupun media distribusi aplikasi/software resmi yang ditunjuk dan digunakan LEGOAS yang dimiliki oleh mobile operating system yang terdapat di handphone pelanggan untuk melakukan proses pendaftaran, pembelian token, hingga pelaksanaan lelang.
@@ -256,9 +258,9 @@ export default {
   },
   watch: {
     scrollY(val){
-      this.flag.rulesTitleFlag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.rulesImageFlag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.rulesContentFlag = val >= this.base.responsive_scroll_threshold(0)
+      this.flag.rulesTitleFlag = this.flag.rulesTitleFlag || (!this.flag.rulesTitleFlag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.rulesImageFlag = this.flag.rulesImageFlag || (!this.flag.rulesImageFlag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.rulesContentFlag = this.flag.rulesContentFlag || (!this.flag.rulesContentFlag && val >= this.base.responsive_scroll_threshold(0))
     },
   },
   created(){
@@ -308,6 +310,9 @@ export default {
 <style lang="scss">
 .last-updated{
   color: $gray5;
+  letter-spacing: .2rem;
+  line-height: 100%;
+  text-transform: uppercase;
 }
 .custom-card{
   border: none;
@@ -334,7 +339,7 @@ export default {
 .rules-title-leave-to, .rules-title-enter,
 .rules-image-leave-to, .rules-image-enter,
 .rules-content-leave-to, .rules-content-enter {
-  // margin-left: -10rem !important;
+  transform: translateY(-10rem);
   opacity: 0;
 }
 </style>

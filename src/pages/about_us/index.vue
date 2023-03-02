@@ -1,65 +1,72 @@
 <template>
-  <div class="custom-navbar-padding-right custom-navbar-padding-left">
-    <div class="position-relative px-5 mt-5">
-      <p class="m-0 general-title">{{ $t('about_us') }}</p>
-    </div>
-
-    <div class="p-5 w-100">
-      <div class="mt-3">
-        <div v-for="(section, index) in arr_section" :key="'section' + index" :class="{'mt-5': index > 0}">
-          <Transition name="about-us-title1">
-            <p class="mb-0 title-section" v-show="flag.aboutUsTitle1Flag" v-html="section.title"></p>
-          </Transition>
-          <Transition name="about-us-content1">
-            <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent1Flag" v-html="section.content"></p>
-          </Transition>
-          <Transition name="about-us-image1">
-            <img :src="section.image" width="100%" class="mt-5" v-show="flag.aboutUsImage1Flag"/>
-          </Transition>
-        </div>
+  <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+    <div class="content-container text-left">
+      <div class="position-relative" style="margin-top: 6.75rem;">
+        <p class="m-0 general-title">{{ $t('about_us') }}</p>
       </div>
 
-      <div class="mt-5">
-        <Transition name="about-us-title2">
-          <p class="mb-0 title-section" v-show="flag.aboutUsTitle2Flag">{{ $t('trusting_legoas') }}</p>
-        </Transition>
-        <Transition name="about-us-content2" >
-          <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent2Flag"><label class="custom-title">LEGOAS</label> memiliki ijin operasional Balai Lelang yang disahkan melalui Keputusan Menteri Keuangan no 28/KM.6/2018. Dalam hal ini, <label class="custom-title">LEGOAS</label> menjadi perusahaan yang berada dalam naungan pemerintah sehingga peserta tidak perlu khawatir atas kredibilitas <label class="custom-title">LEGOAS</label> karena sebagai peserta lelang juga dilindungi haknya oleh Negara. Dengan masuknya <label class="custom-title">LEGOAS</label> dalam pengawasan negara, maka kewajiban dari <label class="custom-title">LEGOAS</label> juga dalam pelaksanaan lelang dan termasuk memeriksa keabsahan kepemilikan barang tersebut sehingga peserta tidak perlu dikhawatirkan dalam keabsahan kepemilikan tersebut.</p>
-        </Transition>
+      <div class="w-100" style="padding-top: 4rem; padding-bottom: 11.8rem;">
+        <div class="">
+          <div v-for="(section, index) in arr_section" :key="'section' + index" :class="{'mt-5': index > 0}">
+            <Transition name="about-us-title1">
+              <p class="mb-0 title-section" v-show="flag.aboutUsTitle1Flag" v-html="section.title"></p>
+            </Transition>
+            <Transition name="about-us-content1">
+              <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent1Flag" v-html="section.content"></p>
+            </Transition>
+            <Transition name="about-us-image1">
+              <img :src="section.image" width="100%" class="mt-5" v-show="flag.aboutUsImage1Flag"/>
+            </Transition>
+          </div>
+        </div>
 
-        <Transition name="about-us-image2">
-          <div class="card trust-card mt-5" v-show="flag.aboutUsImage2Flag">
-            <div class="card-body p-5">
-              <div class="row">
-                <div class="col-6 col-lg-3 d-flex align-items-center flex-column mt-3 mt-lg-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
-                  <img :src="trust.image" style="width: 3rem; height: 3rem;"/>
-                  <p class="mb-0 custom-title text-center mt-2" v-html="trust.title"></p>
-                  <p class="mb-0 text-center" v-html="trust.content"></p>
+        <div class="" style="margin-top: 5.4rem;">
+          <Transition name="about-us-title2">
+            <p class="mb-0 title-section" v-show="flag.aboutUsTitle2Flag">{{ $t('trusting_legoas') }}</p>
+          </Transition>
+          <Transition name="about-us-content2" >
+            <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent2Flag"><label class="custom-title">LEGOAS</label> memiliki ijin operasional Balai Lelang yang disahkan melalui Keputusan Menteri Keuangan no 28/KM.6/2018. Dalam hal ini, <label class="custom-title">LEGOAS</label> menjadi perusahaan yang berada dalam naungan pemerintah sehingga peserta tidak perlu khawatir atas kredibilitas <label class="custom-title">LEGOAS</label> karena sebagai peserta lelang juga dilindungi haknya oleh Negara. Dengan masuknya <label class="custom-title">LEGOAS</label> dalam pengawasan negara, maka kewajiban dari <label class="custom-title">LEGOAS</label> juga dalam pelaksanaan lelang dan termasuk memeriksa keabsahan kepemilikan barang tersebut sehingga peserta tidak perlu dikhawatirkan dalam keabsahan kepemilikan tersebut.</p>
+          </Transition>
+
+          <Transition name="about-us-image2">
+            <div class="card trust-card" style="margin-top: 6.5rem;" v-show="flag.aboutUsImage2Flag">
+              <div class="card-body p-5">
+                <div class="row">
+                  <div class="col-6 col-lg-3 d-flex align-items-center flex-column mt-3 mt-lg-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
+                    <img :src="trust.image" style="width: 3rem; height: 3rem;"/>
+                    <p class="mb-0 custom-title text-center mt-2" v-html="trust.title"></p>
+                    <p class="mb-0 text-center" v-html="trust.content"></p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Transition>
-      </div>
+          </Transition>
+        </div>
 
-      <div class="mt-5">
-        <Transition name="about-us-title3">
-          <p class="mb-0 title-section" v-show="flag.aboutUsTitle3Flag">{{ $t('our_team') }}</p>
-        </Transition>
+        <div class="" style="margin-top: 7rem;">
+          <Transition name="about-us-title3">
+            <p class="mb-0 title-section" v-show="flag.aboutUsTitle3Flag">{{ $t('our_team') }}</p>
+          </Transition>
 
-        <Transition name="about-us-image3">
-          <div class="row mt-5" v-show="flag.aboutUsImage3Flag">
-            <div class="col-6 col-lg-3 d-flex flex-column mt-3 mt-lg-0" v-for="(team, index) in arr_team" :key="'team' + index">
-              <img :src="team.image" width="100%"/>
-              <p class="mb-0 team-role mt-2">{{ team.role }}</p>
-              <p class="mb-0 team-name">{{ team.name }}</p>
+          <Transition name="about-us-image3">
+            <div class="row mt-5" v-show="flag.aboutUsImage3Flag">
+              <div class="col-6 col-lg-3 d-flex flex-column mt-3 mt-lg-0" v-for="(team, index) in arr_team" :key="'team' + index">
+                <vue-skeleton-loader
+                  width="100%"
+                  height="10rem"
+                  animation="fade"
+                  v-show="!team.is_image_loaded"/>
+                <img :src="team.image" @load="onImageLoad(index)" v-show="team.is_image_loaded" width="100%"/>
+                <p class="mb-0 team-role mt-2">{{ team.role }}</p>
+                <p class="mb-0 team-name">{{ team.name }}</p>
+              </div>
             </div>
-          </div>
-        </Transition>
-      </div>
+          </Transition>
+        </div>
 
-      <div class="mt-5 text-center">
-        <img src="@/assets/about_us_bottom.png" class="my-5 w-100" style="max-width: 36rem;"/>
+        <div class="text-center" style="margin-top: 10rem;">
+          <img src="@/assets/about_us_bottom.png" class="my-5 w-100" style="max-width: 36rem;"/>
+        </div>
       </div>
     </div>
   </div>
@@ -121,24 +128,28 @@ export default {
       arr_team: [
         {
           id: "1",
+          is_image_loaded: false,
           image: OurTeam1,
           role: "CEO LEGOAS",
           name: "Nama 1",
         },
         {
           id: "1",
+          is_image_loaded: false,
           image: OurTeam2,
           role: "Guided Tour",
           name: "Nama 2",
         },
         {
           id: "1",
+          is_image_loaded: false,
           image: OurTeam3,
           role: "Guided Tour",
           name: "Nama 3",
         },
         {
           id: "1",
+          is_image_loaded: false,
           image: OurTeam3,
           role: "Guided Tour",
           name: "Nama 4",
@@ -155,15 +166,15 @@ export default {
   },
   watch: {
     scrollY(val){
-      this.flag.aboutUsTitle1Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.aboutUsImage1Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.aboutUsContent1Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.aboutUsTitle2Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.aboutUsImage2Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.aboutUsContent2Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.aboutUsTitle3Flag = val >= this.base.responsive_scroll_threshold(800)
-      this.flag.aboutUsImage3Flag = val >= this.base.responsive_scroll_threshold(800)
-      this.flag.aboutUsContent3Flag = val >= this.base.responsive_scroll_threshold(800)
+      this.flag.aboutUsTitle1Flag = this.flag.aboutUsTitle1Flag || (!this.flag.aboutUsTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.aboutUsImage1Flag = this.flag.aboutUsImage1Flag || (!this.flag.aboutUsImage1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.aboutUsContent1Flag = this.flag.aboutUsContent1Flag || (!this.flag.aboutUsContent1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.aboutUsTitle2Flag = this.flag.aboutUsTitle2Flag || (!this.flag.aboutUsTitle2Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.aboutUsImage2Flag = this.flag.aboutUsImage2Flag || (!this.flag.aboutUsImage2Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.aboutUsContent2Flag = this.flag.aboutUsContent2Flag || (!this.flag.aboutUsContent2Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.aboutUsTitle3Flag = this.flag.aboutUsTitle3Flag || (!this.flag.aboutUsTitle3Flag && val >= this.base.responsive_scroll_threshold(800))
+      this.flag.aboutUsImage3Flag = this.flag.aboutUsImage3Flag || (!this.flag.aboutUsImage3Flag && val >= this.base.responsive_scroll_threshold(800))
+      this.flag.aboutUsContent3Flag = this.flag.aboutUsContent3Flag || (!this.flag.aboutUsContent3Flag && val >= this.base.responsive_scroll_threshold(800))
     },
   },
   created(){
@@ -172,6 +183,11 @@ export default {
     this.scrollY = 1
   },
   methods: {
+    onImageLoad(index){
+      var team = this.arr_team[index]
+      team.is_image_loaded = true
+      this.$set(this.arr_team, index, team)
+    },
     handleScroll(){
       this.scrollY = window.scrollY
     },
@@ -243,8 +259,7 @@ export default {
 .about-us-title1-leave-to, .about-us-title1-enter,
 .about-us-title2-leave-to, .about-us-title2-enter,
 .about-us-title3-leave-to, .about-us-title3-enter {
-  margin-left: -10rem !important;
-  margin-right: 10rem !important;
+  transform: translateX(-10rem);
   opacity: 0;
 }
 .about-us-content1-enter-active, .about-us-content1-leave-active,
@@ -255,8 +270,7 @@ export default {
 .about-us-content1-leave-to, .about-us-content1-enter,
 .about-us-content2-leave-to, .about-us-content2-enter,
 .about-us-content3-leave-to, .about-us-content3-enter {
-  margin-left: 10rem !important;
-  margin-right: -10rem !important;
+  transform: translateX(10rem);
   opacity: 0;
 }
 .about-us-image1-enter-active, .about-us-image1-leave-active,

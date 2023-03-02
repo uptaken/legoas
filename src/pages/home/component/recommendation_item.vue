@@ -1,9 +1,14 @@
 <template>
-  <div class="card d-inline-block text-left w-100 h-100 flex-grow-1" style="border-radius: .8rem;">
+  <div class="card d-inline-block text-left h-100 flex-grow-1 recommendation-card" style="border-radius: .8rem;">
     <div class="card-body p-0 w-100 h-100 d-flex flex-column justify-content-between">
       <div>
         <div class="px-1 pt-1">
-          <img :src="data.image" class="" style="width: 100%"/>
+          <vue-skeleton-loader
+            width="100%"
+            height="100%"
+            animation="fade"
+            v-show="!is_image_loaded"/>
+          <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="width: 100%"/>
         </div>
         <div class="mt-3 mx-3">
           <div class="px-3 py-2 rounded-pill recommendation-type d-inline-block">{{ data.type }}</div>
@@ -37,17 +42,33 @@ export default {
   data(){
     return{
       base: null,
+      is_image_loaded: false,
     }
   },
   created(){
     this.base = new Base()
   },
   methods:{
+    onImageLoad(){
+      this.is_image_loaded = true
+    },
   }
 }
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 960px) {
+  .recommendation-card{
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .recommendation-card{
+    width: $content-width-per-item;
+    max-width: 100%;
+  }
+}
+
 .recommendation-type{
   background-color: $primary;
   color: $white;

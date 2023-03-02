@@ -1,11 +1,16 @@
 <template>
-  <div class="card text-left card-testimony"
+  <div class="card text-left card-testimony "
     :class="{'ml-3': index != null && index > 0}"
-    style="margin-top: 2rem;">
+    style="">
     <div class="card-body p-0 w-100 d-flex align-items-stretch">
       <div class="position-relative">
-        <img :src="data.image" class="" style="width: 10rem"/>
-        <img src="@/assets/quote.png" class="position-absolute" style="right: -2rem; top: -2rem"/>
+        <vue-skeleton-loader
+          width="100%"
+          height="100%"
+          animation="fade"
+          v-show="!is_image_loaded"/>
+        <img :src="data.image" @load="onImageLoad()" v-show="is_image_loaded" class="testimony-item-image"/>
+        <img src="@/assets/quote.png" class="testimony-quote-image position-absolute" style=""/>
       </div>
       <div class="d-flex flex-column justify-content-between" style="margin-left: 2rem;">
         <div>
@@ -30,17 +35,67 @@ export default {
   data(){
     return{
       base: null,
+      is_image_loaded: false,
     }
   },
   created(){
     this.base = new Base()
   },
   methods:{
+    onImageLoad(){
+      this.is_image_loaded = true
+    },
   }
 }
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 960px) {
+  .testimony-item-image{
+    width: 12rem;
+  }
+  .card-testimony{
+    margin-top: 2rem; 
+    padding: 0 1rem;
+  }
+  .testimony-quote-image{
+    right: -1rem; 
+    top: -1rem;
+    width: 3rem;
+    height: 3rem;
+  }
+}
+@media only screen and (min-width: 960px) and (max-width: 1517px) {
+  .testimony-item-image{
+    width: 12rem;
+  }
+  .card-testimony{
+    margin-top: 2rem; 
+    padding: 0;
+  }
+  .testimony-quote-image{
+    right: -1.5rem; 
+    top: -1.5rem;
+    width: 3rem;
+    height: 3rem;
+  }
+}
+@media only screen and (min-width: 1517px) {
+  .testimony-item-image{
+    width: 12rem;
+  }
+  .card-testimony{
+    margin-top: 2rem; 
+    padding: 0;
+  }
+  .testimony-quote-image{
+    right: -1.5rem; 
+    top: -1.5rem;
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
 .testimony-title{
   font-size: 1rem;
   margin-bottom: 0;

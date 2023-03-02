@@ -1,36 +1,48 @@
 <template>
   <div class="">
-    <div class="custom-navbar-padding-right custom-navbar-padding-left position-relative mt-5">
-      <div class="px-5">
-        <div class="d-flex">
-          <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
-          <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
-          <p class="mb-0 navigation navigation-now">{{ $t('auction_how_to') }}</p>
+    <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+      <div class="content-container text-left">
+        <div class="position-relative" style="margin-top: 3.8rem;">
+          <div class="">
+            <div class="d-flex">
+              <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
+              <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
+              <p class="mb-0 navigation navigation-now">{{ $t('auction_how_to') }}</p>
+            </div>
+            <p class="mb-0 general-title">{{ $t('auction_how_to') }}</p>
+          </div>
         </div>
-        <p class="mb-0 general-title">{{ $t('auction_how_to') }}</p>
       </div>
     </div>
 
-    <div class="w-100">
-      <div class="custom-navbar-padding-right custom-navbar-padding-left pt-5">
-        <p class="mb-0 mx-5 how-to-title">{{ $t('watch_how_to_video') }}</p>
+    <div class="w-100" style="margin-top: 7rem; margin-bottom: 14rem;">
+      <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+        <div class="content-container text-left">
+          <p class="mb-0 how-to-title">{{ $t('watch_how_to_video') }}</p>
+        </div>
       </div>
 
-      <div class="custom-navbar-padding-right custom-navbar-padding-left mt-5">
-        <div class="px-5">
-          <iframe  width="420" height="315" :src="url_video"></iframe>
+      <div class="custom-navbar-padding-right custom-navbar-padding-left text-center mt-5">
+        <div class="content-container text-left">
+          <div class="">
+            <iframe  width="420" height="315" :src="url_video"></iframe>
+          </div>
         </div>
       </div>
 
       <div class="participant-container">
-        <div class="custom-navbar-padding-right custom-navbar-padding-left">
-          <HowToItem :title='`<label class="text-primary">` + $t("participant") + `</label> ` + $t("auction")' :arr="arr_participant" :howToTitle1Flag="flag.howToParticipantTitle1Flag"/>
+        <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+          <div class="content-container text-left">
+            <HowToItem :title='`<label class="text-primary">` + $t("participant") + `</label> ` + $t("auction")' :arr="arr_participant" :howToTitle1Flag="flag.howToParticipantTitle1Flag"/>
+          </div>
         </div>
       </div>
 
       <div class="seller-container">
-        <div class="custom-navbar-padding-right custom-navbar-padding-left">
-          <HowToItem :title='`<label class="text-primary">` + $t("seller") + `</label> ` + $t("product")' :arr="arr_seller" :howToTitle1Flag="flag.howToSellerTitle1Flag"/>
+        <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+          <div class="content-container text-left">
+            <HowToItem :title='`<label class="text-primary">` + $t("seller") + `</label> ` + $t("product")' :arr="arr_seller" :howToTitle1Flag="flag.howToSellerTitle1Flag"/>
+          </div>
         </div>
       </div>
     </div>
@@ -132,9 +144,9 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
   },
   watch: {
     scrollY(val){
-      this.flag.howToParticipantTitle1Flag = val >= this.base.responsive_scroll_threshold(10)
+      this.flag.howToParticipantTitle1Flag = this.flag.howToParticipantTitle1Flag || (!this.flag.howToParticipantTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
       var margin = 1000
-      this.flag.howToSellerTitle1Flag = val >= this.base.responsive_scroll_threshold(1000, margin)
+      this.flag.howToSellerTitle1Flag = this.flag.howToSellerTitle1Flag || (!this.flag.howToSellerTitle1Flag && val >= this.base.responsive_scroll_threshold(1000, margin))
     },
   },
   created(){
@@ -213,12 +225,12 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
 }
 .participant-container{
   background-color: $gray4;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 9rem;
+  padding-bottom: 10rem;
   margin-top: -3rem;
 }
 .seller-container{
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 9rem;
+  padding-bottom: 9rem;
 }
 </style>

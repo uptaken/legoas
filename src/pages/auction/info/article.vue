@@ -1,71 +1,73 @@
 <template>
-  <div class="custom-navbar-padding-right custom-navbar-padding-left">
-    <div class="position-relative px-5 mt-5">
-      <div class="d-flex">
-        <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
-        <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
-        <p class="mb-0 navigation navigation-now">{{ $t('article') }}</p>
+  <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+    <div class="content-container text-left">
+      <div class="position-relative" style="margin-top: 3.8rem;">
+        <div class="d-flex">
+          <p class="mb-0 navigation">{{ $t('auction_info') }}</p>
+          <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
+          <p class="mb-0 navigation navigation-now">{{ $t('article') }}</p>
+        </div>
+        <p class="mb-0 general-title">{{ $t('article') }}</p>
       </div>
-      <p class="mb-0 general-title">{{ $t('article') }}</p>
-    </div>
 
-    <div class="p-5 w-100">
-      <div class="mt-3 d-flex justify-content-center align-items-center w-100">
-        <Transition name="article-image1">
-          <div class="w-50" v-show="flag.articleImage1Flag">
-            <img src="@/assets/Intersect.png" width="100%"/>
-          </div>
-        </Transition>
-        <Transition name="article-title1">
-          <div class="w-50 ml-5" v-show="flag.articleTitle1Flag">
-            <p class="mb-0 title-section">{{ title }}</p>
-            <p class="mb-0 content-section mt-3">{{ description }}</p>
-            <div class="d-flex align-items-center mt-3">
-              <img src="@/assets/clock_icon.png" style="width: 1.1rem;"/>
-              <p class="ml-2 mb-0 recommendation-info">{{ date.format('DD MMMM YYYY') }}</p>
+      <div class=" w-100" style="padding-top: 6.5rem; padding-bottom: 15.6rem;">
+        <div class="mt-3 d-flex justify-content-center align-items-center w-100">
+          <Transition name="article-image1">
+            <div class="w-50" v-show="flag.articleImage1Flag">
+              <img src="@/assets/Intersect.png" width="100%"/>
             </div>
-          </div>
-        </Transition>
-      </div>
-
-      <div class="mt-5 w-100">
-        <div class="card article-filter-card">
-          <div class="card-body p-5">
-            <div class="d-flex justify-content-between">
-              <div class="d-flex align-items-center">
-                <p class="mb-0 content-content">Filter</p>
-                <Select2 v-model="filter"
-                  class="ml-3 filter-select h-100" 
-                  :options="arr_filter" 
-                  :settings="{width: '10rem',}"
-                  @change="onFilterChanged($event)" 
-                  @select="onFilterSelect($event)" />
+          </Transition>
+          <Transition name="article-title1">
+            <div class="w-50 ml-5" v-show="flag.articleTitle1Flag">
+              <p class="mb-0 title-section">{{ title }}</p>
+              <p class="mb-0 content-section mt-3">{{ description }}</p>
+              <div class="d-flex align-items-center mt-3">
+                <img src="@/assets/clock_icon.png" style="width: 1.1rem;"/>
+                <p class="ml-2 mb-0 recommendation-info">{{ date.format('DD MMMM YYYY') }}</p>
               </div>
-              <div>
-                <div class="d-flex align-items-center article-search-input-card py-1 px-3">
-                  <img src="@/assets/icon_search.png" style="width: 1rem; height: 1rem;"/>
-                  <input class="form-control article-search-input ml-3" v-model="search" :placeholder="$t('search_article')"/>
+            </div>
+          </Transition>
+        </div>
+
+        <div class="w-100" style="margin-top: 4rem;">
+          <div class="card article-filter-card">
+            <div class="card-body" style="padding: 2.8rem 3.75rem;">
+              <div class="d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                  <p class="mb-0 content-content">Filter</p>
+                  <Select2 v-model="filter"
+                    class="ml-5 filter-select h-100" 
+                    :options="arr_filter" 
+                    :settings="{width: '10rem',}"
+                    @change="onFilterChanged($event)" 
+                    @select="onFilterSelect($event)" />
+                </div>
+                <div>
+                  <div class="d-flex align-items-center article-search-input-card py-1 px-3">
+                    <img src="@/assets/icon_search.png" style="width: 1rem; height: 1rem;"/>
+                    <input class="form-control article-search-input ml-3" v-model="search" :placeholder="$t('search_article')"/>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="mt-5 w-100">
-        <div class="row">
-          <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
-            <Transition name="article-item">
-              <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
-            </Transition>
+        <div class="w-100" style="margin-top: 3.8rem;">
+          <div class="row">
+            <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
+              <Transition name="article-item">
+                <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
+              </Transition>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="custom-pagination-container">
-        <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
+        <div class="custom-pagination-container">
+          <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
+        </div>
+          
       </div>
-        
     </div>
   </div>
 </template>
@@ -179,9 +181,9 @@ export default {
   },
   watch: {
     scrollY(val){
-      this.flag.articleImage1Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.articleTitle1Flag = val >= this.base.responsive_scroll_threshold(0)
-      this.flag.articleItemFlag = val >= this.base.responsive_scroll_threshold(1000)
+      this.flag.articleImage1Flag = this.flag.articleImage1Flag || (!this.flag.articleImage1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.articleTitle1Flag = this.flag.articleTitle1Flag || (!this.flag.articleTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.articleItemFlag = this.flag.articleItemFlag || (!this.flag.articleItemFlag && val >= this.base.responsive_scroll_threshold(1000))
     },
   },
   created(){
@@ -263,14 +265,14 @@ export default {
   transition: all 2s;
 }
 .article-image1-leave-to, .article-image1-enter {
-  // margin-left: -10rem !important;
+  transform: translateX(10rem);
   opacity: 0;
 }
 .article-item-enter-active, .article-item-leave-active{
   transition: all 2s;
 }
 .article-item-leave-to, .article-item-enter {
-  // margin-left: -10rem !important;
+  transform: translateX(-10rem);
   opacity: 0;
 }
 .custom-pagination-container{

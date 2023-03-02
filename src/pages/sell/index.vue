@@ -1,12 +1,12 @@
 <template>
   <div class="">
-    <div class="p-5">
+    <div class="px-5 pt-1 pb-5">
       <div class="card border-0 register-card">
-        <div class="card-body p-5">
+        <div class="card-body" style="padding: 6.25rem 5.4rem;">
           <div class="row">
             <div class="col-12 col-lg-6">
               <div class="card border-0 form-card">
-                <div class="card-body p-5">
+                <div class="card-body" style="padding: 2.3rem 2.1rem;">
                   <p class="mb-0 form-title">Hubungi <label class="text-primary mb-0">Legoas</label> untuk dilayani Oleh Tim Kami</p>
 
                   <div class="row mt-3">
@@ -24,7 +24,7 @@
                       </div>
                     </div>
 
-                    <div class="col-12 col-lg-6 mt-2">
+                    <div class="col-12 col-lg-6 mt-3">
                       <div class="form-group">
                         <label class="form-label">{{ $t("seller_category") }}<label class="text-danger mb-0">*</label></label>
                         <Select2 v-model="category"
@@ -34,22 +34,22 @@
                       </div>
                     </div>
 
-                    <div class="col-12 col-lg-6 mt-2">
+                    <div class="col-12 col-lg-6 mt-3">
                       <div class="form-group">
                         <label class="form-label">{{ $t("your_phone") }}<label class="text-danger mb-0">*</label></label>
                         <input class="form-control" v-model="phone" :placeholder="$t('input_your_phone')"/>
                       </div>
                     </div>
 
-                    <div class="col-12 mt-2">
+                    <div class="col-12 mt-3">
                       <div class="form-group">
                         <label class="form-label">{{ $t("your_message") }}</label>
                         <textarea class="form-control" v-model="message" :placeholder="$t('input_your_message')"></textarea>
                       </div>
                     </div>
 
-                    <div class="col-12 mt-2">
-                      <button class="btn btn-primary w-100" @click="submit">{{ $t('submit') }}</button>
+                    <div class="col-12 mt-3">
+                      <button class="btn btn-primary w-100 py-3" @click="submit">{{ $t('submit') }}</button>
                     </div>
                   </div>
                 </div>
@@ -104,7 +104,7 @@ export default {
       this.phone = this.base.phone_validation(val)
     },
     scrollY(val){
-      this.flag.registerTitle1Flag = val >= this.base.responsive_scroll_threshold(0)
+      this.flag.registerTitle1Flag = this.flag.registerTitle1Flag || (!this.flag.registerTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
     },
   },
   created(){
@@ -143,7 +143,7 @@ export default {
         this.base.show_error(this.$t('name_empty'))
       else if(this.email === "")
         this.base.show_error(this.$t('email_empty'))
-      else if(this.category === "")
+      else if(this.category_id === "")
         this.base.show_error(this.$t('category_empty'))
       else if(this.phone === "")
         this.base.show_error(this.$t('phone_empty'))
@@ -154,7 +154,7 @@ export default {
           name: this.name,
           email: this.email,
           seller_category: {
-            id: this.category,
+            id: this.category_id,
           },
           phone: this.phone,
           message: this.message,
@@ -179,7 +179,7 @@ export default {
 
 <style lang="scss">
 .register-banner{
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-family: poppins-bold;
   color: $white;
 }
@@ -202,8 +202,7 @@ export default {
   transition: all 2s;
 }
 .register-title1-leave-to, .register-title1-enter {
-  margin-left: 10rem !important;
-  margin-right: -10rem !important;
+  transform: translateX(10rem);
   opacity: 0;
 }
 </style>

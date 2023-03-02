@@ -1,76 +1,75 @@
 <template>
-  <div class="custom-navbar-padding-right custom-navbar-padding-left">
-    <div class="position-relative px-5 mt-5 ml-5">
-      <p class="m-0 general-title">{{ $t('search_product') }}</p>
-    </div>
+  <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+    <div class="content-container text-left">
+      <div class="position-relative" style="margin-top: 3.8rem;">
+        <p class="m-0 general-title">{{ $t('search_product') }}</p>
+      </div>
 
-    <div class="p-5 p-lg-5 m-0 m-lg-5">
-      <div class="card border-0 search-card">
-          <div class="card-body p-3">
-            <div class="row">
-              <div class="col-12 col-lg-3">
-                <div class="form-group">
-                  <label class="search-label">{{ $t("location") }}</label>
-                  <Select2 v-model="location"
-                    :settings="{width: '100%', height: '100%',}"
-                    :options="arr_location" 
-                    @change="onLocationChanged($event)" 
-                    @select="onLocationSelect($event)" />
+      <div class="" style="padding-top: 6rem; padding-bottom: 11.5rem;">
+        <div class="card border-0 search-card">
+            <div class="card-body" style="padding: 2.5rem 2.75rem;">
+              <div class="row">
+                <div class="col-12 col-lg-3 pr-3">
+                  <div class="form-group mb-0">
+                    <label class="search-label">{{ $t("location") }}</label>
+                    <Select2 v-model="location_id"
+                      :settings="{width: '100%', height: '100%',}"
+                      :options="arr_location"  
+                      @select="onLocationSelect($event)" />
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-12 col-lg-3 d-flex">
-                <div class="vertical d-none d-lg-block"></div>
-                <div class="form-group ml-0 ml-lg-3 flex-fill">
-                  <label class="search-label">{{ $t("product_type") }}</label>
-                  <Select2 v-model="product_type" 
-                    :options="arr_product_type" 
-                    :settings="{width: '100%', height: '100%',}"
-                    @change="onProductTypeChanged($event)" 
-                    @select="onProductTypeSelect($event)" />
+                <div class="col-12 col-lg-3 d-flex pr-3 pl-3 pl-lg-0">
+                  <div class="vertical d-none d-lg-block"></div>
+                  <div class="form-group mb-0 ml-0 ml-lg-3 flex-fill mt-3 mt-lg-0">
+                    <label class="search-label">{{ $t("product_type") }}</label>
+                    <Select2 v-model="product_type_id" 
+                      :options="arr_product_type" 
+                      :settings="{width: '100%', height: '100%',}" 
+                      @select="onProductTypeSelect($event)" />
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-12 col-lg-3 d-flex">
-                <div class="vertical d-none d-lg-block"></div>
-                <div class="form-group ml-0 ml-lg-3 flex-fill">
-                  <label class="search-label">{{ $t("name") }}</label>
-                  <input class="form-control" v-model="search"/>
+                <div class="col-12 col-lg-3 d-flex pr-3 pl-3 pl-lg-0">
+                  <div class="vertical d-none d-lg-block"></div>
+                  <div class="form-group mb-0 ml-0 ml-lg-3 flex-fill mt-3 mt-lg-0">
+                    <label class="search-label">{{ $t("name") }}</label>
+                    <input class="form-control home-search-input" v-model="search"/>
+                  </div>
                 </div>
-              </div>
 
-              <div class="col-12 col-lg-3 d-flex align-items-center justify-content-center">
-                <button class="btn btn-lg btn-dark w-100 w-lg-75 home-search-button" @click="search">{{ $t("search") }}</button>
+                <div class="col-12 col-lg-3 d-flex align-items-end">
+                  <button class="btn py-2 px-5 btn-dark home-search-button mt-3 mt-lg-0" @click="search_action">{{ $t("search") }}</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-      <div class="mt-5 px-5">
-        <div class="row">
-          <div class="col-6 d-flex align-items-center">
-            <p class="mb-0 content-content">Menampilkan 1.500 Produk Mobil<br/>di Jakarta Barat</p>
+        <div class="" style="margin-top: 3.1rem;">
+          <div class="row">
+            <div class="col-6 d-flex align-items-center">
+              <p class="mb-0 content-content">Menampilkan 1.500 Produk Mobil<br/>di Jakarta Barat</p>
+            </div>
+            <div class="col-6 d-flex align-items-center justify-content-end">
+              <p class="mb-0 content-content mr-3 mr-lg-5">Filter</p>
+              <div class="d-block">
+                <Select2 v-model="sort"
+                  class="" 
+                  :options="arr_sort" 
+                  :settings="{width: '10rem',}"
+                  @select="onSortSelect($event)" />
+              </div>
+            </div>
           </div>
-          <div class="col-6 d-flex align-items-center justify-content-end">
-            <p class="mb-0 content-content">Filter</p>
-            <Select2 v-model="sort"
-              class="ml-4" 
-              :options="arr_sort" 
-              :settings="{width: '10rem',}"
-              @change="onSortChanged($event)" 
-              @select="onSortSelect($event)" />
-          </div>
-        </div>
-        <div class="row mt-5">
-          <div v-for="(product, index) in arr_product" :key="index" class="col-12 col-lg-4 mb-3">
-            <a href="#">
+          <div class="row" style="margin-top: 2.5rem;">
+            <div v-for="(product, index) in arr_product" :key="index" class="col-12 col-lg-4 mb-4">
               <RecommendationItem :data="product" :index="index" :total_data="arr_product.length"/>
-            </a>
+            </div>
           </div>
-        </div>
 
-        <div class="custom-pagination-container">
-          <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
+          <div class="custom-pagination-container">
+            <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
+          </div>
         </div>
       </div>
     </div>
@@ -101,17 +100,17 @@ export default {
       end_data: 10,
       total_data: 2000,
       model: {},
-      sort: {},
-      location: {},
-      product_type: {},
+      sort: '',
+      location_id: '',
+      product_type_id: '',
       search: "",
       arr_sort: [
         {
-          id: "1",
+          id: "newest",
           text: this.$t("newest"),
         },
         {
-          id: "2",
+          id: "oldest",
           text: this.$t("oldest"),
         },
       ],
@@ -244,8 +243,34 @@ export default {
   },
   created(){
     this.base = new Base()
+
+    if(this.$route.query.search != null){
+      this.search = this.$route.query.search
+      this.location_id = this.$route.query.location_id
+      this.product_type_id = this.$route.query.product_type_id
+    }
   },
   methods: {
+    onLocationSelect(val){
+      this.location_id = val.id
+    },
+    onProductTypeSelect(val){
+      this.product_type_id = val.id
+    },
+    onSortSelect(val){
+      this.sort = val.id
+    },
+    search_action(){
+      if(this.location_id === "")
+        this.base.show_error(this.$t('location_empty'))
+      else if(this.product_type_id === "")
+        this.base.show_error(this.$t('product_type_empty'))
+      else if(this.search === "")
+        this.base.show_error(this.$t('name_empty'))
+      else{
+        location.href = `/search?location_id=${this.location_id}&product_type_id=${this.product_type_id}&search=${this.search}`
+      }
+    },
     next_action(){
       this.current_page = this.current_page + 1
     },
@@ -256,7 +281,7 @@ export default {
       this.current_page = page
     },
     async get_product(){
-      var response = await this.base.request(this.base.url_api + `/product?is_publish=1&city_id=${this.location.id}&product_type_id=${this.product_type.id}`)
+      var response = await this.base.request(this.base.url_api + `/product?is_publish=1&city_id=${this.location_id}&product_type_id=${this.product_type_id}&search=${this.search}&sort=${this.sort}`)
 
       if(response != null){
         if(response.status === "success"){

@@ -1,9 +1,14 @@
 <template>
   <div class="card w-100" style="border: none;">
-    <div class="card-body">
+    <div class="card-body p-0">
       <div class="row">
         <div class="col-4">
-          <img :src="data.image" class="" style="width: 100%"/>
+          <vue-skeleton-loader
+            width="100%"
+            height="100%"
+            animation="fade"
+            v-show="!is_image_loaded"/>
+          <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="width: 100%"/>
         </div>
         <div class="col-8">
           <p class="car-title">{{ data.title }}</p>
@@ -44,12 +49,16 @@ export default {
   data(){
     return{
       base: null,
+      is_image_loaded: false,
     }
   },
   created(){
     this.base = new Base()
   },
   methods:{
+    onImageLoad(){
+      this.is_image_loaded = true
+    },
   }
 }
 </script>
@@ -58,6 +67,7 @@ export default {
 .car-title{
   font-family: poppins-bold;
   font-size: 1rem;
+  line-height: 100%;
 }
 .car-info{
   font-size: .7rem;

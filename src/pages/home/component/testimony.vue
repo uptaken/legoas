@@ -1,19 +1,23 @@
 <template>
-  <div class="custom-navbar-padding-right custom-navbar-padding-left">
+  <div class="custom-navbar-padding-right custom-navbar-padding-left d-flex flex-column align-items-center">
     <Transition name="testimony-title1">
       <p class="m-0 why-title text-center" v-show="testimonyTitle1Flag">{{ $t("testimony") }}</p>
     </Transition>
     <Transition name="testimony-title2">
-      <p class="mb-0 why-title2 text-center mt-2" v-show="testimonyTitle2Flag">{{ $t("testimony_title") }}</p>
+      <p class="mb-0 why-title2 text-center mt-3" v-show="testimonyTitle2Flag">{{ $t("testimony_title") }}</p>
     </Transition>
 
-    <div class="my-5 mx-0">
-      <VueSlickCarousel v-bind="slick_setting">
-        <div v-for="(testimony, index) in arr_testimony" :key="index">
-          <TestimonyItem :data="testimony" :index="index" :total_data="arr_testimony.length"/>
+    <Transition name="testimony-content">
+      <div v-show="testimonyTitle1Flag" class="testimony-slick" style="margin-top: 6rem; ">
+        <div class="">
+          <VueSlickCarousel v-bind="slick_setting">
+            <div v-for="(testimony, index) in arr_testimony" :key="index">
+              <TestimonyItem :data="testimony" :index="index" :total_data="arr_testimony.length" />
+            </div>
+          </VueSlickCarousel>
         </div>
-      </VueSlickCarousel>
-    </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -43,17 +47,10 @@ export default {
         touchThreshold: 5,
         responsive: [
           {
-            breakpoint: 800,
+            breakpoint: 1300,
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,
-            },
-          },
-          {
-            breakpoint: 1000,
-            settings: {
-              slidesToShow: 2,
-              slidesToScroll: 2,
             },
           },
         ]
@@ -123,6 +120,18 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 960px) {
+  .testimony-slick{
+    width: 100%;
+    padding: 0 .75rem;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .testimony-slick{
+    width: 57rem;
+  }
+}
+
 .why-title{
   font-family: poppins-light;
   color: $gray5;
@@ -137,16 +146,22 @@ export default {
   transition: all 2s;
 }
 .testimony-title1-leave-to, .testimony-title1-enter {
-  margin-left: -10rem !important;
-  margin-right: 10rem !important;
+  transform: translateY(-10rem);
   opacity: 0;
 }
 .testimony-title2-enter-active, .testimony-title2-leave-active{
   transition: all 2s;
 }
 .testimony-title2-leave-to, .testimony-title2-enter {
-  margin-right: -10rem !important;
-  margin-left: 10rem !important;
+  transform: translateY(-10rem);
+  opacity: 0;
+}
+.testimony-content-enter-active, .testimony-content-leave-active{
+  transition: all 2s;
+}
+.testimony-content-leave-to, .testimony-content-enter {
+  transform: translateX(10rem);
+  // margin-bottom: 5rem !important;
   opacity: 0;
 }
 </style>
