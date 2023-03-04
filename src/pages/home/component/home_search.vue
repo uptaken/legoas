@@ -4,13 +4,15 @@
       <div class="row mt-3 mt-lg-0 mr-0 pl-3 pl-lg-0">
         <div class="col-12 col-lg-6">
           <div class="d-flex flex-column justify-content-center h-100">
-            <div id="banner-content" :style="{height: banner_content_height > 0 ? (banner_content_height + 'px') : 'auto'}">
-              <Transition name="banner-home-title" >
-                <p class="m-0" v-show="banner_flag" style="font-size: 3.5rem; line-height: 5rem; font-family: poppins-medium;" v-html="selected_banner.title"></p>
-              </Transition>
-              <Transition name="banner-home-title" >
-                <p class="m-0 banner-subtitle mt-3" v-show="banner_flag">{{ selected_banner.subtitle }}</p>
-              </Transition>
+            <div id="banner-content" class="d-flex align-items-center" :style="{height: banner_content_height > 0 ? (banner_content_height + 'px') : 'auto'}">
+              <div>
+                <Transition name="banner-home-title" >
+                  <p class="m-0" v-show="banner_flag" style="font-size: 3.5rem; line-height: 5rem; font-family: poppins-medium;" v-html="selected_banner.title"></p>
+                </Transition>
+                <Transition name="banner-home-title" >
+                  <p class="m-0 banner-subtitle mt-3" v-show="banner_flag" v-html="selected_banner.subtitle"></p>
+                </Transition>
+              </div>
             </div>
 
             <div class="mt-5 d-flex">
@@ -30,7 +32,14 @@
         <div class="col-12 col-lg-6 pr-0" id="banner-image" :style="{height: banner_image_height > 0 ? (banner_image_height + 'px') : 'auto'}">
           <div class="d-flex flex-column justify-content-center h-100">
             <Transition name="banner-home-image" >
-              <img :src="selected_banner.image" class="" width="100%" v-show="banner_flag"/>
+              <div v-show="banner_flag" class="w-100 text-right" style="height: 32rem;">
+                <vue-skeleton-loader
+                  width="100%"
+                  height="100%"
+                  animation="fade"
+                  v-show="!is_image_loaded"/>
+                <img :src="selected_banner.image" @load="onImageLoad()" v-show="is_image_loaded" class="" height="100%"/>
+              </div>
             </Transition>
           </div>
         </div>
@@ -100,6 +109,7 @@ export default {
       search: "",
       selected_banner_index: -1,
       selected_banner: {},
+      is_image_loaded: false,
       arr_banner: [
         {
           title: `
@@ -155,22 +165,34 @@ export default {
       ],
       location_id: "",
       product_type_id: "",
+      isLoading: true,
     }
   },
   watch: {
     selected_banner_index(val){
-      this.selected_banner = this.arr_banner[val]
-
       var context = this
       if(this.banner_flag){
         this.banner_flag = false
         setTimeout(() => {
+          context.selected_banner = this.arr_banner[val]
           context.banner_flag = true
         }, 1000)
       }
       else
         this.banner_flag = true
-    }
+    },
+    selected_banner(){
+      this.is_image_loaded = false
+    },
+    isLoading(val){
+      this.$emit("onLoading", val, 0)
+    },
+    is_image_loaded(val){
+      if(val){
+        this.banner_content_height = window.$('#banner-content').innerHeight()
+        this.banner_image_height = window.$('#banner-image').innerHeight()
+      }
+    },
   },
   created(){
     this.base = new Base()
@@ -178,13 +200,12 @@ export default {
     this.selected_banner_index = 0
     this.selected_banner = this.arr_banner[0]
 
-    var context = this
-    setTimeout(() => {
-      context.banner_content_height = window.$('#banner-content').innerHeight()
-      context.banner_image_height = window.$('#banner-image').innerHeight()
-    }, 1000)
+    this.get_banner()
   },
   methods:{
+    onImageLoad(){
+      this.is_image_loaded = true
+    },
     onLocationSelect(val){
       this.location_id = val.id
     },
@@ -193,6 +214,7 @@ export default {
     },
     async get_banner(){
       var response = await this.base.request(this.base.url_api + "/banner/all?is_publish=1")
+      this.isLoading = false
 
       if(response != null){
         if(response.status === "success"){
@@ -200,6 +222,9 @@ export default {
             banner.image = this.base.host + "/media/banner?file_name=" + banner.file_name
           }
           this.arr_banner = response.data
+
+          this.selected_banner_index = 0
+          this.selected_banner = this.arr_banner[0]
         }
         else
           this.base.show_error(response.message)

@@ -46,6 +46,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      arr_factor: [false, ],
       flag: {
         newsImageFlag: false,
         newsTitleFlag: false,
@@ -100,6 +101,9 @@ export default {
     }
   },
   watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
     scrollY(val){
       this.flag.newsTitleFlag = this.flag.newsTitleFlag || (!this.flag.newsTitleFlag && val >= this.base.responsive_scroll_threshold(0))
       this.flag.newsImageFlag = this.flag.newsImageFlag || (!this.flag.newsImageFlag && val >= this.base.responsive_scroll_threshold(0))
@@ -110,6 +114,8 @@ export default {
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+
+    this.get_news_info()
   },
   methods: {
     handleScroll(){
@@ -117,6 +123,7 @@ export default {
     },
     async get_news_info(){
       var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=news")
+      this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){

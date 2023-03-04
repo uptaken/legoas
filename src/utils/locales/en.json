@@ -103,6 +103,12 @@
   "input_product": "Input Barang",
   "week": "Minggu ke",
   "server_error": "Server Error",
+  "detail_product": "Detail Produk",
+  "call_more": "Hubungi Lebih",
+  "info_product": "Info Barang",
+  "description": "Deskripsi",
+  "document_product": "Dokumen Barang",
+  "notes": "Catatan",
 
 
   "old_password_empty": "Empty Old Password",

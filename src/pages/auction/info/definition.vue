@@ -11,16 +11,21 @@
       </div>
 
       <div class="w-100">
-        <div class="mt-3 d-flex justify-content-center align-items-center w-100">
-          <Transition name="definition-image1">
-            <div class="w-50 d-inline-block" v-show="flag.definitionImage1Flag">
-              <img :src="image" width="100%"/>
-            </div>
-          </Transition>
-          <Transition name="definition-title1">
-            <div class="w-50 d-inline-block" v-show="flag.definitionTitle1Flag" v-html="content">
-            </div>
-          </Transition>
+        <div class="mt-3 w-100">
+          <div class="row">
+            <Transition name="definition-image1">
+              <div class="col-12 col-lg-6" v-show="flag.definitionImage1Flag">
+                <div class="d-flex justify-content-center align-items-center">
+                  <img :src="image" width="100%"/>
+                </div>
+              </div>
+            </Transition>
+            <Transition name="definition-title1">
+              <div class="col-12 col-lg-6" v-show="flag.definitionTitle1Flag" >
+                <div class="d-flex flex-column justify-content-center h-100" v-html="content"></div>
+              </div>
+            </Transition>
+          </div>
         </div>
 
         <div style="margin-top: 9rem">
@@ -57,6 +62,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      arr_factor: [false, false, ],
       title: ``,
       content: `
       <p class="mb-0 title-section">Apa itu <label class="custom-title">Lelang</label> ?</p>
@@ -117,19 +123,25 @@ export default {
     }
   },
   watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
     scrollY(val){
       this.flag.definitionImage1Flag = this.flag.definitionImage1Flag || (!this.flag.definitionImage1Flag && val >= this.base.responsive_scroll_threshold(0))
       this.flag.definitionTitle1Flag = this.flag.definitionTitle1Flag || (!this.flag.definitionTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.definitionTitle2Flag = this.flag.definitionTitle2Flag || (!this.flag.definitionTitle2Flag && val >= this.base.responsive_scroll_threshold(500))
-      this.flag.definitionContent2Flag = this.flag.definitionContent2Flag || (!this.flag.definitionContent2Flag && val >= this.base.responsive_scroll_threshold(500))
-      this.flag.definitionTitle3Flag = this.flag.definitionTitle3Flag || (!this.flag.definitionTitle3Flag && val >= this.base.responsive_scroll_threshold(700))
-      this.flag.definitionContent3Flag = this.flag.definitionContent3Flag || (!this.flag.definitionContent3Flag && val >= this.base.responsive_scroll_threshold(700))
+      this.flag.definitionTitle2Flag = this.flag.definitionTitle2Flag || (!this.flag.definitionTitle2Flag && val >= this.base.responsive_scroll_threshold(100))
+      this.flag.definitionContent2Flag = this.flag.definitionContent2Flag || (!this.flag.definitionContent2Flag && val >= this.base.responsive_scroll_threshold(100))
+      this.flag.definitionTitle3Flag = this.flag.definitionTitle3Flag || (!this.flag.definitionTitle3Flag && val >= this.base.responsive_scroll_threshold(300))
+      this.flag.definitionContent3Flag = this.flag.definitionContent3Flag || (!this.flag.definitionContent3Flag && val >= this.base.responsive_scroll_threshold(300))
     },
   },
   created(){
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+
+    this.get_definition_info()
+    this.get_definition_section2()
   },
   methods: {
     handleScroll(){
@@ -137,6 +149,7 @@ export default {
     },
     async get_definition_info(){
       var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=definition")
+      this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){
@@ -152,6 +165,7 @@ export default {
     },
     async get_definition_section(){
       var response = await this.base.request(this.base.url_api + "/section/definition/all?is_publish=1")
+      this.$set(this.arr_factor, 1, true)
 
       if(response != null){
         if(response.status === "success"){
@@ -168,6 +182,7 @@ export default {
     },
     async get_definition_section2(){
       var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=definition_section")
+      this.$set(this.arr_factor, 1, true)
 
       if(response != null){
         if(response.status === "success"){

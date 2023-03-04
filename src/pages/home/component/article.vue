@@ -41,6 +41,7 @@ export default {
       base: null,
       articleTitleHeight: 0,
       articleSubtitleHeight: 0,
+      isLoading: true,
       arr_article: [
         {
           id: "1",
@@ -66,15 +67,23 @@ export default {
       ],
     }
   },
+  watch: {
+    isLoading(val){
+      this.$emit("onLoading", val, 2)
+    },
+  },
   created(){
     this.base = new Base()
 
     this.articleTitleHeight = window.$('#article-title').innerHeight()
     this.articleSubtitleHeight = window.$('#article-subtitle').innerHeight()
+
+    this.get_article()
   },
   methods:{
     async get_article(){
-      var response = await this.base.request(this.base.url_api + "/article?num_data=3&is_publish=1")
+      var response = await this.base.request(this.base.url_api + "/article/all?num_data=3&is_publish=1")
+      this.isLoading = false
 
       if(response != null){
         if(response.status === "success"){

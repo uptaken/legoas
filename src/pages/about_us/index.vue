@@ -57,7 +57,7 @@
                   animation="fade"
                   v-show="!team.is_image_loaded"/>
                 <img :src="team.image" @load="onImageLoad(index)" v-show="team.is_image_loaded" width="100%"/>
-                <p class="mb-0 team-role mt-2">{{ team.role }}</p>
+                <p class="mb-0 team-role mt-2">{{ team.roles }}</p>
                 <p class="mb-0 team-name">{{ team.name }}</p>
               </div>
             </div>
@@ -88,6 +88,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      arr_factor: [false, false, ],
       flag: {
         aboutUsTitle1Flag: false,
         aboutUsImage1Flag: false,
@@ -130,28 +131,28 @@ export default {
           id: "1",
           is_image_loaded: false,
           image: OurTeam1,
-          role: "CEO LEGOAS",
+          roles: "CEO LEGOAS",
           name: "Nama 1",
         },
         {
           id: "1",
           is_image_loaded: false,
           image: OurTeam2,
-          role: "Guided Tour",
+          roles: "Guided Tour",
           name: "Nama 2",
         },
         {
           id: "1",
           is_image_loaded: false,
           image: OurTeam3,
-          role: "Guided Tour",
+          roles: "Guided Tour",
           name: "Nama 3",
         },
         {
           id: "1",
           is_image_loaded: false,
           image: OurTeam3,
-          role: "Guided Tour",
+          roles: "Guided Tour",
           name: "Nama 4",
         },
       ],
@@ -165,6 +166,9 @@ export default {
     }
   },
   watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
     scrollY(val){
       this.flag.aboutUsTitle1Flag = this.flag.aboutUsTitle1Flag || (!this.flag.aboutUsTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
       this.flag.aboutUsImage1Flag = this.flag.aboutUsImage1Flag || (!this.flag.aboutUsImage1Flag && val >= this.base.responsive_scroll_threshold(0))
@@ -181,6 +185,9 @@ export default {
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+
+    this.get_about_us_section()
+    this.get_our_team_section()
   },
   methods: {
     onImageLoad(index){
@@ -192,12 +199,13 @@ export default {
       this.scrollY = window.scrollY
     },
     async get_our_team_section(){
-      var response = await this.base.request(this.base.url_api + "/our-team/all?is_publish=1")
+      var response = await this.base.request(this.base.url_api + "/section/our-team/all?is_publish=1")
+      this.$set(this.arr_factor, 1, true)
 
       if(response != null){
         if(response.status === "success"){
           for(let our_team of response.data){
-            our_team.image = this.base.host + "/media/section/our_team?file_name=" + our_team.file_name
+            our_team.image = this.base.host + "/media/section/our-team?file_name=" + our_team.file_name
             our_team.name = our_team.title
           }
           this.arr_team = response.data
@@ -210,11 +218,12 @@ export default {
     },
     async get_about_us_section(){
       var response = await this.base.request(this.base.url_api + "/section/about-us/all?is_publish=1")
+      this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){
           for(let about_us of response.data){
-            about_us.image = this.base.host + "/media/section/about_us?file_name=" + about_us.file_name
+            about_us.image = this.base.host + "/media/section/about-us?file_name=" + about_us.file_name
           }
           this.arr_section = response.data
         }

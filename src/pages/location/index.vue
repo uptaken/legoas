@@ -8,7 +8,7 @@
       </Transition>
 
       <div class="w-100" style="padding-top: 4.5rem; padding-bottom: 10rem;">
-        <div class="">
+        <div class="" style="z-index: 1;">
           <div class="row">
             <div class="col-12 col-lg-6">
               <div class="">
@@ -89,18 +89,20 @@
           </div>
         </div>
 
-        <div class=" text-center" style="margin-top: 7.6rem;">
-          <iframe
-            width="100%"
-            height="316"
-            style="border:0"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            :src="`https://www.google.com/maps/embed/v1/place?key=AIzaSyAGvT7vk9EkzIusHwBSKXGc-bYsp1vLrAs
-              &q=${latitude},${longitude}`">
-          </iframe>
-        </div>
+        <Transition name="location-title5">
+          <div class=" text-center" v-show="flag.locationContent6Flag" style="margin-top: 7.6rem;">
+            <iframe
+              width="100%"
+              height="316"
+              style="border:0"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"
+              :src="`https://www.google.com/maps/embed/v1/place?key=AIzaSyAGvT7vk9EkzIusHwBSKXGc-bYsp1vLrAs
+                &q=${latitude},${longitude}`">
+            </iframe>
+          </div>
+        </Transition>
       </div>
     </div>
   </div>
@@ -121,6 +123,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      arr_factor: [false, false, false, ],
       title: `Kunjungi Legoas, PT Digital Sarana Legoas <label class="custom-title">Lokasi Lelang di Jakarta</label>`,
       address: `Jl. Meruya Selatan N0. 12 RT 08 RW 04 Kel. Meruya Utara Kec. Kembangan Jakarta Barat 11620 Indonesia`,
       email: `cs@legoas.co.id`,
@@ -166,6 +169,9 @@ export default {
     }
   },
   watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
     scrollY(val){
       this.flag.locationTitle1Flag = this.flag.locationTitle1Flag || (!this.flag.locationTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
       this.flag.locationContent1Flag = this.flag.locationContent1Flag || (!this.flag.locationContent1Flag && val >= this.base.responsive_scroll_threshold(0))
@@ -187,6 +193,8 @@ export default {
     this.scrollY = 1
 
     this.get_setting()
+    this.get_location_info()
+    this.get_image()
   },
   methods: {
     onImageLoad(index){
@@ -198,13 +206,16 @@ export default {
       this.scrollY = window.scrollY
     },
     async get_image(){
-      var response = await this.base.request(this.base.url_api + "/location/media?is_publish=1")
+      var response = await this.base.request(this.base.url_api + "/location/image/all?is_publish=1")
+      this.$set(this.arr_factor, 2, true)
 
       if(response != null){
         if(response.status === "success"){
           var arr_image = []
           for(let image of response.data){
-            arr_image.push(this.base.host + "/media/location?file_name=" + image.file_name)
+            image.image = this.base.host + "/media/location?file_name=" + image.file_name
+            image.is_image_loaded = false
+            arr_image.push(image)
           }
           this.arr_image = arr_image
         }
@@ -216,6 +227,7 @@ export default {
     },
     async get_location_info(){
       var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=location")
+      this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){
@@ -229,6 +241,7 @@ export default {
     },
     async get_setting(){
       var response = await this.base.request(this.base.url_api + "/setting")
+      this.$set(this.arr_factor, 1, true)
 
       if(response != null){
         if(response.status === "success"){

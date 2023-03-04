@@ -61,6 +61,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      arr_factor: [false, ],
       flag: {
         rulesImageFlag: false,
         rulesTitleFlag: false,
@@ -257,6 +258,9 @@ export default {
     }
   },
   watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
     scrollY(val){
       this.flag.rulesTitleFlag = this.flag.rulesTitleFlag || (!this.flag.rulesTitleFlag && val >= this.base.responsive_scroll_threshold(0))
       this.flag.rulesImageFlag = this.flag.rulesImageFlag || (!this.flag.rulesImageFlag && val >= this.base.responsive_scroll_threshold(0))
@@ -267,6 +271,9 @@ export default {
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+
+    this.get_rules_info()
+    this.get_rules_list()
   },
   methods: {
     handleScroll(){
@@ -274,6 +281,7 @@ export default {
     },
     async get_rules_info(){
       var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=rules")
+      this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){
@@ -288,13 +296,13 @@ export default {
     },
     async get_rules_list(){
       var response = await this.base.request(this.base.url_api + "/rules/all?is_publish=1")
+      this.$set(this.arr_factor, 1, true)
 
       if(response != null){
         if(response.status === "success"){
-          // for(let rules of response.data){
-          //   rules.title = rules.name
-          //   rules.content = rules.content
-          // }
+          for(let rules of response.data){
+            rules.title = rules.name
+          }
           this.arr_rules = response.data
         }
         else

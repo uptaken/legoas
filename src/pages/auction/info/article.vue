@@ -90,6 +90,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      arr_factor: [false, ],
       flag: {
         articleImage1Flag: false,
         articleTitle1Flag: false,
@@ -180,6 +181,9 @@ export default {
     }
   },
   watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
     scrollY(val){
       this.flag.articleImage1Flag = this.flag.articleImage1Flag || (!this.flag.articleImage1Flag && val >= this.base.responsive_scroll_threshold(0))
       this.flag.articleTitle1Flag = this.flag.articleTitle1Flag || (!this.flag.articleTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
@@ -190,6 +194,8 @@ export default {
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+
+    this.get_article()
   },
   methods: {
     handleScroll(){
@@ -206,6 +212,7 @@ export default {
     },
     async get_article(){
       var response = await this.base.request(this.base.url_api + "/article?num_data=3&is_publish=1")
+      this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){
@@ -214,6 +221,8 @@ export default {
             article.date = moment(article.date_format, "YYYY-MM-DD")
           }
           this.arr_article = response.data
+          this.current_page = response.current_page
+          this.total_page = response.total_page
         }
         else
           this.base.show_error(response.message)

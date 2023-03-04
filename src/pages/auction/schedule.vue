@@ -61,6 +61,7 @@ export default {
   data(){
     return{
       base: null,
+      arr_factor: [false, ],
       month: moment(),
       week_num: 1,
       total_page: 10,
@@ -140,9 +141,16 @@ export default {
       ],
     }
   },
+  watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
+  },
   created(){
     this.base = new Base()
     this.week_num = Math.floor(moment().format('D') / 7)
+
+    this.arr_factor = [true,]
   },
   methods: {
     next_action(){

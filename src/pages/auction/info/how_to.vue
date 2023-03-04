@@ -63,6 +63,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      arr_factor: [false, false, ],
       url_video: 'https://www.youtube.com/embed/tgbNymZ7vqY',
       flag: {
         howToParticipantTitle1Flag: false,
@@ -143,6 +144,9 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
     }
   },
   watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
     scrollY(val){
       this.flag.howToParticipantTitle1Flag = this.flag.howToParticipantTitle1Flag || (!this.flag.howToParticipantTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
       var margin = 1000
@@ -155,6 +159,8 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
     this.scrollY = 1
 
     this.get_how_to_info()
+    this.get_how_to_section('participant')
+    this.get_how_to_section('seller')
   },
   methods: {
     handleScroll(){
@@ -162,6 +168,7 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
     },
     async get_how_to_info(){
       var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=how_to")
+      this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){
@@ -175,6 +182,7 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
     },
     async get_how_to_section(type = "participant"){
       var response = await this.base.request(this.base.url_api + "/section/how-to/all?is_publish=1&type=" + type)
+      this.$set(this.arr_factor, 1, true)
 
       if(response != null){
         if(response.status === "success"){

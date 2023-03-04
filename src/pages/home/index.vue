@@ -2,7 +2,8 @@
   <div class="">
     <div>
       <HomeSearch :homeBannerFlag="flag.homeBanner" 
-        :homeSearchFlag="flag.homeSearch"/>
+        :homeSearchFlag="flag.homeSearch"
+        @onLoading="(isLoading, index) => $set(arr_factor, index, !isLoading)"/>
     </div>
 
     <div class="text-center" style="margin-top: 5rem; margin-bottom: 2.3rem;">
@@ -17,12 +18,18 @@
       :whyChooseUs3Flag="flag.whyChooseUs3"/>
 
     <div class="text-center" style="margin-top: 6.5rem; margin-bottom: 11.5rem;">
-      <Testimony :testimonyTitle1Flag="flag.testimonyTitle1" :testimonyTitle2Flag="flag.testimonyTitle2"/>
+      <Testimony :testimonyTitle1Flag="flag.testimonyTitle1" 
+        :testimonyTitle2Flag="flag.testimonyTitle2"
+        @onLoading="(isLoading, index) => $set(arr_factor, index, !isLoading)"/>
     </div>
 
     <div class="text-center" style="margin-top: 6.5rem; margin-bottom: 6.5rem;">
-      <Article :articleTitle1Flag="flag.articleTitle1" :articleTitle2Flag="flag.articleTitle2"/>
+      <Article :articleTitle1Flag="flag.articleTitle1" 
+        :articleTitle2Flag="flag.articleTitle2"
+        @onLoading="(isLoading, index) => $set(arr_factor, index, !isLoading)"/>
     </div>
+
+    
   </div>
 </template>
 
@@ -69,13 +76,15 @@ export default {
         whyChooseUs2: false,
         whyChooseUs3: false,
       },
-      
-      
+      arr_factor: [false, false, false, ],
       arr_car_brand: [Audi, BMW, Ford, Ford, Mazda, Mercedes, Nissan, Volkswagen,],
       scrollY: 0,
     }
   },
   watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
     scrollY(val){
       // console.log(this.base.responsive_scroll_threshold(500))
       this.flag.homeBanner = this.flag.homeBanner || (!this.flag.homeBanner && val >= this.base.responsive_scroll_threshold(0))

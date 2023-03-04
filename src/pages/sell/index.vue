@@ -79,6 +79,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
+      arr_factor: [false, ],
       flag: {
         registerTitle1Flag: false,
       },
@@ -100,6 +101,9 @@ export default {
     }
   },
   watch: {
+    arr_factor(val){
+      this.$emit('onChangeArrFactor', val)
+    },
     phone(val){
       this.phone = this.base.phone_validation(val)
     },
@@ -123,6 +127,7 @@ export default {
     },
     async get_seller_category(){
       var response = await this.base.request(this.base.url_api + `/seller-category/all`)
+      this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){

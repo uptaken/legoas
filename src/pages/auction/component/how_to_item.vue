@@ -21,8 +21,8 @@
             <td>
               <Transition name="how-to-content">
                 <div v-show="howToTitle1Flag" class="ml-2" :style="{marginBottom: x < Math.ceil(arr.length / 2) ? '2rem' : 0}">
-                  <p class="mb-0 how-to-item-title">{{ arr[x - 1].title }}</p>
-                  <p class="mb-0 how-to-item-content mt-2">{{ arr[x - 1].content }}</p>
+                  <p class="mb-0 how-to-item-title" v-html="arr[x - 1].title"></p>
+                  <p class="mb-0 how-to-item-content mt-2" v-html="arr[x - 1].content"></p>
                 </div>
               </Transition>
             </td>
@@ -41,8 +41,8 @@
             <td>
               <Transition name="how-to-content">
                 <div v-show="howToTitle1Flag" class="ml-2"  :style="{marginBottom: x < Math.ceil(arr.length / 2) ? '2rem' : 0}">
-                  <p class="mb-0 how-to-item-title">{{ arr[Math.ceil(arr.length / 2) + x - 1].title }}</p>
-                  <p class="mb-0 how-to-item-content mt-2">{{ arr[Math.ceil(arr.length / 2) + x - 1].content }}</p>
+                  <p class="mb-0 how-to-item-title" v-html="arr[Math.ceil(arr.length / 2) + x - 1].title"></p>
+                  <p class="mb-0 how-to-item-content mt-2" v-html="arr[Math.ceil(arr.length / 2) + x - 1].content"></p>
                 </div>
               </Transition>
             </td>

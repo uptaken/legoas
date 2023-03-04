@@ -9,7 +9,7 @@
       </button>
 
 
-      <div class="collapse" id="navbarToggle">
+      <div class="d-none d-lg-block" id="navbarToggle">
         <ul class="navbar-nav ml-auto mt-5 mt-lg-0">
           <li class="d-flex align-items-center nav-item active">
             <a class="nav-link" :class="{'active': currentRoute === '/'}" href="/">{{ $t("home") }}</a>

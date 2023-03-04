@@ -12,10 +12,12 @@
       </Transition>
       <side-navbar-mobile :isNavbarToggle="isNavbarToggle"/>
       <div class="">
-        <router-view/>
+        <router-view @onChangeArrFactor="(arr) => onChangeArrFactor(arr)"/>
       </div>
     </div>
     <footer1/>
+
+    <custom-loading :arr_factor="arr_factor"/>
   </div>
   <div v-else>
     <router-view/>
@@ -28,10 +30,13 @@ import Base from '@/utils/base'
 import footer1 from './layout/footer'
 import navbar from './layout/navbar'
 import SideNavbarMobile from './layout/side_navbar_mobile'
+import CustomLoading from '@/layout/custom_loading'
 
 export default {
   components: {
-    footer1, navbar, 'side-navbar-mobile': SideNavbarMobile,
+    footer1, navbar, 
+    'side-navbar-mobile': SideNavbarMobile,
+    'custom-loading': CustomLoading,
   },
   data(){
     return{
@@ -40,6 +45,7 @@ export default {
         navbar: false,
       },
       isNavbarToggle: false,
+      arr_factor: [],
     }
   },
   watch: {
@@ -54,6 +60,9 @@ export default {
     this.scrollY = 1
   },
   methods:{
+    onChangeArrFactor(arr){
+      this.arr_factor = arr
+    },
     onNavbarToggle(){
       this.isNavbarToggle = !this.isNavbarToggle
     },
@@ -141,7 +150,10 @@ export default {
 
 html, body{
   font-family: poppins-regular;
-  // overflow-x: hidden;
+  overflow-x: hidden;
+}
+.form-control{
+  height: 3rem;
 }
 button:focus{
   outline:none !important;

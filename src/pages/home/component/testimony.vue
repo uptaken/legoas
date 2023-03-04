@@ -36,6 +36,7 @@ export default {
   data(){
     return{
       base: null,
+      isLoading: true,
       slick_setting: {
         dots: true,
         arrows: false,
@@ -91,12 +92,19 @@ export default {
       ],
     }
   },
+  watch: {
+    isLoading(val){
+      this.$emit("onLoading", val, 1)
+    },
+  },
   created(){
     this.base = new Base()
+    this.get_testimony()
   },
   methods:{
     async get_testimony(){
       var response = await this.base.request(this.base.url_api + "/testimony/all?is_publish=1")
+      this.isLoading = false
 
       if(response != null){
         if(response.status === "success"){

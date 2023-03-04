@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-collapse pt-5 pt-lg-0" :class="{'button-toggle': isNavbarToggle}" id="sideNavbarToggle">
+  <div class="navbar-collapse pt-5 pt-lg-0 d-block d-lg-none" :class="{'button-toggle': isNavbarToggle}" id="sideNavbarToggle">
     <ul class="list-group navbar-side">
       <li class="list-group-item nav-item" style="border-top: none;">
         <a class="nav-link" :class="{'active': currentRoute === '/'}" href="/">{{ $t("home") }}</a>

@@ -21,6 +21,7 @@ export default class Base{
       var header = {
         "Content-Type": "application/json",
         "Accept": "application/json",
+        "Type": "web",
       }
       var token = await window.localStorage.getItem('token')
       if(token != null && token != '')
