@@ -6,19 +6,17 @@
       </div>
 
       <div class="w-100" style="padding-top: 4rem; padding-bottom: 11.8rem;">
-        <div class="">
-          <div v-for="(section, index) in arr_section" :key="'section' + index" :class="{'mt-5': index > 0}">
-            <Transition name="about-us-title1">
-              <p class="mb-0 title-section" v-show="flag.aboutUsTitle1Flag" v-html="section.title"></p>
-            </Transition>
-            <Transition name="about-us-content1">
-              <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent1Flag" v-html="section.content"></p>
-            </Transition>
-            <Transition name="about-us-image1">
-              <img :src="section.image" width="100%" class="mt-5" v-show="flag.aboutUsImage1Flag"/>
-            </Transition>
+        <Transition name="about-us-title1">
+          <div class="" v-show="flag.aboutUsTitle1Flag">
+            <div v-for="(section, index) in arr_section" :key="'section' + index" :class="{'mt-5': index > 0}">
+              <div >
+                <p class="mb-0 title-section" v-show="flag.aboutUsTitle1Flag" v-html="section.title"></p>
+                <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent1Flag" v-html="section.content"></p>
+                <img :src="section.image" width="100%" class="mt-5" v-show="flag.aboutUsImage1Flag"/>
+              </div>
+            </div>
           </div>
-        </div>
+        </Transition>
 
         <div class="" style="margin-top: 5.4rem;">
           <Transition name="about-us-title2">
@@ -170,7 +168,7 @@ export default {
       this.$emit('onChangeArrFactor', val)
     },
     scrollY(val){
-      this.flag.aboutUsTitle1Flag = this.flag.aboutUsTitle1Flag || (!this.flag.aboutUsTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.aboutUsTitle1Flag = (this.flag.aboutUsTitle1Flag || (!this.flag.aboutUsTitle1Flag && val >= this.base.responsive_scroll_threshold(0)))
       this.flag.aboutUsImage1Flag = this.flag.aboutUsImage1Flag || (!this.flag.aboutUsImage1Flag && val >= this.base.responsive_scroll_threshold(0))
       this.flag.aboutUsContent1Flag = this.flag.aboutUsContent1Flag || (!this.flag.aboutUsContent1Flag && val >= this.base.responsive_scroll_threshold(0))
       this.flag.aboutUsTitle2Flag = this.flag.aboutUsTitle2Flag || (!this.flag.aboutUsTitle2Flag && val >= this.base.responsive_scroll_threshold(0))
