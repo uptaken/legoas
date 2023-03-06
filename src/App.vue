@@ -128,7 +128,6 @@ export default {
     display: inline-block;
   }
 }
-
 @media only screen and (min-width: 1517px) {
   html, body{
     font-size: 18px;

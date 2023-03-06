@@ -148,7 +148,7 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
       this.$emit('onChangeArrFactor', val)
     },
     scrollY(val){
-      this.flag.howToParticipantTitle1Flag = this.flag.howToParticipantTitle1Flag || (!this.flag.howToParticipantTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
+      this.flag.howToParticipantTitle1Flag = this.flag.howToParticipantTitle1Flag || (!this.flag.howToParticipantTitle1Flag && val >= this.base.responsive_scroll_threshold(10))
       var margin = 1000
       this.flag.howToSellerTitle1Flag = this.flag.howToSellerTitle1Flag || (!this.flag.howToSellerTitle1Flag && val >= this.base.responsive_scroll_threshold(1000, margin))
     },
