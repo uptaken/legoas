@@ -143,6 +143,7 @@ export default {
         {
           id: "1",
           image: ProductImage1,
+          product_type: "normal",
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
@@ -195,6 +196,7 @@ export default {
         {
           id: "1",
           image: ProductImage2,
+          product_type: "normal",
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
@@ -247,6 +249,7 @@ export default {
         {
           id: "1",
           image: ProductImage3,
+          product_type: "bulk",
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
@@ -299,6 +302,7 @@ export default {
         {
           id: "1",
           image: ProductImage1,
+          product_type: "bulk",
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
@@ -351,6 +355,7 @@ export default {
         {
           id: "1",
           image: ProductImage2,
+          product_type: "normal",
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
@@ -403,6 +408,7 @@ export default {
         {
           id: "1",
           image: ProductImage3,
+          product_type: "normal",
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
@@ -455,6 +461,7 @@ export default {
         {
           id: "1",
           image: ProductImage1,
+          product_type: "normal",
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
@@ -507,6 +514,7 @@ export default {
         {
           id: "1",
           image: ProductImage2,
+          product_type: "normal",
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
@@ -559,6 +567,7 @@ export default {
         {
           id: "1",
           image: ProductImage3,
+          product_type: "normal",
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",

@@ -12,7 +12,7 @@
               <div >
                 <p class="mb-0 title-section" v-show="flag.aboutUsTitle1Flag" v-html="section.title"></p>
                 <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent1Flag" v-html="section.content"></p>
-                <img :src="section.image" width="100%" class="mt-5" v-show="flag.aboutUsImage1Flag"/>
+                <img :src="section.image" width="100%" class="mt-5" v-show="flag.aboutUsImage1Flag && section.image != null"/>
               </div>
             </div>
           </div>
@@ -32,8 +32,8 @@
                 <div class="row">
                   <div class="col-6 col-lg-3 d-flex align-items-center flex-column mt-3 mt-lg-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
                     <img :src="trust.image" style="width: 3rem; height: 3rem;"/>
-                    <p class="mb-0 custom-title text-center mt-2" v-html="trust.title"></p>
-                    <p class="mb-0 text-center" v-html="trust.content"></p>
+                    <div v-html="trust.title"></div>
+                    
                   </div>
                 </div>
               </div>
@@ -86,7 +86,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
-      arr_factor: [false, false, ],
+      arr_factor: [false, false, false, ],
       flag: {
         aboutUsTitle1Flag: false,
         aboutUsImage1Flag: false,
@@ -102,26 +102,34 @@ export default {
         {
           id: "1",
           image: Wallet,
-          title: "Lelang Secara Aman",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+          title: `
+            <p class="mb-0 custom-title text-center mt-2">Lelang Secara Aman</p>
+            <p class="mb-0 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+          `,
         },
         {
           id: "1",
           image: Wallet,
-          title: "Lelang Secara Aman",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+          title: `
+            <p class="mb-0 custom-title text-center mt-2">Lelang Secara Aman</p>
+            <p class="mb-0 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+          `,
         },
         {
           id: "1",
           image: Wallet,
-          title: "Lelang Secara Aman",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+          title: `
+            <p class="mb-0 custom-title text-center mt-2">Lelang Secara Aman</p>
+            <p class="mb-0 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+          `,
         },
         {
           id: "1",
           image: Wallet,
-          title: "Lelang Secara Aman",
-          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
+          title: `
+            <p class="mb-0 custom-title text-center mt-2">Lelang Secara Aman</p>
+            <p class="mb-0 text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
+          `,
         },
       ],
       arr_team: [
@@ -186,6 +194,7 @@ export default {
 
     this.get_about_us_section()
     this.get_our_team_section()
+    this.get_trust_section()
   },
   methods: {
     onImageLoad(index){
@@ -203,10 +212,28 @@ export default {
       if(response != null){
         if(response.status === "success"){
           for(let our_team of response.data){
-            our_team.image = this.base.host + "/media/section/our-team?file_name=" + our_team.file_name
+            our_team.image = our_team.file_name != null ? this.base.host + "/media/section/our-team?file_name=" + our_team.file_name : null
             our_team.name = our_team.title
           }
           this.arr_team = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+    async get_trust_section(){
+      var response = await this.base.request(this.base.url_api + "/section/trust/all?is_publish=1")
+      this.$set(this.arr_factor, 2, true)
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let trust of response.data){
+            trust.image = this.base.host + "/media/section/trust?file_name=" + trust.file_name
+            trust.name = trust.title
+          }
+          this.arr_trust = response.data
         }
         else
           this.base.show_error(response.message)
@@ -221,7 +248,7 @@ export default {
       if(response != null){
         if(response.status === "success"){
           for(let about_us of response.data){
-            about_us.image = this.base.host + "/media/section/about-us?file_name=" + about_us.file_name
+            about_us.image = about_us.file_name != null ? this.base.host + "/media/section/about-us?file_name=" + about_us.file_name : null
           }
           this.arr_section = response.data
         }

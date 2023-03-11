@@ -18,7 +18,7 @@
                   <img :src="selected_image" width="100%" v-show="image_flag"/>
                 </Transition>
               </div>
-              <div class="mt-2">
+              <div class="mt-2" v-if="product.arr_image.length > 1">
                 <VueSlickCarousel v-bind="slick_setting">
                   <div v-for="(image, index) in product.arr_image" :key="'image' + index" 
                     class="image-slick p-1"
@@ -56,19 +56,28 @@
               <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="info-tab" data-toggle="tab" data-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">{{ $t("info_product") }}</button>
               </li>
-              <li class="nav-item" role="presentation">
+              <li class="nav-item" :class="{'d-none': product.product_type === 'bulk'}" role="presentation">
                 <button class="nav-link" id="description-tab" data-toggle="tab" data-target="#description" type="button" role="tab" aria-controls="description" aria-selected="false">{{ $t("description") }}</button>
               </li>
-              <li class="nav-item" role="presentation">
+              <li class="nav-item" :class="{'d-none': product.product_type === 'bulk'}" role="presentation">
                 <button class="nav-link" id="document-tab" data-toggle="tab" data-target="#document" type="button" role="tab" aria-controls="document" aria-selected="false">{{ $t("document_product") }}</button>
               </li>
-              <li class="nav-item" role="presentation">
+              <li class="nav-item" :class="{'d-none': product.product_type === 'bulk'}" role="presentation">
                 <button class="nav-link" id="notes-tab" data-toggle="tab" data-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">{{ $t("notes") }}</button>
               </li>
             </ul>
             <div class="tab-content" style="padding: 3.1rem 5rem;" id="myTabContent">
               <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-                <div class="row">
+                <div v-if="product.product_type === 'bulk'" class="d-flex flex-column justify-content-center align-items-center w-100">
+                  <img src="@/assets/bulk_product.png" style="width: 22rem;"/>
+                  <p class="mb-0 detail-product-description mt-5">Download PDF dibawah ini, untuk mengetahui informasi lebih akan Produk terlelang</p>
+                  <div class="px-5 py-3 detail-product-call d-flex align-items-center mt-4" @click="onCallSeller" style="margin-top: 2.1rem;">
+                    <img src="@/assets/icon_download.png" style="width: 1rem;"/>
+                    <p class="ml-2 mb-0 detail-product-call-text">{{ $t('download_pdf') }}</p>
+                  </div>
+                </div>
+
+                <div class="row" v-else>
                   <div class="col-12 col-lg-6" v-for="(info, index) in product.arr_info" :key="'info' + index">
                     <div class="d-flex justify-content-between detail-product-info-item">
                       <p class="mb-0">{{ info.name }}:</p>
@@ -113,6 +122,7 @@ export default {
       product: {
         id: "",
         image: null,
+        product_type: '',
         title: "",
         seller: {
           name: "",

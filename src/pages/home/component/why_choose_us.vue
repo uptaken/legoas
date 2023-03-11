@@ -99,6 +99,7 @@ export default {
 }
 .why-title{
   font-family: poppins-light;
+  font-size: 1rem;
   color: $gray5;
   letter-spacing: .2rem;
   line-height: 100%;

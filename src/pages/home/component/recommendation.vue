@@ -10,9 +10,9 @@
     </div>
 
     <Transition name="recommendation-title1">
-      <div v-show="recommendationTitle1Flag">
-        <div class="d-flex justify-content-center" style="margin-top: 3.375rem;">
-          <div class="row">
+      <div v-show="recommendationTitle1Flag" >
+        <div class="d-flex justify-content-center" style="margin-top: 3.375rem; ">
+          <div class="row" style="width: 57rem; max-width: 100%;">
             <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0">
               <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
             </div>

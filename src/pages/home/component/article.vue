@@ -12,7 +12,7 @@
     <Transition name="home-article-content">
       <div v-show="articleTitle1Flag">
         <div class="d-flex justify-content-center"  style="margin-top: 3.375rem;">
-          <div class="row">
+          <div class="row"  style="width: 57rem; max-width: 100%;">
             <div v-for="(article, index) in arr_article" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" >
               <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
             </div>
@@ -89,7 +89,7 @@ export default {
         if(response.status === "success"){
           for(let article of response.data){
             article.image = this.base.host + "/media/article?file_name=" + article.file_name
-            article.date = moment(article.date_format, "YYYY-MM-DD")
+            article.date = moment(article.date, "YYYY-MM-DD")
           }
           this.arr_article = response.data
         }

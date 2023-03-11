@@ -1,8 +1,8 @@
 <template>
   <div class="card d-inline-block text-left h-100 article-card recommendation-card">
     <div class="card-body p-0 w-100 h-100 d-flex flex-column justify-content-between">
-      <div>
-        <div class="px-1 pt-1">
+      <div class="w-100">
+        <div class="px-1 pt-1 w-100">
           <vue-skeleton-loader
             width="100%"
             height="100%"

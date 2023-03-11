@@ -27,7 +27,6 @@ export default class Base{
       if(token != null && token != '')
         header['Authorization'] = token
 
-
       var response
       if(method === 'get'){
         for(let x in data)
@@ -63,8 +62,9 @@ export default class Base{
           }
         })
       else if(method === 'delete')
-        response = await axios.delete(url, data, {
+        response = await axios.delete(url, {
           headers: header,
+          data: data,
         })
         .catch(function (error) {
           if (error.response.code != 200) {

@@ -32,7 +32,7 @@
   "term_condition": "Term Condition",
   "privacy_policy": "Privacy Policy",
   "contact_us": "Hubungi Kami",
-  "auction_definition": "Definisi Lelang",
+  "auction_definition": "Pengertian Lelang",
   "auction_how_to": "Tata Cara Lelang",
   "auction_rules": "Peraturan Lelang",
   "auction_news": "Berita Lelang",
@@ -109,6 +109,7 @@
   "description": "Deskripsi",
   "document_product": "Dokumen Barang",
   "notes": "Catatan",
+  "download_pdf": "Download PDF",
 
 
   "old_password_empty": "Empty Old Password",

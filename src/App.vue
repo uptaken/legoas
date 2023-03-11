@@ -58,6 +58,13 @@ export default {
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+
+    let version = '0.2.0003'
+    const last_version = localStorage.getItem('version')
+    if(last_version == null || (last_version != null && last_version !== version)){
+      localStorage.setItem('version', version)
+      window.location.reload(true);
+    }
   },
   methods:{
     onChangeArrFactor(arr){
