@@ -1,10 +1,12 @@
 <template>
   <div class="text-center">
     <div class="custom-navbar-padding-right custom-navbar-padding-left">
-      <div class="footer-download-image px-3 px-lg-0">
-        <img src="@/assets/download_app_section.png" class="footer-download-image1 d-none d-lg-inline-block" />
-        <img src="@/assets/download_app_section_mobile.png" class="footer-download-image1 d-inline-block d-lg-none"/>
-      </div>
+      <a href="https://legoas.page.link/aplikasi" target="__blank">
+        <div class="footer-download-image px-3 px-lg-0">
+          <img src="@/assets/download_app_section.png" class="footer-download-image1 d-none d-lg-inline-block" />
+          <img src="@/assets/download_app_section_mobile.png" class="footer-download-image1 d-inline-block d-lg-none"/>
+        </div>
+      </a>
     </div>
     <div class="footer-container text-left px-3 px-lg-0" style="">
       <div class="custom-navbar-padding-right custom-navbar-padding-left footer-content-card">

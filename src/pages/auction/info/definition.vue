@@ -129,8 +129,8 @@ export default {
     scrollY(val){
       this.flag.definitionImage1Flag = this.flag.definitionImage1Flag || (!this.flag.definitionImage1Flag && val >= this.base.responsive_scroll_threshold(0))
       this.flag.definitionTitle1Flag = this.flag.definitionTitle1Flag || (!this.flag.definitionTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.definitionTitle2Flag = this.flag.definitionTitle2Flag || (!this.flag.definitionTitle2Flag && val >= this.base.responsive_scroll_threshold(100))
-      this.flag.definitionContent2Flag = this.flag.definitionContent2Flag || (!this.flag.definitionContent2Flag && val >= this.base.responsive_scroll_threshold(100))
+      this.flag.definitionTitle2Flag = this.flag.definitionTitle2Flag || (!this.flag.definitionTitle2Flag && val >= this.base.responsive_scroll_threshold(10))
+      this.flag.definitionContent2Flag = this.flag.definitionContent2Flag || (!this.flag.definitionContent2Flag && val >= this.base.responsive_scroll_threshold(10))
       this.flag.definitionTitle3Flag = this.flag.definitionTitle3Flag || (!this.flag.definitionTitle3Flag && val >= this.base.responsive_scroll_threshold(300))
       this.flag.definitionContent3Flag = this.flag.definitionContent3Flag || (!this.flag.definitionContent3Flag && val >= this.base.responsive_scroll_threshold(300))
     },

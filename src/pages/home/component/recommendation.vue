@@ -13,7 +13,8 @@
       <div v-show="recommendationTitle1Flag" >
         <div class="d-flex justify-content-center" style="margin-top: 3.375rem; ">
           <div class="row" style="width: 57rem; max-width: 100%;">
-            <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0">
+            <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" @click="toDetail(index)" 
+              style="cursor: pointer;">
               <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
             </div>
           </div>
@@ -47,32 +48,155 @@ export default {
           title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
+            address: "Jl. Semenanjung Utara No. 212 A, Jakarta Utara No. Telp 08123129, 0821321322 ",
+            phone: "0821321322",
           },
           type: "MOBIL",
           place: "Jakarta Utara",
           price: 147000000,
+          arr_image: [ProductImage1, ProductImage1, ProductImage1, ProductImage1],
+          arr_info: [
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+          ],
+          arr_document: [
+            {
+              image: ProductImage1,
+              name: "KTP",
+            },
+            {
+              image: ProductImage1,
+              name: "SIM",
+            },
+          ],
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus urna et pharetra pharetra massa massa ultricies mi. Elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere. Quis blandit turpis cursus in hac habitasse platea dictumst. Platea dictumst vestibulum rhoncus est. Hac habitasse platea dictumst quisque. Aliquam purus sit amet luctus venenatis lectus magna. Urna cursus eget nunc scelerisque viverra mauris in. Interdum varius sit amet mattis vulputate. Sed nisi lacus sed viverra. Eu scelerisque felis imperdiet proin fermentum leo vel orci. Tempor nec feugiat nisl pretium. Libero id faucibus nisl tincidunt eget nullam. Eu mi bibendum neque egestas congue quisque egestas diam in.',
+          notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus urna et pharetra pharetra massa massa ultricies mi. Elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere. Quis blandit turpis cursus in hac habitasse platea dictumst. Platea dictumst vestibulum rhoncus est. Hac habitasse platea dictumst quisque. Aliquam purus sit amet luctus venenatis lectus magna. Urna cursus eget nunc scelerisque viverra mauris in. Interdum varius sit amet mattis vulputate. Sed nisi lacus sed viverra. Eu scelerisque felis imperdiet proin fermentum leo vel orci. Tempor nec feugiat nisl pretium. Libero id faucibus nisl tincidunt eget nullam. Eu mi bibendum neque egestas congue quisque egestas diam in.',
         },
         {
           id: "1",
           image: ProductImage2,
-          title: "Ban Bridgestone Ecopia 195/65 R15",
+          title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
-            name: "Ban Bridgestone Ecopia 195/65 R15",
+            name: "Amanah Decoration supplier interior Dan exsterior",
+            address: "Jl. Semenanjung Utara No. 212 A, Jakarta Utara No. Telp 08123129, 0821321322 ",
+            phone: "0821321322",
           },
-          type: "BAN",
+          type: "MOBIL",
           place: "Jakarta Utara",
           price: 147000000,
+          arr_image: [ProductImage2, ProductImage1, ProductImage3, ProductImage2],
+          arr_info: [
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+          ],
+          arr_document: [
+            {
+              image: ProductImage2,
+              name: "KTP",
+            },
+            {
+              image: ProductImage2,
+              name: "SIM",
+            },
+          ],
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus urna et pharetra pharetra massa massa ultricies mi. Elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere. Quis blandit turpis cursus in hac habitasse platea dictumst. Platea dictumst vestibulum rhoncus est. Hac habitasse platea dictumst quisque. Aliquam purus sit amet luctus venenatis lectus magna. Urna cursus eget nunc scelerisque viverra mauris in. Interdum varius sit amet mattis vulputate. Sed nisi lacus sed viverra. Eu scelerisque felis imperdiet proin fermentum leo vel orci. Tempor nec feugiat nisl pretium. Libero id faucibus nisl tincidunt eget nullam. Eu mi bibendum neque egestas congue quisque egestas diam in.',
+          notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus urna et pharetra pharetra massa massa ultricies mi. Elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere. Quis blandit turpis cursus in hac habitasse platea dictumst. Platea dictumst vestibulum rhoncus est. Hac habitasse platea dictumst quisque. Aliquam purus sit amet luctus venenatis lectus magna. Urna cursus eget nunc scelerisque viverra mauris in. Interdum varius sit amet mattis vulputate. Sed nisi lacus sed viverra. Eu scelerisque felis imperdiet proin fermentum leo vel orci. Tempor nec feugiat nisl pretium. Libero id faucibus nisl tincidunt eget nullam. Eu mi bibendum neque egestas congue quisque egestas diam in.',
         },
         {
           id: "1",
           image: ProductImage3,
-          title: "Orient Titanium Sliderule Automatic Caliber 469",
+          title: "WULING CORTEZ 1.5 S T LUX",
           seller: {
             name: "Amanah Decoration supplier interior Dan exsterior",
+            address: "Jl. Semenanjung Utara No. 212 A, Jakarta Utara No. Telp 08123129, 0821321322 ",
+            phone: "0821321322",
           },
-          type: "JAM TANGAN",
+          type: "MOBIL",
           place: "Jakarta Utara",
           price: 147000000,
+          arr_image: [ProductImage3, ProductImage3, ProductImage3, ProductImage3],
+          arr_info: [
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+            {
+              name: "kondisi",
+              value: "bagus",
+            },
+          ],
+          arr_document: [
+            {
+              image: ProductImage3,
+              name: "KTP",
+            },
+            {
+              image: ProductImage3,
+              name: "SIM",
+            },
+          ],
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus urna et pharetra pharetra massa massa ultricies mi. Elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere. Quis blandit turpis cursus in hac habitasse platea dictumst. Platea dictumst vestibulum rhoncus est. Hac habitasse platea dictumst quisque. Aliquam purus sit amet luctus venenatis lectus magna. Urna cursus eget nunc scelerisque viverra mauris in. Interdum varius sit amet mattis vulputate. Sed nisi lacus sed viverra. Eu scelerisque felis imperdiet proin fermentum leo vel orci. Tempor nec feugiat nisl pretium. Libero id faucibus nisl tincidunt eget nullam. Eu mi bibendum neque egestas congue quisque egestas diam in.',
+          notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus urna et pharetra pharetra massa massa ultricies mi. Elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere. Quis blandit turpis cursus in hac habitasse platea dictumst. Platea dictumst vestibulum rhoncus est. Hac habitasse platea dictumst quisque. Aliquam purus sit amet luctus venenatis lectus magna. Urna cursus eget nunc scelerisque viverra mauris in. Interdum varius sit amet mattis vulputate. Sed nisi lacus sed viverra. Eu scelerisque felis imperdiet proin fermentum leo vel orci. Tempor nec feugiat nisl pretium. Libero id faucibus nisl tincidunt eget nullam. Eu mi bibendum neque egestas congue quisque egestas diam in.',
         },
       ],
     }
@@ -81,6 +205,12 @@ export default {
     this.base = new Base()
   },
   methods:{
+    toDetail(index){
+      var product = this.arr_car[index]
+      
+      window.localStorage.setItem('product', JSON.stringify(product))
+      window.location.href = "/product/detail?id=" + product.id
+    },
     async get_product(){
       var response = await this.base.request(this.base.url_api + "/product?num_data=3&is_publish=1")
 

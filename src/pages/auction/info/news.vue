@@ -122,7 +122,7 @@ export default {
       this.scrollY = window.scrollY
     },
     async get_news_info(){
-      var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=news")
+      var response = await this.base.request(this.base.url_api + "/news?num_data=1&is_publish=1&type=latest")
       this.$set(this.arr_factor, 0, true)
 
       if(response != null){
