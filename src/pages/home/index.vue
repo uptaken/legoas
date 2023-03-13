@@ -6,7 +6,7 @@
         @onLoading="(isLoading, index) => $set(arr_factor, index, !isLoading)"/>
     </div>
 
-    <div class="text-center" style="margin-top: 5rem; margin-bottom: 2.3rem;">
+    <div class="custom-navbar-padding-right custom-navbar-padding-left" style="margin-top: 5rem; margin-bottom: 2.3rem;">
       <Recommendation :recommendationTitle1Flag="flag.recommendationTitle1" :recommendationTitle2Flag="flag.recommendationTitle2"/>
     </div>
 
@@ -23,7 +23,7 @@
         @onLoading="(isLoading, index) => $set(arr_factor, index, !isLoading)"/>
     </div>
 
-    <div class="text-center" style="margin-top: 6.5rem; margin-bottom: 6.5rem;">
+    <div class="custom-navbar-padding-right custom-navbar-padding-left" style="margin-top: 6.5rem; margin-bottom: 6.5rem;">
       <Article :articleTitle1Flag="flag.articleTitle1" 
         :articleTitle2Flag="flag.articleTitle2"
         @onLoading="(isLoading, index) => $set(arr_factor, index, !isLoading)"/>

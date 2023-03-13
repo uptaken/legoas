@@ -63,7 +63,7 @@ export default {
       base: null,
       arr_factor: [false, ],
       month: moment(),
-      week_num: 1,
+      week_num: -1,
       total_page: 10,
       current_page: 1,
       start_data: 1,
@@ -148,7 +148,8 @@ export default {
   },
   created(){
     this.base = new Base()
-    this.week_num = Math.floor(moment().format('D') / 7)
+    // this.week_num = Math.floor(moment().format('D') / 7)
+    this.manage_week_num()
 
     this.arr_factor = [true,]
   },
@@ -188,6 +189,18 @@ export default {
       else if(this.week_num > 4){
         if(end_date.isAfter(this.month.clone().endOf('month'), 'day'))
           this.week_num = 1
+      }
+      else if(this.week_num == -1){
+        counter_date = this.month.clone().startOf('month').startOf('week')
+        total_week = 0
+        while(counter_date.isBefore(this.month.clone().endOf('month'))){
+          if(counter_date.isSame(this.month.clone(), 'month'))
+            total_week++
+          if(counter_date <= moment() && counter_date.clone().add(7, 'days') >= moment())
+            break
+          counter_date.add(7, 'days')
+        }
+        this.week_num = total_week
       }
     },
   }

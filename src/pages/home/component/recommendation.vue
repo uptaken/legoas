@@ -1,5 +1,5 @@
 <template>
-  <div class="m-5 d-inline-block">
+  <div class="my-5 d-inline-block w-100">
     <div style="width: 100%;">
       <Transition name="recommendation-title1">
         <p class="m-0 why-title text-center" v-show="recommendationTitle1Flag">{{ $t("recommendation") }}</p>
@@ -12,10 +12,12 @@
     <Transition name="recommendation-title1">
       <div v-show="recommendationTitle1Flag" >
         <div class="d-flex justify-content-center" style="margin-top: 3.375rem; ">
-          <div class="row" style="width: 57rem; max-width: 100%;">
-            <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" @click="toDetail(index)" 
-              style="cursor: pointer;">
-              <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
+          <div class="footer-download-image1">
+            <div class="row" style="">
+              <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" @click="toDetail(index)" 
+                style="cursor: pointer;">
+                <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
+              </div>
             </div>
           </div>
         </div>

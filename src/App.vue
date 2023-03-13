@@ -59,7 +59,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
 
-    let version = '0.2.0003'
+    let version = '0.2.0004'
     const last_version = localStorage.getItem('version')
     if(last_version == null || (last_version != null && last_version !== version)){
       localStorage.setItem('version', version)

@@ -1,5 +1,5 @@
 <template>
-  <div class="m-5 d-inline-block">
+  <div class="my-5 d-inline-block w-100">
     <div style="width: 100%;">
       <Transition name="home-article-title1">
         <p class="m-0 why-title text-center"  v-show="articleTitle1Flag">{{ $t("article") }}</p>
@@ -12,9 +12,11 @@
     <Transition name="home-article-content">
       <div v-show="articleTitle1Flag">
         <div class="d-flex justify-content-center"  style="margin-top: 3.375rem;">
-          <div class="row"  style="width: 57rem; max-width: 100%;">
-            <div v-for="(article, index) in arr_article" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" >
-              <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
+          <div class="footer-download-image1">
+            <div class="row"  style="">
+              <div v-for="(article, index) in arr_article" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" >
+                <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
+              </div>
             </div>
           </div>
         </div>
