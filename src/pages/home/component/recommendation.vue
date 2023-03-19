@@ -201,10 +201,20 @@ export default {
           notes: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Tempus urna et pharetra pharetra massa massa ultricies mi. Elementum pulvinar etiam non quam lacus suspendisse faucibus interdum posuere. Quis blandit turpis cursus in hac habitasse platea dictumst. Platea dictumst vestibulum rhoncus est. Hac habitasse platea dictumst quisque. Aliquam purus sit amet luctus venenatis lectus magna. Urna cursus eget nunc scelerisque viverra mauris in. Interdum varius sit amet mattis vulputate. Sed nisi lacus sed viverra. Eu scelerisque felis imperdiet proin fermentum leo vel orci. Tempor nec feugiat nisl pretium. Libero id faucibus nisl tincidunt eget nullam. Eu mi bibendum neque egestas congue quisque egestas diam in.',
         },
       ],
+      isLoading: true,
     }
+  },
+  watch: {
+    arr_car(val){
+      this.$emit('onChangeArr', val)
+    },
+    isLoading(val){
+      this.$emit("onLoading", val, 3)
+    },
   },
   created(){
     this.base = new Base()
+    this.isLoading = false
   },
   methods:{
     toDetail(index){
@@ -214,21 +224,48 @@ export default {
       window.location.href = "/product/detail?id=" + product.id
     },
     async get_product(){
-      var response = await this.base.request(this.base.url_api + "/product?num_data=3&is_publish=1")
+      var data = {
+        param: {
+          searchLocation: this.location_id,
+          searchCategory: this.product_type_id,
+          searchKey: this.search,
+          length: 3,
+          sort: this.sort,
+          start: this.current_page,
+          searchStartEventDate: "",
+          searchEndEventDate: "",
+        }
+      }
+      var response = await this.base.request(this.base.url_api2 + `/SearchUnit`, "post", data)
 
       if(response != null){
-        if(response.status === "success"){
+        if(response.status_code === "00"){
           for(let product of response.data){
-            product.image = this.base.host + "/media/product?file_name=" + product.file_name
-            product.place = product.city.name
-            product.title = product.name
-            product.type = product.product_type.name
-            product.seller.name = product.vendor
+            product.id = product.idlot
+            product.image = product.imageuri
+            product.place = product.wrhcity
+            product.title = product.unitname
+            product.type = product.categoryname
+            product.price = product.baseprice
+            product.arr_image = [
+              product.imageuri,
+            ]
+            product.seller = {
+              name: "",
+            }
+            product.notes = null
+            product.arr_info = []
+            for(let x in product.specunit){
+              product.arr_info.push({
+                name: x,
+                value: product.specunit[x],
+              })
+            }
           }
-          this.arr_product = response.data
+          this.arr_car = response.data
         }
         else
-          this.base.show_error(response.message)
+          this.base.show_error(response.status_message)
       }
       else
         this.base.show_error(this.$t('server_error'))

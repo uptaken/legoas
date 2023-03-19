@@ -110,6 +110,9 @@
   "document_product": "Dokumen Barang",
   "notes": "Catatan",
   "download_pdf": "Download PDF",
+  "no_data_found": "No Data Found",
+  "all_location": "All Location",
+  "all_product_type": "All Product Type",
 
 
   "old_password_empty": "Empty Old Password",

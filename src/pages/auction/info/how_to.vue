@@ -30,7 +30,7 @@
         </div>
       </div>
 
-      <div class="participant-container">
+      <div class="participant-container" id="participant-container">
         <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
           <div class="content-container text-left">
             <HowToItem :title='`<label class="text-primary">` + $t("participant") + `</label> ` + $t("auction")' :arr="arr_participant" :howToTitle1Flag="flag.howToParticipantTitle1Flag"/>
@@ -146,11 +146,10 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
   watch: {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
+      this.manage_start_animation()
     },
-    scrollY(val){
-      this.flag.howToParticipantTitle1Flag = this.flag.howToParticipantTitle1Flag || (!this.flag.howToParticipantTitle1Flag && val >= this.base.responsive_scroll_threshold(10))
-      var margin = 1000
-      this.flag.howToSellerTitle1Flag = this.flag.howToSellerTitle1Flag || (!this.flag.howToSellerTitle1Flag && val >= this.base.responsive_scroll_threshold(1000, margin))
+    scrollY(){
+      this.manage_start_animation()
     },
   },
   created(){
@@ -165,6 +164,10 @@ Jika ada barang/produk yang diminati, maka calon peserta dapat mendaftar terlebi
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    manage_start_animation(){
+      this.flag.howToParticipantTitle1Flag = this.base.check_start_animation(this.scrollY, this.flag.howToParticipantTitle1Flag, this.arr_factor, 10)
+      this.flag.howToSellerTitle1Flag = this.base.check_start_animation(this.scrollY, this.flag.howToSellerTitle1Flag, this.arr_factor, 1000, this.flag.howToParticipantTitle1Flag ? window.$('#participant-container').innerHeight() - 800 : 1000)
     },
     async get_how_to_info(){
       var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=how_to")

@@ -1,11 +1,11 @@
 <template>
-  <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
-    <div class="content-container text-left">
+  <div class="custom-navbar-padding-right custom-navbar-padding-left d-flex flex-column align-items-center">
+    <div class="footer-download-image1 text-left">
       <div class="position-relative" style="margin-top: 3.8rem;">
         <div class="d-flex">
           <p class="mb-0 navigation">{{ $t('product') }}</p>
           <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
-          <p class="mb-0 navigation navigation-now">{{ $t('detail_product') }}</p>
+          <p class="mb-0 navigation navigation-now-without-underline">{{ $t('detail_product') }}</p>
         </div>
       </div>
 
@@ -13,9 +13,9 @@
         <div class="row">
           <Transition name="definition-image1">
             <div class="col-12 col-lg-6 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
-              <div id="detail-product-image" :style="{height: detail_product_image_height > 0 ? (detail_product_image_height + 'px') : 'auto'}">
+              <div id="detail-product-image" :style="{height: detail_product_image_height > 0 ? (detail_product_image_height + 'px') : 'auto'}" class=" text-center">
                 <Transition name="detail-product-image">
-                  <img :src="selected_image" width="100%" v-show="image_flag"/>
+                  <img :src="selected_image" style="height: 17.25rem" v-show="image_flag"/>
                 </Transition>
               </div>
               <div class="mt-2" v-if="product.arr_image.length > 1">
@@ -157,11 +157,10 @@ export default {
   watch: {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
+      this.manage_start_animation()
     },
-    scrollY(val){
-      this.flag.detailProductImage1Flag = this.flag.detailProductImage1Flag || (!this.flag.detailProductImage1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.detailProductContent1Flag = this.flag.detailProductContent1Flag || (!this.flag.detailProductContent1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.detailProductDetail1Flag = this.flag.detailProductDetail1Flag || (!this.flag.detailProductDetail1Flag && val >= this.base.responsive_scroll_threshold(50))
+    scrollY(){
+      this.manage_start_animation()
     },
     selected_image_index(val){
       var context = this
@@ -195,6 +194,11 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    manage_start_animation(){
+      this.flag.detailProductImage1Flag = this.base.check_start_animation(this.scrollY, this.flag.detailProductImage1Flag, this.arr_factor, 0)
+      this.flag.detailProductContent1Flag = this.base.check_start_animation(this.scrollY, this.flag.detailProductContent1Flag, this.arr_factor, 0)
+      this.flag.detailProductDetail1Flag = this.base.check_start_animation(this.scrollY, this.flag.detailProductDetail1Flag, this.arr_factor, 50)
     },
     onSelectedImage(index){
       this.selected_image_index = index

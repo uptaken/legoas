@@ -7,7 +7,7 @@
 
       <div class="w-100" style="padding-top: 4rem; padding-bottom: 11.8rem;">
         <Transition name="about-us-title1">
-          <div class="" v-show="flag.aboutUsTitle1Flag">
+          <div class="" v-show="flag.aboutUsTitle1Flag" id="about-us-content">
             <div v-for="(section, index) in arr_section" :key="'section' + index" :class="{'mt-5': index > 0}">
               <div >
                 <p class="mb-0 title-section" v-show="flag.aboutUsTitle1Flag" v-html="section.title"></p>
@@ -18,12 +18,12 @@
           </div>
         </Transition>
 
-        <div class="" style="margin-top: 5.4rem;">
+        <div class="" style="margin-top: 5.4rem;" id="trust-container">
           <Transition name="about-us-title2">
             <p class="mb-0 title-section" v-show="flag.aboutUsTitle2Flag">{{ $t('trusting_legoas') }}</p>
           </Transition>
           <Transition name="about-us-content2" >
-            <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent2Flag"><label class="custom-title">LEGOAS</label> memiliki ijin operasional Balai Lelang yang disahkan melalui Keputusan Menteri Keuangan no 28/KM.6/2018. Dalam hal ini, <label class="custom-title">LEGOAS</label> menjadi perusahaan yang berada dalam naungan pemerintah sehingga peserta tidak perlu khawatir atas kredibilitas <label class="custom-title">LEGOAS</label> karena sebagai peserta lelang juga dilindungi haknya oleh Negara. Dengan masuknya <label class="custom-title">LEGOAS</label> dalam pengawasan negara, maka kewajiban dari <label class="custom-title">LEGOAS</label> juga dalam pelaksanaan lelang dan termasuk memeriksa keabsahan kepemilikan barang tersebut sehingga peserta tidak perlu dikhawatirkan dalam keabsahan kepemilikan tersebut.</p>
+            <p class="mb-0 mt-5 content-section" id="trust-content" v-show="flag.aboutUsContent2Flag" v-html="trust_content"></p>
           </Transition>
 
           <Transition name="about-us-image2">
@@ -86,7 +86,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
-      arr_factor: [false, false, false, ],
+      arr_factor: [false, false, false, false, ],
       flag: {
         aboutUsTitle1Flag: false,
         aboutUsImage1Flag: false,
@@ -98,6 +98,7 @@ export default {
         aboutUsImage3Flag: false,
         aboutUsContent3Flag: false,
       },
+      trust_content: '',
       arr_trust: [
         {
           id: "1",
@@ -174,17 +175,10 @@ export default {
   watch: {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
+      this.manage_start_animation()
     },
-    scrollY(val){
-      this.flag.aboutUsTitle1Flag = (this.flag.aboutUsTitle1Flag || (!this.flag.aboutUsTitle1Flag && val >= this.base.responsive_scroll_threshold(0)))
-      this.flag.aboutUsImage1Flag = this.flag.aboutUsImage1Flag || (!this.flag.aboutUsImage1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.aboutUsContent1Flag = this.flag.aboutUsContent1Flag || (!this.flag.aboutUsContent1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.aboutUsTitle2Flag = this.flag.aboutUsTitle2Flag || (!this.flag.aboutUsTitle2Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.aboutUsImage2Flag = this.flag.aboutUsImage2Flag || (!this.flag.aboutUsImage2Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.aboutUsContent2Flag = this.flag.aboutUsContent2Flag || (!this.flag.aboutUsContent2Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.aboutUsTitle3Flag = this.flag.aboutUsTitle3Flag || (!this.flag.aboutUsTitle3Flag && val >= this.base.responsive_scroll_threshold(800))
-      this.flag.aboutUsImage3Flag = this.flag.aboutUsImage3Flag || (!this.flag.aboutUsImage3Flag && val >= this.base.responsive_scroll_threshold(800))
-      this.flag.aboutUsContent3Flag = this.flag.aboutUsContent3Flag || (!this.flag.aboutUsContent3Flag && val >= this.base.responsive_scroll_threshold(800))
+    scrollY(){
+      this.manage_start_animation()
     },
   },
   created(){
@@ -195,6 +189,7 @@ export default {
     this.get_about_us_section()
     this.get_our_team_section()
     this.get_trust_section()
+    this.get_trust_info()
   },
   methods: {
     onImageLoad(index){
@@ -202,8 +197,48 @@ export default {
       team.is_image_loaded = true
       this.$set(this.arr_team, index, team)
     },
+    manage_start_animation(){
+      var context = this
+      this.flag.aboutUsTitle1Flag = this.base.check_start_animation(this.scrollY, this.flag.aboutUsTitle1Flag, this.arr_factor, 0)
+      this.flag.aboutUsImage1Flag = this.base.check_start_animation(this.scrollY, this.flag.aboutUsImage1Flag, this.arr_factor, 0)
+      this.flag.aboutUsContent1Flag = this.base.check_start_animation(this.scrollY, this.flag.aboutUsContent1Flag, this.arr_factor, 0)
+
+      setTimeout(() => {
+        if(context.flag.aboutUsContent1Flag){
+          var margin = window.$('#about-us-content').height()
+          context.flag.aboutUsTitle2Flag = context.base.check_start_animation(context.scrollY, context.flag.aboutUsTitle2Flag, context.arr_factor, 0, margin - margin)
+          context.flag.aboutUsContent2Flag = context.base.check_start_animation(context.scrollY, context.flag.aboutUsContent2Flag, context.arr_factor, 0, margin - 300)
+          
+          if(context.flag.aboutUsContent2Flag){
+            context.flag.aboutUsImage2Flag = context.base.check_start_animation(context.scrollY, context.flag.aboutUsImage2Flag, context.arr_factor, 0, margin + window.$('#trust-content').innerHeight() - 300)
+
+            if(context.flag.aboutUsImage2Flag){
+              margin += window.$('#trust-container').innerHeight() - 950
+              context.flag.aboutUsTitle3Flag = context.base.check_start_animation(context.scrollY, context.flag.aboutUsTitle3Flag, context.arr_factor, 800, margin)
+              context.flag.aboutUsImage3Flag = context.base.check_start_animation(context.scrollY, context.flag.aboutUsImage3Flag, context.arr_factor, 800, margin)
+              context.flag.aboutUsContent3Flag = context.base.check_start_animation(context.scrollY, context.flag.aboutUsContent3Flag, context.arr_factor, 800, margin)
+            }
+          }
+        }
+      }, 200)
+      
+    },
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    async get_trust_info(){
+      var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=trust")
+      this.$set(this.arr_factor, 3, true)
+
+      if(response != null){
+        if(response.status === "success"){
+          this.trust_content = response.data.content
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
     async get_our_team_section(){
       var response = await this.base.request(this.base.url_api + "/section/our-team/all?is_publish=1")

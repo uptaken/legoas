@@ -22,7 +22,7 @@
             </Transition>
             <Transition name="definition-title1">
               <div class="col-12 col-lg-6" v-show="flag.definitionTitle1Flag" >
-                <div class="d-flex flex-column justify-content-center h-100" v-html="content"></div>
+                <div class="d-flex flex-column justify-content-center h-100 mt-3 mt-lg-0" v-html="content"></div>
               </div>
             </Transition>
           </div>
@@ -125,14 +125,10 @@ export default {
   watch: {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
+      this.manage_start_animation()
     },
-    scrollY(val){
-      this.flag.definitionImage1Flag = this.flag.definitionImage1Flag || (!this.flag.definitionImage1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.definitionTitle1Flag = this.flag.definitionTitle1Flag || (!this.flag.definitionTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.definitionTitle2Flag = this.flag.definitionTitle2Flag || (!this.flag.definitionTitle2Flag && val >= this.base.responsive_scroll_threshold(10))
-      this.flag.definitionContent2Flag = this.flag.definitionContent2Flag || (!this.flag.definitionContent2Flag && val >= this.base.responsive_scroll_threshold(10))
-      this.flag.definitionTitle3Flag = this.flag.definitionTitle3Flag || (!this.flag.definitionTitle3Flag && val >= this.base.responsive_scroll_threshold(300))
-      this.flag.definitionContent3Flag = this.flag.definitionContent3Flag || (!this.flag.definitionContent3Flag && val >= this.base.responsive_scroll_threshold(300))
+    scrollY(){
+      this.manage_start_animation()
     },
   },
   created(){
@@ -146,6 +142,14 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    manage_start_animation(){
+      this.flag.definitionImage1Flag = this.base.check_start_animation(this.scrollY, this.flag.definitionImage1Flag, this.arr_factor, 0)
+      this.flag.definitionTitle1Flag = this.base.check_start_animation(this.scrollY, this.flag.definitionTitle1Flag, this.arr_factor, 0)
+      this.flag.definitionTitle2Flag = this.base.check_start_animation(this.scrollY, this.flag.definitionTitle2Flag, this.arr_factor, 0)
+      this.flag.definitionContent2Flag = this.base.check_start_animation(this.scrollY, this.flag.definitionContent2Flag, this.arr_factor, 0)
+      this.flag.definitionTitle3Flag = this.base.check_start_animation(this.scrollY, this.flag.definitionTitle3Flag, this.arr_factor, 300)
+      this.flag.definitionContent3Flag = this.base.check_start_animation(this.scrollY, this.flag.definitionContent3Flag, this.arr_factor, 300)
     },
     async get_definition_info(){
       var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=definition")

@@ -173,6 +173,54 @@ export default {
       this.manage_week_num()
       this.month = this.month.clone().add(1, 'week')
     },
+    async get_schedule(){
+      var data = {
+        param: {
+          searchLocation: this.location_id,
+          searchCategory: this.product_type_id,
+          searchKey: this.search,
+          length: 9,
+          sort: this.sort,
+          start: this.current_page,
+          searchStartEventDate: "",
+          searchEndEventDate: "",
+        }
+      }
+      var response = await this.base.request(this.base.url_api2 + `/SearchUnit`, "post", data)
+      this.$set(this.arr_factor, 2, true)
+
+      if(response != null){
+        if(response.status_code === "00"){
+          for(let product of response.data){
+            product.id = product.idlot
+            product.image = product.imageuri
+            product.place = product.wrhcity
+            product.title = product.unitname
+            product.type = product.categoryname
+            product.price = product.baseprice
+            product.arr_image = [
+              product.imageuri,
+            ]
+            product.seller = {
+              name: "",
+            }
+            product.notes = null
+            product.arr_info = []
+            for(let x in product.specunit){
+              product.arr_info.push({
+                name: x,
+                value: product.specunit[x],
+              })
+            }
+          }
+          this.arr_product = response.data
+        }
+        else
+          this.base.show_error(response.status_message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
     manage_week_num(){
       // var start_date = this.month.clone().startOf('week')
       var end_date = this.month.clone().endOf('week')

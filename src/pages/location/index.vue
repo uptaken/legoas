@@ -11,7 +11,7 @@
         <div class="" style="z-index: 1;">
           <div class="row">
             <div class="col-12 col-lg-6">
-              <div class="">
+              <div class="" id="left-side">
                 <Transition name="location-title2">
                   <p class="mb-0 info-title1" v-show="flag.locationTitle2Flag" v-html="title"></p>
                 </Transition>
@@ -50,13 +50,15 @@
                 <div v-show="flag.locationContent6Flag">
                   <div class="d-flex justify-content-center">
                     <div class="position-relative" style="width: 12rem;">
-                      <vue-skeleton-loader
-                        width="8rem"
-                        height="8rem"
-                        animation="fade"
-                        v-show="!arr_image[0].is_image_loaded"/>
-                      <img :src="arr_image[0].image" @load="onImageLoad(0)" v-show="arr_image[0].is_image_loaded" class="position-absolute" style="width: 8rem; left: 5rem; z-index: -1"/>
-                      <div class="p-1 bg-white rounded" style="margin-top: 5rem; width: 8rem;">
+                      <div v-if="arr_image[0] != null">
+                        <vue-skeleton-loader
+                          width="8rem"
+                          height="8rem"
+                          animation="fade"
+                          v-show="!arr_image[0].is_image_loaded"/>
+                        <img :src="arr_image[0].image" @load="onImageLoad(0)" v-show="arr_image[0].is_image_loaded" class="position-absolute" style="width: 8rem; left: 5rem; z-index: -1"/>
+                      </div>
+                      <div class="p-1 bg-white rounded" style="margin-top: 5rem; width: 8rem;" v-if="arr_image[1] != null">
                         <vue-skeleton-loader
                           width="8rem"
                           height="8rem"
@@ -67,13 +69,15 @@
                     </div>
 
                     <div class="position-relative">
-                      <vue-skeleton-loader
-                        width="8rem"
-                        height="8rem"
-                        animation="fade"
-                        v-show="!arr_image[2].is_image_loaded"/>
-                      <img :src="arr_image[2].image" class="" @load="onImageLoad(2)" v-show="arr_image[2].is_image_loaded" style="width: 8rem; margin-left: 5rem;"/>
-                      <div class="position-absolute bg-white rounded" style="top: 5rem;">
+                      <div v-if="arr_image[2] != null">
+                        <vue-skeleton-loader
+                          width="8rem"
+                          height="8rem"
+                          animation="fade"
+                          v-show="!arr_image[2].is_image_loaded"/>
+                        <img :src="arr_image[2].image" class="" @load="onImageLoad(2)" v-show="arr_image[2].is_image_loaded" style="width: 8rem; margin-left: 5rem;"/>
+                      </div>
+                      <div class="position-absolute bg-white rounded" style="top: 5rem;" v-if="arr_image[3] != null">
                         <vue-skeleton-loader
                           width="8rem"
                           height="8rem"
@@ -171,20 +175,10 @@ export default {
   watch: {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
+      this.manage_start_animation()
     },
-    scrollY(val){
-      this.flag.locationTitle1Flag = this.flag.locationTitle1Flag || (!this.flag.locationTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationContent1Flag = this.flag.locationContent1Flag || (!this.flag.locationContent1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationTitle2Flag = this.flag.locationTitle2Flag || (!this.flag.locationTitle2Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationContent2Flag = this.flag.locationContent2Flag || (!this.flag.locationContent2Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationTitle3Flag = this.flag.locationTitle3Flag || (!this.flag.locationTitle3Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationContent3Flag = this.flag.locationContent3Flag || (!this.flag.locationContent3Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationTitle4Flag = this.flag.locationTitle4Flag || (!this.flag.locationTitle4Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationContent4Flag = this.flag.locationContent4Flag || (!this.flag.locationContent4Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationTitle5Flag = this.flag.locationTitle5Flag || (!this.flag.locationTitle5Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationContent5Flag = this.flag.locationContent5Flag || (!this.flag.locationContent5Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationTitle6Flag = this.flag.locationTitle6Flag || (!this.flag.locationTitle6Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.locationContent6Flag = this.flag.locationContent6Flag || (!this.flag.locationContent6Flag && val >= this.base.responsive_scroll_threshold(0))
+    scrollY(){
+      this.manage_start_animation()
     },
   },
   created(){
@@ -201,6 +195,23 @@ export default {
       var image = this.arr_image[index]
       image.is_image_loaded = true
       this.$set(this.arr_image, index, image)
+    },
+    manage_start_animation(){
+      var context = this
+
+      this.flag.locationTitle1Flag = this.base.check_start_animation(this.scrollY, this.flag.locationTitle1Flag, this.arr_factor, 0)
+      this.flag.locationContent1Flag = this.base.check_start_animation(this.scrollY, this.flag.locationContent1Flag, this.arr_factor, 0)
+      this.flag.locationTitle2Flag = this.base.check_start_animation(this.scrollY, this.flag.locationTitle2Flag, this.arr_factor, 0)
+      this.flag.locationContent2Flag = this.base.check_start_animation(this.scrollY, this.flag.locationContent2Flag, this.arr_factor, 0)
+      this.flag.locationTitle3Flag = this.base.check_start_animation(this.scrollY, this.flag.locationTitle3Flag, this.arr_factor, 0)
+      this.flag.locationContent3Flag = this.base.check_start_animation(this.scrollY, this.flag.locationContent3Flag, this.arr_factor, 0)
+      this.flag.locationTitle4Flag = this.base.check_start_animation(this.scrollY, this.flag.locationTitle4Flag, this.arr_factor, 0)
+      this.flag.locationContent4Flag = this.base.check_start_animation(this.scrollY, this.flag.locationContent4Flag, this.arr_factor, 0)
+      this.flag.locationTitle5Flag = this.base.check_start_animation(this.scrollY, this.flag.locationTitle5Flag, this.arr_factor, 0)
+      this.flag.locationContent5Flag = this.base.check_start_animation(this.scrollY, this.flag.locationContent5Flag, this.arr_factor, 0)
+      this.flag.locationTitle6Flag = this.base.check_start_animation(this.scrollY, this.flag.locationTitle6Flag, this.arr_factor, 0)
+      context.flag.locationContent6Flag = context.base.check_start_animation(context.scrollY, context.flag.locationContent6Flag, context.arr_factor, 0)
+      
     },
     handleScroll(){
       this.scrollY = window.scrollY

@@ -19,8 +19,8 @@
         </Transition>
 
         <Transition name="news-image">
-          <div class="" style="margin-top: 3.6rem;" v-show="flag.newsImageFlag">
-            <img src="@/assets/definition_bottom.png" width="100%"/>
+          <div class="" style="margin-top: 3.6rem;" v-show="flag.newsImageFlag && image != null">
+            <img :src="image" width="100%"/>
           </div>
         </Transition>
 
@@ -103,11 +103,10 @@ export default {
   watch: {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
+      this.manage_start_animation()
     },
-    scrollY(val){
-      this.flag.newsTitleFlag = this.flag.newsTitleFlag || (!this.flag.newsTitleFlag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.newsImageFlag = this.flag.newsImageFlag || (!this.flag.newsImageFlag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.newsContentFlag = this.flag.newsContentFlag || (!this.flag.newsContentFlag && val >= this.base.responsive_scroll_threshold(0))
+    scrollY(){
+      this.manage_start_animation()
     },
   },
   created(){
@@ -121,16 +120,21 @@ export default {
     handleScroll(){
       this.scrollY = window.scrollY
     },
+    manage_start_animation(){
+      this.flag.newsTitleFlag = this.base.check_start_animation(this.scrollY, this.flag.newsTitleFlag, this.arr_factor, 0)
+      this.flag.newsImageFlag = this.base.check_start_animation(this.scrollY, this.flag.newsImageFlag, this.arr_factor, 0)
+      this.flag.newsContentFlag = this.base.check_start_animation(this.scrollY, this.flag.newsContentFlag, this.arr_factor, 0)
+    },
     async get_news_info(){
       var response = await this.base.request(this.base.url_api + "/news?num_data=1&is_publish=1&type=latest")
       this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){
-          this.title = response.data.title
-          this.content = response.data.content
-          this.image = this.base.host + "/media/info?file_name=" + response.data.file_name
-          this.date = moment(response.data.created_at_format, 'YYYY-MM-DD')
+          this.title = response.data[0].title
+          this.content = response.data[0].content
+          this.image = response.data[0].file_name != null ? this.base.host + "/media/news?file_name=" + response.data[0].file_name : null
+          this.date = moment(response.data[0].created_at_format, 'YYYY-MM-DD')
         }
         else
           this.base.show_error(response.message)

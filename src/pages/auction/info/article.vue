@@ -11,22 +11,28 @@
       </div>
 
       <div class=" w-100" style="padding-top: 6.5rem; padding-bottom: 15.6rem;">
-        <div class="mt-3 d-flex justify-content-center align-items-center w-100">
-          <Transition name="article-image1">
-            <div class="w-50" v-show="flag.articleImage1Flag">
-              <img src="@/assets/Intersect.png" width="100%"/>
-            </div>
-          </Transition>
-          <Transition name="article-title1">
-            <div class="w-50 ml-5" v-show="flag.articleTitle1Flag">
-              <p class="mb-0 title-section">{{ title }}</p>
-              <p class="mb-0 content-section mt-3">{{ description }}</p>
-              <div class="d-flex align-items-center mt-3">
-                <img src="@/assets/clock_icon.png" style="width: 1.1rem;"/>
-                <p class="ml-2 mb-0 recommendation-info">{{ date.format('DD MMMM YYYY') }}</p>
+        <div class="mt-3 w-100">
+          <div class="row">
+            <Transition name="article-image1">
+              <div class="col-12 col-lg-6" v-show="flag.articleImage1Flag">
+                <img src="@/assets/Intersect.png" width="100%"/>
               </div>
-            </div>
-          </Transition>
+            </Transition>
+            <Transition name="article-title1">
+              <div class="col-12 col-lg-6 pt-3 pt-lg-0" v-show="flag.articleTitle1Flag">
+                <div class="d-flex align-items-center">
+                  <div>
+                    <p class="mb-0 title-section">{{ title }}</p>
+                    <p class="mb-0 content-section mt-3">{{ description }}</p>
+                    <div class="d-flex align-items-center mt-3">
+                      <img src="@/assets/clock_icon.png" style="width: 1.1rem;"/>
+                      <p class="ml-2 mb-0 recommendation-info">{{ date.format('DD MMMM YYYY') }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Transition>
+          </div>
         </div>
 
         <div class="w-100" style="margin-top: 4rem;">
@@ -183,11 +189,10 @@ export default {
   watch: {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
+      this.manage_start_animation()
     },
-    scrollY(val){
-      this.flag.articleImage1Flag = this.flag.articleImage1Flag || (!this.flag.articleImage1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.articleTitle1Flag = this.flag.articleTitle1Flag || (!this.flag.articleTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.articleItemFlag = this.flag.articleItemFlag || (!this.flag.articleItemFlag && val >= this.base.responsive_scroll_threshold(1000))
+    scrollY(){
+      this.manage_start_animation()
     },
   },
   created(){
@@ -200,6 +205,11 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    manage_start_animation(){
+      this.flag.articleImage1Flag = this.base.check_start_animation(this.scrollY, this.flag.articleImage1Flag, this.arr_factor, 0)
+      this.flag.articleTitle1Flag = this.base.check_start_animation(this.scrollY, this.flag.articleTitle1Flag, this.arr_factor, 0)
+      this.flag.articleItemFlag = this.base.check_start_animation(this.scrollY, this.flag.articleItemFlag, this.arr_factor, 1000)
     },
     next_action(){
       this.current_page = this.current_page + 1

@@ -166,8 +166,8 @@ export default {
           text: "Mazda",
         },
       ],
-      location_id: "",
-      product_type_id: "",
+      location_id: "all",
+      product_type_id: "all",
       isLoading: true,
     }
   },
@@ -204,6 +204,8 @@ export default {
     this.selected_banner = this.arr_banner[0]
 
     this.get_banner()
+    this.get_product_type()
+    this.get_location()
   },
   methods:{
     onImageLoad(){
@@ -214,6 +216,56 @@ export default {
     },
     onProductTypeSelect(val){
       this.product_type_id = val.id
+    },
+    async get_product_type(){
+      var response = await this.base.request(this.base.url_api2 + "/ListCategory")
+
+      if(response != null){
+        if(response.status_code === "00"){
+          var arr_product_type = [
+            {
+              id: 'all',
+              text: this.$t('all_product_type'),
+            },
+          ]
+          for(let product_type of response.data){
+            arr_product_type.push({
+              id: product_type.kode,
+              text: product_type.nama,
+            })
+          }
+          this.arr_product_type = arr_product_type
+        }
+        else
+          this.base.show_error(response.status_message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+    async get_location(){
+      var response = await this.base.request(this.base.url_api2 + "/ListLocation")
+
+      if(response != null){
+        if(response.status_code === "00"){
+          var arr_location = [
+            {
+              id: 'all',
+              text: this.$t('all_location'),
+            },
+          ]
+          for(let location of response.data){
+            arr_location.push({
+              id: location,
+              text: location,
+            })
+          }
+          this.arr_location = arr_location
+        }
+        else
+          this.base.show_error(response.status_message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
     async get_banner(){
       var response = await this.base.request(this.base.url_api + "/banner/all?is_publish=1")
@@ -236,14 +288,14 @@ export default {
         this.base.show_error(this.$t('server_error'))
     },
     search_action(){
-      if(this.location_id === "")
-        this.base.show_error(this.$t('location_empty'))
-      else if(this.product_type_id === "")
-        this.base.show_error(this.$t('product_type_empty'))
-      else if(this.search === "")
+      // if(this.location_id === "")
+      //   this.base.show_error(this.$t('location_empty'))
+      // else if(this.product_type_id === "")
+      //   this.base.show_error(this.$t('product_type_empty'))
+      if(this.search === "")
         this.base.show_error(this.$t('name_empty'))
       else{
-        location.href = `/search?location_id=${this.location_id}&product_type_id=${this.product_type_id}&search=${this.search}`
+        location.href = `/search?location_id=${this.location_id === "all" ? "" : this.location_id}&product_type_id=${this.product_type_id === "all" ? "" : this.product_type_id}&search=${this.search}`
       }
     },
     onBannerDotClick(index){

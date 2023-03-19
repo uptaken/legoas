@@ -40,6 +40,7 @@ export default {
   },
   data(){
     return{
+      base: null,
       scrollY: 0,
       flag: {
         navbar: false,
@@ -59,10 +60,9 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
 
-    let version = '0.2.0004'
     const last_version = localStorage.getItem('version')
-    if(last_version == null || (last_version != null && last_version !== version)){
-      localStorage.setItem('version', version)
+    if(last_version == null || (last_version != null && last_version !== this.base.version)){
+      localStorage.setItem('version', this.base.version)
       window.location.reload(true);
     }
   },
@@ -177,6 +177,10 @@ button:focus{
 .navigation.navigation-now{
   font-family: poppins-medium;
   text-decoration: underline;
+  text-transform: uppercase;
+}
+.navigation.navigation-now-without-underline{
+  font-family: poppins-medium;
   text-transform: uppercase;
 }
 .select2-container .select2-selection--single {

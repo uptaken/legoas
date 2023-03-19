@@ -260,11 +260,10 @@ export default {
   watch: {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
+      this.manage_start_animation()
     },
-    scrollY(val){
-      this.flag.rulesTitleFlag = this.flag.rulesTitleFlag || (!this.flag.rulesTitleFlag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.rulesImageFlag = this.flag.rulesImageFlag || (!this.flag.rulesImageFlag && val >= this.base.responsive_scroll_threshold(0))
-      this.flag.rulesContentFlag = this.flag.rulesContentFlag || (!this.flag.rulesContentFlag && val >= this.base.responsive_scroll_threshold(0))
+    scrollY(){
+      this.manage_start_animation()
     },
   },
   created(){
@@ -278,6 +277,11 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    manage_start_animation(){
+      this.flag.rulesTitleFlag = this.base.check_start_animation(this.scrollY, this.flag.rulesTitleFlag, this.arr_factor, 0)
+      this.flag.rulesImageFlag = this.base.check_start_animation(this.scrollY, this.flag.rulesImageFlag, this.arr_factor, 0)
+      this.flag.rulesContentFlag = this.base.check_start_animation(this.scrollY, this.flag.rulesContentFlag, this.arr_factor, 0)
     },
     async get_rules_info(){
       var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=rules")

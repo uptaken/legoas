@@ -103,12 +103,13 @@ export default {
   watch: {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
+      this.manage_start_animation()
     },
     phone(val){
       this.phone = this.base.phone_validation(val)
     },
-    scrollY(val){
-      this.flag.registerTitle1Flag = this.flag.registerTitle1Flag || (!this.flag.registerTitle1Flag && val >= this.base.responsive_scroll_threshold(0))
+    scrollY(){
+      this.manage_start_animation()
     },
   },
   created(){
@@ -121,6 +122,9 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    manage_start_animation(){
+      this.flag.registerTitle1Flag = this.base.check_start_animation(this.scrollY, this.flag.registerTitle1Flag, this.arr_factor, 0)
     },
     onCategorySelect(val){
       this.category_id = val.id

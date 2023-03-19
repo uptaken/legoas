@@ -9,6 +9,11 @@ export default class Base{
   local_currency = "Rp."
   local_area_phone = "+62"
   wait_time = 50
+  app_version = '0.2.0010'
+
+  host2 = "https://demo.legoas.co.id:8443"
+  url_api2 = this.host2 + "/api/portal"
+  auth = "Basic ODUwMWRjNjRiOTEzNDcyZmE0Mjc0MTE5MTEzYjdjNGQ6TFNTLWRjYTU0ZDQ0ODFjZDRlYTU4NDAwYzk4NDM3N2EzMzk1"
 
   constructor(){
   }
@@ -24,7 +29,9 @@ export default class Base{
         "Type": "web",
       }
       var token = await window.localStorage.getItem('token')
-      if(token != null && token != '')
+      if(url.includes(this.host2))
+        header['Authorization'] = this.auth
+      else if(token != null && token != '')
         header['Authorization'] = token
 
       var response
@@ -112,6 +119,18 @@ export default class Base{
     return value
   }
 
+  check_start_animation(scrollY, flag, arr_factor, scroll_threshold = 0, additional_margin = 0){
+    var temp = true
+    for(let factor of arr_factor){
+      if(!factor){
+        temp = false
+        break
+      }
+    }
+
+    return (flag || (!flag && scrollY >= this.responsive_scroll_threshold(scroll_threshold, additional_margin))) && temp
+  }
+
   phone_validation(data, max_length = 12){
     data = String(this.str_to_double(data, ''))
     if(isNaN(data))
@@ -165,7 +184,7 @@ export default class Base{
     //   confirmText: '', // button text.
     //   duration: 2000,   // (in ms), duartion for which snackbar is visible.
     // })
-    console.log(message)
+    alert(message)
     // this.$toasted.show(message)
     // sessionStorage.removeItem('message')
   }
