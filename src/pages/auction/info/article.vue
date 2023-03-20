@@ -58,14 +58,19 @@
           </div>
         </div>
 
-        <div class="w-100" style="margin-top: 3.8rem;">
-          <div class="row">
-            <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
-              <Transition name="article-item">
-                <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
-              </Transition>
+        <div v-if="!isLoading">
+          <div class="w-100" style="margin-top: 3.8rem;">
+            <div class="row">
+              <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
+                <Transition name="article-item">
+                  <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
+                </Transition>
+              </div>
             </div>
           </div>
+        </div>
+        <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem">
+          <img src="@/assets/image_logo.png"/>
         </div>
 
         <div class="custom-pagination-container">
@@ -101,6 +106,7 @@ export default {
         articleTitle1Flag: false,
         articleItemFlag: false,
       },
+      isLoading: true,
       total_page: 10,
       current_page: 1,
       image: Image,
@@ -197,6 +203,9 @@ export default {
     },
     search(){
       var context = this
+      this.isLoading = true
+      window.scrollTo(0, 610)
+
       if(this.searchTimeout != null)
         clearTimeout(this.searchTimeout)
       this.searchTimeout = setTimeout(() => {
@@ -239,8 +248,12 @@ export default {
       this.current_page = page
     },
     async get_article(){
+      this.isLoading = true
+      window.scrollTo(0, 610)
+
       var response = await this.base.request(this.base.url_api + `/article?num_data=3&is_publish=1&search=${this.search}&type=${this.filter}&page=${this.current_page}`)
       this.$set(this.arr_factor, 0, true)
+      this.isLoading = false
 
       if(response != null){
         if(response.status === "success"){

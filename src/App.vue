@@ -61,8 +61,8 @@ export default {
     this.scrollY = 1
 
     const last_version = localStorage.getItem('version')
-    if(last_version == null || (last_version != null && last_version !== this.base.version)){
-      localStorage.setItem('version', this.base.version)
+    if(last_version == null || (last_version != null && last_version !== this.base.app_version)){
+      localStorage.setItem('version', this.base.app_version)
       window.location.reload(true);
     }
   },
