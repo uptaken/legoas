@@ -176,11 +176,7 @@ button:focus{
 }
 .navigation.navigation-now{
   font-family: poppins-medium;
-  text-decoration: underline;
-  text-transform: uppercase;
-}
-.navigation.navigation-now-without-underline{
-  font-family: poppins-medium;
+  // text-decoration: underline;
   text-transform: uppercase;
 }
 .select2-container .select2-selection--single {

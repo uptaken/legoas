@@ -8,19 +8,20 @@
       <div class="w-100" style="padding-top: 4rem; padding-bottom: 11.8rem;">
         <Transition name="about-us-title1">
           <div class="" v-show="flag.aboutUsTitle1Flag" id="about-us-content">
-            <div v-for="(section, index) in arr_section" :key="'section' + index" :class="{'mt-5': index > 0}">
+            <div class="mt-5" v-html="section_content"></div>
+            <!-- <div v-for="(section, index) in arr_section" :key="'section' + index" :class="{'mt-5': index > 0}">
               <div >
                 <p class="mb-0 title-section" v-show="flag.aboutUsTitle1Flag" v-html="section.title"></p>
                 <p class="mb-0 mt-5 content-section" v-show="flag.aboutUsContent1Flag" v-html="section.content"></p>
                 <img :src="section.image" width="100%" class="mt-5" v-show="flag.aboutUsImage1Flag && section.image != null"/>
               </div>
-            </div>
+            </div> -->
           </div>
         </Transition>
 
         <div class="" style="margin-top: 5.4rem;" id="trust-container">
           <Transition name="about-us-title2">
-            <p class="mb-0 title-section" v-show="flag.aboutUsTitle2Flag">{{ $t('trusting_legoas') }}</p>
+            <p class="mb-0 title-section" v-show="flag.aboutUsTitle2Flag" v-html="trust_title"></p>
           </Transition>
           <Transition name="about-us-content2" >
             <p class="mb-0 mt-5 content-section" id="trust-content" v-show="flag.aboutUsContent2Flag" v-html="trust_content"></p>
@@ -98,6 +99,7 @@ export default {
         aboutUsImage3Flag: false,
         aboutUsContent3Flag: false,
       },
+      trust_title: '',
       trust_content: '',
       arr_trust: [
         {
@@ -170,6 +172,7 @@ export default {
           image: SectionImage,
         },
       ],
+      section_content: "",
     }
   },
   watch: {
@@ -232,6 +235,7 @@ export default {
 
       if(response != null){
         if(response.status === "success"){
+          this.trust_title = response.data.title
           this.trust_content = response.data.content
         }
         else
@@ -277,15 +281,15 @@ export default {
         this.base.show_error(this.$t('server_error'))
     },
     async get_about_us_section(){
-      var response = await this.base.request(this.base.url_api + "/section/about-us/all?is_publish=1")
+      var response = await this.base.request(this.base.url_api + "/info?is_publish=1&type=about_us_section")
       this.$set(this.arr_factor, 0, true)
 
       if(response != null){
         if(response.status === "success"){
-          for(let about_us of response.data){
-            about_us.image = about_us.file_name != null ? this.base.host + "/media/section/about-us?file_name=" + about_us.file_name : null
-          }
-          this.arr_section = response.data
+          // for(let about_us of response.data){
+          //   about_us.image = about_us.file_name != null ? this.base.host + "/media/section/about-us?file_name=" + about_us.file_name : null
+          // }
+          this.section_content = response.data.content
         }
         else
           this.base.show_error(response.message)

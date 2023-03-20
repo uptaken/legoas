@@ -19,8 +19,8 @@
 
       <div style="bottom: 0;" class="position-relative mt-2">
         <div class="d-flex align-items-center mt-1 mx-3">
-          <img src="@/assets/map_icon.png" style="width: 1.1rem;"/>
-          <p class="ml-3 mb-0 recommendation-info">{{ data.place }}</p>
+          <img src="@/assets/map_icon.png" style="width: 1rem;"/>
+          <p class="ml-1 mb-0 recommendation-info">{{ data.place }}</p>
         </div>
 
         <div class="horizontal my-2"></div>
@@ -78,6 +78,7 @@ export default {
 .recommendation-title{
   font-family: poppins-bold;
   font-size: 1rem;
+  text-transform: uppercase;
 }
 .recommendation-info{
   font-size: .7rem;

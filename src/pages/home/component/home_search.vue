@@ -328,7 +328,7 @@ export default {
     width: 90%;
   }
   .home-search-button{
-    width: auto;
+    width: 100%;
     border-radius: 1rem;
   }
   .home-search-banner-container{

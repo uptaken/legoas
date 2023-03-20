@@ -266,7 +266,7 @@ export default {
 }
 .custom-pagination-container{
   margin-top: 6rem;
-  margin-bottom: 14.5rem;
+  margin-bottom: 15.5rem;
 }
 .schedule-filter-card{
   margin-top: 9rem;

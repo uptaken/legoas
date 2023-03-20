@@ -2,7 +2,7 @@
   <div class="custom-navbar-padding-right custom-navbar-padding-left d-flex flex-column align-items-center">
     <div class="footer-download-image1 text-left">
       <div class="position-relative" style="margin-top: 3.8rem;">
-        <p class="m-0 general-title">{{ $t('search_product') }}</p>
+        <p class="m-0 general-title">{{ location_id == "" && product_type_id == "" && search == "" ? $t('search_product') : $t('all_product') }}</p>
       </div>
 
       <div class="" style="padding-top: 6rem; padding-bottom: 11.5rem;">
@@ -108,7 +108,7 @@ export default {
       end_data: 10,
       total_data: 2000,
       model: {},
-      sort: '',
+      sort: 'newest',
       location_id: '',
       product_type_id: '',
       selected_product_type: {},

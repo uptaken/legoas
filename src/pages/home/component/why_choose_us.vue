@@ -50,7 +50,7 @@
           </Transition>
 
           <Transition name="why-choose-us1">
-            <div v-show="whyChooseUs3Flag">
+            <div v-show="whyChooseUs3Flag" @click="onWhyChooseClicked()" style="cursor: pointer;">
               <div class="d-flex mt-4">
                 <div>
                   <img src="@/assets/why_choose_us3.png" style="width: 2.75rem; height: 2.75rem;"/>
@@ -88,6 +88,9 @@ export default {
     this.base = new Base()
   },
   methods: {
+    onWhyChooseClicked(){
+      window.location.href = "/search?location_id=&product_type_id=&search="
+    },
   }
 }
 </script>
