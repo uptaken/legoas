@@ -48,7 +48,7 @@
         <div class="" style="margin-top: 3.1rem;">
           <div class="row">
             <div class="col-6 d-flex align-items-center">
-              <p class="mb-0 content-content">Menampilkan {{ arr_product.length.toLocaleString(base.locale_string) }} Produk <label v-show="product_type_id != '' && product_type_id != 'all'">{{ selected_product_type.text }}</label><br/><label v-show="location_id != '' && location_id != 'all'">di {{ selected_location.text }}</label></p>
+              <p class="mb-0 content-content">Menampilkan {{ total_data.toLocaleString(base.locale_string) }} Produk <label v-show="product_type_id != '' && product_type_id != 'all'">{{ selected_product_type.text }}</label><br/><label v-show="location_id != '' && location_id != 'all'">di {{ selected_location.text }}</label></p>
             </div>
             <div class="col-6 d-flex align-items-center justify-content-end">
               <p class="mb-0 content-content mr-3 mr-lg-5">Filter</p>
@@ -751,10 +751,11 @@ export default {
           searchCategory: this.product_type_id === "all" ? "" : this.product_type_id,
           searchKey: this.search,
           length: 9,
-          sort: this.sort,
           start: this.current_page,
           searchStartEventDate: "",
           searchEndEventDate: "",
+          sortby: "eventdate",
+          sortdir: this.sort === "newest" ? "desc" : "asc"
         }
       }
       var response = await this.base.request(this.base.url_api2 + `/SearchUnit`, "post", data)
@@ -785,6 +786,8 @@ export default {
             }
           }
           this.arr_product = response.data
+          this.total_page = response.pageTotal
+          this.total_data = response.recordsFiltered
         }
         else
           this.base.show_error(response.status_message)
