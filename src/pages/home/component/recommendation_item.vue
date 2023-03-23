@@ -72,8 +72,8 @@ export default {
 .recommendation-type{
   background-color: $primary;
   color: $white;
-  font-size: .5rem;
-  line-height: .5rem;
+  font-size: .7rem;
+  line-height: .7rem;
 }
 .recommendation-title{
   font-family: poppins-bold;

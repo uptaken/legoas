@@ -3,13 +3,14 @@
     <div class="footer-download-image1 text-left">
       <div class="position-relative" style="margin-top: 3.8rem;">
         <div class="d-flex">
+          <p class="mb-0 navigation text-primary mr-3" @click="onGoBack()" style="cursor: pointer;"><font-awesome-icon icon="fa-solid fa-chevron-left"/></p>
           <p class="mb-0 navigation">{{ $t('product') }}</p>
           <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
           <p class="mb-0 navigation navigation-now">{{ $t('detail_product') }}</p>
         </div>
       </div>
 
-      <div class="" style="padding-top: 5.6rem; padding-bottom: 12.5rem;">
+      <div class="" style="padding-top: 5.6rem; padding-bottom: 11.5rem;">
         <div class="row">
           <Transition name="definition-image1">
             <div class="col-12 col-lg-6 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
@@ -51,7 +52,7 @@
         </div>
 
         <Transition name="definition-content2">
-          <div v-show="flag.detailProductDetail1Flag">
+          <div v-show="flag.detailProductDetail1Flag" style="margin-bottom: 15.5rem;">
             <ul class="nav nav-pills detail-product-nav" id="myTab" role="tablist">
               <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="info-tab" data-toggle="tab" data-target="#info" type="button" role="tab" aria-controls="info" aria-selected="true">{{ $t("info_product") }}</button>
@@ -77,25 +78,47 @@
                   </div>
                 </div>
 
-                <div class="row" v-else>
-                  <div class="col-12 col-lg-6" v-for="(info, index) in product.arr_info" :key="'info' + index">
-                    <div class="d-flex justify-content-between detail-product-info-item">
-                      <p class="mb-0">{{ info.name }}:</p>
-                      <p class="mb-0">{{ info.value }}</p>
+                <div v-else>
+                  <div class="row" v-if="product.arr_info != null && product.arr_info.length > 0">
+                    <div class="col-12 col-lg-6" v-for="(info, index) in product.arr_info" :key="'info' + index">
+                      <div class="d-flex justify-content-between detail-product-info-item">
+                        <p class="mb-0">{{ info.name }}:</p>
+                        <p class="mb-0">{{ info.value }}</p>
+                      </div>
                     </div>
+                  </div>
+                  <div v-else>
+                    <p class="mb-0 text-center">No Information</p>
                   </div>
                 </div>
               </div>
-              <div class="tab-pane fade detail-product-description" id="description" role="tabpanel" aria-labelledby="description-tab" v-html="product.description"></div>
+              <div class="tab-pane fade detail-product-description" id="description" role="tabpanel" aria-labelledby="description-tab">
+                <div v-if="product.description != null && product.description !== ''">
+                  <div v-html="product.description"></div>
+                </div>
+                <div v-else>
+                  <p class="mb-0 text-center">No Information</p>
+                </div>
+              </div>
               <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
-                <div class="row">
+                <div class="row" v-if="product.arr_document != null && product.arr_document.length > 0">
                   <div class="col-12 col-lg-4 mt-3 mt-lg-0" v-for="(document, index) in product.arr_document" :key="'document' + index">
                     <img :src="document.image" width="100%"/>
                     <p class="mb-0 mt-2 detail-product-document-name">{{ document.name }}</p>
                   </div>
                 </div>
+                <div v-else>
+                  <p class="mb-0 text-center detail-product-description">No Information</p>
+                </div>
               </div>
-              <div class="tab-pane fade detail-product-description" id="notes" role="tabpanel" aria-labelledby="notes-tab" v-html="product.notes"></div>
+              <div class="tab-pane fade detail-product-description" id="notes" role="tabpanel" aria-labelledby="notes-tab">
+                <div v-if="product.notes != null && product.notes !== ''">
+                  <div v-html="product.notes"></div>
+                </div>
+                <div v-else>
+                  <p class="mb-0 text-center">No Information</p>
+                </div>
+              </div>
             </div>
           </div>
         </Transition>
@@ -192,6 +215,9 @@ export default {
     this.arr_factor = [true,]
   },
   methods: {
+    onGoBack(){
+      window.history.back()
+    },
     handleScroll(){
       this.scrollY = window.scrollY
     },
