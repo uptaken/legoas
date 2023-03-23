@@ -29,17 +29,18 @@
         </div>
 
         <div style="margin-top: 9rem">
-          <div class="w-100" :style="{marginTop: index > 0 ? '3.3rem' : 0}" v-for="(section, index) in arr_section" :key="'section' + index">
+          <div class="w-100" :style="{marginTop: '3.3rem'}" v-html="definition_section_content"></div>
+          <!-- <div class="w-100" :style="{marginTop: index > 0 ? '3.3rem' : 0}" v-for="(section, index) in arr_section" :key="'section' + index">
             <Transition name="definition-content2">
               <div v-html="section.content" v-show="flag.definitionContent2Flag"></div>
             </Transition>
-            <!-- <Transition name="definition-title2">
+            <Transition name="definition-title2">
               <p class="mb-0 title-section" v-show="flag.definitionTitle2Flag" v-html="section.title"></p>
             </Transition>
             <Transition name="definition-content2">
               <p class="mb-0 content-section" v-show="flag.definitionContent2Flag"  v-html="section.content"></p>
-            </Transition> -->
-          </div>
+            </Transition>
+          </div> -->
         </div>
 
         <div class="w-100" style="margin-top: 5.6rem; margin-bottom: 16rem;">

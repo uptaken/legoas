@@ -2,7 +2,7 @@
   <div class="custom-navbar-padding-right custom-navbar-padding-left d-flex flex-column align-items-center">
     <div class="footer-download-image1 text-left">
       <div class="position-relative" style="margin-top: 3.8rem;">
-        <p class="m-0 general-title">{{ $t('search_product') }}</p>
+        <p class="m-0 general-title">{{ location_id == "" && product_type_id == "" && search == "" ? $t('search_product') : $t('all_product') }}</p>
       </div>
 
       <div class="" style="padding-top: 6rem; padding-bottom: 11.5rem;">
@@ -61,22 +61,29 @@
               </div>
             </div>
           </div>
+          
           <div class="" style="margin-top: 2.5rem;">
-            <div v-if="arr_product.length > 0">
-              <div class="row">
-                <div v-for="(product, index) in arr_product" :key="index" class="col-12 col-lg-4 mb-4" @click="toDetail(index)" style="cursor: pointer;">
-                  <RecommendationItem :data="product" :index="index" :total_data="arr_product.length"/>
+            <div v-if="!isLoading">
+              <div v-if="arr_product.length > 0">
+                <div class="row">
+                  <div v-for="(product, index) in arr_product" :key="index" class="col-12 col-lg-4 mb-4" @click="toDetail(index)" style="cursor: pointer;">
+                    <RecommendationItem :data="product" :index="index" :total_data="arr_product.length"/>
+                  </div>
                 </div>
               </div>
+              <div v-else class="d-flex justify-content-center">
+                <p>{{ $t('no_data_found') }}</p>
+              </div>
             </div>
-            <div v-else class="d-flex justify-content-center">
-              <p>{{ $t('no_data_found') }}</p>
+            <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem">
+              <img src="@/assets/image_logo.png"/>
             </div>
           </div>
 
           <div class="custom-pagination-container" v-show="arr_product.length > 0">
             <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
           </div>
+          
         </div>
       </div>
     </div>
@@ -108,11 +115,12 @@ export default {
       end_data: 10,
       total_data: 2000,
       model: {},
-      sort: '',
+      sort: 'newest',
       location_id: '',
       product_type_id: '',
       selected_product_type: {},
       selected_location: {},
+      isLoading: true,
       search: "",
       arr_sort: [
         {
@@ -628,12 +636,19 @@ export default {
       //   },
       // ],
       arr_product: [],
+      num_data: 9,
     }
   },
   watch: {
     arr_factor(val){
       console.log(val)
       this.$emit('onChangeArrFactor', val)
+    },
+    current_page(){
+      this.get_product()
+    },
+    sort(){
+      this.get_product()
     },
   },
   created(){
@@ -745,13 +760,17 @@ export default {
         this.base.show_error(this.$t('server_error'))
     },
     async get_product(){
+      this.isLoading = true
+      window.scrollTo(0, 250)
+
       var data = {
         param: {
           searchLocation: this.location_id === "all" ? "" : this.location_id,
           searchCategory: this.product_type_id === "all" ? "" : this.product_type_id,
           searchKey: this.search,
-          length: 9,
-          start: this.current_page,
+          length: this.num_data,
+          sort: this.sort,
+          start: this.current_page * this.num_data,
           searchStartEventDate: "",
           searchEndEventDate: "",
           sortby: "eventdate",
@@ -760,6 +779,7 @@ export default {
       }
       var response = await this.base.request(this.base.url_api2 + `/SearchUnit`, "post", data)
       this.$set(this.arr_factor, 2, true)
+      this.isLoading = false
 
       if(response != null){
         if(response.status_code === "00"){

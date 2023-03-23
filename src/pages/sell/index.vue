@@ -2,7 +2,7 @@
   <div class="">
     <div class="px-5 pt-1 pb-5">
       <div class="card border-0 register-card">
-        <div class="card-body" style="padding: 6.25rem 5.4rem;">
+        <div class="card-body register-card-body">
           <div class="row">
             <div class="col-12 col-lg-6">
               <div class="card border-0 form-card">
@@ -56,7 +56,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-lg-6 px-5 mt-3 mt-lg-0">
+            <div class="col-12 col-lg-6 px-5 mt-3 mt-lg-0 mb-3 mb-lg-0">
               <Transition name="register-title1">
                 <div v-show="flag.registerTitle1Flag">
                   <p class="mb-0 register-banner">Cara Baru Jual Mobil Yang Terpercaya.</p>
@@ -187,6 +187,17 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 960px) {
+  .register-card-body{
+    padding: 0;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .register-card-body{
+    padding: 6.25rem 5.4rem;
+  }
+}
+
 .register-banner{
   font-size: 2.5rem;
   font-family: poppins-bold;

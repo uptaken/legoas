@@ -5,11 +5,11 @@
         <div class="d-flex">
           <p class="mb-0 navigation">{{ $t('product') }}</p>
           <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
-          <p class="mb-0 navigation navigation-now-without-underline">{{ $t('detail_product') }}</p>
+          <p class="mb-0 navigation navigation-now">{{ $t('detail_product') }}</p>
         </div>
       </div>
 
-      <div class="" style="padding-top: 5.6rem; padding-bottom: 11.5rem;">
+      <div class="" style="padding-top: 5.6rem; padding-bottom: 12.5rem;">
         <div class="row">
           <Transition name="definition-image1">
             <div class="col-12 col-lg-6 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
@@ -41,7 +41,7 @@
                 </div>
                 <p class="detail-product-info mb-0 mt-3">{{ product.seller.address }}</p>
                 <p class="mb-0 detail-product-price" style="margin-top: 1.25rem;">Rp. {{ product.price.toLocaleString(base.locale_string) }}</p>
-                <div class="px-5 py-2 detail-product-call d-flex align-items-center" @click="onCallSeller" style="margin-top: 2.1rem;">
+                <div class="detail-product-call d-flex align-items-center" @click="onCallSeller" style="margin-top: 2.1rem; padding: .8rem 2.7rem;">
                   <img src="@/assets/call.png" style="width: 1rem;"/>
                   <p class="ml-2 mb-0 detail-product-call-text">{{ $t('call_more') }}</p>
                 </div>

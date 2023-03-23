@@ -2,13 +2,13 @@
   <div class="card d-inline-block text-left h-100 article-card recommendation-card">
     <div class="card-body p-0 w-100 h-100 d-flex flex-column justify-content-between">
       <div class="w-100">
-        <div class="px-1 pt-1 w-100">
+        <div class="px-1 pt-1 text-center">
           <vue-skeleton-loader
             width="100%"
             height="100%"
             animation="fade"
             v-show="!is_image_loaded"/>
-          <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="width: 100%"/>
+          <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="height: 10rem;"/>
         </div>
         <div class="mt-3 mx-3">
           <div class="d-flex align-items-center">

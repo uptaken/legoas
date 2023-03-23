@@ -15,7 +15,7 @@
           <div class="row">
             <Transition name="article-image1">
               <div class="col-12 col-lg-6" v-show="flag.articleImage1Flag">
-                <img src="@/assets/Intersect.png" width="100%"/>
+                <img :src="image" width="100%"/>
               </div>
             </Transition>
             <Transition name="article-title1">
@@ -45,7 +45,6 @@
                     class="ml-5 filter-select h-100" 
                     :options="arr_filter" 
                     :settings="{width: '10rem',}"
-                    @change="onFilterChanged($event)" 
                     @select="onFilterSelect($event)" />
                 </div>
                 <div>
@@ -59,14 +58,19 @@
           </div>
         </div>
 
-        <div class="w-100" style="margin-top: 3.8rem;">
-          <div class="row">
-            <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
-              <Transition name="article-item">
-                <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
-              </Transition>
+        <div v-if="!isLoading">
+          <div class="w-100" style="margin-top: 3.8rem;">
+            <div class="row">
+              <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
+                <Transition name="article-item">
+                  <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
+                </Transition>
+              </div>
             </div>
           </div>
+        </div>
+        <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem">
+          <img src="@/assets/image_logo.png"/>
         </div>
 
         <div class="custom-pagination-container">
@@ -102,20 +106,22 @@ export default {
         articleTitle1Flag: false,
         articleItemFlag: false,
       },
+      isLoading: true,
       total_page: 10,
       current_page: 1,
+      image: Image,
       title: "Lorem ipsum dolor sit amet consectetur adipisc",
       description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur ....",
       date: moment(),
       search: "",
-      filter: {},
+      filter: "newest",
       arr_filter: [
         {
-          id: "1",
+          id: "newest",
           text: this.$t("newest"),
         },
         {
-          id: "2",
+          id: "oldest",
           text: this.$t("oldest"),
         },
       ],
@@ -184,6 +190,7 @@ export default {
           description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
         },
       ],
+      searchTimeout: null,
     }
   },
   watch: {
@@ -194,6 +201,23 @@ export default {
     scrollY(){
       this.manage_start_animation()
     },
+    search(){
+      var context = this
+      this.isLoading = true
+      window.scrollTo(0, 610)
+
+      if(this.searchTimeout != null)
+        clearTimeout(this.searchTimeout)
+      this.searchTimeout = setTimeout(() => {
+        context.get_article()
+      }, this.base.wait_time)
+    },
+    filter(){
+      this.get_article()
+    },
+    current_page(){
+      this.get_article()
+    },
   },
   created(){
     this.base = new Base()
@@ -203,6 +227,9 @@ export default {
     this.get_article()
   },
   methods: {
+    onFilterSelect(val){
+      this.filter = val.id
+    },
     handleScroll(){
       this.scrollY = window.scrollY
     },
@@ -221,18 +248,31 @@ export default {
       this.current_page = page
     },
     async get_article(){
-      var response = await this.base.request(this.base.url_api + "/article?num_data=3&is_publish=1")
+      this.isLoading = true
+      window.scrollTo(0, 610)
+
+      var response = await this.base.request(this.base.url_api + `/article?num_data=3&is_publish=1&search=${this.search}&type=${this.filter}&page=${this.current_page}`)
       this.$set(this.arr_factor, 0, true)
+      this.isLoading = false
 
       if(response != null){
         if(response.status === "success"){
           for(let article of response.data){
             article.image = this.base.host + "/media/article?file_name=" + article.file_name
             article.date = moment(article.date_format, "YYYY-MM-DD")
+
+            if(article.is_primary == 1){
+              this.image = this.base.host + "/media/article?file_name=" + article.file_name
+              this.title = article.title
+              this.description = article.description
+              this.date = article.date
+            }
           }
           this.arr_article = response.data
           this.current_page = response.current_page
           this.total_page = response.total_page
+
+          
         }
         else
           this.base.show_error(response.message)

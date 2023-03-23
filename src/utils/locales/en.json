@@ -80,8 +80,8 @@
   "produxt_seller": "Penjual Barang",
   "participant": "Peserta",
   "auction": "Lelang",
-  "seller": "Seller",
-  "product": "Product",
+  "seller": "Penjual",
+  "product": "Barang",
   "sell": "Jual",
   "our_story": "Cerita Kami",
   "trusting_legoas": "Kepercayaan Legoas",
@@ -111,8 +111,9 @@
   "notes": "Catatan",
   "download_pdf": "Download PDF",
   "no_data_found": "No Data Found",
-  "all_location": "All Location",
-  "all_product_type": "All Product Type",
+  "all_location": "Semua Lokasi",
+  "all_product_type": "Semua Jenis Barang",
+  "all_product": "Semua Barang",
 
 
   "old_password_empty": "Empty Old Password",
