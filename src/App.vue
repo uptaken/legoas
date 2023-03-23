@@ -202,4 +202,33 @@ button:focus{
   margin-top: -10rem;
   opacity: 0;
 }
+
+.ql-size-small {
+  font-size: 1.2rem !important;
+}
+.ql-size-large {
+  font-size: 4.5rem !important;
+}
+.ql-size-huge {
+  font-size: 5.25rem !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=large]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
+  content: 4.5rem !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=huge]::before,
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
+  content: 5.25rem !important;
+}
+
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
+  font-size: 4.5rem !important;
+}
+
+.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
+  font-size: 5.25rem !important;
+}
 </style>

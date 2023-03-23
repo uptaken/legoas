@@ -11,7 +11,7 @@
         </div>
       </div>
       <div v-else class="d-flex">
-        <div class="custom-navigation-card shadow-sm" :class="{'active': current_page == x}" v-for="x in bottom_threshold" :key="'customNavigation' + x" @click="select_page(x)">
+        <div class="custom-navigation-card shadow-sm" :class="{'active': current_page == x}" v-for="x in (current_page == bottom_threshold ? bottom_threshold + 1 : bottom_threshold)" :key="'customNavigation' + x" @click="select_page(x)">
           <p class="mb-0 custom-navigation-text">{{ x }}</p>
         </div>
         
@@ -52,8 +52,7 @@ export default {
   },
   watch: {
     total_page(){
-      for(let x = this.top_threshold - 1; x >= 0; x--)
-        this.arr_reverse.push(x)
+      this.manage_arr_reverse()
     },
     current_page(val){
       var arr_current_page = []
@@ -65,6 +64,8 @@ export default {
           arr_current_page.push(val + 1)
       }
       this.arr_current_page = arr_current_page
+
+      this.manage_arr_reverse()
     },
   },
   created(){
@@ -72,6 +73,12 @@ export default {
       this.arr_reverse.push(x)
   },
   methods: {
+    manage_arr_reverse(){
+      var arr_reverse = []
+      for(let x = (this.current_page == this.total_page - this.top_threshold + 1 ? this.top_threshold : this.top_threshold - 1); x >= 0; x--)
+        arr_reverse.push(x)
+      this.arr_reverse = arr_reverse
+    },
     previous_action(){
       if(this.current_page > 1)
         this.$emit('previous_action')

@@ -48,7 +48,7 @@
         <div class="" style="margin-top: 3.1rem;">
           <div class="row">
             <div class="col-6 d-flex align-items-center">
-              <p class="mb-0 content-content">Menampilkan {{ total_data.toLocaleString(base.locale_string) }} Produk <label v-show="product_type_id != '' && product_type_id != 'all'">{{ selected_product_type.text }}</label><br/><label v-show="location_id != '' && location_id != 'all'">di {{ selected_location.text }}</label></p>
+              <p class="mb-0 content-content" v-show="arr_product.length > 0">Menampilkan {{ arr_product.length.toLocaleString(base.locale_string) }} Produk <label v-show="product_type_id != '' && product_type_id != 'all'">{{ selected_product_type.text }}</label><br/><label v-show="location_id != '' && location_id != 'all'">di {{ selected_location.text }}</label></p>
             </div>
             <div class="col-6 d-flex align-items-center justify-content-end">
               <p class="mb-0 content-content mr-3 mr-lg-5">Filter</p>
@@ -761,6 +761,7 @@ export default {
     },
     async get_product(){
       this.isLoading = true
+      this.arr_product = []
       window.scrollTo(0, 250)
 
       var data = {
@@ -782,7 +783,7 @@ export default {
       this.isLoading = false
 
       if(response != null){
-        if(response.status_code === "00"){
+        if(response.data != null){
           for(let product of response.data){
             product.id = product.idlot
             product.image = product.imageuri

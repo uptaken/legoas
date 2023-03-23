@@ -18,29 +18,3 @@
   src: url('@/assets/fonts/Poppins-Medium.ttf');
 }
 
-.ql-editor .ql-size-large {
-  font-size: 72px !important;
-}
-
-.ql-editor .ql-size-huge {
-  font-size: 84px !important;
-}
-
-.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=large]::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
-  content: 72px !important;
-}
-
-.ql-snow .ql-picker.ql-size .ql-picker-label[data-value=huge]::before,
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
-  content: 84px !important;
-}
-
-
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=large]::before {
-  font-size: 72px !important;
-}
-
-.ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
-  font-size: 84px !important;
-}
