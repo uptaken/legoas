@@ -11,19 +11,19 @@
       </div>
 
       <div class=" w-100" style="padding-top: 6.5rem; padding-bottom: 15.6rem;">
-        <div class="mt-3 w-100">
+        <div class="mt-3 w-100" style="cursor: pointer;" @click="toDetail()">
           <div class="row">
             <Transition name="article-image1">
               <div class="col-12 col-lg-6" v-show="flag.articleImage1Flag">
-                <img :src="image" width="100%"/>
+                <img :src="image" width="100%" class="article-image"/>
               </div>
             </Transition>
             <Transition name="article-title1">
               <div class="col-12 col-lg-6 pt-3 pt-lg-0" v-show="flag.articleTitle1Flag">
-                <div class="d-flex align-items-center">
-                  <div>
+                <div class="d-flex align-items-center w-100">
+                  <div class=" w-100">
                     <p class="mb-0 title-section">{{ title }}</p>
-                    <p class="mb-0 content-section mt-3">{{ description }}</p>
+                    <p class="mb-0 content-section mt-3 w-100" v-html="description"></p>
                     <div class="d-flex align-items-center mt-3">
                       <img src="@/assets/clock_icon.png" style="width: 1.1rem;"/>
                       <p class="ml-2 mb-0 recommendation-info">{{ date.format('DD MMMM YYYY') }}</p>
@@ -190,6 +190,7 @@ export default {
           description: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
         },
       ],
+      article_primary: {},
       searchTimeout: null,
     }
   },
@@ -233,6 +234,10 @@ export default {
     handleScroll(){
       this.scrollY = window.scrollY
     },
+    toDetail(){
+      window.localStorage.setItem('article', JSON.stringify(this.article_primary))
+      window.location.href = "/article/detail?id=" + this.article_primary.id
+    },
     manage_start_animation(){
       this.flag.articleImage1Flag = this.base.check_start_animation(this.scrollY, this.flag.articleImage1Flag, this.arr_factor, 0)
       this.flag.articleTitle1Flag = this.base.check_start_animation(this.scrollY, this.flag.articleTitle1Flag, this.arr_factor, 0)
@@ -257,18 +262,25 @@ export default {
 
       if(response != null){
         if(response.status === "success"){
+          var arr = []
           for(let article of response.data){
+            var desc_display = article.content.substring(0, article.content.indexOf('</p>') + 4)
+
             article.image = this.base.host + "/media/article?file_name=" + article.file_name
             article.date = moment(article.date_format, "YYYY-MM-DD")
+            article.description = desc_display
 
             if(article.is_primary == 1){
+              this.article_primary = article
               this.image = this.base.host + "/media/article?file_name=" + article.file_name
               this.title = article.title
-              this.description = article.description
+              this.description = desc_display
               this.date = article.date
             }
+            else
+              arr.push(article)
           }
-          this.arr_article = response.data
+          this.arr_article = arr
           this.current_page = response.current_page
           this.total_page = response.total_page
 
@@ -336,5 +348,16 @@ export default {
 }
 .custom-pagination-container{
   margin-top: 5.5rem;
+}
+.content-section *{
+  width: 100%;
+  height: 4.5rem;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.article-image{
+  border-radius: 1rem;
 }
 </style>

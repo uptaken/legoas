@@ -14,7 +14,7 @@
         <div class="d-flex justify-content-center" style="margin-top: 3.375rem; ">
           <div class="footer-download-image1">
             <div class="row" style="">
-              <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" @click="toDetail(index)" 
+              <div v-for="(car, index) in arr_car" :key="index" class="col-12 col-lg-4 mt-3" @click="toDetail(index)" 
                 style="cursor: pointer;">
                 <RecommendationItem :data="car" :index="index" :total_data="arr_car.length" />
               </div>
@@ -214,7 +214,8 @@ export default {
   },
   created(){
     this.base = new Base()
-    this.isLoading = false
+
+    this.get_product()
   },
   methods:{
     toDetail(index){
@@ -224,19 +225,8 @@ export default {
       window.location.href = "/product/detail?id=" + product.id
     },
     async get_product(){
-      var data = {
-        param: {
-          searchLocation: this.location_id,
-          searchCategory: this.product_type_id,
-          searchKey: this.search,
-          length: 3,
-          sort: this.sort,
-          start: this.current_page,
-          searchStartEventDate: "",
-          searchEndEventDate: "",
-        }
-      }
-      var response = await this.base.request(this.base.url_api2 + `/SearchUnit`, "post", data)
+      var response = await this.base.request(this.base.url_api2 + `/RecomUnit`)
+      this.isLoading = false
 
       if(response != null){
         if(response.status_code === "00"){

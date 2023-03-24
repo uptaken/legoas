@@ -2,7 +2,7 @@
   <div class="custom-navbar-padding-right custom-navbar-padding-left d-flex flex-column align-items-center">
     <div class="footer-download-image1 text-left">
       <div class="position-relative" style="margin-top: 3.8rem;">
-        <p class="m-0 general-title">{{ location_id == "" && product_type_id == "" && search == "" ? $t('search_product') : $t('all_product') }}</p>
+        <p class="m-0 general-title">{{ location_id === "" && product_type_id === "" && search === "" ? $t('all_product') : $t('search_product') }}</p>
       </div>
 
       <div class="" style="padding-top: 6rem; padding-bottom: 11.5rem;">
@@ -34,7 +34,7 @@
                   <div class="vertical d-none d-lg-block"></div>
                   <div class="form-group mb-0 ml-0 ml-lg-3 flex-fill mt-3 mt-lg-0">
                     <label class="search-label">{{ $t("name") }}</label>
-                    <input class="form-control home-search-input" v-model="search"/>
+                    <input class="form-control home-search-input" v-model="search" @keyup="checkEnter" />
                   </div>
                 </div>
 
@@ -671,6 +671,10 @@ export default {
       window.localStorage.setItem('product', JSON.stringify(product))
       window.location.href = "/product/detail?id=" + product.id
     },
+    checkEnter(e){
+      if (e.keyCode === 13)
+        this.search_action()
+    },
     onLocationSelect(val){
       this.location_id = val.id
     },
@@ -685,11 +689,11 @@ export default {
       //   this.base.show_error(this.$t('location_empty'))
       // else if(this.product_type_id === "")
       //   this.base.show_error(this.$t('product_type_empty'))
-      if(this.search === "")
-        this.base.show_error(this.$t('name_empty'))
-      else{
+      // if(this.search === "")
+      //   this.base.show_error(this.$t('name_empty'))
+      // else{
         location.href = `/search?location_id=${this.location_id === "all" ? "" : this.location_id}&product_type_id=${this.product_type_id === "all" ? "" : this.product_type_id}&search=${this.search}`
-      }
+      // }
     },
     next_action(){
       this.current_page = this.current_page + 1

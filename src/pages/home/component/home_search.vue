@@ -80,7 +80,7 @@
                 <div class="vertical d-none d-lg-block"></div>
                 <div class="form-group mb-0 ml-0 ml-lg-3 flex-fill mt-4 mt-lg-0">
                   <label class="home-search-label">{{ $t("name") }}</label>
-                  <input class="form-control home-search-input" v-model="search" :placeholder="$t('input_product')"/>
+                  <input class="form-control home-search-input" @keyup="checkEnter" v-model="search" :placeholder="$t('input_product')"/>
                 </div>
               </div>
 
@@ -208,6 +208,10 @@ export default {
     this.get_location()
   },
   methods:{
+    checkEnter(e){
+      if (e.keyCode === 13)
+        this.search_action()
+    },
     onImageLoad(){
       this.is_image_loaded = true
     },
@@ -387,6 +391,10 @@ export default {
   background-color: $gray12;
   border: none;
   height: 3rem;
+  font-size: .8rem;
+}
+.select2-container{
+  font-size: .8rem;
 }
 .select2-search__field{
   background-color: $white;

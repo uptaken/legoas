@@ -43,6 +43,7 @@ export default {
         focusOnSelect: true,
         infinite: true,
         speed: 500,
+        autoplay: true,
         slidesToShow: 2,
         slidesToScroll: 2,
         touchThreshold: 5,

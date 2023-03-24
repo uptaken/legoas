@@ -11,6 +11,7 @@ import definiton from '@/pages/auction/info/definition'
 import rules from '@/pages/auction/info/rules'
 import news from '@/pages/auction/info/news'
 import article from '@/pages/auction/info/article'
+import detail_article from '@/pages/auction/info/detail_article'
 
 import about_us from '@/pages/about_us/index'
 import location from '@/pages/location/index'
@@ -95,6 +96,13 @@ var router = new Router({
     {
       path: '/article',
       component: article,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/article/detail',
+      component: detail_article,
       meta: {
         requiresAuth: false
       },

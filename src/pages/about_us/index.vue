@@ -33,7 +33,7 @@
                 <div class="row">
                   <div class="col-6 col-lg-3 d-flex align-items-center flex-column mt-3 mt-lg-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
                     <img :src="trust.image" style="width: 3rem; height: 3rem;"/>
-                    <div v-html="trust.title"></div>
+                    <div v-html="trust.title" class="mt-3"></div>
                     
                   </div>
                 </div>
