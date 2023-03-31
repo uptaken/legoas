@@ -10,7 +10,7 @@
       <div class="content-container text-left">
         <div class="mt-5">
           <div>
-            <ScheduleMonth :month="month" :week_num="week_num" @previous_action="schedule_previous_action" @next_action="schedule_next_action" :arr_group_auction="arr_group_auction"/>
+            <ScheduleMonth :month="month" :week_num="week_num" @previous_action="schedule_previous_action" @next_action="schedule_next_action" :arr_group_auction="arr_calendar"/>
           </div>
 
           <div class="row schedule-filter-card">
@@ -91,6 +91,7 @@ export default {
           text: "Type A",
         },
       ],
+      arr_calendar: [],
       arr_group_auction: [
         {
           date: moment(),
@@ -221,6 +222,37 @@ export default {
       else
         this.base.show_error(this.$t('server_error'))
     },
+    async get_calendar(){
+      var data = {
+        param: {
+          searchStartEventDate: this.month.clone().format('DD/MM/YYYY'),
+          searchEndEventDate: this.month.clone().add(1, 'week').format('DD/MM/YYYY'),
+        }
+      }
+      var response = await this.base.request(this.base.url_api2 + `/EventWithUnitType`, "post", data)
+
+      if(response != null){
+        if(response.status_code === "00"){
+          if(response.data != null){
+            for(let group_auction of response.data){
+              group_auction.date = moment(group_auction.tgllelang, 'DD/MM/YYYY')
+              var arr = []
+              for(let category of group_auction.category){
+                arr.push({
+                  title: category.nama,
+                })
+              }
+              group_auction.arr = arr
+            }
+            this.arr_calendar = response.data
+          }
+        }
+        else
+          this.base.show_error(response.status_message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
     manage_week_num(){
       // var start_date = this.month.clone().startOf('week')
       var end_date = this.month.clone().endOf('week')
@@ -250,6 +282,7 @@ export default {
         }
         this.week_num = total_week
       }
+      this.get_calendar()
     },
   }
 }

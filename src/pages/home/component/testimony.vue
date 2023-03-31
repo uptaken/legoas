@@ -45,7 +45,7 @@ export default {
         speed: 500,
         autoplay: true,
         slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToScroll: 1,
         touchThreshold: 5,
         responsive: [
           {

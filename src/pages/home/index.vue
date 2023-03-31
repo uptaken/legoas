@@ -6,7 +6,7 @@
         @onLoading="(isLoading, index) => $set(arr_factor, index, !isLoading)"/>
     </div>
 
-    <div class="custom-navbar-padding-right custom-navbar-padding-left" id="recommendation" style="margin-top: 5rem; margin-bottom: 2.3rem;">
+    <div class="text-center" id="recommendation" style="margin-top: 5rem; margin-bottom: 2.3rem;">
       <Recommendation :recommendationTitle1Flag="flag.recommendationTitle1" 
         :recommendationTitle2Flag="flag.recommendationTitle2" 
         @onChangeArr="(arr)  => onChangeRecommendationArr(arr)" 

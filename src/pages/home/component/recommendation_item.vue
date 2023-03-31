@@ -1,5 +1,5 @@
 <template>
-  <div class="card d-inline-block text-left h-100 flex-grow-1 recommendation-card" style="border-radius: .8rem;">
+  <div class="card d-inline-block text-left h-100 flex-grow-1 recommendation-card" @click="$emit('onClick')" style="border-radius: .8rem; cursor: pointer;">
     <div class="card-body p-0 w-100 h-100 d-flex flex-column justify-content-between">
       <div>
         <div class="px-1 pt-1 text-center">

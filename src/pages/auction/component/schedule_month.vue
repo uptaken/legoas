@@ -61,7 +61,7 @@ export default {
     }
   },
   watch: {
-    month(){
+    arr_group_auction(){
       this.manage_arr_date()
     },
   },
@@ -81,18 +81,19 @@ export default {
           if(group_auction.date.isSame(start_date, 'day')){
             var y = 0
             for(let auction of group_auction.arr){
-              var split = auction.title.split(' ')
-              var index_until = 0
-              for(let x in split){
-                if(x < 2){
-                  index_until += split[x].length
-                  if(x < 1)
-                    index_until++
-                }
-                else
-                  break
-              }
-              auction.title_format = auction.title.substring(0, index_until)
+              // var split = auction.title.split(' ')
+              // var index_until = 0
+              // for(let x in split){
+              //   if(x < 2){
+              //     index_until += split[x].length
+              //     if(x < 1)
+              //       index_until++
+              //   }
+              //   else
+              //     break
+              // }
+              // auction.title_format = auction.title.substring(0, index_until)
+              auction.title_format = auction.title
               auction.class_name = y % 2 == 0 ? 'schedule-auction-green-card' : 'schedule-auction-blue-card'
               y++
             }
