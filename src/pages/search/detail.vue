@@ -209,10 +209,10 @@ export default {
     }, 1000)
 
     this.id = this.$route.query.id
-    var product = window.localStorage.getItem('product')
-    this.product = JSON.parse(product)
-    this.selected_image = this.product.arr_image[0]
-    this.arr_factor = [true,]
+    // var product = window.localStorage.getItem('product')
+    // this.product = JSON.parse(product)
+    // this.selected_image = this.product.arr_image[0]
+    this.get_product_detail()
   },
   methods: {
     onGoBack(){
@@ -231,6 +231,56 @@ export default {
     },
     onCallSeller(){
 
+    },
+    async get_product_detail(){
+      this.isLoading = true
+
+      var data = {
+        param: {
+          AuctionLotId: this.$route.query.id
+        }
+      }
+      var response = await this.base.request(this.base.url_api2 + `/DetailLotUnit`, "post", data)
+      this.$set(this.arr_factor, 0, true)
+
+      if(response != null){
+        if(response.data != null){
+          response.data.id = response.data.idlot
+          var arr_image = []
+          var flag = false
+          for(let x in response.data.physicalimages){
+            arr_image.push(response.data.physicalimages[x])
+            if(!flag){
+              response.data.image = response.data.imageuri != null ? response.data.imageuri : response.data.physicalimages[x]
+              flag = true
+            }
+          }
+          response.data.arr_image = arr_image
+          response.data.place = response.data.wrhcity
+          response.data.title = response.data.unitname
+          response.data.type = response.data.categoryname
+          response.data.price = response.data.baseprice
+          
+          response.data.seller = {
+            name: "",
+          }
+          // response.data.notes = null
+          response.data.arr_info = []
+          for(let x in response.data.specunit){
+            response.data.arr_info.push({
+              name: x,
+              value: response.data.specunit[x],
+            })
+          }
+
+          this.product = response.data
+          this.selected_image = arr_image.length > 0 ? arr_image[0] : null
+        }
+        else
+          this.base.show_error(response.status_message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
     },
   }
 }

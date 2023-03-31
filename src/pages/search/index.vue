@@ -669,7 +669,7 @@ export default {
       var product = this.arr_product[index]
       
       window.localStorage.setItem('product', JSON.stringify(product))
-      window.location.href = "/product/detail?id=" + product.id
+      window.location.href = "/product/detail?id=" + product.idlot
     },
     checkEnter(e){
       if (e.keyCode === 13)

@@ -222,7 +222,7 @@ export default {
       var product = this.arr_car[index]
       
       window.localStorage.setItem('product', JSON.stringify(product))
-      window.location.href = "/product/detail?id=" + product.id
+      window.location.href = "/product/detail?id=" + product.idlot
     },
     async get_product(){
       var response = await this.base.request(this.base.url_api2 + `/RecomUnit`)
