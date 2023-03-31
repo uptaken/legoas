@@ -16,7 +16,7 @@
             <div class="col-12 col-lg-6 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
               <div id="detail-product-image" :style="{height: detail_product_image_height > 0 ? (detail_product_image_height + 'px') : 'auto'}" class=" text-center">
                 <Transition name="detail-product-image">
-                  <img :src="selected_image" style="height: 17.25rem" v-show="image_flag"/>
+                  <img :src="selected_image" style="height: 17.25rem; border-radius: 1rem;" v-show="image_flag"/>
                 </Transition>
               </div>
               <div class="mt-2" v-if="product.arr_image.length > 1">
@@ -34,7 +34,7 @@
           <Transition name="definition-title1">
             <div class="col-12 col-lg-6 mt-5 mt-lg-0 detail-product-main-card-right" v-show="flag.detailProductContent1Flag">
               <div class="h-100 d-flex flex-column justify-content-center align-items-start">
-                <div class="px-5 py-2 detail-product-type d-inline-block">{{ product.type }}</div>
+                <div class="px-5 py-2 detail-product-type" v-show="product.type != null">{{ product.type }}</div>
                 <p class="detail-product-title mb-0 mt-3">{{ product.title }}</p>
                 <div class="d-flex align-items-center mt-4">
                   <img src="@/assets/map_icon.png" style="width: .8rem;"/>
@@ -42,7 +42,7 @@
                 </div>
                 <p class="detail-product-info mb-0 mt-3">{{ product.seller.address }}</p>
                 <p class="mb-0 detail-product-price" style="margin-top: 1.25rem;">Rp. {{ product.price.toLocaleString(base.locale_string) }}</p>
-                <div class="detail-product-call d-flex align-items-center" @click="onCallSeller" style="margin-top: 2.1rem; padding: .8rem 2.7rem;">
+                <div class="detail-product-call d-flex align-items-center" @click="onDownloadPDF" style="margin-top: 2.1rem; padding: .8rem 2.7rem;">
                   <img src="@/assets/call.png" style="width: 1rem;"/>
                   <p class="ml-2 mb-0 detail-product-call-text">{{ $t('call_more') }}</p>
                 </div>
@@ -72,7 +72,7 @@
                 <div v-if="product.product_type === 'bulk'" class="d-flex flex-column justify-content-center align-items-center w-100">
                   <img src="@/assets/bulk_product.png" style="width: 22rem;"/>
                   <p class="mb-0 detail-product-description mt-5">Download PDF dibawah ini, untuk mengetahui informasi lebih akan Produk terlelang</p>
-                  <div class="px-5 py-3 detail-product-call d-flex align-items-center mt-4" @click="onCallSeller" style="margin-top: 2.1rem;">
+                  <div class="px-5 py-3 detail-product-call d-flex align-items-center mt-4" @click="onDownloadPDF" style="margin-top: 2.1rem;">
                     <img src="@/assets/icon_download.png" style="width: 1rem;"/>
                     <p class="ml-2 mb-0 detail-product-call-text">{{ $t('download_pdf') }}</p>
                   </div>
@@ -160,7 +160,7 @@ export default {
         notes: '',
       },
       slick_setting: {
-        dots: true,
+        dots: false,
         arrows: false,
         focusOnSelect: true,
         infinite: true,
@@ -232,6 +232,16 @@ export default {
     onCallSeller(){
 
     },
+    async onDownloadPDF(){
+      this.isLoading = true
+
+      var data = {
+        param: {
+          AuctionLotId: this.$route.query.id
+        }
+      }
+      await this.base.request(this.base.url_api2 + `/File/GetUnitInspectionResult`, "get", data)
+    },
     async get_product_detail(){
       this.isLoading = true
 
@@ -273,6 +283,7 @@ export default {
             })
           }
 
+          console.log(response.data.type)
           this.product = response.data
           this.selected_image = arr_image.length > 0 ? arr_image[0] : null
         }
@@ -372,7 +383,8 @@ export default {
 }
 .image-slick-item{
   width: 100%; 
-  height: 100%;
+  height: 5rem;
+  border-radius: 1rem;
   display: inline-block !important;
 }
 .image-slick{

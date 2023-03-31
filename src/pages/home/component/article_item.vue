@@ -1,5 +1,5 @@
 <template>
-  <div class="card d-inline-block text-left h-100 article-card recommendation-card">
+  <div class="card d-inline-block text-left h-100 article-card recommendation-card" @click="readMore()" style="cursor: pointer;">
     <div class="card-body p-0 w-100 h-100 d-flex flex-column justify-content-between">
       <div class="w-100">
         <div class="px-1 pt-1 text-center">
@@ -8,7 +8,7 @@
             height="100%"
             animation="fade"
             v-show="!is_image_loaded"/>
-          <img :src="data.image" class="article-image" @load="onImageLoad()" v-show="is_image_loaded" style="height: 10rem;"/>
+          <img :src="data.image" class="article-image" @load="onImageLoad()" v-show="is_image_loaded" style="height: 10rem; width: 100%;"/>
         </div>
         <div class="mt-3 px-3 w-100">
           <div class="d-flex align-items-center">
@@ -23,7 +23,7 @@
 
       <div style="bottom: 0;" class="position-relative mt-2">
         <div class="mx-3 mb-3">
-          <a href="#" @click="readMore()" style="font-size: .7rem;">{{ $t("view_more") }}</a>
+          <a href="#"  style="font-size: .7rem;">{{ $t("view_more") }}</a>
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@
         <Transition name="news-title">
           <div class="" v-show="flag.newsTitleFlag">
             <p class="mb-0 news-title mt-3">{{ title }}</p>
+            <p class="mb-0 news-date">{{ $t('created_at') + " " + date.format('DD MMMM YYYY') }}</p>
           </div>
         </Transition>
 

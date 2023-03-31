@@ -37,7 +37,7 @@ export default class Base{
       var response
       if(method === 'get'){
         for(let x in data)
-          url += (url.includes('?') ? '&' : '?') + x + "=" + (Array.isArray(data[x]) ? JSON.stringify(data[x]) : data[x])
+          url += (url.includes('?') ? '&' : '?') + x + "=" + JSON.stringify(data[x])
 
         response = await axios.get(url, {
           headers: header,

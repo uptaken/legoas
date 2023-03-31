@@ -15,7 +15,7 @@
         <router-view @onChangeArrFactor="(arr) => onChangeArrFactor(arr)"/>
       </div>
     </div>
-    <footer1/>
+    <footer1 v-show="this.$route.path != '/sell'"/>
 
     <custom-loading :arr_factor="arr_factor"/>
   </div>

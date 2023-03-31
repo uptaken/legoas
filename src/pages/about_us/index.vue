@@ -33,7 +33,7 @@
                 <div class="row">
                   <div class="col-6 col-lg-3 d-flex align-items-center flex-column mt-3 mt-lg-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
                     <img :src="trust.image" style="width: 3rem; height: 3rem;"/>
-                    <div v-html="trust.title" class="mt-3"></div>
+                    <div v-html="trust.title" class="mt-3 trust-list"></div>
                     
                   </div>
                 </div>
@@ -356,5 +356,12 @@ export default {
 .about-us-image3-leave-to, .about-us-image3-enter {
   // margin-left: 10rem !important;
   opacity: 0;
+}
+#about-us-content img{
+  width: 100%;
+  border-radius: 1rem;
+}
+.trust-list{
+  text-align: center;
 }
 </style>

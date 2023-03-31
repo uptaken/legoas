@@ -14,14 +14,15 @@
           <div class="px-3 py-2 rounded-pill recommendation-type d-inline-block">{{ data.type }}</div>
           <p class="recommendation-title mb-0 mt-1">{{ data.title }}</p>
           <p class="recommendation-info  m-0">{{ data.seller.name }}</p>
+          <div class="d-flex align-items-center mt-1">
+            <img src="@/assets/map_icon.png" style="width: 1rem;"/>
+            <p class="ml-1 mb-0 recommendation-info">{{ data.place }}</p>
+          </div>
         </div>
       </div>
 
       <div style="bottom: 0;" class="position-relative mt-2">
-        <div class="d-flex align-items-center mt-1 mx-3">
-          <img src="@/assets/map_icon.png" style="width: 1rem;"/>
-          <p class="ml-1 mb-0 recommendation-info">{{ data.place }}</p>
-        </div>
+        
 
         <div class="horizontal my-2"></div>
 
