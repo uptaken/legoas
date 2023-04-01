@@ -233,14 +233,7 @@ export default {
 
     },
     async onDownloadPDF(){
-      this.isLoading = true
-
-      var data = {
-        param: {
-          AuctionLotId: this.$route.query.id
-        }
-      }
-      await this.base.request(this.base.url_api2 + `/File/GetUnitInspectionResult`, "get", data)
+      window.open(this.base.url_api2 + `/File/GetUnitInspectionResult/${this.$route.query.id}`, '_blank')
     },
     async get_product_detail(){
       this.isLoading = true

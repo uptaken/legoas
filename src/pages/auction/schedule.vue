@@ -15,7 +15,7 @@
 
           <div class="row schedule-filter-card">
             <div class="col-6 d-flex align-items-center">
-              <p class="mb-0 content-content">Terdapat 10 Jadwal Lelang</p>
+              <p class="mb-0 content-content">Terdapat {{ total_data.toLocaleString(base.locale_string) }} Jadwal Lelang</p>
             </div>
             <div class="col-6 d-flex align-items-center justify-content-end">
               <p class="mb-0 content-content">Filter</p>
@@ -23,17 +23,21 @@
                 class="ml-3" 
                 :options="arr_sort" 
                 :settings="{width: '10rem',}"
-                @change="onSortChanged($event)" 
                 @select="onSortSelect($event)" />
             </div>
           </div>
           <div style="margin-top: 5rem">
-            <div v-for="(group_auction, index) in arr_group_auction" :key="'group' + index" style="margin-bottom: 6.25rem;">
-              <AuctionGroupItem :data="group_auction"/>
+            <div v-if="arr_group_auction.length > 0">
+              <div v-for="(group_auction, index) in arr_group_auction" :key="'group' + index" style="margin-bottom: 6.25rem;">
+                <AuctionGroupItem :data="group_auction"/>
+              </div>
+            </div>
+            <div v-else class="d-flex justify-content-center">
+              <p>{{ $t('no_data_found') }}</p>
             </div>
           </div>
 
-          <div class="custom-pagination-container">
+          <div class="custom-pagination-container" v-show="arr_group_auction.length > 0">
             <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
           </div>
         </div>
@@ -46,7 +50,7 @@
 import Base from '@/utils/base';
 import moment from 'moment';
 
-import ScheduleImage from '@/assets/schedule_image.png';
+// import ScheduleImage from '@/assets/schedule_image.png';
 
 import AuctionGroupItem from '@/pages/auction/component/auction_group_item.vue'
 import CustomPagination from '@/layout/custom_pagination.vue'
@@ -64,20 +68,20 @@ export default {
       arr_factor: [false, ],
       month: moment(),
       week_num: -1,
-      total_page: 10,
+      total_page: 1,
       current_page: 1,
       start_data: 1,
       end_data: 10,
-      total_data: 2000,
+      total_data: 0,
       model: {},
-      sort: {},
+      sort: 'newest',
       arr_sort: [
         {
-          id: "1",
+          id: "newest",
           text: this.$t("newest"),
         },
         {
-          id: "2",
+          id: "oldest",
           text: this.$t("oldest"),
         },
       ],
@@ -93,52 +97,52 @@ export default {
       ],
       arr_calendar: [],
       arr_group_auction: [
-        {
-          date: moment(),
-          arr: [
-            {
-              id: "1",
-              image: ScheduleImage,
-              title: "Lelang MOBIL Kota Administrasi Jakarta Barat",
-              date: moment(),
-              open_house_date: moment(),
-              start_time: moment(),
-              end_time: "Selesai",
-            },
-            {
-              id: "1",
-              image: ScheduleImage,
-              title: "Lelang MOBIL Kota Administrasi Jakarta Barat",
-              date: moment(),
-              open_house_date: moment(),
-              start_time: moment(),
-              end_time: "Selesai",
-            },
-          ]
-        },
-        {
-          date: moment().add(1, 'days'),
-          arr: [
-            {
-              id: "1",
-              image: ScheduleImage,
-              title: "Lelang MOBIL Kota Administrasi Jakarta Barat",
-              date: moment(),
-              open_house_date: moment(),
-              start_time: moment(),
-              end_time: "Selesai",
-            },
-            {
-              id: "1",
-              image: ScheduleImage,
-              title: "Lelang MOBIL Kota Administrasi Jakarta Barat",
-              date: moment(),
-              open_house_date: moment(),
-              start_time: moment(),
-              end_time: "Selesai",
-            },
-          ]
-        },
+        // {
+        //   date: moment(),
+        //   arr: [
+        //     {
+        //       id: "1",
+        //       image: ScheduleImage,
+        //       title: "Lelang MOBIL Kota Administrasi Jakarta Barat",
+        //       date: moment(),
+        //       open_house_date: moment(),
+        //       start_time: moment(),
+        //       end_time: "Selesai",
+        //     },
+        //     {
+        //       id: "1",
+        //       image: ScheduleImage,
+        //       title: "Lelang MOBIL Kota Administrasi Jakarta Barat",
+        //       date: moment(),
+        //       open_house_date: moment(),
+        //       start_time: moment(),
+        //       end_time: "Selesai",
+        //     },
+        //   ]
+        // },
+        // {
+        //   date: moment().add(1, 'days'),
+        //   arr: [
+        //     {
+        //       id: "1",
+        //       image: ScheduleImage,
+        //       title: "Lelang MOBIL Kota Administrasi Jakarta Barat",
+        //       date: moment(),
+        //       open_house_date: moment(),
+        //       start_time: moment(),
+        //       end_time: "Selesai",
+        //     },
+        //     {
+        //       id: "1",
+        //       image: ScheduleImage,
+        //       title: "Lelang MOBIL Kota Administrasi Jakarta Barat",
+        //       date: moment(),
+        //       open_house_date: moment(),
+        //       start_time: moment(),
+        //       end_time: "Selesai",
+        //     },
+        //   ]
+        // },
       ],
     }
   },
@@ -146,13 +150,17 @@ export default {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
     },
+    sort(){
+      this.get_schedule()
+    },
   },
   created(){
     this.base = new Base()
     // this.week_num = Math.floor(moment().format('D') / 7)
     this.manage_week_num()
 
-    this.arr_factor = [true,]
+    // this.arr_factor = [true,]
+    this.get_schedule()
   },
   methods: {
     next_action(){
@@ -164,65 +172,69 @@ export default {
     select_page(page){
       this.current_page = page
     },
+    onSortSelect(val){
+      this.sort = val.id
+    },
     schedule_previous_action(){
       this.week_num = this.week_num - 1
-      this.month = this.month.clone().subtract(1, 'week')
+      this.month.subtract(7, 'days')
       this.manage_week_num()
     },
     schedule_next_action(){
       this.week_num = this.week_num + 1
+      this.month.add(7, 'days')
       this.manage_week_num()
-      this.month = this.month.clone().add(1, 'week')
     },
     async get_schedule(){
+      this.arr_group_auction = []
       var data = {
         param: {
-          searchLocation: this.location_id,
-          searchCategory: this.product_type_id,
-          searchKey: this.search,
-          length: 9,
-          sort: this.sort,
+          length: 0,
+          sortby: 'eventdate',
+          sortdir: this.sort === "newest" ? "desc" : "asc",
           start: this.current_page,
           searchStartEventDate: "",
           searchEndEventDate: "",
         }
       }
-      var response = await this.base.request(this.base.url_api2 + `/SearchUnit`, "post", data)
-      this.$set(this.arr_factor, 2, true)
+      var response = await this.base.request(this.base.url_api2 + `/SearchEventActive`, "post", data)
+      this.$set(this.arr_factor, 0, true)
 
       if(response != null){
-        if(response.status_code === "00"){
-          for(let product of response.data){
-            product.id = product.idlot
-            product.image = product.imageuri
-            product.place = product.wrhcity
-            product.title = product.unitname
-            product.type = product.categoryname
-            product.price = product.baseprice
-            product.arr_image = [
-              product.imageuri,
-            ]
-            product.seller = {
-              name: "",
-            }
-            product.notes = null
-            product.arr_info = []
-            for(let x in product.specunit){
-              product.arr_info.push({
-                name: x,
-                value: product.specunit[x],
-              })
+        var arr_group_auction = []
+        for(let auction of response.data){
+          var index = -1
+          var auction_date = moment(auction.eventDate)
+          for(let x in arr_group_auction){
+            if(arr_group_auction[x].date.format('YYYY-MM-DD') === auction_date.format('YYYY-MM-DD')){
+              index = x
+              break
             }
           }
-          this.arr_product = response.data
+
+          auction.title = auction.eventCode
+          auction.image = auction.default_img
+          auction.date = auction_date
+          auction.open_house_date = moment(auction.openHouseDate)
+          auction.start_time = moment(auction.eventStarttime, 'HH:mm')
+
+          if(index > -1)
+            arr_group_auction[index].arr.push(auction)
+          else
+            arr_group_auction.push({
+              date: auction_date,
+              arr: [auction,],
+            })
         }
-        else
-          this.base.show_error(response.status_message)
+        this.arr_group_auction = arr_group_auction
+        this.total_page = response.pageTotal > 0 ? response.pageTotal : 1
+        this.total_data = response.recordsFiltered
       }
       else
         this.base.show_error(this.$t('server_error'))
     },
     async get_calendar(){
+      this.arr_calendar = []
       var data = {
         param: {
           searchStartEventDate: this.month.clone().format('DD/MM/YYYY'),
@@ -255,7 +267,8 @@ export default {
     },
     manage_week_num(){
       // var start_date = this.month.clone().startOf('week')
-      var end_date = this.month.clone().endOf('week')
+      // console.log(this.week_num)
+      // var end_date = this.month.clone().endOf('week')
       if(this.week_num == 0){
         var counter_date = this.month.clone().startOf('month').startOf('week')
         var total_week = 0
@@ -267,20 +280,38 @@ export default {
         this.week_num = total_week
       }
       else if(this.week_num > 4){
-        if(end_date.isAfter(this.month.clone().endOf('month'), 'day'))
+        counter_date = this.month.clone().startOf('week')
+        if(counter_date.isSame(this.month.clone().endOf('week'), 'month'))
           this.week_num = 1
       }
       else if(this.week_num == -1){
         counter_date = this.month.clone().startOf('month').startOf('week')
         total_week = 0
-        while(counter_date.isBefore(this.month.clone().endOf('month'))){
-          if(counter_date.isSame(this.month.clone(), 'month'))
-            total_week++
-          if(counter_date <= moment() && counter_date.clone().add(7, 'days') >= moment())
-            break
-          counter_date.add(7, 'days')
+        
+        if(counter_date.isSame(this.month.clone().endOf('month'), 'month')){
+          while(counter_date.isBefore(this.month.clone().endOf('month'))){
+            if(counter_date.isSame(this.month.clone(), 'month'))
+              total_week++
+            if(counter_date <= moment() && counter_date.clone().add(7, 'days') >= moment())
+              break
+            counter_date.add(7, 'days')
+          }
+        }
+        else{
+          counter_date.startOf('month')
+          var last_month = counter_date.clone().endOf('month')
+          counter_date.startOf('week')
+          if(!last_month.isSame(counter_date, 'month'))
+            counter_date.add(7, 'days')
+            
+          while(counter_date.isBefore(last_month.clone().endOf('month'))){
+            if(counter_date.isSame(last_month.clone(), 'month'))
+              total_week++
+            counter_date.add(7, 'days')
+          }
         }
         this.week_num = total_week
+        
       }
       this.get_calendar()
     },

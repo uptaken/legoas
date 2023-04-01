@@ -26,7 +26,7 @@
 
             <div class="d-flex align-items-center mt-1">
               <img src="@/assets/schedule_clock.png" style="width: 1.1rem;"/>
-              <p class="ml-3 mb-0 car-info">{{ data.start_time.format('HH:MM') + " - " + data.end_time }}</p>
+              <p class="ml-3 mb-0 car-info">{{ data.start_time.format('HH:MM') + (data.end_time != null ? " - " + data.end_time : "") }}</p>
             </div>
           </div>
 
