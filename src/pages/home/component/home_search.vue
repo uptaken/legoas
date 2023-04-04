@@ -5,9 +5,9 @@
         <div class="col-12 col-lg-6">
           <div class="d-flex flex-column justify-content-center h-100">
             <div id="banner-content" class="d-flex align-items-center" :style="{height: banner_content_height > 0 ? (banner_content_height + 'px') : 'auto'}">
-              <div>
+              <div class="w-100">
                 <Transition name="banner-home-title" >
-                  <p class="mb-0 banner-content" v-show="banner_flag" v-html="selected_banner.content"></p>
+                  <p class="mb-0 banner-content w-100" v-show="banner_flag" v-html="selected_banner.content"></p>
                 </Transition>
                 <!-- <Transition name="banner-home-title" >
                   <p class="m-0" v-show="banner_flag" style="font-size: 3.5rem; line-height: 5rem; font-family: poppins-medium;" v-html="selected_banner.title"></p>
@@ -417,7 +417,10 @@ export default {
   transform: translateX(10rem);
   opacity: 0;
 }
-.banner-content p{
-  line-height: 300%;
+.banner-content *{
+  line-height: 120%;
+  width: 100%;
+  display: block;
+  overflow-wrap: break-word;
 }
 </style>

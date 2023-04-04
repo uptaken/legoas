@@ -50,7 +50,7 @@
 import Base from '@/utils/base';
 import moment from 'moment';
 
-// import ScheduleImage from '@/assets/schedule_image.png';
+import NoImage from '@/assets/no_image.png';
 
 import AuctionGroupItem from '@/pages/auction/component/auction_group_item.vue'
 import CustomPagination from '@/layout/custom_pagination.vue'
@@ -213,7 +213,8 @@ export default {
           }
 
           auction.title = auction.eventCode
-          auction.image = auction.default_img
+          auction.image = auction.default_img != null ? auction.default_img : NoImage
+          auction.no_image = auction.default_img == null
           auction.date = auction_date
           auction.open_house_date = moment(auction.openHouseDate)
           auction.start_time = moment(auction.eventStarttime, 'HH:mm')
@@ -285,16 +286,20 @@ export default {
           this.week_num = 1
       }
       else if(this.week_num == -1){
-        counter_date = this.month.clone().startOf('month').startOf('week')
+        counter_date = this.month.clone().startOf('week')
         total_week = 0
         
-        if(counter_date.isSame(this.month.clone().endOf('month'), 'month')){
-          while(counter_date.isBefore(this.month.clone().endOf('month'))){
-            if(counter_date.isSame(this.month.clone(), 'month'))
+        if(counter_date.isSame(counter_date.clone().add(7, 'd'), 'month')){
+          var temp = this.month.clone().startOf('month').startOf('week')
+          if(!temp.isSame(this.month.clone(), 'month'))
+            temp.add(7, 'days')
+          console.log(temp.format('DD/MM/YYYY'))
+          while(temp.isBefore(this.month.clone().endOf('month'))){
+            if(temp.isSame(this.month.clone(), 'month'))
               total_week++
-            if(counter_date <= moment() && counter_date.clone().add(7, 'days') >= moment())
+            if(temp <= this.month && temp.clone().add(7, 'days') >= this.month)
               break
-            counter_date.add(7, 'days')
+            temp.add(7, 'days')
           }
         }
         else{

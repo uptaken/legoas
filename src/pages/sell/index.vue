@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="px-5 pt-1 pb-5">
+    <div class="custom-navbar-padding-right custom-navbar-padding-left pt-1 pb-5">
       <div class="card border-0 register-card">
         <div class="card-body register-card-body">
           <div class="row">

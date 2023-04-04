@@ -5,10 +5,10 @@
         <div class="col-4">
           <vue-skeleton-loader
             width="100%"
-            height="100%"
+            height="10rem"
             animation="fade"
             v-show="!is_image_loaded"/>
-          <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="width: 100%"/>
+          <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="width: 100%; height: 15rem; border-radius: 1rem; object-position: center;" :style="{'objectFit': data.no_image ? 'cover' : 'cover'}"/>
         </div>
         <div class="col-8">
           <p class="car-title">{{ data.title }}</p>
@@ -26,7 +26,7 @@
 
             <div class="d-flex align-items-center mt-1">
               <img src="@/assets/schedule_clock.png" style="width: 1.1rem;"/>
-              <p class="ml-3 mb-0 car-info">{{ data.start_time.format('HH:MM') + (data.end_time != null ? " - " + data.end_time : "") }}</p>
+              <p class="ml-3 mb-0 car-info">{{ data.start_time.format('HH:mm') + (data.end_time != null ? " - " + data.end_time : "") }}</p>
             </div>
           </div>
 

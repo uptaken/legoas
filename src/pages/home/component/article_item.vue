@@ -8,7 +8,7 @@
             height="100%"
             animation="fade"
             v-show="!is_image_loaded"/>
-          <img :src="data.image" class="article-image" @load="onImageLoad()" v-show="is_image_loaded" style="height: 10rem; width: 100%;"/>
+          <img :src="data.image" class="article-image" @load="onImageLoad()" v-show="is_image_loaded" style="width: 100%;"/>
         </div>
         <div class="mt-3 px-3 w-100">
           <div class="d-flex align-items-center">
@@ -17,7 +17,7 @@
           </div>
 
           <p class="recommendation-title mb-0 mt-1">{{ data.title }}</p>
-          <p class="recommendation-info content-section m-0 text-truncate" v-html="data.description"></p>
+          <p class="recommendation-info content-section m-0" v-html="data.description"></p>
         </div>
       </div>
 
@@ -57,6 +57,16 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 960px) {
+  .article-image{
+    height: 10rem;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .article-image{
+    height: 10rem;
+  }
+}
 .article-card{
   border-radius: 1rem;
   border-color: $gray2;

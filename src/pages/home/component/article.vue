@@ -14,7 +14,7 @@
         <div class="d-flex justify-content-center"  style="margin-top: 3.375rem;">
           <div class="footer-download-image1">
             <div class="row"  style="">
-              <div v-for="(article, index) in arr_article" :key="index" class="col-12 col-lg-4 mt-3 mt-lg-0" >
+              <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-md-4 mt-3 mt-lg-0" >
                 <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
               </div>
             </div>

@@ -13,10 +13,12 @@
       <div class="" style="padding-top: 5.6rem; padding-bottom: 11.5rem;">
         <div class="row">
           <Transition name="definition-image1">
-            <div class="col-12 col-lg-6 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
+            <div class="col-12 col-lg-5 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
               <div id="detail-product-image" :style="{height: detail_product_image_height > 0 ? (detail_product_image_height + 'px') : 'auto'}" class=" text-center">
                 <Transition name="detail-product-image">
-                  <img :src="selected_image" style="height: 17.25rem; border-radius: 1rem;" v-show="image_flag"/>
+                  <div class="container-selected-image">
+                    <img :src="selected_image" v-show="image_flag"/>
+                  </div>
                 </Transition>
               </div>
               <div class="mt-2" v-if="product.arr_image.length > 1">
@@ -24,7 +26,9 @@
                   <div v-for="(image, index) in product.arr_image" :key="'image' + index" 
                     class="image-slick p-1"
                     @click="onSelectedImage(index)">
-                    <img :src="image" style="" class="image-slick-item"/>
+                    <div class="container-image">
+                      <img :src="image" style=""/>
+                    </div>
                   </div>
                 </VueSlickCarousel>
               </div>
@@ -32,7 +36,7 @@
           </Transition>
 
           <Transition name="definition-title1">
-            <div class="col-12 col-lg-6 mt-5 mt-lg-0 detail-product-main-card-right" v-show="flag.detailProductContent1Flag">
+            <div class="col-12 col-lg-7 mt-5 mt-lg-0 detail-product-main-card-right" v-show="flag.detailProductContent1Flag">
               <div class="h-100 d-flex flex-column justify-content-center align-items-start">
                 <div class="px-5 py-2 detail-product-type" v-show="product.type != null">{{ product.type }}</div>
                 <p class="detail-product-title mb-0 mt-3">{{ product.title }}</p>
@@ -168,6 +172,8 @@ export default {
         slidesToShow: 4,
         slidesToScroll: 4,
         touchThreshold: 4,
+        // variableWidth: true,
+        // centerMode: true,
       },
       flag: {
         detailProductImage1Flag: false,
@@ -276,7 +282,6 @@ export default {
             })
           }
 
-          console.log(response.data.type)
           this.product = response.data
           this.selected_image = arr_image.length > 0 ? arr_image[0] : null
         }
@@ -298,6 +303,11 @@ export default {
   .detail-product-info-item{
     padding: 0;
   }
+  .container-selected-image{
+    position: relative;
+    width: 80%;
+    display: inline-block;
+  }
 }
 @media only screen and (min-width: 960px) {
   .detail-product-nav{
@@ -311,6 +321,10 @@ export default {
   }
   .detail-product-main-card-right{
     padding-left: 1.5rem;
+  }
+  .container-selected-image{
+    position: relative;
+    width: 100%;
   }
 }
 
@@ -374,10 +388,33 @@ export default {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
 }
+.container-image {
+  position: relative;
+  width: 100%; /* The size you want */
+}
+.container-image:after, .container-selected-image:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%; /* The padding depends on the width, not on the height, so with a padding-bottom of 100% you will get a square */
+}
+
+.container-image img, .container-selected-image img {
+  position: absolute; /* Take your picture out of the flow */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; /* Make the picture taking the size of it's parent */
+  width: 100%; /* This if for the object-fit */
+  height: 100%; /* This if for the object-fit */
+  object-fit: cover; /* Equivalent of the background-size: cover; of a background-image */
+  object-position: center;
+  border-radius: 1rem;
+}
 .image-slick-item{
   width: 100%; 
   height: 5rem;
   border-radius: 1rem;
+  object-fit: cover;
   display: inline-block !important;
 }
 .image-slick{

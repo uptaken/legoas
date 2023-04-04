@@ -18,7 +18,7 @@
         </Transition>
 
         <Transition name="rules-title">
-          <div class="px-5 w-100" style="margin: 3.75rem 0;" v-show="flag.rulesTitleFlag">
+          <div class="px-0 px-lg-5 w-100" style="margin: 3.75rem 0;" v-show="flag.rulesTitleFlag">
             <p class="mb-0 last-updated">{{ $t('updated') + " " + last_updated_at.format('DD MMMM YYYY') }}</p>
           </div>
         </Transition>
@@ -30,7 +30,7 @@
                 <div class="card-body p-0">
                   <div class="px-5 py-3 position-relative">
                     <img src="@/assets/car.png" class="position-absolute" style="left: -2rem; width: 3.3rem;"/>
-                    <button class="btn p-0 w-100 text-left collapse-title" type="button" data-toggle="collapse" :data-target="'#collapse' + index" aria-expanded="true" :aria-controls="'collapse' + index">
+                    <button class="btn p-0 w-100 text-left collapse-title" type="button" data-toggle="collapse" :data-target="'#collapse' + index" aria-expanded="true" :aria-controls="'collapse' + index" @click="onClickHeader(index)">
                       {{ rules.title }}
                     </button>
                   </div>
@@ -277,6 +277,16 @@ export default {
   methods: {
     handleScroll(){
       this.scrollY = window.scrollY
+    },
+    onClickHeader(index){
+      var scrollTo = 580 - 115
+      for(let x = 0; x <= index; x++)
+        scrollTo += 94
+      window.scrollTo(0, scrollTo)
+      // setTimeout(() => {
+      //   document.getElementById('heading'+index).scrollIntoView()
+      // }, 600)
+      
     },
     manage_start_animation(){
       this.flag.rulesTitleFlag = this.base.check_start_animation(this.scrollY, this.flag.rulesTitleFlag, this.arr_factor, 0)

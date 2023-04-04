@@ -8,7 +8,9 @@
             height="100%"
             animation="fade"
             v-show="!is_image_loaded"/>
-          <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="height: 10rem;"/>
+          <div class="container-rec-image">
+            <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded"/>
+          </div>
         </div>
         <div class="mt-3 mx-3">
           <div class="px-3 py-2 rounded-pill recommendation-type d-inline-block">{{ data.type }}</div>
@@ -98,5 +100,27 @@ export default {
   background-color: $gray2;
   width: 100%;
   height: 1px;
+}
+.container-rec-image {
+  position: relative;
+  width: 100%; /* The size you want */
+}
+.container-rec-image:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%; /* The padding depends on the width, not on the height, so with a padding-bottom of 100% you will get a square */
+}
+
+.container-rec-image img {
+  position: absolute; /* Take your picture out of the flow */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; /* Make the picture taking the size of it's parent */
+  width: 100%; /* This if for the object-fit */
+  height: 100%; /* This if for the object-fit */
+  object-fit: cover; /* Equivalent of the background-size: cover; of a background-image */
+  object-position: center;
+  border-radius: 1rem;
 }
 </style>

@@ -86,17 +86,17 @@ export default {
     font-size: 12px;
   }
   .custom-navbar-padding{
-    padding: 1.8rem 3rem;
+    padding: 1.8rem 2rem;
   }
   .custom-navbar-padding-right{
-    padding-right: 1rem;
+    padding-right: 2rem;
   }
   .custom-navbar-padding-left{
-    padding-left: 1rem;
+    padding-left: 2rem;
   }
   .content-container{
     width: 100%;
-    padding: 0 1rem;
+    padding: 0;
   }
 }
 @media only screen and (min-width: 576px) and (max-width: 960px) {

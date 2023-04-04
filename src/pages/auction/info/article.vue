@@ -15,7 +15,7 @@
           <div class="row">
             <Transition name="article-image1">
               <div class="col-12 col-lg-6" v-show="flag.articleImage1Flag">
-                <img :src="image" width="100%" class="article-image"/>
+                <img :src="image" width="100%" style="width: 100%; height: 17.75rem; object-fit: cover;" class="article-image"/>
               </div>
             </Transition>
             <Transition name="article-title1">
@@ -59,14 +59,19 @@
         </div>
 
         <div v-if="!isLoading">
-          <div class="w-100" style="margin-top: 3.8rem;">
-            <div class="row">
-              <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
-                <Transition name="article-item">
-                  <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
-                </Transition>
+          <div v-if="arr_article.length > 0">
+            <div class="w-100">
+              <div class="row">
+                <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
+                  <Transition name="article-item">
+                    <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
+                  </Transition>
+                </div>
               </div>
             </div>
+          </div>
+          <div v-else class="d-flex justify-content-center mt-5" style="margin-top: 3.8rem;">
+            <p>{{ $t('no_data_found') }}</p>
           </div>
         </div>
         <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem">
@@ -254,6 +259,7 @@ export default {
     },
     async get_article(){
       this.isLoading = true
+      this.arr_article = []
       window.scrollTo(0, 610)
 
       var response = await this.base.request(this.base.url_api + `/article?num_data=3&is_publish=1&search=${this.search}&type=${this.filter}&page=${this.current_page}`)
@@ -351,7 +357,7 @@ export default {
 }
 .content-section *{
   width: 100%;
-  height: 4.5rem;
+  height: 3rem;
   overflow: hidden;
   -webkit-line-clamp: 3;
   display: -webkit-box;

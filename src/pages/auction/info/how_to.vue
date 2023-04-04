@@ -25,7 +25,7 @@
       <div class="custom-navbar-padding-right custom-navbar-padding-left text-center mt-5">
         <div class="content-container text-left">
           <div class="">
-            <iframe  width="420" height="315" :src="url_video"></iframe>
+            <iframe  width="420" height="315" style="max-width: 100%;" :src="url_video"></iframe>
           </div>
         </div>
       </div>

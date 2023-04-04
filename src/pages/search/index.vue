@@ -2,7 +2,7 @@
   <div class="custom-navbar-padding-right custom-navbar-padding-left d-flex flex-column align-items-center">
     <div class="footer-download-image1 text-left">
       <div class="position-relative" style="margin-top: 3.8rem;">
-        <p class="m-0 general-title">{{ location_id === "" && product_type_id === "" && search === "" ? $t('all_product') : $t('search_product') }}</p>
+        <p class="m-0 general-title">{{ location_id === "all" && product_type_id === "all" && search === "" ? $t('all_product') : $t('search_product') }}</p>
       </div>
 
       <div class="" style="padding-top: 6rem; padding-bottom: 11.5rem;">
@@ -66,13 +66,13 @@
             <div v-if="!isLoading">
               <div v-if="arr_product.length > 0">
                 <div class="row">
-                  <div v-for="(product, index) in arr_product" :key="index" class="col-12 col-lg-4 mb-4" @click="toDetail(index)" style="cursor: pointer;">
+                  <div v-for="(product, index) in arr_product" :key="index" class="col-6 col-lg-4 mb-4" @click="toDetail(index)" style="cursor: pointer;">
                     <RecommendationItem :data="product" :index="index" :total_data="arr_product.length"/>
                   </div>
                 </div>
               </div>
-              <div v-else class="d-flex justify-content-center">
-                <p>{{ $t('no_data_found') }}</p>
+              <div v-else class="d-flex justify-content-center" style="margin-bottom: 15.5rem;">
+                <p>{{ $t('search_product_not_available') }}</p>
               </div>
             </div>
             <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem">
