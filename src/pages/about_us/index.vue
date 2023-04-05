@@ -24,7 +24,7 @@
             <p class="mb-0 title-section" v-show="flag.aboutUsTitle2Flag" v-html="trust_title"></p>
           </Transition>
           <Transition name="about-us-content2" >
-            <p class="mb-0 mt-5 content-section" id="trust-content" v-show="flag.aboutUsContent2Flag" v-html="trust_content"></p>
+            <p class="mb-0 mt-5 " id="trust-content" v-show="flag.aboutUsContent2Flag" v-html="trust_content"></p>
           </Transition>
 
           <Transition name="about-us-image2">

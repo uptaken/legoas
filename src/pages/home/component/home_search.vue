@@ -35,7 +35,7 @@
         <div class="col-12 col-lg-6 pr-0" id="banner-image" :style="{height: banner_image_height > 0 ? (banner_image_height + 'px') : 'auto'}">
           <div class="d-flex flex-column justify-content-center h-100">
             <Transition name="banner-home-image" >
-              <div v-show="banner_flag" class="w-100 text-right" style="height: 32rem;">
+              <div v-show="banner_flag && selected_banner.image != null" class="w-100 text-right" style="height: 32rem;">
                 <vue-skeleton-loader
                   width="100%"
                   height="100%"
@@ -278,7 +278,7 @@ export default {
       if(response != null){
         if(response.status === "success"){
           for(let banner of response.data){
-            banner.image = this.base.host + "/media/banner?file_name=" + banner.file_name
+            banner.image = banner.file_name != null ? this.base.host + "/media/banner?file_name=" + banner.file_name : null
           }
           this.arr_banner = response.data
 
@@ -325,6 +325,9 @@ export default {
   .home-search-banner-container{
     width: 100%;
   }
+  .banner-content span{
+    font-size: 3rem  !important;
+  }
 }
 @media only screen and (min-width: 960px) {
   .home-search-card{
@@ -337,6 +340,9 @@ export default {
   }
   .home-search-banner-container{
     width: 50%;
+  }
+  .banner-content span{
+    font-size: 3rem !important;
   }
 }
 
@@ -419,8 +425,11 @@ export default {
 }
 .banner-content *{
   line-height: 120%;
-  width: 100%;
-  display: block;
+  // width: 100%;
+  display: inline-block;
   overflow-wrap: break-word;
+}
+.banner-content h1, .banner-content p{
+  width: 100%;
 }
 </style>

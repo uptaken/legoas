@@ -105,7 +105,7 @@ export default {
     return{
       base: null,
       scrollY: 0,
-      arr_factor: [false, ],
+      arr_factor: [false, false, ],
       flag: {
         articleImage1Flag: false,
         articleTitle1Flag: false,
@@ -230,6 +230,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
 
+    this.get_primary_article()
     this.get_article()
   },
   methods: {
@@ -262,7 +263,7 @@ export default {
       this.arr_article = []
       window.scrollTo(0, 610)
 
-      var response = await this.base.request(this.base.url_api + `/article?num_data=3&is_publish=1&search=${this.search}&type=${this.filter}&page=${this.current_page}`)
+      var response = await this.base.request(this.base.url_api + `/article?is_primary=0&num_data=3&is_publish=1&search=${this.search}&type=${this.filter}&page=${this.current_page}`)
       this.$set(this.arr_factor, 0, true)
       this.isLoading = false
 
@@ -291,6 +292,34 @@ export default {
           this.total_page = response.total_page
 
           
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+    async get_primary_article(){
+      this.isLoading = true
+      this.arr_article = []
+
+      var response = await this.base.request(this.base.url_api + `/article?is_primary=1&num_data=1&is_publish=1`)
+      this.$set(this.arr_factor, 1, true)
+      this.isLoading = false
+
+      if(response != null){
+        if(response.status === "success"){
+          var desc_display = response.data.content.substring(0, response.data.content.indexOf('</p>') + 4)
+
+          response.data.image = this.base.host + "/media/article?file_name=" + response.data.file_name
+          response.data.date = moment(response.data.date_format, "YYYY-MM-DD")
+          response.data.description = desc_display
+            
+          this.article_primary = response.data
+          this.image = this.base.host + "/media/article?file_name=" + response.data.file_name
+          this.title = response.data.title
+          this.description = desc_display
+          this.date = response.data.date
         }
         else
           this.base.show_error(response.message)

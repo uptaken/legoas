@@ -24,20 +24,20 @@
         </Transition>
         
         <Transition name="rules-content">
-          <div class="accordion" id="accordionExample" v-show="flag.rulesContentFlag">
+          <div class="accordion" id="accordionExample" v-show="flag.rulesContentFlag" style="margin-bottom: 40rem;">
             <div :id="'heading' + index" v-for="(rules, index) in arr_rules" :key="'rules' + index">
               <div class="card custom-card">
                 <div class="card-body p-0">
                   <div class="px-5 py-3 position-relative">
                     <img src="@/assets/car.png" class="position-absolute" style="left: -2rem; width: 3.3rem;"/>
-                    <button class="btn p-0 w-100 text-left collapse-title" type="button" data-toggle="collapse" :data-target="'#collapse' + index" aria-expanded="true" :aria-controls="'collapse' + index" @click="onClickHeader(index)">
+                    <button class="btn p-0 w-100 text-left collapse-title" type="button" data-toggle="collapse" :data-target="'#collapse' + index" aria-expanded="false" :aria-controls="'collapse' + index" @click="onClickHeader(index)">
                       {{ rules.title }}
                     </button>
                   </div>
                 </div>
               </div>
 
-              <div :id="'collapse' + index" class="collapse" :class="{'show': index == 0}" :aria-labelledby="'heading' + index" style="margin: 5.6rem 5.6rem;" data-parent="#accordionExample" v-html="rules.content">
+              <div :id="'collapse' + index" class="collapse multi-collapse" :class="{'show': index == 0}" :aria-labelledby="'heading' + index" style="margin: 5.6rem 5.6rem;" data-parent="#accordionExample" v-html="rules.content">
                 
               </div>
             </div>
@@ -279,13 +279,18 @@ export default {
       this.scrollY = window.scrollY
     },
     onClickHeader(index){
-      var scrollTo = 580 - 115
-      for(let x = 0; x <= index; x++)
-        scrollTo += 94
-      window.scrollTo(0, scrollTo)
-      // setTimeout(() => {
+      console.log(index)
+      // var scrollTo = this.base.responsive_scroll_threshold(580) - this.base.responsive_scroll_threshold(115)
+      // for(let x = 0; x <= index; x++)
+      //   scrollTo += this.base.responsive_scroll_threshold(94)
+      window.scrollTo(0, this.base.responsive_scroll_threshold(700))
+      // window.$('#accordionExample').on('shown.bs.collapse', () => {
+      //   console.log('test')
       //   document.getElementById('heading'+index).scrollIntoView()
-      // }, 600)
+      // })
+      setTimeout(() => {
+        document.getElementById('heading'+index).scrollIntoView()
+      }, 700)
       
     },
     manage_start_animation(){

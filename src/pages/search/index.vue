@@ -71,11 +71,11 @@
                   </div>
                 </div>
               </div>
-              <div v-else class="d-flex justify-content-center" style="margin-bottom: 15.5rem;">
+              <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem; margin-bottom: 20rem;">
                 <p>{{ $t('search_product_not_available') }}</p>
               </div>
             </div>
-            <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem">
+            <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem; margin-bottom: 20rem;">
               <img src="@/assets/image_logo.png"/>
             </div>
           </div>
@@ -775,7 +775,7 @@ export default {
           searchKey: this.search,
           length: this.num_data,
           sort: this.sort,
-          start: this.current_page * this.num_data,
+          start: (this.current_page - 1) * this.num_data,
           searchStartEventDate: "",
           searchEndEventDate: "",
           sortby: "eventdate",
@@ -817,8 +817,8 @@ export default {
         else
           this.base.show_error(response.status_message)
       }
-      else
-        this.base.show_error(this.$t('server_error'))
+      // else
+      //   this.base.show_error(this.$t('server_error'))
     },
   }
 }

@@ -27,13 +27,18 @@
             </div>
           </div>
           <div style="margin-top: 5rem">
-            <div v-if="arr_group_auction.length > 0">
-              <div v-for="(group_auction, index) in arr_group_auction" :key="'group' + index" style="margin-bottom: 6.25rem;">
-                <AuctionGroupItem :data="group_auction"/>
+            <div v-if="!isLoading">
+              <div v-if="arr_group_auction.length > 0">
+                <div v-for="(group_auction, index) in arr_group_auction" :key="'group' + index" style="margin-bottom: 6.25rem;">
+                  <AuctionGroupItem :data="group_auction"/>
+                </div>
+              </div>
+              <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem; margin-bottom: 20rem;">
+                <p>{{ $t('no_data_found') }}</p>
               </div>
             </div>
-            <div v-else class="d-flex justify-content-center">
-              <p>{{ $t('no_data_found') }}</p>
+            <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem; margin-bottom: 20rem;">
+              <img src="@/assets/image_logo.png"/>
             </div>
           </div>
 
@@ -75,6 +80,8 @@ export default {
       total_data: 0,
       model: {},
       sort: 'newest',
+      isLoading: true,
+      num_data: 10,
       arr_sort: [
         {
           id: "newest",
@@ -186,19 +193,21 @@ export default {
       this.manage_week_num()
     },
     async get_schedule(){
+      this.isLoading = true
       this.arr_group_auction = []
       var data = {
         param: {
           length: 0,
           sortby: 'eventdate',
           sortdir: this.sort === "newest" ? "desc" : "asc",
-          start: this.current_page,
+          start: (this.current_page - 1) * this.num_data,
           searchStartEventDate: "",
           searchEndEventDate: "",
         }
       }
       var response = await this.base.request(this.base.url_api2 + `/SearchEventActive`, "post", data)
       this.$set(this.arr_factor, 0, true)
+      this.isLoading = false
 
       if(response != null){
         var arr_group_auction = []
