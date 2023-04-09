@@ -58,7 +58,7 @@ export default {
         speed: 500,
         autoplay: false,
         slidesToShow: 3,
-        slidesToScroll: 2,
+        slidesToScroll: 1,
         touchThreshold: 100,
         prevArrow: `
           <p class="slick-nav mb-0" style="height: 2rem; width: 2rem">
@@ -76,7 +76,7 @@ export default {
             settings: {
               touchThreshold: 100,
               slidesToShow: 2,
-              slidesToScroll: 2,
+              slidesToScroll: 1,
             },
           },
         ],

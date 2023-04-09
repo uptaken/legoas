@@ -1,8 +1,30 @@
 <template>
   <div class="custom-navbar-padding-right custom-navbar-padding-left d-flex flex-column align-items-center">
     <div class="footer-download-image1 text-left">
+      <div class="position-relative" style="margin-top: 3.8rem;" v-if="origin_page === 'auction'">
+        <div class="d-flex">
+          <p class="mb-0 navigation text-primary mr-3" @click="onGoBack()" style="cursor: pointer;"><font-awesome-icon icon="fa-solid fa-chevron-left"/></p>
+          <p class="mb-0 navigation">{{ $t('auction_schedule') }}</p>
+          <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
+          <p class="mb-0 navigation navigation-now">{{ $t('search_product_by_auction') }}</p>
+        </div>
+      </div>
+
       <div class="position-relative" style="margin-top: 3.8rem;">
-        <p class="m-0 general-title">{{ location_id === "all" && product_type_id === "all" && search === "" ? $t('all_product') : $t('search_product') }}</p>
+        <p class="m-0 general-title">{{ auction_event_id !== '' || start_date !== '' ? $t('search_product_by_auction') : (location_id !== "all" || product_type_id !== "all" || search !== "" ? $t('search_product') : $t('all_product')) }}</p>
+        <div v-if="auction_event_id !== '' || start_date !== ''">
+          <div class="row mt-3">
+            <div class="col-4">
+              <img :src="auction_data.image" class="" @load="onImageLoad()" style="width: 100%; height: 15rem; border-radius: 1rem; object-position: center;" :style="{'objectFit': auction_data.no_image ? 'cover' : 'cover'}"/>
+            </div>
+            <div class="col-8">
+              <p class="mb-0 car-title">{{ auction_data.title }}</p>
+              <p class="mb-0 car-info">{{ $t('auction_date') + " " + auction_data.date.format('DD MMMM YYYY') }}</p>
+              <p class="mb-0 car-info">{{ $t('open_house') + " " + auction_data.open_house_date.format('DD MMMM YYYY') }}</p>
+              <p class="mb-0 car-info">{{ $t('time') + " " + auction_data.start_time.format('HH:mm') + (auction_data.end_time != null ? " - " + auction_data.end_time : "") }}</p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="" style="padding-top: 6rem; padding-bottom: 11.5rem;">
@@ -46,9 +68,9 @@
           </div>
 
         <div class="" style="margin-top: 3.1rem;">
-          <div class="row">
+          <div class="row" v-show="!isLoading">
             <div class="col-6 d-flex align-items-center">
-              <p class="mb-0 content-content" v-show="arr_product.length > 0">Menampilkan {{ arr_product.length.toLocaleString(base.locale_string) }} Produk <label v-show="product_type_id != '' && product_type_id != 'all'">{{ selected_product_type.text }}</label><br/><label v-show="location_id != '' && location_id != 'all'">di {{ selected_location.text }}</label></p>
+              <p class="mb-0 content-content">Menampilkan {{ arr_product.length.toLocaleString(base.locale_string) }} Produk <label v-show="product_type_id != '' && product_type_id != 'all'">{{ selected_product_type.text }}</label><br/><label v-show="location_id != '' && location_id != 'all'">di {{ selected_location.text }}</label></p>
             </div>
             <div class="col-6 d-flex align-items-center justify-content-end">
               <p class="mb-0 content-content mr-3 mr-lg-5">Filter</p>
@@ -92,6 +114,7 @@
 
 <script>
 import Base from '@/utils/base';
+import moment from 'moment';
 
 // import ProductImage1 from '@/assets/product_image1.png';
 // import ProductImage2 from '@/assets/product_image2.png';
@@ -116,8 +139,12 @@ export default {
       total_data: 2000,
       model: {},
       sort: 'newest',
+      sort_data: {},
       location_id: '',
       product_type_id: '',
+      auction_event_id: '',
+      start_date: '',
+      end_date: '',
       selected_product_type: {},
       selected_location: {},
       isLoading: true,
@@ -125,11 +152,63 @@ export default {
       arr_sort: [
         {
           id: "newest",
+          sortby: 'eventdate',
+          sortdir: 'desc',
           text: this.$t("newest"),
         },
         {
           id: "oldest",
+          sortby: 'eventdate',
+          sortdir: 'asc',
           text: this.$t("oldest"),
+        },
+        {
+          id: "price_desc",
+          sortby: 'finalbasedprice',
+          sortdir: 'desc',
+          text: this.$t("price_desc"),
+        },
+        {
+          id: "price_asc",
+          sortby: 'finalbasedprice',
+          sortdir: 'asc',
+          text: this.$t("price_asc"),
+        },
+        {
+          id: "name_desc",
+          sortby: 'unitname',
+          sortdir: 'desc',
+          text: this.$t("name_desc"),
+        },
+        {
+          id: "name_asc",
+          sortby: 'unitname',
+          sortdir: 'asc',
+          text: this.$t("name_asc"),
+        },
+        {
+          id: "identity_desc",
+          sortby: 'refnumber',
+          sortdir: 'desc',
+          text: this.$t("identity_desc"),
+        },
+        {
+          id: "identity_asc",
+          sortby: 'refnumber',
+          sortdir: 'asc',
+          text: this.$t("identity_asc"),
+        },
+        {
+          id: "grade_desc",
+          sortby: 'unitgrade',
+          sortdir: 'desc',
+          text: this.$t("grade_desc"),
+        },
+        {
+          id: "grade_asc",
+          sortby: 'unitgrade',
+          sortdir: 'asc',
+          text: this.$t("grade_asc"),
         },
       ],
       arr_location: [
@@ -637,6 +716,7 @@ export default {
       // ],
       arr_product: [],
       num_data: 9,
+      auction_data: {},
     }
   },
   watch: {
@@ -645,7 +725,11 @@ export default {
       this.$emit('onChangeArrFactor', val)
     },
     current_page(){
-      this.get_product()
+      var context = this
+      window.scrollTo(0, 100)
+      setTimeout(() => {
+        context.get_product()
+      }, 100)
     },
     sort(){
       this.get_product()
@@ -654,10 +738,24 @@ export default {
   created(){
     this.base = new Base()
 
-    if(this.$route.query.search != null){
-      this.search = this.$route.query.search
-      this.location_id = this.$route.query.location_id === "" ? "all" : this.$route.query.location_id
-      this.product_type_id = this.$route.query.product_type_id === "" ? "all" : this.$route.query.product_type_id
+    this.search = this.$route.query.search === "" || this.$route.query.search == null ? '' : this.$route.query.search
+    this.location_id = this.$route.query.location_id === "" || this.$route.query.location_id == null ? "all" : this.$route.query.location_id
+    this.product_type_id = this.$route.query.product_type_id === "" || this.$route.query.product_type_id == null ? "all" : this.$route.query.product_type_id
+    this.auction_event_id = this.$route.query.AuctionEventId === "" || this.$route.query.AuctionEventId == null ? "" : this.$route.query.AuctionEventId
+    this.start_date = this.$route.query.start_date === "" || this.$route.query.start_date == null ? "" : moment(this.$route.query.start_date, 'YYYY-MM-DD')
+    this.end_date = this.$route.query.end_date === "" || this.$route.query.end_date == null ? "" : moment(this.$route.query.end_date, 'YYYY-MM-DD')
+    this.origin_page = (this.$route.query.AuctionEventId !== "" && this.$route.query.AuctionEventId != null) && (this.$route.query.start_date !== "" || this.$route.query.start_date != null) ? "auction" : ""
+
+    var auction_data = window.localStorage.getItem('auction_data')
+    if(auction_data != null){
+      auction_data = JSON.parse(auction_data)
+      auction_data.date = moment(auction_data.date)
+      auction_data.eventDate = moment(auction_data.eventDate)
+      auction_data.open_house_date = moment(auction_data.open_house_date)
+      auction_data.start_time = moment(auction_data.start_time)
+      if(auction_data.end_time != null)
+        auction_data.end_time = moment(auction_data.end_time)
+      this.auction_data = auction_data
     }
 
     this.get_product_type()
@@ -665,6 +763,10 @@ export default {
     this.get_product()
   },
   methods: {
+    onGoBack(){
+      window.history.go(-1)
+      window.localStorage.removeItem('auction_data')
+    },
     toDetail(index){
       var product = this.arr_product[index]
       
@@ -682,6 +784,7 @@ export default {
       this.product_type_id = val.id
     },
     onSortSelect(val){
+      this.sort_data = val
       this.sort = val.id
     },
     search_action(){
@@ -692,7 +795,8 @@ export default {
       // if(this.search === "")
       //   this.base.show_error(this.$t('name_empty'))
       // else{
-        location.href = `/search?location_id=${this.location_id === "all" ? "" : this.location_id}&product_type_id=${this.product_type_id === "all" ? "" : this.product_type_id}&search=${this.search}`
+        // location.href = `/search?location_id=${this.location_id === "all" ? "" : this.location_id}&product_type_id=${this.product_type_id === "all" ? "" : this.product_type_id}&search=${this.search}&AuctionEventId=${this.auction_event_id}&start_date=${this.start_date}&end_date=${this.end_date}`
+      this.get_product()
       // }
     },
     next_action(){
@@ -775,11 +879,12 @@ export default {
           searchKey: this.search,
           length: this.num_data,
           sort: this.sort,
-          start: (this.current_page - 1) * this.num_data,
-          searchStartEventDate: "",
-          searchEndEventDate: "",
-          sortby: "eventdate",
-          sortdir: this.sort === "newest" ? "desc" : "asc"
+          start: this.current_page,
+          AuctionEventId: this.auction_event_id,
+          searchStartEventDate: this.start_date !== '' ? this.start_date.format('DD/MM/YYYY') : '',
+          searchEndEventDate: this.end_date !== '' ? this.end_date.format('DD/MM/YYYY') : '',
+          sortby: this.sort_data.sortby != null ? this.sort_data.sortby : "eventdate",
+          sortdir: this.sort_data.sortdir != null ? this.sort_data.sortdir : "desc",
         }
       }
       var response = await this.base.request(this.base.url_api2 + `/SearchUnit`, "post", data)
@@ -818,7 +923,7 @@ export default {
           this.base.show_error(response.status_message)
       }
       // else
-      //   this.base.show_error(this.$t('server_error'))
+      //   this.isLoading = false
     },
   }
 }

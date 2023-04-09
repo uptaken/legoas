@@ -27,7 +27,7 @@
                     <div class="col-12 col-lg-6 mt-3">
                       <div class="form-group">
                         <label class="form-label">{{ $t("seller_category") }}<label class="text-danger mb-0">*</label></label>
-                        <Select2 v-model="category"
+                        <Select2 v-model="category_id"
                           :settings="{width: '100%', height: '100%',}"
                           :options="arr_category" 
                           @select="onCategorySelect($event)" />
@@ -85,16 +85,16 @@ export default {
       },
       name: "",
       email: "",
-      category_id: "",
+      category_id: "PERORANGAN",
       phone: "",
       arr_category: [
         {
-          id: "1",
-          text: this.$t("newest"),
+          id: "PERORANGAN",
+          text: this.$t("personal"),
         },
         {
-          id: "2",
-          text: this.$t("oldest"),
+          id: "PERUSAHAAN",
+          text: this.$t("company"),
         },
       ],
       message: "",
@@ -117,7 +117,8 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
 
-    this.get_seller_category()
+    this.arr_factor = [true,]
+    // this.get_seller_category()
   },
   methods: {
     handleScroll(){

@@ -10,7 +10,7 @@
       <div class="content-container text-left">
         <div class="mt-5">
           <div>
-            <ScheduleMonth :month="month" :week_num="week_num" @previous_action="schedule_previous_action" @next_action="schedule_next_action" :arr_group_auction="arr_calendar"/>
+            <ScheduleMonth :month="month" :week_num="week_num" :calendarIsLoading="calendarIsLoading" @previous_action="schedule_previous_action" @next_action="schedule_next_action" :arr_group_auction="arr_calendar"/>
           </div>
 
           <div class="row schedule-filter-card">
@@ -81,6 +81,7 @@ export default {
       model: {},
       sort: 'newest',
       isLoading: true,
+      calendarIsLoading: true,
       num_data: 10,
       arr_sort: [
         {
@@ -157,6 +158,13 @@ export default {
     arr_factor(val){
       this.$emit('onChangeArrFactor', val)
     },
+    current_page(){
+      var context = this
+      window.scrollTo(0, 600)
+      setTimeout(() => {
+        context.get_schedule()
+      }, 100)
+    },
     sort(){
       this.get_schedule()
     },
@@ -193,14 +201,15 @@ export default {
       this.manage_week_num()
     },
     async get_schedule(){
+      
       this.isLoading = true
       this.arr_group_auction = []
       var data = {
         param: {
-          length: 0,
+          length: 10,
           sortby: 'eventdate',
           sortdir: this.sort === "newest" ? "desc" : "asc",
-          start: (this.current_page - 1) * this.num_data,
+          start: this.current_page,
           searchStartEventDate: "",
           searchEndEventDate: "",
         }
@@ -208,6 +217,7 @@ export default {
       var response = await this.base.request(this.base.url_api2 + `/SearchEventActive`, "post", data)
       this.$set(this.arr_factor, 0, true)
       this.isLoading = false
+      
 
       if(response != null){
         var arr_group_auction = []
@@ -245,6 +255,7 @@ export default {
     },
     async get_calendar(){
       this.arr_calendar = []
+      this.calendarIsLoading = true
       var data = {
         param: {
           searchStartEventDate: this.month.clone().format('DD/MM/YYYY'),
@@ -252,6 +263,7 @@ export default {
         }
       }
       var response = await this.base.request(this.base.url_api2 + `/EventWithUnitType`, "post", data)
+      this.calendarIsLoading = false
 
       if(response != null){
         if(response.status_code === "00"){
@@ -262,6 +274,7 @@ export default {
               for(let category of group_auction.category){
                 arr.push({
                   title: category.nama,
+                  id: category.kode,
                 })
               }
               group_auction.arr = arr

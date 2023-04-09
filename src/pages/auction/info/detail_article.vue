@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     onGoBack(){
-      window.history.back()
+      window.history.go(-1)
     },
     handleScroll(){
       this.scrollY = window.scrollY

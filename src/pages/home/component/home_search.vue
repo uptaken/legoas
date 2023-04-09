@@ -296,11 +296,11 @@ export default {
       //   this.base.show_error(this.$t('location_empty'))
       // else if(this.product_type_id === "")
       //   this.base.show_error(this.$t('product_type_empty'))
-      if(this.search === "")
-        this.base.show_error(this.$t('name_empty'))
-      else{
+      // if(this.search === "")
+      //   this.base.show_error(this.$t('name_empty'))
+      // else{
         location.href = `/search?location_id=${this.location_id === "all" ? "" : this.location_id}&product_type_id=${this.product_type_id === "all" ? "" : this.product_type_id}&search=${this.search}`
-      }
+      // }
     },
     onBannerDotClick(index){
       this.selected_banner_index = index

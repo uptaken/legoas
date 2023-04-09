@@ -16,13 +16,13 @@
     </div>
 
     <div class="w-100" style="margin-top: 7rem; margin-bottom: 14rem;">
-      <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
+      <div class="custom-navbar-padding-right custom-navbar-padding-left text-center" v-show="url_video !== '' && url_video != null">
         <div class="content-container text-left">
           <p class="mb-0 how-to-title">{{ $t('watch_how_to_video') }}</p>
         </div>
       </div>
 
-      <div class="custom-navbar-padding-right custom-navbar-padding-left text-center mt-5">
+      <div class="custom-navbar-padding-right custom-navbar-padding-left text-center mt-5" v-show="url_video !== '' && url_video != null" :class="{'d-none': url_video == null || url_video == ''}">
         <div class="content-container text-left">
           <div class="">
             <iframe  width="420" height="315" style="max-width: 100%;" :src="url_video"></iframe>
@@ -54,6 +54,7 @@ import Base from '@/utils/base';
 import moment from 'moment';
 
 import HowToItem from '@/pages/auction/component/how_to_item.vue'
+// import { url } from 'inspector';
 
 export default {
   components: {
@@ -64,7 +65,7 @@ export default {
       base: null,
       scrollY: 0,
       arr_factor: [false, false, ],
-      url_video: 'https://www.youtube.com/embed/tgbNymZ7vqY',
+      url_video: '',
       flag: {
         howToParticipantTitle1Flag: false,
         howToSellerTitle1Flag: false,

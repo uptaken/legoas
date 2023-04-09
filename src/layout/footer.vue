@@ -17,7 +17,7 @@
               <p class="mt-3 footer-content">Alamat Legoas Indonesia<br/>120121</p>
               <div class="d-flex align-items-center">
                 <font-awesome-icon icon="fa-solid fa-phone" />
-                <p class="mb-0 ml-3 phone-number">+ 62 031 4784 372 12</p>
+                <p class="mb-0 ml-3 phone-number">+62 812-8322-8292</p>
               </div>
             </div>
 

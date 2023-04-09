@@ -231,4 +231,8 @@ button:focus{
 .ql-snow .ql-picker.ql-size .ql-picker-item[data-value=huge]::before {
   font-size: 5.25rem !important;
 }
+.form-control:focus{
+  border: 1px solid $gray13;
+  box-shadow: none;
+}
 </style>

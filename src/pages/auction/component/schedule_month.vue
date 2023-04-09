@@ -5,11 +5,11 @@
         <p class="mb-0 month-week-title">{{ month.startOf('week').format('MMMM YYYY') }} | {{ $t('week') + ' ' + week_num }}</p>
 
         <div class="ml-5 d-flex">
-          <div class="custom-navigation-card shadow-sm" @click="$emit('previous_action')">
+          <div class="custom-navigation-card shadow-sm" :class="{'disabled': calendarIsLoading}" @click="$emit('previous_action')">
             <font-awesome-icon icon="fa-solid fa-chevron-left" class="custom-navigation-arrow"/>
           </div>
 
-          <div class="custom-navigation-card shadow-sm ml-3" @click="$emit('next_action')">
+          <div class="custom-navigation-card shadow-sm ml-3" :class="{'disabled': calendarIsLoading}" @click="$emit('next_action')">
             <font-awesome-icon icon="fa-solid fa-chevron-right" class="custom-navigation-arrow"/>
           </div>
         </div>
@@ -17,29 +17,38 @@
     </div>
 
     <div class="mt-5">
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td :style="{width: (100 / 7) + '%'}">SUN</td>
-            <td :style="{width: (100 / 7) + '%'}">MON</td>
-            <td :style="{width: (100 / 7) + '%'}">TUE</td>
-            <td :style="{width: (100 / 7) + '%'}">WED</td>
-            <td :style="{width: (100 / 7) + '%'}">THU</td>
-            <td :style="{width: (100 / 7) + '%'}">FRI</td>
-            <td :style="{width: (100 / 7) + '%'}">SAT</td>
-          </tr>
-          <tr>
-            <td v-for="(date, index) in arr_date" :key="'schedule' + index" style="height: 13rem;">
-              <div class="d-flex flex-column justify-content-between h-100">
-                {{ date.text }}
-                <div>
-                  <div v-for="(auction, index1) in date.arr_auction" :key="'auctionSchedule' + index1 + index" class="p-1 mt-2" :class="[auction.class_name]">{{ auction.title_format }}</div>
+      <div v-if="!calendarIsLoading">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td :style="{width: (100 / 7) + '%'}">SUN</td>
+              <td :style="{width: (100 / 7) + '%'}">MON</td>
+              <td :style="{width: (100 / 7) + '%'}">TUE</td>
+              <td :style="{width: (100 / 7) + '%'}">WED</td>
+              <td :style="{width: (100 / 7) + '%'}">THU</td>
+              <td :style="{width: (100 / 7) + '%'}">FRI</td>
+              <td :style="{width: (100 / 7) + '%'}">SAT</td>
+            </tr>
+            <tr>
+              <td v-for="(date, index) in arr_date" :key="'schedule' + index" style="height: 13rem;">
+                <div class="d-flex flex-column justify-content-between h-100">
+                  {{ date.text }}
+                  <div>
+                    <div v-for="(auction, index1) in date.arr_auction" :key="'auctionSchedule' + index1 + index" class="p-1 mt-2" @click="onClickCategory(index, index1)" style="cursor: pointer;" :class="[auction.class_name]">{{ auction.title_format }}</div>
+                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div v-else class="d-flex justify-content-center align-items-center" style="height: 20rem; margin-bottom: 20rem;">
+        <vue-skeleton-loader
+          width="100%"
+          height="100%"
+          animation="fade"/>
+        <!-- <img src="@/assets/image_logo.png"/> -->
+      </div>
     </div>
   </div>
 </template>
@@ -49,7 +58,7 @@ import Base from '@/utils/base';
 import moment from 'moment';
 
 export default {
-  props: ["month", "week_num", 'arr_group_auction', ],
+  props: ["month", "week_num", 'arr_group_auction', 'calendarIsLoading', ],
   components: {
   },
   data(){
@@ -105,11 +114,17 @@ export default {
         arr_date.push({
           id: start_date.format('YYYY-MM-DD'),
           text: start_date.format('D'),
+          date_moment: start_date,
           arr_auction: arr_auction,
         })
         start_date.add(1, 'days')
       }
       this.arr_date = arr_date
+    },
+    onClickCategory(index, index1){
+      var date = this.arr_date[index]
+      var auction = date.arr_auction[index1]
+      window.location.href = `/search?product_type_id=${auction.id}&start_date=${date.id}&end_date=${date.id}`
     },
     previous_action(){
 
@@ -135,5 +150,8 @@ export default {
   background-color: $blue3;
   color: $blue4;
   border-radius: .4rem;
+}
+.custom-navigation-card.disabled .custom-navigation-arrow{
+  color: $gray2;
 }
 </style>

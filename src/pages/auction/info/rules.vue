@@ -29,7 +29,7 @@
               <div class="card custom-card">
                 <div class="card-body p-0">
                   <div class="px-5 py-3 position-relative">
-                    <img src="@/assets/car.png" class="position-absolute" style="left: -2rem; width: 3.3rem;"/>
+                    <img :src="rules.image" class="position-absolute" style="left: -2rem; width: 3.3rem; height: 3.3rem;"/>
                     <button class="btn p-0 w-100 text-left collapse-title" type="button" data-toggle="collapse" :data-target="'#collapse' + index" aria-expanded="false" :aria-controls="'collapse' + index" @click="onClickHeader(index)">
                       {{ rules.title }}
                     </button>
@@ -53,6 +53,7 @@ import Base from '@/utils/base';
 import moment from 'moment';
 
 import Image from '@/assets/definition_bottom.png';
+import ImageCar from '@/assets/car.png';
 
 export default {
   components: {
@@ -320,6 +321,7 @@ export default {
       if(response != null){
         if(response.status === "success"){
           for(let rules of response.data){
+            rules.image = rules.file_name != null ? this.base.host + "/media/rules?file_name=" + rules.file_name : ImageCar
             rules.title = rules.name
           }
           this.arr_rules = response.data

@@ -40,13 +40,14 @@
               <div class="h-100 d-flex flex-column justify-content-center align-items-start">
                 <div class="px-5 py-2 detail-product-type" v-show="product.type != null">{{ product.type }}</div>
                 <p class="detail-product-title mb-0 mt-3">{{ product.title }}</p>
+                <p class="mb-0 detail-product-info" :class="{'d-none': product.unitgrade == null || product.unitgrade == ''}">Unit Grade: {{ product.unitgrade }}</p>
                 <div class="d-flex align-items-center mt-4">
                   <img src="@/assets/map_icon.png" style="width: .8rem;"/>
                   <p class="ml-1 mb-0 detail-product-info">{{ product.place }}</p>
                 </div>
                 <p class="detail-product-info mb-0 mt-3">{{ product.seller.address }}</p>
                 <p class="mb-0 detail-product-price" style="margin-top: 1.25rem;">Rp. {{ product.price.toLocaleString(base.locale_string) }}</p>
-                <div class="detail-product-call d-flex align-items-center" @click="onDownloadPDF" style="margin-top: 2.1rem; padding: .8rem 2.7rem;">
+                <div class="detail-product-call d-flex align-items-center" @click="onCallSeller" style="margin-top: 2.1rem; padding: .8rem 2.7rem;">
                   <img src="@/assets/call.png" style="width: 1rem;"/>
                   <p class="ml-2 mb-0 detail-product-call-text">{{ $t('call_more') }}</p>
                 </div>
@@ -64,9 +65,12 @@
               <li class="nav-item" :class="{'d-none': product.product_type === 'bulk'}" role="presentation">
                 <button class="nav-link" id="description-tab" data-toggle="tab" data-target="#description" type="button" role="tab" aria-controls="description" aria-selected="false">{{ $t("description") }}</button>
               </li>
-              <li class="nav-item" :class="{'d-none': product.product_type === 'bulk'}" role="presentation">
-                <button class="nav-link" id="document-tab" data-toggle="tab" data-target="#document" type="button" role="tab" aria-controls="document" aria-selected="false">{{ $t("document_product") }}</button>
+              <li class="nav-item" :class="{'d-none': product.arr_section == null || (product.arr_section != null && product.arr_section.length == 0)}" role="presentation">
+                <button class="nav-link" id="section-tab" data-toggle="tab" data-target="#section" type="button" role="tab" aria-controls="section" aria-selected="false">{{ $t("section") }}</button>
               </li>
+              <!-- <li class="nav-item" :class="{'d-none': product.product_type === 'bulk'}" role="presentation">
+                <button class="nav-link" id="document-tab" data-toggle="tab" data-target="#document" type="button" role="tab" aria-controls="document" aria-selected="false">{{ $t("document_product") }}</button>
+              </li> -->
               <li class="nav-item" :class="{'d-none': product.product_type === 'bulk'}" role="presentation">
                 <button class="nav-link" id="notes-tab" data-toggle="tab" data-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">{{ $t("notes") }}</button>
               </li>
@@ -99,6 +103,24 @@
               <div class="tab-pane fade detail-product-description" id="description" role="tabpanel" aria-labelledby="description-tab">
                 <div v-if="product.description != null && product.description !== ''">
                   <div v-html="product.description"></div>
+                </div>
+                <div v-else>
+                  <p class="mb-0 text-center">No Information</p>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="section" role="tabpanel" aria-labelledby="section-tab">
+                <div v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
+                  <p class="mb-0">{{ $t('inspection_result') }}</p>
+                  <img :src="product.urlCarInspectionResult" style="width: 20rem;"/>
+                </div>
+
+                <div class="row" v-if="product.arr_section != null && product.arr_section.length > 0">
+                  <div class="col-12 col-lg-6" v-for="(section, index) in product.arr_section" :key="'section' + index">
+                    <div class="d-flex justify-content-between detail-product-section-item">
+                      <p class="mb-0">{{ section.name }}:</p>
+                      <p class="mb-0">{{ section.value }}</p>
+                    </div>
+                  </div>
                 </div>
                 <div v-else>
                   <p class="mb-0 text-center">No Information</p>
@@ -167,10 +189,10 @@ export default {
         dots: false,
         arrows: false,
         focusOnSelect: true,
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToScroll: 1,
         touchThreshold: 4,
         // variableWidth: true,
         // centerMode: true,
@@ -222,7 +244,7 @@ export default {
   },
   methods: {
     onGoBack(){
-      window.history.back()
+      window.history.go(-1)
     },
     handleScroll(){
       this.scrollY = window.scrollY
@@ -236,7 +258,7 @@ export default {
       this.selected_image_index = index
     },
     onCallSeller(){
-
+      window.location.href = "tel:+6281283228292"
     },
     async onDownloadPDF(){
       window.open(this.base.url_api2 + `/File/GetUnitInspectionResult/${this.$route.query.id}`, '_blank')
@@ -269,6 +291,9 @@ export default {
           response.data.title = response.data.unitname
           response.data.type = response.data.categoryname
           response.data.price = response.data.baseprice
+          response.data.product_type = response.data.unitcount > 1 ? 'bulk' : ''
+          response.data.notes = response.data.notes != null ? response.data.notes.replace(/\n/g, "</br>").replace(/\\r/g, "</br>") : ''
+          response.data.description = response.data.description != null ? response.data.description.replace(/\\n/g, "</br>").replace(/\\r/g, "</br>") : ''
           
           response.data.seller = {
             name: "",
@@ -281,6 +306,15 @@ export default {
               value: response.data.specunit[x],
             })
           }
+
+          response.data.arr_section = []
+          for(let x in response.data.sectionscore){
+            response.data.arr_section.push({
+              name: x,
+              value: response.data.sectionscore[x],
+            })
+          }
+          console.log(response.data)
 
           this.product = response.data
           this.selected_image = arr_image.length > 0 ? arr_image[0] : null

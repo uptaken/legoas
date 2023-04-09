@@ -30,9 +30,9 @@
             </div>
           </div>
 
-          <button class="btn px-3 py-2 recommendation-type d-inline-block mt-3">
+          <button class="btn px-3 py-2 recommendation-type d-inline-block mt-3" @click="onClickLot()">
             <div class="d-flex align-items-center">
-              <img src="@/assets/schedule_button.png" class="mr-3" style="width: 1rem; height: 1rem;"/>{{ $t('lot_list') }}
+              <img src="@/assets/schedule_button.png"  class="mr-3" style="width: 1rem; height: 1rem;"/>{{ $t('lot_list') }}
             </div>
           </button>
         </div>
@@ -58,6 +58,10 @@ export default {
   methods:{
     onImageLoad(){
       this.is_image_loaded = true
+    },
+    onClickLot(){
+      window.localStorage.setItem('auction_data', JSON.stringify(this.data))
+      window.location.href = `/search?AuctionEventId=${this.data.eventId}`
     },
   }
 }

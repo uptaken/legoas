@@ -5,7 +5,7 @@
     <div>
       <div v-for="(auction, index) in data.arr" :key="'auction_group' + index" class="mb-3">
         <!-- <a href="#"> -->
-          <AuctionItem :data="auction"/>
+          <AuctionItem :data="auction" />
         <!-- </a> -->
       </div>
     </div>
