@@ -12,7 +12,7 @@
         <img :src="data.image" @load="onImageLoad()" v-show="is_image_loaded" class="testimony-item-image h-100"/>
         <img src="@/assets/quote.png" class="testimony-quote-image position-absolute" style=""/>
       </div>
-      <div class="d-flex flex-column justify-content-between h-100" style="margin-left: 2rem;">
+      <div class="d-flex flex-column justify-content-between h-100 mr-3" style="margin-left: 2rem;">
         <div class="">
           <p class="testimony-title" v-html="data.testimony"></p>
           <p class="testimony-info" style="max-height: 2.1rem; overflow: hidden; max-width: 14.5rem;" v-html="data.testimony_description"></p>

@@ -18,7 +18,7 @@
 
     <div class="mt-5">
       <div v-if="!calendarIsLoading">
-        <table class="table table-bordered">
+        <table class="table table-bordered schedule-month-table">
           <tbody>
             <tr>
               <td :style="{width: (100 / 7) + '%'}">SUN</td>
@@ -124,6 +124,7 @@ export default {
     onClickCategory(index, index1){
       var date = this.arr_date[index]
       var auction = date.arr_auction[index1]
+      window.localStorage.removeItem('auction_data')
       window.location.href = `/search?product_type_id=${auction.id}&start_date=${date.id}&end_date=${date.id}`
     },
     previous_action(){
@@ -153,5 +154,8 @@ export default {
 }
 .custom-navigation-card.disabled .custom-navigation-arrow{
   color: $gray2;
+}
+.schedule-month-table td *{
+  border: none;
 }
 </style>

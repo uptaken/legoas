@@ -6,13 +6,14 @@
           <p class="mb-0 navigation text-primary mr-3" @click="onGoBack()" style="cursor: pointer;"><font-awesome-icon icon="fa-solid fa-chevron-left"/></p>
           <p class="mb-0 navigation">{{ $t('auction_schedule') }}</p>
           <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
-          <p class="mb-0 navigation navigation-now">{{ $t('search_product_by_auction') }}</p>
+          <p class="mb-0 navigation navigation-now">{{ auction_event_id !== '' ? $t('search_product_by_auction') : $t('search_product_by_product_type') }}</p>
         </div>
       </div>
 
       <div class="position-relative" style="margin-top: 3.8rem;">
-        <p class="m-0 general-title">{{ auction_event_id !== '' || start_date !== '' ? $t('search_product_by_auction') : (location_id !== "all" || product_type_id !== "all" || search !== "" ? $t('search_product') : $t('all_product')) }}</p>
-        <div v-if="auction_event_id !== '' || start_date !== ''">
+        <p class="m-0 mb-0 general-title">{{ auction_event_id !== '' || start_date !== '' ? (auction_event_id !== '' ? $t('search_product_by_auction') : $t('search_product_by_product_type')) : (location_id !== "all" || product_type_id !== "all" || search !== "" ? $t('search_product') : $t('all_product')) }}</p>
+        <p class="m-0 general-subtitle" v-show="auction_event_id !== '' || start_date !== ''">{{ auction_event_id !== '' ? $t('based_lot') : $t('based_product_type') }}</p>
+        <!-- <div v-if="auction_event_id !== ''">
           <div class="row mt-3">
             <div class="col-4">
               <img :src="auction_data.image" class="" @load="onImageLoad()" style="width: 100%; height: 15rem; border-radius: 1rem; object-position: center;" :style="{'objectFit': auction_data.no_image ? 'cover' : 'cover'}"/>
@@ -24,7 +25,7 @@
               <p class="mb-0 car-info">{{ $t('time') + " " + auction_data.start_time.format('HH:mm') + (auction_data.end_time != null ? " - " + auction_data.end_time : "") }}</p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="" style="padding-top: 6rem; padding-bottom: 11.5rem;">
@@ -61,7 +62,9 @@
                 </div>
 
                 <div class="col-12 col-lg-3 d-flex align-items-end">
-                  <button class="btn py-2 px-5 btn-dark home-search-button mt-3 mt-lg-0" @click="search_action">{{ $t("search") }}</button>
+                  <button class="btn py-0 px-5 btn-dark home-search-button mt-3 mt-lg-0 d-flex align-items-center justify-content-center" @click="search_action">
+                    <p class="mb-0" style="line-height: 100%; font-size: 1.1rem; margin-top: .2rem;">{{ $t("search") }}</p>
+                  </button>
                 </div>
               </div>
             </div>
@@ -73,7 +76,7 @@
               <p class="mb-0 content-content">Menampilkan {{ arr_product.length.toLocaleString(base.locale_string) }} Produk <label v-show="product_type_id != '' && product_type_id != 'all'">{{ selected_product_type.text }}</label><br/><label v-show="location_id != '' && location_id != 'all'">di {{ selected_location.text }}</label></p>
             </div>
             <div class="col-6 d-flex align-items-center justify-content-end">
-              <p class="mb-0 content-content mr-3 mr-lg-5">Filter</p>
+              <p class="mb-0 content-content mr-3 mr-lg-5">Sort</p>
               <div class="d-block">
                 <Select2 v-model="sort"
                   class="" 
@@ -744,7 +747,7 @@ export default {
     this.auction_event_id = this.$route.query.AuctionEventId === "" || this.$route.query.AuctionEventId == null ? "" : this.$route.query.AuctionEventId
     this.start_date = this.$route.query.start_date === "" || this.$route.query.start_date == null ? "" : moment(this.$route.query.start_date, 'YYYY-MM-DD')
     this.end_date = this.$route.query.end_date === "" || this.$route.query.end_date == null ? "" : moment(this.$route.query.end_date, 'YYYY-MM-DD')
-    this.origin_page = (this.$route.query.AuctionEventId !== "" && this.$route.query.AuctionEventId != null) && (this.$route.query.start_date !== "" || this.$route.query.start_date != null) ? "auction" : ""
+    this.origin_page = (this.$route.query.AuctionEventId !== "" && this.$route.query.AuctionEventId != null) || (this.$route.query.start_date !== "" && this.$route.query.start_date != null) ? "auction" : ""
 
     var auction_data = window.localStorage.getItem('auction_data')
     if(auction_data != null){

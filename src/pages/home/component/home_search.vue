@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column align-items-center ">
-    <div class="home-top w-100 pb-5 custom-navbar-padding-left ">
+    <div class="home-top w-100 pb-5 custom-navbar-padding-left " style="z-index: 10;">
       <div class="row mt-3 mt-lg-0 mr-0 pl-3 pl-lg-0">
         <div class="col-12 col-lg-6">
           <div class="d-flex flex-column justify-content-center h-100">
@@ -19,7 +19,7 @@
             </div>
 
             <div class="mt-5 d-flex">
-              <font-awesome-icon icon="fa-solid fa-chevron-left" class="navigation-arrow mr-3" :class="{'disabled': selected_banner_index == 0}" @click="onBannerNavigationClick('previous')"/>
+              <font-awesome-icon icon="fa-solid fa-chevron-left" class="navigation-arrow mr-3" :style="{cursor: selected_banner_index == 0 ? 'auto' : 'pointer'}" :class="{'disabled': selected_banner_index == 0}" @click="onBannerNavigationClick('previous')"/>
               <div class="d-flex ">
                 <div class="rounded-circle banner-dots" 
                   :class="{'ml-4': index > 0, 'active': selected_banner_index == index}" 
@@ -27,7 +27,7 @@
                   :key="'banner'+index"
                   @click="onBannerDotClick(index)"></div>
               </div>
-              <font-awesome-icon icon="fa-solid fa-chevron-right" class="navigation-arrow ml-3" :class="{'disabled': selected_banner_index == arr_banner.length - 1}" @click="onBannerNavigationClick('next')"/>
+              <font-awesome-icon icon="fa-solid fa-chevron-right" class="navigation-arrow ml-3" :style="{cursor: selected_banner_index == arr_banner.length - 1 ? 'auto' : 'pointer'}" :class="{'disabled': selected_banner_index == arr_banner.length - 1}" @click="onBannerNavigationClick('next')"/>
             </div>
           </div>
         </div>
@@ -306,7 +306,12 @@ export default {
       this.selected_banner_index = index
     },
     onBannerNavigationClick(type){
-      this.selected_banner_index = type == "next" ? this.selected_banner_index + 1 : this.selected_banner_index - 1
+      var index = this.selected_banner_index
+      if(type === 'next')
+        index = index + 1 >= this.arr_banner.length ? index : index + 1
+      else if(type === 'previous')
+        index = index - 1 <= 0 ? index : index - 1
+      this.selected_banner_index = index
     }
   }
 }
@@ -320,7 +325,7 @@ export default {
   }
   .home-search-button{
     width: 100%;
-    border-radius: 1rem;
+    border-radius: 0.375rem;
   }
   .home-search-banner-container{
     width: 100%;
@@ -336,7 +341,7 @@ export default {
   }
   .home-search-button{
     width: 100%;
-    border-radius: 1rem;
+    border-radius: 0.375rem;
   }
   .home-search-banner-container{
     width: 50%;

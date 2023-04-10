@@ -18,7 +18,7 @@
               <p class="mb-0 content-content">Terdapat {{ total_data.toLocaleString(base.locale_string) }} Jadwal Lelang</p>
             </div>
             <div class="col-6 d-flex align-items-center justify-content-end">
-              <p class="mb-0 content-content">Filter</p>
+              <p class="mb-0 content-content">Sort</p>
               <Select2 v-model="sort"
                 class="ml-3" 
                 :options="arr_sort" 

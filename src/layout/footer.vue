@@ -14,10 +14,11 @@
           <div class="row " style="">
             <div class="col-12 col-lg-3">
               <img src="@/assets/image_logo.png" style="width: 8rem;"/>
-              <p class="mt-3 footer-content">Alamat Legoas Indonesia<br/>120121</p>
+              <p class="mt-3 footer-content" v-html="address"></p>
+              <!-- <p class="footer-content">120121</p> -->
               <div class="d-flex align-items-center">
                 <font-awesome-icon icon="fa-solid fa-phone" />
-                <p class="mb-0 ml-3 phone-number">+62 812-8322-8292</p>
+                <p class="mb-0 ml-3 phone-number" v-html="phone"></p>
               </div>
             </div>
 
@@ -26,7 +27,7 @@
               <a href="/about-us" class="footer-link">{{ $t("about_us") }}</a>
               <a href="/schedule" class="mt-3 footer-link">{{ $t("auction_schedule") }}</a>
               <a href="/location" class="mt-3 footer-link">{{ $t("auction_location") }}</a>
-              <a href="/" class="mt-3 footer-link">{{ $t("contact_us") }}</a>
+              <a href="https://wa.me/+6281283228292" class="mt-3 footer-link">{{ $t("contact_us") }}</a>
             </div>
 
             <div class="col-6 col-lg-2 d-flex flex-column mt-3 mt-lg-0">
@@ -40,18 +41,18 @@
             <div class="col-6 col-lg-2 d-flex flex-column mt-3 mt-lg-0">
               <p class="footer-title">{{ $t("join_app") }}</p>
               <a href="/sell" class="footer-link">{{ $t("sell_car") }}</a>
-              <a href="/" class="mt-3 footer-link">{{ $t("registration") }}</a>
-              <a href="/" class="mt-3 footer-link">{{ $t("login") }}</a>
+              <a href="https://lelang.legoas.co.id/Auction/Bidder/Register" target="__blank" class="mt-3 footer-link">{{ $t("registration") }}</a>
+              <a href="https://lelang.legoas.co.id/Auction/Bidder/Register" target="__blank" class="mt-3 footer-link">{{ $t("login") }}</a>
             </div>
 
             <div class="col-6 col-lg-3 mt-3 mt-lg-0">
               <p class="footer-title">{{ $t("follow_us") }}</p>
               <div class="d-flex">
-                <font-awesome-icon icon="fa-brands fa-facebook"  size="lg"/>
-                <font-awesome-icon icon="fa-brands fa-twitter" class="ml-3" size="lg"/>
-                <font-awesome-icon icon="fa-brands fa-linkedin" class="ml-3" size="lg"/>
-                <font-awesome-icon icon="fa-brands fa-instagram" class="ml-3" size="lg"/>
-                <font-awesome-icon icon="fa-brands fa-youtube" class="ml-3" size="lg"/>
+                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-facebook"  size="lg"/></a>
+                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-twitter" class="ml-3" size="lg"/></a>
+                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-linkedin" class="ml-3" size="lg"/></a>
+                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-instagram" class="ml-3" size="lg"/></a>
+                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-youtube" class="ml-3" size="lg"/></a>
               </div>
             </div>
 
@@ -63,13 +64,59 @@
           </div>
 
           <div class="mt-3 text-center footer-content custom-navbar-padding-right custom-navbar-padding-left">
-            Copyright 2022 © Legoas, All Rights Reserved.
+            Copyright 2023 © Legoas, All Rights Reserved.
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import Base from '@/utils/base';
+
+export default {
+  components: {
+  },
+  data(){
+    return{
+      base: null,
+      scrollY: 0,
+      arr_factor: [false, ],
+      address: '',
+      phone: '',
+    }
+  },
+  created(){
+    this.base = new Base()
+    window.addEventListener('scroll', this.handleScroll)
+    this.scrollY = 1
+
+    this.get_setting()
+  },
+  methods: {
+    async get_setting(){
+      var response = await this.base.request(this.base.url_api + "/setting")
+      this.$set(this.arr_factor, 1, true)
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let setting of response.data){
+            if(setting.key === "address")
+              this.address = setting.value
+            else if(setting.key === "phone")
+              this.phone = setting.value
+          }
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      else
+        this.base.show_error(this.$t('server_error'))
+    },
+  }
+}
+</script>
 
 <style lang="scss">
 @media only screen and (max-width: 960px) {

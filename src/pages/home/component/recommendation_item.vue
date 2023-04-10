@@ -13,7 +13,11 @@
           </div>
         </div>
         <div class="mt-3 mx-3">
-          <div class="px-3 py-2 rounded-pill recommendation-type d-inline-block">{{ data.type }}</div>
+          <div class="px-3 py-2 rounded-pill recommendation-type d-inline-block">
+            <div class="d-flex align-items-center justify-content-center">
+              <p class="mb-0" style="line-height: 100%; font-size: 0.7rem; margin-top: .2rem;">{{ data.type }}</p>
+            </div>
+          </div>
           <p class="recommendation-title mb-0 mt-1">{{ data.title }}</p>
           <p class="recommendation-info  m-0">{{ data.seller.name }}</p>
           <div class="d-flex align-items-center mt-1">

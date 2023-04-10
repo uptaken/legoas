@@ -1,9 +1,9 @@
 <template>
   <div id="app" v-if="!this.$route.path.match(/\/auth*/g)">
+    <img src="@/assets/background_schedule.png" class="position-absolute" style="right: 0; z-index: 0;"/>
     <div id="content">
       <div>
         <navbar @onNavbarToggle="onNavbarToggle"/>
-        
       </div>
       <Transition name="navbar-fixed">
         <div class="position-fixed w-100" style="z-index: 10; top: 0" v-show="flag.navbar">
@@ -12,6 +12,7 @@
       </Transition>
       <side-navbar-mobile :isNavbarToggle="isNavbarToggle"/>
       <div class="">
+        
         <router-view @onChangeArrFactor="(arr) => onChangeArrFactor(arr)"/>
       </div>
     </div>
@@ -158,6 +159,9 @@ html, body{
   font-family: poppins-regular;
   overflow-x: hidden;
 }
+table *{
+  border: inherit;
+}
 .form-control{
   height: 3rem;
 }
@@ -170,6 +174,10 @@ button:focus{
   font-family: poppins-bold;
   font-size: 2rem;
   text-transform: uppercase;
+}
+.general-subtitle{
+  font-family: poppins-regular;
+  font-size: 1.8rem;
 }
 .navigation{
   color: $gray8;

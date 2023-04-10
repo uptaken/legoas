@@ -258,7 +258,7 @@ export default {
       this.selected_image_index = index
     },
     onCallSeller(){
-      window.location.href = "tel:+6281283228292"
+      window.location.href = "https://wa.me/+6281283228292"
     },
     async onDownloadPDF(){
       window.open(this.base.url_api2 + `/File/GetUnitInspectionResult/${this.$route.query.id}`, '_blank')
