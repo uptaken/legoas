@@ -22,7 +22,7 @@
         </Transition>
         <div class="mt-4">
           <Transition name="why-choose-us1">
-            <div v-show="whyChooseUs1Flag">
+            <div v-show="whyChooseUs1Flag" @click="onWhyChoose1Clicked()" style="cursor: pointer;">
               <div class="d-flex">
                 <div>
                   <img src="@/assets/why_choose_us1.png" style="width: 2.75rem; height: 2.75rem;"/>
@@ -36,7 +36,7 @@
           </Transition>
 
           <Transition name="why-choose-us1">
-            <div v-show="whyChooseUs2Flag">
+            <div v-show="whyChooseUs2Flag" @click="onWhyChoose2Clicked()" style="cursor: pointer;">
               <div class="d-flex mt-4">
                 <div>
                   <img src="@/assets/why_choose_us2.png" style="width: 2.75rem; height: 2.75rem;"/>
@@ -50,7 +50,7 @@
           </Transition>
 
           <Transition name="why-choose-us1">
-            <div v-show="whyChooseUs3Flag" @click="onWhyChooseClicked()" style="cursor: pointer;">
+            <div v-show="whyChooseUs3Flag" @click="onWhyChoose3Clicked()" style="cursor: pointer;">
               <div class="d-flex mt-4">
                 <div>
                   <img src="@/assets/why_choose_us3.png" style="width: 2.75rem; height: 2.75rem;"/>
@@ -88,7 +88,13 @@ export default {
     this.base = new Base()
   },
   methods: {
-    onWhyChooseClicked(){
+    onWhyChoose1Clicked(){
+      window.scrollTo(0,300)
+    },
+    onWhyChoose2Clicked(){
+      window.location.href = "/schedule"
+    },
+    onWhyChoose3Clicked(){
       window.location.href = "/search?location_id=&product_type_id=&search="
     },
   }

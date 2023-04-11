@@ -29,7 +29,8 @@
                         <label class="form-label">{{ $t("seller_category") }}<label class="text-danger mb-0">*</label></label>
                         <Select2 v-model="category_id"
                           :settings="{width: '100%', height: '100%',}"
-                          :options="arr_category" 
+                          :options="arr_category"
+                          class="seller-category-select"
                           @select="onCategorySelect($event)" />
                       </div>
                     </div>
@@ -173,7 +174,9 @@ export default {
         var response = await this.base.request(this.base.url_api + `/request-sell`, "post", data)
         if(response != null){
           if(response.status === "success"){
-            location.href = "/"
+            // location.href = "/"
+            this.base.show_error("Form Terkirim")
+            location.reload()
           }
           else
             this.base.show_error(response.message)
@@ -226,4 +229,10 @@ export default {
   transform: translateX(10rem);
   opacity: 0;
 }
+.seller-category-select .select2-selection__rendered, .select2-container .select2-results__option{
+  font-size: 1rem;
+}
+// .seller-category-select .select2-selection__rendered{
+//   color: $gray11 !important;
+// }
 </style>

@@ -52,7 +52,11 @@
           </li>
           <li class="d-flex align-items-center nav-item">
             <div class="nav-link">
-              <a class="btn btn-primary text-white px-3" target="__blank" href="https://lelang.legoas.co.id/Auction/Bidder/Register" >{{ $t("register") }}</a>
+              <a class="btn btn-primary text-white px-3 py-0" target="__blank" href="https://lelang.legoas.co.id/Auction/Bidder/Register" >
+                <div class="d-flex align-items-center justify-content-center" style="height: 2.5rem;">
+                  <p class="mb-0" style="line-height: 100%; font-size: 1rem; margin-top: .2rem;">{{ $t("register") }}</p>
+                </div>
+              </a>
             </div>
           </li>
         </ul>

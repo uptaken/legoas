@@ -735,7 +735,9 @@ export default {
       }, 100)
     },
     sort(){
-      this.get_product()
+      this.current_page = 1
+      // this.get_schedule()
+      // this.get_product()
     },
   },
   created(){

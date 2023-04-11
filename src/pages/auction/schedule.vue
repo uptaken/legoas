@@ -166,7 +166,8 @@ export default {
       }, 100)
     },
     sort(){
-      this.get_schedule()
+      this.current_page = 1
+      // this.get_schedule()
     },
   },
   created(){

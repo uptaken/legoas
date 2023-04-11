@@ -30,7 +30,7 @@
                     <p class="mb-0 info-title" v-show="flag.locationTitle4Flag">{{ $t('email') }}</p>
                   </Transition>
                   <Transition name="location-content4">
-                    <p class="mb-0 mt-1 content-section" v-show="flag.locationContent4Flag" v-html="email"></p>
+                    <p class="mb-0 mt-1 content-section" style="cursor: pointer;" @click="onClickMail" v-show="flag.locationContent4Flag" v-html="email"></p>
                   </Transition>
                 </div>
 
@@ -39,7 +39,7 @@
                     <p class="mb-0 info-title" v-show="flag.locationTitle5Flag">{{ $t('phone') }}</p>
                   </Transition>
                   <Transition name="location-content5">
-                    <p class="mb-0 mt-1 content-section" v-show="flag.locationContent5Flag" v-html="phone"></p>
+                    <p class="mb-0 mt-1 content-section" style="cursor: pointer;" @click="onClickPhone" v-show="flag.locationContent5Flag" v-html="phone"></p>
                   </Transition>
                 </div>
               </div>
@@ -191,6 +191,12 @@ export default {
     this.get_image()
   },
   methods: {
+    onClickPhone(){
+      location.href = 'tel:' + this.phone
+    },
+    onClickMail(){
+      location.href = 'mailto:' + this.email
+    },
     onImageLoad(index){
       var image = this.arr_image[index]
       image.is_image_loaded = true

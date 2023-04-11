@@ -17,7 +17,7 @@
               <div id="detail-product-image" :style="{height: detail_product_image_height > 0 ? (detail_product_image_height + 'px') : 'auto'}" class=" text-center">
                 <Transition name="detail-product-image">
                   <div class="container-selected-image">
-                    <img :src="selected_image" v-show="image_flag"/>
+                    <img :src="selected_image" v-show="image_flag" style="cursor: pointer;" @click="onClickImage()"/>
                   </div>
                 </Transition>
               </div>
@@ -38,7 +38,9 @@
           <Transition name="definition-title1">
             <div class="col-12 col-lg-7 mt-5 mt-lg-0 detail-product-main-card-right" v-show="flag.detailProductContent1Flag">
               <div class="h-100 d-flex flex-column justify-content-center align-items-start">
-                <div class="px-5 py-2 detail-product-type" v-show="product.type != null">{{ product.type }}</div>
+                <div class="px-5 py-2 detail-product-type" v-show="product.type != null">
+                  <p class="mb-0" style="line-height: 100%; font-size: 1rem; margin-top: .2rem;">{{ product.type }}</p>
+                </div>
                 <p class="detail-product-title mb-0 mt-3">{{ product.title }}</p>
                 <p class="mb-0 detail-product-info" :class="{'d-none': product.unitgrade == null || product.unitgrade == ''}">Unit Grade: {{ product.unitgrade }}</p>
                 <div class="d-flex align-items-center mt-4">
@@ -82,7 +84,7 @@
                   <p class="mb-0 detail-product-description mt-5">Download PDF dibawah ini, untuk mengetahui informasi lebih akan Produk terlelang</p>
                   <div class="px-5 py-3 detail-product-call d-flex align-items-center mt-4" @click="onDownloadPDF" style="margin-top: 2.1rem;">
                     <img src="@/assets/icon_download.png" style="width: 1rem;"/>
-                    <p class="ml-2 mb-0 detail-product-call-text">{{ $t('download_pdf') }}</p>
+                    <p class="ml-2 mb-0 detail-product-call-text" style="margin-top: .2rem;">{{ $t('download_pdf') }}</p>
                   </div>
                 </div>
 
@@ -109,21 +111,43 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="section" role="tabpanel" aria-labelledby="section-tab">
-                <div v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
-                  <p class="mb-0">{{ $t('inspection_result') }}</p>
-                  <img :src="product.urlCarInspectionResult" style="width: 20rem;"/>
-                </div>
+                <div class="row">
+                  
 
-                <div class="row" v-if="product.arr_section != null && product.arr_section.length > 0">
-                  <div class="col-12 col-lg-6" v-for="(section, index) in product.arr_section" :key="'section' + index">
-                    <div class="d-flex justify-content-between detail-product-section-item">
-                      <p class="mb-0">{{ section.name }}:</p>
-                      <p class="mb-0">{{ section.value }}</p>
+                  <div class="col-12" :class="{'col-lg-7': product.urlCarInspectionResult != null && product.urlCarInspectionResult !== '', 'col-lg-12': product.urlCarInspectionResult == null}" v-if="product.arr_section != null && product.arr_section.length > 0">
+                    <div class="row">
+                      <div class="col-6 col-md-4 mb-3" v-for="(section, index) in product.arr_section" :key="'section' + index">
+                        <div class="schedule-auction-blue-card p-3 text-center">
+                          <p class="mb-0 section-description">{{ section.name }}</p>
+                          <div class="mb-0 section-title d-inline-block">{{ section.value }}</div>
+                        </div>
+                        <!-- <div class="d-flex justify-content-between detail-product-section-item">
+                          <p class="mb-0">{{ section.name }}:</p>
+                          <p class="mb-0">{{ section.value }}</p>
+                        </div> -->
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-6 col-md-4 mb-3" v-for="(legend, index) in arr_section_legend" :key="'sectionLegend' + index">
+                        <div class="p-3 text-center section-legend-card" style="">
+                          <p class="mb-0" style="margin-top: .2rem;"><span class="text-danger">{{ legend.id }}</span>: {{ legend.name }}</p>
+                        </div>
+                        <!-- <div class="d-flex justify-content-between detail-product-section-item">
+                          <p class="mb-0">{{ section.name }}:</p>
+                          <p class="mb-0">{{ section.value }}</p>
+                        </div> -->
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div v-else>
-                  <p class="mb-0 text-center">No Information</p>
+
+                  <div class="col-12 col-lg-5" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
+                    <!-- <p class="mb-0">{{ $t('inspection_result') }}</p> -->
+                    <img :src="product.urlCarInspectionResult" style="width: 20rem; max-width: 100%;"/>
+                  </div>
+                  <!-- <div v-else>
+                    <p class="mb-0 text-center">No Information</p>
+                  </div> -->
                 </div>
               </div>
               <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
@@ -185,6 +209,32 @@ export default {
         description: '',
         notes: '',
       },
+      arr_section_legend: [
+        {
+          id: 'R',
+          name: "Retak",
+        },
+        {
+          id: 'P',
+          name: "Pecah",
+        },
+        {
+          id: 'B',
+          name: "Baret",
+        },
+        {
+          id: 'Y',
+          name: "Penyok",
+        },
+        {
+          id: 'K',
+          name: "Karat",
+        },
+        {
+          id: 'U',
+          name: "Rusak",
+        },
+      ],
       slick_setting: {
         dots: false,
         arrows: false,
@@ -243,6 +293,9 @@ export default {
     this.get_product_detail()
   },
   methods: {
+    onClickImage(){
+      window.open(this.selected_image, "_blank")
+    },
     onGoBack(){
       window.history.go(-1)
     },
@@ -348,7 +401,7 @@ export default {
     overflow-x: none;
   }
   .detail-product-info-item{
-    padding: 0 2.8rem;
+    padding: 0 ;
   }
   .detail-product-main-card-left{
     padding-right: 1.5rem;
@@ -380,6 +433,7 @@ export default {
 .detail-product-call-text{
   font-size: .8rem;
   line-height: 100%;
+  margin-top: .2rem;
 }
 .detail-product-title{
   color: $black;
@@ -456,7 +510,7 @@ export default {
   cursor: pointer;
 }
 .detail-product-description{
-  font-size: .8rem;
+  font-size: 1rem;
   color: $gray6;
 }
 .detail-product-document-name{
@@ -468,5 +522,17 @@ export default {
 }
 .detail-product-image-leave-to, .detail-product-image-enter {
   opacity: 0;
+}
+.section-description{
+  font-size: .5rem;
+}
+.section-title{
+  line-height: 100%;
+  padding-top: .2rem;
+  font-family: poppins-bold;
+}
+.section-legend-card{
+  border-radius: .4rem;
+  border: 1px solid $gray11;
 }
 </style>

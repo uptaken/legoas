@@ -6,7 +6,7 @@
         <navbar @onNavbarToggle="onNavbarToggle"/>
       </div>
       <Transition name="navbar-fixed">
-        <div class="position-fixed w-100" style="z-index: 10; top: 0" v-show="flag.navbar">
+        <div class="position-fixed w-100" style="z-index: 12; top: 0" v-show="flag.navbar">
           <navbar :scrollY="scrollY" @onNavbarToggle="onNavbarToggle"/>
         </div>
       </Transition>

@@ -60,16 +60,6 @@ export default {
         slidesToShow: 3,
         slidesToScroll: 1,
         touchThreshold: 100,
-        prevArrow: `
-          <p class="slick-nav mb-0" style="height: 2rem; width: 2rem">
-            <
-          </p>
-        `,
-        nextArrow: `
-          <p class="slick-nav mb-0" style="height: 2rem; width: 2rem">
-            >
-          </p>
-        `,
         responsive: [
           {
             breakpoint: 1300,

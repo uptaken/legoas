@@ -9,7 +9,7 @@ export default class Base{
   local_currency = "Rp."
   local_area_phone = "+62"
   wait_time = 1500
-  app_version = '0.2.0032'
+  app_version = '0.2.0035'
 
   host2 = "https://demo.legoas.co.id:8443"
   url_api2 = this.host2 + "/api/portal"

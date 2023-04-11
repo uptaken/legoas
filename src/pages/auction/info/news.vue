@@ -131,10 +131,10 @@ export default {
 
       if(response != null){
         if(response.status === "success"){
-          this.title = response.data[0].title
-          this.content = response.data[0].content
-          this.image = response.data[0].file_name != null ? this.base.host + "/media/news?file_name=" + response.data[0].file_name : null
-          this.date = moment(response.data[0].created_at_format, 'YYYY-MM-DD')
+          this.title = response.data.title
+          this.content = response.data.content
+          this.image = response.data.file_name != null ? this.base.host + "/media/news?file_name=" + response.data.file_name : null
+          this.date = moment(response.data.publish_at_format, 'YYYY-MM-DD')
         }
         else
           this.base.show_error(response.message)

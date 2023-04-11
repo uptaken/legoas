@@ -50,7 +50,7 @@
     </div>
 
     <!-- <Transition name="home-search"> -->
-      <div class="home-search-card custom-navbar-padding-left custom-navbar-padding-right" v-show="homeSearchFlag">
+      <div class="home-search-card custom-navbar-padding-left custom-navbar-padding-right" v-show="homeSearchFlag" style="z-index: 11;">
         <div class="card border-0 shadow-sm home-search-card1">
           <div class="card-body" style="padding: 1.8rem 2.1rem;">
             <p class="home-search-title">{{ $t("search_auction") }}</p>
@@ -85,7 +85,11 @@
               </div>
 
               <div class="col-12 col-lg-3 d-flex align-items-end">
-                <button class="btn px-5 btn-dark home-search-button mt-4 mt-lg-0" @click="search_action">{{ $t("search") }}</button>
+                <button class="btn px-5 btn-dark home-search-button mt-4 mt-lg-0 py-0" @click="search_action">
+                  <div class="d-flex align-items-center justify-content-center" style="height: 2.5rem;">
+                    <p class="mb-0" style="line-height: 100%; font-size: 1rem; margin-top: .2rem;">{{ $t("search") }}</p>
+                  </div>
+                </button>
               </div>
             </div>
           </div>
@@ -403,6 +407,10 @@ export default {
   border: none;
   height: 3rem;
   font-size: .8rem;
+  border-radius: 0.375rem;
+}
+.select2-selection__arrow{
+  margin-right: .2rem;
 }
 .select2-container{
   font-size: .8rem;

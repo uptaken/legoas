@@ -16,23 +16,24 @@
           <div>
             <div class="d-flex align-items-center">
               <img src="@/assets/schedule_calendar.png" style="width: 1.1rem;"/>
-              <p class="ml-3 mb-0 car-info">{{ $t('auction_date') + " " + data.date.format('DD MMMM YYYY') }}</p>
+              <p class="ml-3 mb-0 ">{{ $t('auction_date') + " " + data.date.format('DD MMMM YYYY') }}</p>
             </div>
 
             <div class="d-flex align-items-center mt-1">
               <img src="@/assets/schedule_home.png" style="width: 1.1rem;"/>
-              <p class="ml-3 mb-0 car-info">{{ $t('open_house') + " " + data.open_house_date.format('DD MMMM YYYY') }}</p>
+              <p class="ml-3 mb-0 ">{{ $t('open_house') + " " + data.open_house_date.format('DD MMMM YYYY') }}</p>
             </div>
 
             <div class="d-flex align-items-center mt-1">
               <img src="@/assets/schedule_clock.png" style="width: 1.1rem;"/>
-              <p class="ml-3 mb-0 car-info">{{ data.start_time.format('HH:mm') + (data.end_time != null ? " - " + data.end_time : "") }}</p>
+              <p class="ml-3 mb-0 ">{{ data.start_time.format('HH:mm') + (data.end_time != null ? " - " + data.end_time : "") }}</p>
             </div>
           </div>
 
           <button class="btn px-3 py-2 recommendation-type d-inline-block mt-3" @click="onClickLot()">
             <div class="d-flex align-items-center">
-              <img src="@/assets/schedule_button.png"  class="mr-3" style="width: 1rem; height: 1rem;"/>{{ $t('lot_list') }}
+              <img src="@/assets/schedule_button.png"  class="mr-3" style="width: 1rem; height: 1rem;"/>
+              <p class="mb-0" style="line-height: 100%; margin-top: .2rem;">{{ $t('lot_list') }}</p>
             </div>
           </button>
         </div>

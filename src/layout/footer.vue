@@ -3,8 +3,8 @@
     <div class="custom-navbar-padding-right custom-navbar-padding-left">
       <a href="https://legoas.page.link/aplikasi" target="__blank">
         <div class="footer-download-image px-0 px-lg-0">
-          <img src="@/assets/download_app_section.png" class="footer-download-image1 d-none d-lg-inline-block" />
-          <img src="@/assets/download_app_section_mobile.png" class="footer-download-image1 d-inline-block d-lg-none"/>
+          <img src="@/assets/download_app_section2.png" class="footer-download-image1 d-none d-lg-inline-block" />
+          <img src="@/assets/download_app_section_mobile2.png" class="footer-download-image1 d-inline-block d-lg-none"/>
         </div>
       </a>
     </div>
@@ -18,7 +18,7 @@
               <!-- <p class="footer-content">120121</p> -->
               <div class="d-flex align-items-center">
                 <font-awesome-icon icon="fa-solid fa-phone" />
-                <p class="mb-0 ml-3 phone-number" v-html="phone"></p>
+                <p style="cursor: pointer;" @click="onClickPhone" class="mb-0 ml-3 phone-number" v-html="phone"></p>
               </div>
             </div>
 
@@ -95,6 +95,9 @@ export default {
     this.get_setting()
   },
   methods: {
+    onClickPhone(){
+      location.href = 'tel:' + this.phone
+    },
     async get_setting(){
       var response = await this.base.request(this.base.url_api + "/setting")
       this.$set(this.arr_factor, 1, true)

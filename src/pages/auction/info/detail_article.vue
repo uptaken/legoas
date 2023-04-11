@@ -21,7 +21,7 @@
 
         <Transition name="news-image">
           <div class="" style="margin-top: 3.6rem;" v-show="flag.newsImageFlag && image != null">
-            <img :src="image" width="100%" class="article-image"/>
+            <img :src="image" width="100%" style="height: 20rem; object-fit: cover;" class="article-image"/>
           </div>
         </Transition>
 
