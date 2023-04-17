@@ -42,7 +42,7 @@
             </div>
           </div>
 
-          <div class="custom-pagination-container" v-show="arr_group_auction.length > 0">
+          <div class="custom-pagination-container" v-show="arr_group_auction.length > 0 && total_page > 1">
             <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
           </div>
         </div>
@@ -167,7 +167,7 @@ export default {
     },
     sort(){
       this.current_page = 1
-      // this.get_schedule()
+      this.get_schedule()
     },
   },
   created(){

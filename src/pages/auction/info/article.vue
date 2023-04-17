@@ -37,18 +37,20 @@
 
         <div class="w-100" style="margin-top: 4rem;">
           <div class="card article-filter-card">
-            <div class="card-body" style="padding: 2.8rem 3.75rem;">
+            <div class="card-body article-filter-card-body">
               <div class="d-flex justify-content-between">
-                <div class="d-flex align-items-center">
-                  <p class="mb-0 content-content">Filter</p>
-                  <Select2 v-model="filter"
-                    class="ml-5 filter-select h-100" 
-                    :options="arr_filter" 
-                    :settings="{width: '10rem',}"
-                    @select="onFilterSelect($event)" />
+                <div class="d-flex align-items-center mr-3">
+                  <p class="mb-0 content-content">Sort</p>
+                  <div style="" class="article-sort-select">
+                    <Select2 v-model="filter"
+                      class="ml-3 ml-lg-5 filter-select h-100" 
+                      :options="arr_filter" 
+                      :settings="{width: '100%', minimumResultsForSearch: -1, }"
+                      @select="onFilterSelect($event)" />
+                  </div>
                 </div>
-                <div>
-                  <div class="d-flex align-items-center article-search-input-card py-1 px-3">
+                <div class="ml-3">
+                  <div class="d-flex align-items-center article-search-input-card py-0 px-3">
                     <img src="@/assets/icon_search.png" style="width: 1rem; height: 1rem;"/>
                     <input class="form-control article-search-input ml-3" v-model="search" :placeholder="$t('search_article')"/>
                   </div>
@@ -78,7 +80,7 @@
           <img src="@/assets/image_logo.png"/>
         </div>
 
-        <div class="custom-pagination-container">
+        <div class="custom-pagination-container" v-show="arr_article.length > 0 && total_page > 1">
           <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
         </div>
           
@@ -332,6 +334,36 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 960px) {
+  .article-filter-card-body{
+    padding: 2.8rem 2rem;
+  }
+  .article-sort-select{
+    width: 8rem; 
+    height: 3rem;
+  }
+  .article-search-input{
+    border: none;
+    padding: 0;
+    height: 3rem;
+    width: 5rem;
+  }
+}
+@media only screen and (min-width: 960px) {
+  .article-filter-card-body{
+    padding: 2.8rem 3.75rem;
+  }
+  .article-sort-select{
+    width: 10rem; 
+    height: 3rem;
+  }
+  .article-search-input{
+    border: none;
+    padding: 0;
+    height: 3rem;
+    width: auto;
+  }
+}
 .article-filter-card{
   background-color: $gray4;
   border: none;
@@ -339,9 +371,12 @@ export default {
 .article-search-input::placeholder{
   color: $gray13;
 }
-.article-search-input{
+.article-search-input:focus{
   border: none;
-  padding: 0;
+  box-shadow: none;
+}
+.article-sort-select .select2-selection__arrow{
+  margin-right: .3rem;
 }
 .article-search-input-card{
   border: 1px solid $gray13;
@@ -394,5 +429,8 @@ export default {
 }
 .article-image{
   border-radius: 1rem;
+}
+.select2-container .select2-results__option{
+  font-size: .8rem !important;
 }
 </style>

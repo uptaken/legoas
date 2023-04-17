@@ -29,9 +29,9 @@
               <div class="card custom-card">
                 <div class="card-body p-0">
                   <div class="px-5 py-3 position-relative">
-                    <img :src="rules.image" class="position-absolute" style="left: -2rem; width: 3.3rem; height: 3.3rem;"/>
+                    <img :src="rules.image" class="position-absolute" style="left: -1rem; width: 2rem; height: 2rem;"/>
                     <button class="btn p-0 w-100 text-left collapse-title" type="button" data-toggle="collapse" :data-target="'#collapse' + index" aria-expanded="false" :aria-controls="'collapse' + index" @click="onClickHeader(index)">
-                      {{ rules.title }}
+                      <p class="mb-0" style="padding-top: .2rem; line-height: 1;">{{ rules.title }}</p>
                     </button>
                   </div>
                 </div>

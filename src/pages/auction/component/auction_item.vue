@@ -8,7 +8,9 @@
             height="10rem"
             animation="fade"
             v-show="!is_image_loaded"/>
-          <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="width: 100%; height: 15rem; border-radius: 1rem; object-position: center;" :style="{'objectFit': data.no_image ? 'cover' : 'cover'}"/>
+          <div class="container-image">
+            <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="" :style="{'objectFit': data.no_image ? 'cover' : 'cover'}"/>
+          </div>
         </div>
         <div class="col-8">
           <p class="car-title">{{ data.title }}</p>

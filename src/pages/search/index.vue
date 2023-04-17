@@ -105,7 +105,7 @@
             </div>
           </div>
 
-          <div class="custom-pagination-container" v-show="arr_product.length > 0">
+          <div class="custom-pagination-container" v-show="arr_product.length > 0 && total_page > 1">
             <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
           </div>
           
@@ -736,6 +736,7 @@ export default {
     },
     sort(){
       this.current_page = 1
+      this.get_product()
       // this.get_schedule()
       // this.get_product()
     },

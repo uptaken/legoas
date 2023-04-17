@@ -43,7 +43,6 @@ export default {
 .custom-loading-container{
   background-color: $white;
   top: 0;
-  z-index: 10;
 }
 .custom-loading-enter-active, .custom-loading-leave-active{
   transition: all 2s;

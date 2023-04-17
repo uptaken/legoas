@@ -12,7 +12,7 @@
     <Transition name="recommendation-title1">
       <div v-show="recommendationTitle1Flag" v-if="arr_car.length > 0" class="testimony-slick text-left d-inline-block" style="margin-top: 3.375rem; ">
         <div class="position-relative mx-5 mx-lg-0">
-          <div class="custom-navigation-card shadow-sm position-absolute recommendation-slick-left" style="z-index: 1; top: 50%;" @click="previous_action">
+          <div class="custom-navigation-card shadow-sm position-absolute recommendation-slick-left" style=" top: 50%;" @click="previous_action">
             <font-awesome-icon icon="fa-solid fa-chevron-left" class="custom-navigation-arrow"/>
           </div>
           <div>
@@ -22,7 +22,7 @@
               </div>
             </VueSlickCarousel>
           </div>
-          <div class="custom-navigation-card shadow-sm position-absolute recommendation-slick-right" style="z-index: 1; top: 50%;" @click="next_action">
+          <div class="custom-navigation-card shadow-sm position-absolute recommendation-slick-right" style=" top: 50%;" @click="next_action">
             <font-awesome-icon icon="fa-solid fa-chevron-right" class="custom-navigation-arrow"/>
           </div>
         </div>

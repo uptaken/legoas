@@ -8,7 +8,7 @@
       </Transition>
 
       <div class="w-100" style="padding-top: 4.5rem; padding-bottom: 10rem;">
-        <div class="" style="z-index: 1;">
+        <div class="" style="">
           <div class="row">
             <div class="col-12 col-lg-6">
               <div class="" id="left-side">

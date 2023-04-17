@@ -13,41 +13,59 @@
       <div class="" style="padding-top: 5.6rem; padding-bottom: 11.5rem;">
         <div class="row">
           <Transition name="definition-image1">
-            <div class="col-12 col-lg-5 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
+            <div class="col-12 col-lg-6 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
               <div id="detail-product-image" :style="{height: detail_product_image_height > 0 ? (detail_product_image_height + 'px') : 'auto'}" class=" text-center">
                 <Transition name="detail-product-image">
                   <div class="container-selected-image">
-                    <img :src="selected_image" v-show="image_flag" style="cursor: pointer;" @click="onClickImage()"/>
+                    <a data-toggle="modal" data-target="#image_detail_modal">
+                      <img :src="selected_image" v-show="image_flag" style="cursor: pointer;"/>
+                    </a>
                   </div>
                 </Transition>
               </div>
-              <div class="mt-2" v-if="product.arr_image.length > 1">
-                <VueSlickCarousel v-bind="slick_setting">
-                  <div v-for="(image, index) in product.arr_image" :key="'image' + index" 
-                    class="image-slick p-1"
-                    @click="onSelectedImage(index)">
-                    <div class="container-image">
-                      <img :src="image" style=""/>
+              <div class="mt-2 w-100 d-flex align-items-center" v-if="product.arr_image.length > 1">
+                <div class="custom-navigation-card shadow-sm recommendation-slick-left" style="cursor: pointer;" @click="previous_action">
+                  <font-awesome-icon icon="fa-solid fa-chevron-left" class="custom-navigation-arrow"/>
+                </div>
+                <div class="mx-3" style="width: 75%;">
+                  <VueSlickCarousel v-bind="slick_setting" ref="carousel">
+                    <div v-for="(image, index) in product.arr_image" :key="'image' + index" 
+                      class="image-slick p-1"
+                      @click="onSelectedImage(index)">
+                      <div class="container-image">
+                        <img :src="image" style=""/>
+                      </div>
                     </div>
-                  </div>
-                </VueSlickCarousel>
+                  </VueSlickCarousel>
+                </div>
+                <div class="custom-navigation-card shadow-sm recommendation-slick-right" style="cursor: pointer;" @click="next_action">
+                  <font-awesome-icon icon="fa-solid fa-chevron-right" class="custom-navigation-arrow"/>
+                </div>
               </div>
             </div>
           </Transition>
 
           <Transition name="definition-title1">
-            <div class="col-12 col-lg-7 mt-5 mt-lg-0 detail-product-main-card-right" v-show="flag.detailProductContent1Flag">
+            <div class="col-12 col-lg-6 mt-5 mt-lg-0 detail-product-main-card-right" v-show="flag.detailProductContent1Flag">
               <div class="h-100 d-flex flex-column justify-content-center align-items-start">
                 <div class="px-5 py-2 detail-product-type" v-show="product.type != null">
                   <p class="mb-0" style="line-height: 100%; font-size: 1rem; margin-top: .2rem;">{{ product.type }}</p>
                 </div>
                 <p class="detail-product-title mb-0 mt-3">{{ product.title }}</p>
-                <p class="mb-0 detail-product-info" :class="{'d-none': product.unitgrade == null || product.unitgrade == ''}">Unit Grade: {{ product.unitgrade }}</p>
+                <p class="mb-0 detail-product-info" :class="{'d-none': product.unitgrade == null || product.unitgrade == '' || product.product_type === 'bulk'}">Unit Grade: {{ product.unitgrade }}</p>
                 <div class="d-flex align-items-center mt-4">
-                  <img src="@/assets/map_icon.png" style="width: .8rem;"/>
-                  <p class="ml-1 mb-0 detail-product-info">{{ product.place }}</p>
+                  <img src="@/assets/calendar_icon.png" style="width: .8rem;"/>
+                  <p class="ml-2 mb-0 detail-product-info" style="margin-top: .2rem;">{{ product.eventstartdate }}</p>
                 </div>
-                <p class="detail-product-info mb-0 mt-3">{{ product.seller.address }}</p>
+                <div class="d-flex align-items-center mt-1">
+                  <img src="@/assets/clock_icon_bordered.png" style="width: .8rem;"/>
+                  <p class="ml-2 mb-0 detail-product-info" style="margin-top: .2rem;">Pk. {{ product.eventstarttime }} WIB</p>
+                </div>
+                <div class="d-flex align-items-center mt-1">
+                  <img src="@/assets/map_icon.png" style="width: .8rem;"/>
+                  <p class="ml-2 mb-0 detail-product-info" style="margin-top: .2rem;">{{ product.place }}</p>
+                </div>
+                <p class="detail-product-info mb-0 mt-3">{{ product.wrhaddr }}</p>
                 <p class="mb-0 detail-product-price" style="margin-top: 1.25rem;">Rp. {{ product.price.toLocaleString(base.locale_string) }}</p>
                 <div class="detail-product-call d-flex align-items-center" @click="onCallSeller" style="margin-top: 2.1rem; padding: .8rem 2.7rem;">
                   <img src="@/assets/call.png" style="width: 1rem;"/>
@@ -67,7 +85,7 @@
               <li class="nav-item" :class="{'d-none': product.product_type === 'bulk'}" role="presentation">
                 <button class="nav-link" id="description-tab" data-toggle="tab" data-target="#description" type="button" role="tab" aria-controls="description" aria-selected="false">{{ $t("description") }}</button>
               </li>
-              <li class="nav-item" :class="{'d-none': product.arr_section == null || (product.arr_section != null && product.arr_section.length == 0)}" role="presentation">
+              <li class="nav-item" :class="{'d-none': product.arr_section == null || (product.arr_section != null && product.arr_section.length == 0) || product.product_type === 'bulk'}" role="presentation">
                 <button class="nav-link" id="section-tab" data-toggle="tab" data-target="#section" type="button" role="tab" aria-controls="section" aria-selected="false">{{ $t("section") }}</button>
               </li>
               <!-- <li class="nav-item" :class="{'d-none': product.product_type === 'bulk'}" role="presentation">
@@ -77,7 +95,7 @@
                 <button class="nav-link" id="notes-tab" data-toggle="tab" data-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">{{ $t("notes") }}</button>
               </li>
             </ul>
-            <div class="tab-content" style="padding: 3.1rem 5rem;" id="myTabContent">
+            <div class="tab-content" id="myTabContent">
               <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
                 <div v-if="product.product_type === 'bulk'" class="d-flex flex-column justify-content-center align-items-center w-100">
                   <img src="@/assets/bulk_product.png" style="width: 22rem;"/>
@@ -112,12 +130,15 @@
               </div>
               <div class="tab-pane fade" id="section" role="tabpanel" aria-labelledby="section-tab">
                 <div class="row">
-                  
+                  <div class="col-12 col-lg-5 d-block d-lg-none" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
+                    <!-- <p class="mb-0">{{ $t('inspection_result') }}</p> -->
+                    <img :src="product.urlCarInspectionResult" style="width: 100%;"/>
+                  </div>
 
                   <div class="col-12" :class="{'col-lg-7': product.urlCarInspectionResult != null && product.urlCarInspectionResult !== '', 'col-lg-12': product.urlCarInspectionResult == null}" v-if="product.arr_section != null && product.arr_section.length > 0">
                     <div class="row">
                       <div class="col-6 col-md-4 mb-3" v-for="(section, index) in product.arr_section" :key="'section' + index">
-                        <div class="schedule-auction-blue-card p-3 text-center">
+                        <div class="section-breakdown-blue-card p-3 text-center" :class="{'first-section-breakdown-blue-card': index == 0, 'section-breakdown-blue-card': index > 0, }">
                           <p class="mb-0 section-description">{{ section.name }}</p>
                           <div class="mb-0 section-title d-inline-block">{{ section.value }}</div>
                         </div>
@@ -131,7 +152,7 @@
                     <div class="row">
                       <div class="col-6 col-md-4 mb-3" v-for="(legend, index) in arr_section_legend" :key="'sectionLegend' + index">
                         <div class="p-3 text-center section-legend-card" style="">
-                          <p class="mb-0" style="margin-top: .2rem;"><span class="text-danger">{{ legend.id }}</span>: {{ legend.name }}</p>
+                          <p class="mb-0 section-legend-desc" style="margin-top: .2rem;"><span class="section-legend">{{ legend.id }}</span>: {{ legend.name }}</p>
                         </div>
                         <!-- <div class="d-flex justify-content-between detail-product-section-item">
                           <p class="mb-0">{{ section.name }}:</p>
@@ -141,9 +162,9 @@
                     </div>
                   </div>
 
-                  <div class="col-12 col-lg-5" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
+                  <div class="col-12 col-lg-5 d-none d-lg-block" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
                     <!-- <p class="mb-0">{{ $t('inspection_result') }}</p> -->
-                    <img :src="product.urlCarInspectionResult" style="width: 20rem; max-width: 100%;"/>
+                    <img :src="product.urlCarInspectionResult" style="width: 100%;"/>
                   </div>
                   <!-- <div v-else>
                     <p class="mb-0 text-center">No Information</p>
@@ -174,14 +195,18 @@
         </Transition>
       </div>
     </div>
+    <ImageDetailModal :arr_image="product.arr_image" :selected_index="selected_image_index" @onSelectedImage="(index) => onSelectedImage(index)"/>
   </div>
 </template>
 
 <script>
 import Base from '@/utils/base';
 
+import ImageDetailModal from '@/layout/image_detail_modal.vue';
+
 export default {
   components: {
+    'ImageDetailModal': ImageDetailModal,
   },
   data(){
     return{
@@ -294,7 +319,14 @@ export default {
   },
   methods: {
     onClickImage(){
-      window.open(this.selected_image, "_blank")
+      window.$('#image_detail_modal').modal('show')
+      // window.open(this.selected_image, "_blank")
+    },
+    previous_action(){
+      this.$refs.carousel.prev()
+    },
+    next_action(){
+      this.$refs.carousel.next()
     },
     onGoBack(){
       window.history.go(-1)
@@ -395,6 +427,9 @@ export default {
     width: 80%;
     display: inline-block;
   }
+  .tab-content{
+    padding: 3.1rem 0;
+  }
 }
 @media only screen and (min-width: 960px) {
   .detail-product-nav{
@@ -412,6 +447,9 @@ export default {
   .container-selected-image{
     position: relative;
     width: 100%;
+  }
+  .tab-content{
+    padding: 3.1rem 5rem;
   }
 }
 
@@ -532,7 +570,24 @@ export default {
   font-family: poppins-bold;
 }
 .section-legend-card{
-  border-radius: .4rem;
-  border: 1px solid $gray11;
+  border-radius: .8rem;
+  border: 1px solid $gray18;
+}
+.section-legend{
+  color: $red1;
+}
+.section-legend-desc{
+  color: $gray18;
+  font-size: .8rem;
+}
+.section-breakdown-blue-card{
+  background-color: $blue3;
+  color: $blue4;
+  border-radius: .8rem;
+}
+.first-section-breakdown-blue-card{
+  background-color: $blue4;
+  color: $white;
+  border-radius: .8rem;
 }
 </style>

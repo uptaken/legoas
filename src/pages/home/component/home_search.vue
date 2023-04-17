@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column align-items-center ">
-    <div class="home-top w-100 pb-5 custom-navbar-padding-left " style="z-index: 10;">
-      <div class="row mt-3 mt-lg-0 mr-0 pl-3 pl-lg-0">
+    <div class="home-top w-100 pb-5 custom-navbar-padding-left ">
+      <div class="row mt-3 mt-lg-0 mr-0 pl-0 pl-lg-0">
         <div class="col-12 col-lg-6">
           <div class="d-flex flex-column justify-content-center h-100">
             <div id="banner-content" class="d-flex align-items-center" :style="{height: banner_content_height > 0 ? (banner_content_height + 'px') : 'auto'}">
@@ -19,7 +19,7 @@
             </div>
 
             <div class="mt-5 d-flex">
-              <font-awesome-icon icon="fa-solid fa-chevron-left" class="navigation-arrow mr-3" :style="{cursor: selected_banner_index == 0 ? 'auto' : 'pointer'}" :class="{'disabled': selected_banner_index == 0}" @click="onBannerNavigationClick('previous')"/>
+              <font-awesome-icon icon="fa-solid fa-chevron-left" class="navigation-arrow mr-3" :style="{cursor: selected_banner_index == 0 ? 'pointer' : 'pointer'}"  @click="onBannerNavigationClick('previous')"/>
               <div class="d-flex ">
                 <div class="rounded-circle banner-dots" 
                   :class="{'ml-4': index > 0, 'active': selected_banner_index == index}" 
@@ -27,7 +27,7 @@
                   :key="'banner'+index"
                   @click="onBannerDotClick(index)"></div>
               </div>
-              <font-awesome-icon icon="fa-solid fa-chevron-right" class="navigation-arrow ml-3" :style="{cursor: selected_banner_index == arr_banner.length - 1 ? 'auto' : 'pointer'}" :class="{'disabled': selected_banner_index == arr_banner.length - 1}" @click="onBannerNavigationClick('next')"/>
+              <font-awesome-icon icon="fa-solid fa-chevron-right" class="navigation-arrow ml-3" :style="{cursor: selected_banner_index == arr_banner.length - 1 ? 'pointer' : 'pointer'}" @click="onBannerNavigationClick('next')"/>
             </div>
           </div>
         </div>
@@ -50,7 +50,7 @@
     </div>
 
     <!-- <Transition name="home-search"> -->
-      <div class="home-search-card custom-navbar-padding-left custom-navbar-padding-right" v-show="homeSearchFlag" style="z-index: 11;">
+      <div class="home-search-card custom-navbar-padding-left custom-navbar-padding-right" v-show="homeSearchFlag">
         <div class="card border-0 shadow-sm home-search-card1">
           <div class="card-body" style="padding: 1.8rem 2.1rem;">
             <p class="home-search-title">{{ $t("search_auction") }}</p>
@@ -173,6 +173,7 @@ export default {
       location_id: "all",
       product_type_id: "all",
       isLoading: true,
+      autoplay_interval: null,
     }
   },
   watch: {
@@ -210,8 +211,16 @@ export default {
     this.get_banner()
     this.get_product_type()
     this.get_location()
+    
+    
   },
   methods:{
+    start_autoplay(){
+      var context = this
+      this.autoplay_interval = setInterval(() => {
+        context.onBannerNavigationClick('next', true)
+      }, 7000)
+    },
     checkEnter(e){
       if (e.keyCode === 13)
         this.search_action()
@@ -288,6 +297,7 @@ export default {
 
           this.selected_banner_index = 0
           this.selected_banner = this.arr_banner[0]
+          this.start_autoplay()
         }
         else
           this.base.show_error(response.message)
@@ -307,15 +317,23 @@ export default {
       // }
     },
     onBannerDotClick(index){
+      clearInterval(this.autoplay_interval)
       this.selected_banner_index = index
+      this.start_autoplay()
     },
-    onBannerNavigationClick(type){
+    onBannerNavigationClick(type, with_autoplay = false){
+      if(!with_autoplay)
+        clearInterval(this.autoplay_interval)
+
       var index = this.selected_banner_index
       if(type === 'next')
-        index = index + 1 >= this.arr_banner.length ? index : index + 1
+        index = index + 1 >= this.arr_banner.length ? 0 : index + 1
       else if(type === 'previous')
-        index = index - 1 <= 0 ? index : index - 1
+        index = index - 1 < 0 ? this.arr_banner.length - 1 : index - 1
       this.selected_banner_index = index
+
+      if(!with_autoplay)
+        this.start_autoplay()
     }
   }
 }
@@ -390,7 +408,7 @@ export default {
 }
 .home-search-label{
   font-family: poppins-bold;
-  font-size: .8rem;
+  font-size: 1rem;
 }
 .home-search-title{
   font-family: poppins-bold;
@@ -406,7 +424,7 @@ export default {
   background-color: $gray12;
   border: none;
   height: 3rem;
-  font-size: .8rem;
+  font-size: 1rem;
   border-radius: 0.375rem;
 }
 .select2-selection__arrow{

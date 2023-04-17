@@ -1,16 +1,16 @@
 <template>
   <div id="app" v-if="!this.$route.path.match(/\/auth*/g)">
-    <img src="@/assets/background_schedule.png" class="position-absolute" style="right: 0; z-index: 0;"/>
+    <img src="@/assets/background_schedule.png" class="position-absolute" style="right: 0; z-index: -1;"/>
     <div id="content">
       <div>
         <navbar @onNavbarToggle="onNavbarToggle"/>
       </div>
       <Transition name="navbar-fixed">
-        <div class="position-fixed w-100" style="z-index: 12; top: 0" v-show="flag.navbar">
+        <div class="position-fixed w-100" style="z-index: 1; top: 0" v-show="flag.navbar">
           <navbar :scrollY="scrollY" @onNavbarToggle="onNavbarToggle"/>
         </div>
       </Transition>
-      <side-navbar-mobile :isNavbarToggle="isNavbarToggle"/>
+      <side-navbar-mobile :isNavbarToggle="isNavbarToggle" style=""/>
       <div class="">
         
         <router-view @onChangeArrFactor="(arr) => onChangeArrFactor(arr)"/>
@@ -242,5 +242,12 @@ button:focus{
 .form-control:focus{
   border: 1px solid $gray13;
   box-shadow: none;
+}
+.form-control, .select2-results__option{
+  font-size: 1rem;
+}
+.select2-selection__rendered{
+  padding-top: .2rem;
+  font-size: 1rem;
 }
 </style>

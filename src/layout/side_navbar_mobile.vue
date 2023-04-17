@@ -43,7 +43,11 @@
       </li>
       <li class="list-group-item nav-item">
         <div class="nav-link">
-          <a class="btn btn-primary text-white px-3" href="/">{{ $t("register") }}</a>
+          <a class="btn btn-primary text-white px-3" href="/">
+            <div class="d-flex align-items-center justify-content-center" style="height: 1.5rem;">
+              <p class="mb-0" style="line-height: 100%; font-size: 1rem; margin-top: .2rem;">{{ $t("register") }}</p>
+            </div>
+          </a>
         </div>
       </li>
     </ul>
@@ -75,7 +79,7 @@ export default{
 @media (max-width: 992px) {
   .navbar-collapse {
     position: fixed;
-    z-index: 10;
+    z-index: 1;
     top: 0;
     left: -75%;
     padding-bottom: 3rem;

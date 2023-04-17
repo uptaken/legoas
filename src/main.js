@@ -1,5 +1,6 @@
 import Vue from 'vue'
 
+import 'bootstrap'
 import moment from 'moment'
 import $ from 'jquery'
 import axios from 'axios'
