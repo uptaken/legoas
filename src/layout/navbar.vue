@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div class="navbar navbar-expand-lg custom-navbar-padding d-flex justify-content-between align-items-center w-100" style="top: 0;" :class="customClass" :style="{background: currentRoute !== '/' ? 'transparent' : ''}">
+    <div class="navbar navbar-expand-md custom-navbar-padding d-flex justify-content-between align-items-center w-100" style="top: 0;" :class="customClass" :style="{background: currentRoute !== '/' ? 'transparent' : ''}">
       <a class="navbar-brand" href="/">
-        <img src="@/assets/image_logo.png" style="width: 8rem;"/>
+        <img src="@/assets/logo_new.png" style="width: 8rem;"/>
       </a>
       <button class="navbar-toggler border-0" type="button" @click="onNavbarToggle" >
-        <span class="navbar-toggler-icon"></span>
+        <font-awesome-icon icon="fa-solid fa-bars" class="ml-3" size="lg"/>
       </button>
 
 
-      <div class="d-none d-lg-block" id="navbarToggle" >
-        <ul class="navbar-nav ml-auto mt-5 mt-lg-0" >
+      <div class="d-none d-md-block" id="navbarToggle" >
+        <ul class="navbar-nav ml-auto mt-5 mt-md-0" >
           <li class="d-flex align-items-center nav-item active">
             <a class="nav-link" :class="{'active': currentRoute === '/'}" href="/" >{{ $t("home") }}</a>
           </li>
@@ -133,9 +133,19 @@ export default{
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 960px) {
+  .nav-link{
+    padding-left: .5rem !important;
+    padding-right: .5rem !important;
+  }
+}
 @media only screen and (min-width: 960px) {
   .nav-dropdown:hover .dropdown-menu{
     display: block;
+  }
+  .nav-link{
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }
 
@@ -196,8 +206,5 @@ export default{
   color: $white !important;
   font-family: poppins-bold;
 }
-.nav-link{
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
-}
+
 </style>

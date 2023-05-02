@@ -9,7 +9,7 @@ export default class Base{
   local_currency = "Rp."
   local_area_phone = "+62"
   wait_time = 1500
-  app_version = '0.2.0044'
+  app_version = '0.2.0048'
 
   host2 = "https://demo.legoas.co.id:8443"
   url_api2 = this.host2 + "/api/portal"
@@ -115,8 +115,9 @@ export default class Base{
   responsive_scroll_threshold(value, additional_margin = 0){
     if(window.screen.width < 720)
       value = value * (12 / 16) + additional_margin
-    else if(window.screen.width >= 720 && window.screen.width < 960)
-      value = value * (12 / 16) + additional_margin
+    else if(window.screen.width >= 720 && window.screen.width < 1024)
+      value = value * (8 / 16)
+    // console.log(value)
     return value
   }
 

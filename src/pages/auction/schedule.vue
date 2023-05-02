@@ -316,7 +316,7 @@ export default {
           var temp = this.month.clone().startOf('month').startOf('week')
           if(!temp.isSame(this.month.clone(), 'month'))
             temp.add(7, 'days')
-          console.log(temp.format('DD/MM/YYYY'))
+          // console.log(temp.format('DD/MM/YYYY'))
           while(temp.isBefore(this.month.clone().endOf('month'))){
             if(temp.isSame(this.month.clone(), 'month'))
               total_week++

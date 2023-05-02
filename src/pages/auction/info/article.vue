@@ -14,12 +14,14 @@
         <div class="mt-3 w-100" style="cursor: pointer;" @click="toDetail()">
           <div class="row">
             <Transition name="article-image1">
-              <div class="col-12 col-lg-6" v-show="flag.articleImage1Flag">
-                <img :src="image" width="100%" style="width: 100%; height: 17.75rem; object-fit: cover;" class="article-image"/>
+              <div class="col-12 col-md-6" v-show="flag.articleImage1Flag">
+                <div class="container-image">
+                  <img :src="image" width="100%" style="width: 100%; height: 17.75rem; object-fit: cover;" class="article-image"/>
+                </div>
               </div>
             </Transition>
             <Transition name="article-title1">
-              <div class="col-12 col-lg-6 pt-3 pt-lg-0" v-show="flag.articleTitle1Flag">
+              <div class="col-12 col-md-6 pt-3 pt-md-0" v-show="flag.articleTitle1Flag">
                 <div class="d-flex align-items-center w-100">
                   <div class=" w-100">
                     <p class="mb-0 title-section">{{ title }}</p>
@@ -43,7 +45,7 @@
                   <p class="mb-0 content-content">Sort</p>
                   <div style="" class="article-sort-select">
                     <Select2 v-model="filter"
-                      class="ml-3 ml-lg-5 filter-select h-100" 
+                      class="ml-3 ml-md-5 filter-select h-100" 
                       :options="arr_filter" 
                       :settings="{width: '100%', minimumResultsForSearch: -1, }"
                       @select="onFilterSelect($event)" />
@@ -63,8 +65,8 @@
         <div v-if="!isLoading">
           <div v-if="arr_article.length > 0">
             <div class="w-100">
-              <div class="row">
-                <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-lg-4 mt-3">
+              <div class="row" style="margin: 0 -.5rem">
+                <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-md-4 mt-3" style="padding: 0 .5rem;">
                   <Transition name="article-item">
                     <ArticleItem :data="article" :index="index" :total_data="arr_article.length"/>
                   </Transition>
@@ -276,7 +278,7 @@ export default {
             var desc_display = article.content.substring(0, article.content.indexOf('</p>') + 4)
 
             article.image = this.base.host + "/media/article?file_name=" + article.file_name
-            article.date = moment(article.date_format, "YYYY-MM-DD")
+            article.date = article.date_format !== '' ? moment(article.date_format, "YYYY-MM-DD") : ''
             article.description = desc_display
 
             if(article.is_primary == 1){
@@ -334,7 +336,7 @@ export default {
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .article-filter-card-body{
     padding: 2.8rem 2rem;
   }
@@ -349,7 +351,7 @@ export default {
     width: 5rem;
   }
 }
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 720px) {
   .article-filter-card-body{
     padding: 2.8rem 3.75rem;
   }

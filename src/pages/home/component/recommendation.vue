@@ -11,13 +11,13 @@
 
     <Transition name="recommendation-title1">
       <div v-show="recommendationTitle1Flag" v-if="arr_car.length > 0" class="testimony-slick text-left d-inline-block" style="margin-top: 3.375rem; ">
-        <div class="position-relative mx-5 mx-lg-0">
+        <div class="position-relative mx-5 mx-md-0">
           <div class="custom-navigation-card shadow-sm position-absolute recommendation-slick-left" style=" top: 50%;" @click="previous_action">
             <font-awesome-icon icon="fa-solid fa-chevron-left" class="custom-navigation-arrow"/>
           </div>
           <div>
             <VueSlickCarousel v-bind="slick_setting" ref="carousel">
-              <div v-for="(car, index) in arr_car" :key="index" class="px-1 px-lg-0">
+              <div v-for="(car, index) in arr_car" :key="index" class="px-1 px-md-0 h-100">
                 <RecommendationItem :data="car" @onClick="toDetail(index)" :index="index" :total_data="arr_car.length" />
               </div>
             </VueSlickCarousel>
@@ -58,15 +58,23 @@ export default {
         speed: 500,
         autoplay: false,
         slidesToShow: 3,
-        slidesToScroll: 1,
+        slidesToScroll: 3,
         touchThreshold: 100,
         responsive: [
           {
             breakpoint: 1300,
             settings: {
               touchThreshold: 100,
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+          {
+            breakpoint: 720,
+            settings: {
+              touchThreshold: 100,
               slidesToShow: 2,
-              slidesToScroll: 1,
+              slidesToScroll: 2,
             },
           },
         ],
@@ -320,7 +328,7 @@ export default {
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .recommendation-slick-left{
     left: -3rem;
   }
@@ -328,7 +336,7 @@ export default {
     right: -3rem;
   }
 }
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 720px) {
   .recommendation-slick-left{
     left: -4rem;
   }
@@ -388,5 +396,14 @@ export default {
 }
 .testimony-slick .slick-next{
   margin-right: -2rem;
+}
+.slick-track{
+  display: flex !important;
+}
+.slick-slide{
+  height: inherit !important;
+}
+.slick-slide>div{
+  height: 100%;
 }
 </style>

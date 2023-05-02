@@ -2,18 +2,18 @@
   <div class="text-center">
     <div class="custom-navbar-padding-right custom-navbar-padding-left">
       <a href="https://legoas.page.link/aplikasi" target="__blank">
-        <div class="footer-download-image px-0 px-lg-0">
-          <img src="@/assets/download_app_section2.png" class="footer-download-image1 d-none d-lg-inline-block" />
-          <img src="@/assets/download_app_section_mobile2.png" class="footer-download-image1 d-inline-block d-lg-none"/>
+        <div class="footer-download-image px-0 px-md-0">
+          <img src="@/assets/download_app_section2.png" class="footer-download-image1 d-none d-md-inline-block" />
+          <img src="@/assets/download_app_section_mobile2.png" class="footer-download-image1 d-inline-block d-md-none"/>
         </div>
       </a>
     </div>
-    <div class="footer-container text-left px-0 px-lg-0" style="">
+    <div class="footer-container text-left px-0 px-md-0" style="">
       <div class="custom-navbar-padding-right custom-navbar-padding-left footer-content-card">
         <div class="footer-download-image1 d-inline-block text-left">
           <div class="row " style="">
-            <div class="col-12 col-lg-3">
-              <img src="@/assets/image_logo.png" style="width: 8rem;"/>
+            <div class="col-12 col-md-3">
+              <img src="@/assets/logo_new.png" style="width: 8rem;"/>
               <p class="mt-3 footer-content" v-html="address"></p>
               <!-- <p class="footer-content">120121</p> -->
               <div class="d-flex align-items-center">
@@ -22,7 +22,7 @@
               </div>
             </div>
 
-            <div class="col-6 col-lg-2 d-flex flex-column mt-3 mt-lg-0">
+            <div class="col-6 col-md-2 d-flex flex-column mt-3 mt-md-0">
               <p class="footer-title">{{ $t("app_name") }}</p>
               <a href="/about-us" class="footer-link">{{ $t("about_us") }}</a>
               <a href="/schedule" class="mt-3 footer-link">{{ $t("auction_schedule") }}</a>
@@ -30,7 +30,7 @@
               <a href="https://wa.me/+6281283228292" class="mt-3 footer-link">{{ $t("contact_us") }}</a>
             </div>
 
-            <div class="col-6 col-lg-2 d-flex flex-column mt-3 mt-lg-0">
+            <div class="col-6 col-md-2 d-flex flex-column mt-3 mt-md-0">
               <p class="footer-title">{{ $t("auction_info") }}</p>
               <a href="/definiton" class="footer-link">{{ $t("auction_definition") }}</a>
               <a href="/how-to" class="mt-3 footer-link">{{ $t("auction_how_to") }}</a>
@@ -38,21 +38,21 @@
               <a href="/news" class="mt-3 footer-link">{{ $t("auction_news") }}</a>
             </div>
 
-            <div class="col-6 col-lg-2 d-flex flex-column mt-3 mt-lg-0">
+            <div class="col-6 col-md-2 d-flex flex-column mt-3 mt-md-0">
               <p class="footer-title">{{ $t("join_app") }}</p>
-              <a href="/sell" class="footer-link">{{ $t("sell_car") }}</a>
+              <a href="/sell" class="footer-link">{{ $t("sell") }}</a>
               <a href="https://lelang.legoas.co.id/Auction/Bidder/Register" target="__blank" class="mt-3 footer-link">{{ $t("registration") }}</a>
               <a href="https://lelang.legoas.co.id/Auction/Bidder/Register" target="__blank" class="mt-3 footer-link">{{ $t("login") }}</a>
             </div>
 
-            <div class="col-6 col-lg-3 mt-3 mt-lg-0">
+            <div class="col-6 col-md-3 mt-3 mt-md-0">
               <p class="footer-title">{{ $t("follow_us") }}</p>
               <div class="d-flex">
-                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-facebook"  size="lg"/></a>
-                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-twitter" class="ml-3" size="lg"/></a>
-                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-linkedin" class="ml-3" size="lg"/></a>
-                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-instagram" class="ml-3" size="lg"/></a>
-                <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-youtube" class="ml-3" size="lg"/></a>
+                <a href="https://www.facebook.com/legoasindonesia" style="color: black;"><font-awesome-icon icon="fa-brands fa-facebook"  size="lg"/></a>
+                <!-- <a href="/" style="color: black;"><font-awesome-icon icon="fa-brands fa-twitter" class="ml-3" size="lg"/></a> -->
+                <a href="https://www.linkedin.com/company/legoas" style="color: black;"><font-awesome-icon icon="fa-brands fa-linkedin" class="ml-3" size="lg"/></a>
+                <a href="https://www.instagram.com/legoas.onlineauction" style="color: black;"><font-awesome-icon icon="fa-brands fa-instagram" class="ml-3" size="lg"/></a>
+                <a href="https://www.tiktok.com/@legoas.indonesia?_t=8byEaj10VH8&_r=1" style="color: black;"><font-awesome-icon icon="fa-brands fa-tiktok" class="ml-3" size="lg"/></a>
               </div>
             </div>
 

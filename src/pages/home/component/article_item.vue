@@ -8,10 +8,12 @@
             height="100%"
             animation="fade"
             v-show="!is_image_loaded"/>
-          <img :src="data.image" class="article-image" @load="onImageLoad()" v-show="is_image_loaded" style="width: 100%;"/>
+          <div class="container-image">
+            <img :src="data.image" class="article-image" @load="onImageLoad()" v-show="is_image_loaded" style="width: 100%;"/>
+          </div>
         </div>
         <div class="mt-3 px-3 w-100">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center" v-if="data.date !== '' && data.date != null">
             <img src="@/assets/clock_icon.png" style="width: 1.1rem;"/>
             <p class="ml-2 mb-0 recommendation-info">{{ data.date.format('DD MMMM YYYY') }}</p>
           </div>
@@ -57,16 +59,16 @@ export default {
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 960px) {
-  .article-image{
-    height: 10rem;
-  }
-}
-@media only screen and (min-width: 960px) {
-  .article-image{
-    height: 10rem;
-  }
-}
+// @media only screen and (max-width: 720px) {
+//   .article-image{
+//     height: 10rem;
+//   }
+// }
+// @media only screen and (min-width: 720px) {
+//   .article-image{
+//     height: 10rem;
+//   }
+// }
 .article-card{
   border-radius: 1rem;
   border-color: $gray2;

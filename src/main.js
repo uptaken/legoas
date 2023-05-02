@@ -11,8 +11,9 @@ import VueSlickCarousel from 'vue-slick-carousel'
 import VueSkeletonLoader from 'skeleton-loader-vue';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faUserSecret, faPhone, faChevronLeft, faChevronRight, faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
-import { faFacebook, faTwitter, faLinkedin, faInstagram, faYoutube, } from '@fortawesome/free-brands-svg-icons'
+import { faUserSecret, faPhone, faChevronLeft, faChevronRight, faChevronUp, faChevronDown, faBars, } from '@fortawesome/free-solid-svg-icons'
+import { faFacebook, faTwitter, faLinkedin, faInstagram, faYoutube, faTiktok, } from '@fortawesome/free-brands-svg-icons'
+
 
 // Register components in your 'main.js'
 import "@/assets/scss/app.scss";
@@ -31,10 +32,12 @@ library.add(faTwitter)
 library.add(faLinkedin)
 library.add(faInstagram)
 library.add(faYoutube)
+library.add(faTiktok)
 library.add(faChevronLeft)
 library.add(faChevronRight)
 library.add(faChevronUp)
 library.add(faChevronDown)
+library.add(faBars)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('Select2', Select2);

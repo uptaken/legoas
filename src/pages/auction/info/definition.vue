@@ -14,15 +14,15 @@
         <div class="mt-3 w-100">
           <div class="row">
             <Transition name="definition-image1">
-              <div class="col-12 col-lg-6" v-show="flag.definitionImage1Flag">
+              <div class="col-12 col-md-6" v-show="flag.definitionImage1Flag">
                 <div class="d-flex justify-content-center align-items-center">
                   <img :src="image" width="100%"/>
                 </div>
               </div>
             </Transition>
             <Transition name="definition-title1">
-              <div class="col-12 col-lg-6" v-show="flag.definitionTitle1Flag" >
-                <div class="d-flex flex-column justify-content-center h-100 mt-3 mt-lg-0" v-html="content"></div>
+              <div class="col-12 col-md-6" v-show="flag.definitionTitle1Flag" >
+                <div class="d-flex flex-column justify-content-center h-100 mt-3 mt-md-0" v-html="content"></div>
               </div>
             </Transition>
           </div>

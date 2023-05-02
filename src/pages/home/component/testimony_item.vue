@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .testimony-item-image{
     width: 12rem;
   }
@@ -65,7 +65,7 @@ export default {
     height: 3rem;
   }
 }
-@media only screen and (min-width: 960px) and (max-width: 1517px) {
+@media only screen and (min-width: 720px) and (max-width: 1517px) {
   .testimony-item-image{
     width: 12rem;
   }

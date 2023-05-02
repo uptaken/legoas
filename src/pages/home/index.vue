@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     handleScroll(){
-      
+      console.log(window.scrollY)
       this.scrollY = window.scrollY
     },
     manage_start_animation(){
@@ -118,10 +118,10 @@ export default {
       this.flag.whyChooseUs1 = this.base.check_start_animation(this.scrollY, this.flag.whyChooseUs1, this.arr_factor, 1150, whyChooseImage)
       this.flag.whyChooseUs2 = this.base.check_start_animation(this.scrollY, this.flag.whyChooseUs2, this.arr_factor, 1200, whyChooseImage)
       this.flag.whyChooseUs3 = this.base.check_start_animation(this.scrollY, this.flag.whyChooseUs3, this.arr_factor, 1250, whyChooseImage)
-      this.flag.testimonyTitle1 = this.base.check_start_animation(this.scrollY, this.flag.testimonyTitle1, this.arr_factor, 2000, whyChooseImage)
-      this.flag.testimonyTitle2 = this.base.check_start_animation(this.scrollY, this.flag.testimonyTitle2, this.arr_factor, 2000, whyChooseImage)
-      this.flag.articleTitle1 = this.base.check_start_animation(this.scrollY, this.flag.articleTitle1, this.arr_factor, 2700, whyChooseImage)
-      this.flag.articleTitle2 = this.base.check_start_animation(this.scrollY, this.flag.articleTitle2, this.arr_factor, 2700, whyChooseImage)
+      this.flag.testimonyTitle1 = this.base.check_start_animation(this.scrollY, this.flag.testimonyTitle1, this.arr_factor, 1100, whyChooseImage)
+      this.flag.testimonyTitle2 = this.base.check_start_animation(this.scrollY, this.flag.testimonyTitle2, this.arr_factor, 1100, whyChooseImage)
+      this.flag.articleTitle1 = this.base.check_start_animation(this.scrollY, this.flag.articleTitle1, this.arr_factor, 1500, whyChooseImage)
+      this.flag.articleTitle2 = this.base.check_start_animation(this.scrollY, this.flag.articleTitle2, this.arr_factor, 1500, whyChooseImage)
     },
     onChangeRecommendationArr(arr){
       this.arr_recommendation = arr

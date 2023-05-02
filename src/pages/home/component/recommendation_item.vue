@@ -64,15 +64,16 @@ export default {
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .recommendation-card{
     width: 100%;
   }
 }
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 720px) {
   .recommendation-card{
-    width: $content-width-per-item;
-    max-width: 100%;
+    // width: $content-width-per-item;
+    // max-width: 100%;
+    width: 100%;
   }
 }
 
@@ -108,12 +109,14 @@ export default {
 .container-rec-image {
   position: relative;
   width: 100%; /* The size you want */
+  // padding-top: 100%;
+  aspect-ratio: 4 / 3;
 }
-.container-rec-image:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%; /* The padding depends on the width, not on the height, so with a padding-bottom of 100% you will get a square */
-}
+// .container-rec-image:after {
+//   content: "";
+//   display: block;
+//   padding-bottom: 100%; /* The padding depends on the width, not on the height, so with a padding-bottom of 100% you will get a square */
+// }
 
 .container-rec-image img {
   position: absolute; /* Take your picture out of the flow */

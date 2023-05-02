@@ -19,6 +19,7 @@
     <footer1 v-show="this.$route.path != '/sell'"/>
 
     <custom-loading :arr_factor="arr_factor"/>
+    <please-wait-modal/>
   </div>
   <div v-else>
     <router-view/>
@@ -32,12 +33,14 @@ import footer1 from './layout/footer'
 import navbar from './layout/navbar'
 import SideNavbarMobile from './layout/side_navbar_mobile'
 import CustomLoading from '@/layout/custom_loading'
+import PleaseWaitModal from '@/layout/please_wait_modal.vue'
 
 export default {
   components: {
     footer1, navbar, 
     'side-navbar-mobile': SideNavbarMobile,
     'custom-loading': CustomLoading,
+    'please-wait-modal': PleaseWaitModal,
   },
   data(){
     return{

@@ -32,7 +32,7 @@
         <div class="card border-0 search-card">
             <div class="card-body" style="padding: 2.5rem 2.75rem;">
               <div class="row">
-                <div class="col-12 col-lg-3 pr-3">
+                <div class="col-12 col-md-3 pr-3">
                   <div class="form-group mb-0">
                     <label class="search-label">{{ $t("location") }}</label>
                     <Select2 v-model="location_id"
@@ -42,9 +42,9 @@
                   </div>
                 </div>
 
-                <div class="col-12 col-lg-3 d-flex pr-3 pl-3 pl-lg-0">
-                  <div class="vertical d-none d-lg-block"></div>
-                  <div class="form-group mb-0 ml-0 ml-lg-3 flex-fill mt-3 mt-lg-0">
+                <div class="col-12 col-md-3 d-flex pr-3 pl-3 pl-md-0">
+                  <div class="vertical d-none d-md-block"></div>
+                  <div class="form-group mb-0 ml-0 ml-md-3 flex-fill mt-3 mt-md-0">
                     <label class="search-label">{{ $t("product_type") }}</label>
                     <Select2 v-model="product_type_id" 
                       :options="arr_product_type" 
@@ -53,16 +53,16 @@
                   </div>
                 </div>
 
-                <div class="col-12 col-lg-3 d-flex pr-3 pl-3 pl-lg-0">
-                  <div class="vertical d-none d-lg-block"></div>
-                  <div class="form-group mb-0 ml-0 ml-lg-3 flex-fill mt-3 mt-lg-0">
-                    <label class="search-label">{{ $t("name") }}</label>
-                    <input class="form-control home-search-input" v-model="search" @keyup="checkEnter" />
+                <div class="col-12 col-md-3 d-flex pr-3 pl-3 pl-md-0">
+                  <div class="vertical d-none d-md-block"></div>
+                  <div class="form-group mb-0 ml-0 ml-md-3 flex-fill mt-3 mt-md-0">
+                    <label class="search-label">{{ $t("keyword") }}</label>
+                    <input class="form-control home-search-input" v-model="search" @keyup="checkEnter" :placeholder="$t('keyword')"/>
                   </div>
                 </div>
 
-                <div class="col-12 col-lg-3 d-flex align-items-end">
-                  <button class="btn py-0 px-5 btn-dark home-search-button mt-3 mt-lg-0 d-flex align-items-center justify-content-center" @click="search_action">
+                <div class="col-12 col-md-3 d-flex align-items-end">
+                  <button class="btn py-0 px-5 btn-dark home-search-button mt-3 mt-md-0 d-flex align-items-center justify-content-center" @click="search_action">
                     <p class="mb-0" style="line-height: 100%; font-size: 1.1rem; margin-top: .2rem;">{{ $t("search") }}</p>
                   </button>
                 </div>
@@ -76,7 +76,7 @@
               <p class="mb-0 content-content">Menampilkan {{ arr_product.length.toLocaleString(base.locale_string) }} Produk <label v-show="product_type_id != '' && product_type_id != 'all'">{{ selected_product_type.text }}</label><br/><label v-show="location_id != '' && location_id != 'all'">di {{ selected_location.text }}</label></p>
             </div>
             <div class="col-6 d-flex align-items-center justify-content-end">
-              <p class="mb-0 content-content mr-3 mr-lg-5">Sort</p>
+              <p class="mb-0 content-content mr-3 mr-md-5">Sort</p>
               <div class="d-block">
                 <Select2 v-model="sort"
                   class="" 
@@ -91,7 +91,7 @@
             <div v-if="!isLoading">
               <div v-if="arr_product.length > 0">
                 <div class="row">
-                  <div v-for="(product, index) in arr_product" :key="index" class="col-6 col-lg-4 mb-4" @click="toDetail(index)" style="cursor: pointer;">
+                  <div v-for="(product, index) in arr_product" :key="index" class="col-6 col-md-4 mb-4" @click="toDetail(index)" style="cursor: pointer;">
                     <RecommendationItem :data="product" :index="index" :total_data="arr_product.length"/>
                   </div>
                 </div>
@@ -724,7 +724,7 @@ export default {
   },
   watch: {
     arr_factor(val){
-      console.log(val)
+      // console.log(val)
       this.$emit('onChangeArrFactor', val)
     },
     current_page(){

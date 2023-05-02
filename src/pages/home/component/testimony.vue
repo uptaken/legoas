@@ -51,6 +51,15 @@ export default {
           {
             breakpoint: 1300,
             settings: {
+              touchThreshold: 100,
+              slidesToShow: 2,
+              slidesToScroll: 1,
+            },
+          },
+          {
+            breakpoint: 720,
+            settings: {
+              touchThreshold: 100,
               slidesToShow: 1,
               slidesToScroll: 1,
             },
@@ -131,13 +140,13 @@ export default {
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .testimony-slick{
     width: 100%;
     padding: 0 .75rem;
   }
 }
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 720px) {
   .testimony-slick{
     width: 57rem;
   }

@@ -1,8 +1,8 @@
 <template>
   <div class="d-flex flex-column align-items-center ">
     <div class="home-top w-100 pb-5 custom-navbar-padding-left ">
-      <div class="row mt-3 mt-lg-0 mr-0 pl-0 pl-lg-0">
-        <div class="col-12 col-lg-6">
+      <div class="row mt-3 mt-md-0 mr-0 pl-0 pl-md-0">
+        <div class="col-12 col-md-6">
           <div class="d-flex flex-column justify-content-center h-100">
             <div id="banner-content" class="d-flex align-items-center" :style="{height: banner_content_height > 0 ? (banner_content_height + 'px') : 'auto'}">
               <div class="w-100">
@@ -32,16 +32,16 @@
           </div>
         </div>
 
-        <div class="col-12 col-lg-6 pr-0" id="banner-image" :style="{height: banner_image_height > 0 ? (banner_image_height + 'px') : 'auto'}">
+        <div class="col-12 col-md-6 pr-0" id="banner-image" :style="{height: banner_image_height > 0 ? (banner_image_height + 'px') : 'auto'}">
           <div class="d-flex flex-column justify-content-center h-100">
             <Transition name="banner-home-image" >
-              <div v-show="banner_flag && selected_banner.image != null" class="w-100 text-right" style="height: 32rem;">
+              <div v-show="banner_flag && selected_banner.image != null" class="w-100 text-right d-flex align-items-center" style="height: 32rem;">
                 <vue-skeleton-loader
                   width="100%"
                   height="100%"
                   animation="fade"
                   v-show="!is_image_loaded"/>
-                <img :src="selected_banner.image" @load="onImageLoad()" v-show="is_image_loaded" class="" height="100%"/>
+                <img :src="selected_banner.image" @load="onImageLoad()" v-show="is_image_loaded" class="" width="100%"/>
               </div>
             </Transition>
           </div>
@@ -55,7 +55,7 @@
           <div class="card-body" style="padding: 1.8rem 2.1rem;">
             <p class="home-search-title">{{ $t("search_auction") }}</p>
             <div class="row">
-              <div class="col-12 col-lg-3 ">
+              <div class="col-12 col-md-3 ">
                 <div class="form-group mb-0">
                   <label class="home-search-label">{{ $t("location") }}</label>
                   <Select2 v-model="location_id"
@@ -65,9 +65,9 @@
                 </div>
               </div>
 
-              <div class="col-12 col-lg-3 d-flex pl-lg-0">
-                <div class="vertical d-none d-lg-block"></div>
-                <div class="form-group mb-0 ml-0 ml-lg-3 flex-fill mt-4 mt-lg-0">
+              <div class="col-12 col-md-3 d-flex pl-md-0">
+                <div class="vertical d-none d-md-block"></div>
+                <div class="form-group mb-0 ml-0 ml-md-3 flex-fill mt-4 mt-md-0">
                   <label class="home-search-label">{{ $t("product_type") }}</label>
                   <Select2 v-model="product_type_id" 
                     :options="arr_product_type" 
@@ -76,16 +76,16 @@
                 </div>
               </div>
 
-              <div class="col-12 col-lg-3 d-flex pl-lg-0">
-                <div class="vertical d-none d-lg-block"></div>
-                <div class="form-group mb-0 ml-0 ml-lg-3 flex-fill mt-4 mt-lg-0">
-                  <label class="home-search-label">{{ $t("name") }}</label>
-                  <input class="form-control home-search-input" @keyup="checkEnter" v-model="search" :placeholder="$t('input_product')"/>
+              <div class="col-12 col-md-3 d-flex pl-md-0">
+                <div class="vertical d-none d-md-block"></div>
+                <div class="form-group mb-0 ml-0 ml-md-3 flex-fill mt-4 mt-md-0">
+                  <label class="home-search-label">{{ $t("keyword") }}</label>
+                  <input class="form-control home-search-input" @keyup="checkEnter" v-model="search" :placeholder="$t('keyword')"/>
                 </div>
               </div>
 
-              <div class="col-12 col-lg-3 d-flex align-items-end">
-                <button class="btn px-5 btn-dark home-search-button mt-4 mt-lg-0 py-0" @click="search_action">
+              <div class="col-12 col-md-3 d-flex align-items-end">
+                <button class="btn px-5 btn-dark home-search-button mt-4 mt-md-0 py-0" @click="search_action">
                   <div class="d-flex align-items-center justify-content-center" style="height: 2.5rem;">
                     <p class="mb-0" style="line-height: 100%; font-size: 1rem; margin-top: .2rem;">{{ $t("search") }}</p>
                   </div>
@@ -340,7 +340,7 @@ export default {
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .home-search-card{
     margin-top: -2rem;
     width: 100%;
@@ -356,7 +356,7 @@ export default {
     font-size: 3rem  !important;
   }
 }
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 720px) {
   .home-search-card{
     margin-top: -2rem;
     width: 90%;

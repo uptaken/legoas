@@ -3,7 +3,7 @@
     <p class="car-title">{{ data.date.format('DD.MM.YYYY') + " - " + data.date.format('dddd') }}</p>
     <div class="horizontal my-3"></div>
     <div>
-      <div v-for="(auction, index) in data.arr" :key="'auction_group' + index" class="mb-3">
+      <div v-for="(auction, index) in data.arr" :key="'auction_group' + index" class="mb-5 mb-md-3">
         <!-- <a href="#"> -->
           <AuctionItem :data="auction" />
         <!-- </a> -->

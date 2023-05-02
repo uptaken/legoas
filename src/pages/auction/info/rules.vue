@@ -18,7 +18,7 @@
         </Transition>
 
         <Transition name="rules-title">
-          <div class="px-0 px-lg-5 w-100" style="margin: 3.75rem 0;" v-show="flag.rulesTitleFlag">
+          <div class="px-0 px-md-5 w-100" style="margin: 3.75rem 0;" v-show="flag.rulesTitleFlag">
             <p class="mb-0 last-updated">{{ $t('updated') + " " + last_updated_at.format('DD MMMM YYYY') }}</p>
           </div>
         </Transition>
@@ -280,7 +280,7 @@ export default {
       this.scrollY = window.scrollY
     },
     onClickHeader(index){
-      console.log(index)
+      // console.log(index)
       // var scrollTo = this.base.responsive_scroll_threshold(580) - this.base.responsive_scroll_threshold(115)
       // for(let x = 0; x <= index; x++)
       //   scrollTo += this.base.responsive_scroll_threshold(94)

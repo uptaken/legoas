@@ -31,7 +31,7 @@
             <div class="card trust-card" style="margin-top: 6.5rem;" v-show="flag.aboutUsImage2Flag">
               <div class="card-body p-5">
                 <div class="row">
-                  <div class="col-6 col-lg-3 d-flex align-items-center flex-column mt-3 mt-lg-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
+                  <div class="col-6 col-md-3 d-flex align-items-center flex-column mt-3 mt-md-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
                     <img :src="trust.image" style="width: 3rem; height: 3rem;"/>
                     <div v-html="trust.title" class="mt-3 trust-list"></div>
                     
@@ -49,7 +49,7 @@
 
           <Transition name="about-us-image3">
             <div class="row mt-5" v-show="flag.aboutUsImage3Flag">
-              <div class="col-6 col-lg-3 d-flex flex-column mt-3 mt-lg-0" v-for="(team, index) in arr_team" :key="'team' + index">
+              <div class="col-6 col-md-3 d-flex flex-column mt-3 mt-md-0" v-for="(team, index) in arr_team" :key="'team' + index">
                 <vue-skeleton-loader
                   width="100%"
                   height="10rem"

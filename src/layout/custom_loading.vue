@@ -2,7 +2,7 @@
   <Transition name="custom-loading">
     <div class="position-fixed w-100 h-100 custom-loading-container" v-show="isShow">
       <div class="d-flex justify-content-center align-items-center h-100" >
-        <img src="@/assets/image_logo.png"/>
+        <img src="@/assets/logo_new.png" style="width: 10rem;"/>
       </div>
     </div>
   </Transition>

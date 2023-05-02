@@ -25,7 +25,7 @@
         </Transition>
 
         <Transition name="news-content">
-          <div class="mx-0 m-lg-5" style="margin-top: 4.5rem;" v-show="flag.newsContentFlag" v-html="content"></div>
+          <div class="mx-0 m-md-5" style="margin-top: 4.5rem;" v-show="flag.newsContentFlag" v-html="content"></div>
         </Transition>
       </div>
     </div>

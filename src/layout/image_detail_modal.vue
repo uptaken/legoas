@@ -1,6 +1,6 @@
 <template>
   <div class="modal fade" id="image_detail_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-md modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -12,7 +12,7 @@
             <div class="col-12">
               <img :src="selected_image" style="width: 100%; border-radius: 1rem;"/>
             </div>
-            <!-- <div class="col-12 col-lg-6">
+            <!-- <div class="col-12 col-md-6">
               <div class="row" style="overflow-y: scroll; max-height: 100%;">
                 <div v-for="(image, index) in arr_image" :key="'image' + index" 
                   class="image-slick col-6 col-md-4 mb-3"

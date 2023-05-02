@@ -1,7 +1,7 @@
 <template>
   <div class="why-container custom-navbar-padding-right custom-navbar-padding-left">
     <div class="row mx-5" >
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-md-6">
         <Transition name="why-choose-title1">
           <div v-show="whyChooseTitle1Flag">
             <div style="width: 100%; height: 100%;" class="d-flex align-items-center">
@@ -10,7 +10,7 @@
           </div>
         </Transition>
       </div>
-      <div class="col-12 col-lg-6 mt-5 mt-lg-0 d-flex flex-column justify-content-center">
+      <div class="col-12 col-md-6 mt-5 mt-md-0 d-flex flex-column justify-content-center">
         <Transition name="why-choose-title1">
           <p class="m-0 why-title" v-show="whyChooseTitle1Flag">{{ $t("why_choose_us") }}</p>
         </Transition>

@@ -4,27 +4,27 @@
       <div class="card border-0 register-card">
         <div class="card-body register-card-body">
           <div class="row">
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-md-6">
               <div class="card border-0 form-card">
                 <div class="card-body" style="padding: 2.3rem 2.1rem;">
                   <p class="mb-0 form-title">Hubungi <label class="text-primary mb-0">Legoas</label> untuk dilayani Oleh Tim Kami</p>
 
                   <div class="row mt-3">
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-md-6">
                       <div class="form-group">
                         <label class="form-label">{{ $t("your_name") }}<label class="text-danger mb-0">*</label></label>
                         <input class="form-control" v-model="name" :placeholder="$t('input_your_name')"/>
                       </div>
                     </div>
 
-                    <div class="col-12 col-lg-6">
+                    <div class="col-12 col-md-6">
                       <div class="form-group">
                         <label class="form-label">{{ $t("your_email") }}<label class="text-danger mb-0">*</label></label>
                         <input class="form-control" v-model="email" :placeholder="$t('input_your_email')"/>
                       </div>
                     </div>
 
-                    <div class="col-12 col-lg-6 mt-3">
+                    <div class="col-12 col-md-6 mt-3">
                       <div class="form-group">
                         <label class="form-label">{{ $t("seller_category") }}<label class="text-danger mb-0">*</label></label>
                         <Select2 v-model="category_id"
@@ -35,7 +35,7 @@
                       </div>
                     </div>
 
-                    <div class="col-12 col-lg-6 mt-3">
+                    <div class="col-12 col-md-6 mt-3">
                       <div class="form-group">
                         <label class="form-label">{{ $t("your_phone") }}<label class="text-danger mb-0">*</label></label>
                         <input class="form-control" v-model="phone" :placeholder="$t('input_your_phone')"/>
@@ -57,7 +57,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-lg-6 px-5 mt-3 mt-lg-0 mb-3 mb-lg-0">
+            <div class="col-12 col-md-6 px-5 mt-3 mt-md-0 mb-3 mb-md-0">
               <Transition name="register-title1">
                 <div v-show="flag.registerTitle1Flag">
                   <p class="mb-0 register-banner">Cara Baru Jual Mobil Yang Terpercaya.</p>
@@ -161,6 +161,7 @@ export default {
       else if(!this.base.validate_email(this.email))
         this.base.show_error(this.$t('not_email_format'))
       else{
+        window.$('#please_wait_modal').modal('show')
         var data = {
           name: this.name,
           email: this.email,
@@ -172,6 +173,8 @@ export default {
         }
 
         var response = await this.base.request(this.base.url_api + `/request-sell`, "post", data)
+        window.$('#please_wait_modal').modal('hide')
+
         if(response != null){
           if(response.status === "success"){
             // location.href = "/"
@@ -184,19 +187,19 @@ export default {
         }
         else
           this.base.show_error(this.$t('server_error'))
-        }
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .register-card-body{
     padding: 0;
   }
 }
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 720px) {
   .register-card-body{
     padding: 6.25rem 5.4rem;
   }

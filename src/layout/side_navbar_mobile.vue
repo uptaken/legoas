@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar-collapse pt-5 pt-lg-0 d-block d-lg-none" :class="{'button-toggle': isNavbarToggle}" id="sideNavbarToggle">
+  <div class="navbar-collapse pt-5 pt-md-0 d-block d-md-none" :class="{'button-toggle': isNavbarToggle}" id="sideNavbarToggle">
     <ul class="list-group navbar-side">
       <li class="list-group-item nav-item" style="border-top: none;">
         <a class="nav-link" :class="{'active': currentRoute === '/'}" href="/">{{ $t("home") }}</a>
@@ -43,8 +43,8 @@
       </li>
       <li class="list-group-item nav-item">
         <div class="nav-link">
-          <a class="btn btn-primary text-white px-3" href="/">
-            <div class="d-flex align-items-center justify-content-center" style="height: 1.5rem;">
+          <a class="btn btn-primary text-white px-3 py-0" target="__blank" href="https://lelang.legoas.co.id/Auction/Bidder/Register" >
+            <div class="d-flex align-items-center justify-content-center" style="height: 2.5rem;">
               <p class="mb-0" style="line-height: 100%; font-size: 1rem; margin-top: .2rem;">{{ $t("register") }}</p>
             </div>
           </a>

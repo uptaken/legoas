@@ -10,7 +10,7 @@
       <div class="w-100" style="padding-top: 4.5rem; padding-bottom: 10rem;">
         <div class="" style="">
           <div class="row">
-            <div class="col-12 col-lg-6">
+            <div class="col-12 col-md-6">
               <div class="" id="left-side">
                 <Transition name="location-title2">
                   <p class="mb-0 info-title1" v-show="flag.locationTitle2Flag" v-html="title"></p>
@@ -45,7 +45,7 @@
               </div>
             </div>
 
-            <div class="col-12 col-lg-6 mt-5 mt-lg-0">
+            <div class="col-12 col-md-6 mt-5 mt-md-0">
               <Transition name="location-content6">
                 <div v-show="flag.locationContent6Flag">
                   <div class="d-flex justify-content-center">

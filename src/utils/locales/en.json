@@ -133,6 +133,9 @@
   "search_product_by_product_type" : "Pencarian Produk Berdasarkan Tipe Produk",
   "based_lot" : "Berdasarkan Lot",
   "based_product_type" : "Berdasarkan Tipe Produk",
+  "keyword": "Keyword",
+  "please_wait": "Mohon Menunggu",
+  "notice": "Peringatan",
 
   "old_password_empty": "Empty Old Password",
   "new_password_empty": "New Password Empty",

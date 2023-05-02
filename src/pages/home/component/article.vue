@@ -13,8 +13,8 @@
       <div v-show="articleTitle1Flag">
         <div class="d-flex justify-content-center"  style="margin-top: 3.375rem;">
           <div class="footer-download-image1">
-            <div class="row"  style="">
-              <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-md-4 mt-3 mt-lg-0" >
+            <div class="row" style="margin: 0 -.5rem">
+              <div v-for="(article, index) in arr_article" :key="index" class="col-6 col-md-4 mt-3 mt-md-0" style="padding: 0 .5rem;">
                 <ArticleItem :data="article" :index="index" :total_data="arr_article.length" />
               </div>
             </div>
@@ -84,15 +84,16 @@ export default {
   },
   methods:{
     async get_article(){
-      var response = await this.base.request(this.base.url_api + "/article/all?num_data=3&is_publish=1")
+      var response = await this.base.request(this.base.url_api + "/article/all?num_data=3&is_publish=1&type=newest")
       this.isLoading = false
 
       if(response != null){
         if(response.status === "success"){
           for(let article of response.data){
             article.image = this.base.host + "/media/article?file_name=" + article.file_name
-            article.date = moment(article.date, "YYYY-MM-DD")
+            article.date = article.publish_at != null ? moment(article.publish_at, "YYYY-MM-DD") : ''
           }
+          // console.log(response.data)
           this.arr_article = response.data
         }
         else
@@ -106,6 +107,29 @@ export default {
 </script>
 
 <style lang="scss">
+@media only screen and (max-width: 720px) {
+  .article-first{
+    padding-right: .5rem;
+  }
+  .article-last{
+    padding-right: .5rem;
+  }
+  .article-second{
+    padding-left: .5rem;
+  }
+}
+@media only screen and (min-width: 720px) {
+  .article-first{
+    padding-right: .5rem;
+  }
+  .article-last{
+    padding-left: .5rem;
+  }
+  .article-second{
+    padding: 0 .5rem;
+  }
+}
+
 .home-article-title1-enter-active, .home-article-title1-leave-active{
   transition: all 2s;
 }

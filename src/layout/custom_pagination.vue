@@ -103,6 +103,7 @@ export default {
   color: $gray14;
 }
 .custom-navigation-card{
+  background-color: white;
   cursor: pointer;
   width: 2.5rem;
   height: 2.5rem;

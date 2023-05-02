@@ -13,7 +13,7 @@
       <div class="" style="padding-top: 5.6rem; padding-bottom: 11.5rem;">
         <div class="row">
           <Transition name="definition-image1">
-            <div class="col-12 col-lg-6 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
+            <div class="col-12 col-md-6 detail-product-main-card-left" v-show="flag.detailProductImage1Flag">
               <div id="detail-product-image" :style="{height: detail_product_image_height > 0 ? (detail_product_image_height + 'px') : 'auto'}" class=" text-center">
                 <Transition name="detail-product-image">
                   <div class="container-selected-image">
@@ -46,7 +46,7 @@
           </Transition>
 
           <Transition name="definition-title1">
-            <div class="col-12 col-lg-6 mt-5 mt-lg-0 detail-product-main-card-right" v-show="flag.detailProductContent1Flag">
+            <div class="col-12 col-md-6 mt-5 mt-md-0 detail-product-main-card-right" v-show="flag.detailProductContent1Flag">
               <div class="h-100 d-flex flex-column justify-content-center align-items-start">
                 <div class="px-5 py-2 detail-product-type" v-show="product.type != null">
                   <p class="mb-0" style="line-height: 100%; font-size: 1rem; margin-top: .2rem;">{{ product.type }}</p>
@@ -108,7 +108,7 @@
 
                 <div v-else>
                   <div class="row" v-if="product.arr_info != null && product.arr_info.length > 0">
-                    <div class="col-12 col-lg-6" v-for="(info, index) in product.arr_info" :key="'info' + index">
+                    <div class="col-12 col-md-6" v-for="(info, index) in product.arr_info" :key="'info' + index">
                       <div class="d-flex justify-content-between detail-product-info-item">
                         <p class="mb-0">{{ info.name }}:</p>
                         <p class="mb-0">{{ info.value }}</p>
@@ -130,12 +130,12 @@
               </div>
               <div class="tab-pane fade" id="section" role="tabpanel" aria-labelledby="section-tab">
                 <div class="row">
-                  <div class="col-12 col-lg-5 d-block d-lg-none" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
+                  <div class="col-12 col-md-5 d-block d-md-none" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
                     <!-- <p class="mb-0">{{ $t('inspection_result') }}</p> -->
                     <img :src="product.urlCarInspectionResult" style="width: 100%;"/>
                   </div>
 
-                  <div class="col-12" :class="{'col-lg-7': product.urlCarInspectionResult != null && product.urlCarInspectionResult !== '', 'col-lg-12': product.urlCarInspectionResult == null}" v-if="product.arr_section != null && product.arr_section.length > 0">
+                  <div class="col-12" :class="{'col-md-7': product.urlCarInspectionResult != null && product.urlCarInspectionResult !== '', 'col-md-12': product.urlCarInspectionResult == null}" v-if="product.arr_section != null && product.arr_section.length > 0">
                     <div class="row">
                       <div class="col-6 col-md-4 mb-3" v-for="(section, index) in product.arr_section" :key="'section' + index">
                         <div class="section-breakdown-blue-card p-3 text-center" :class="{'first-section-breakdown-blue-card': index == 0, 'section-breakdown-blue-card': index > 0, }">
@@ -162,7 +162,7 @@
                     </div>
                   </div>
 
-                  <div class="col-12 col-lg-5 d-none d-lg-block" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
+                  <div class="col-12 col-md-5 d-none d-md-block" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
                     <!-- <p class="mb-0">{{ $t('inspection_result') }}</p> -->
                     <img :src="product.urlCarInspectionResult" style="width: 100%;"/>
                   </div>
@@ -173,7 +173,7 @@
               </div>
               <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
                 <div class="row" v-if="product.arr_document != null && product.arr_document.length > 0">
-                  <div class="col-12 col-lg-4 mt-3 mt-lg-0" v-for="(document, index) in product.arr_document" :key="'document' + index">
+                  <div class="col-12 col-md-4 mt-3 mt-md-0" v-for="(document, index) in product.arr_document" :key="'document' + index">
                     <img :src="document.image" width="100%"/>
                     <p class="mb-0 mt-2 detail-product-document-name">{{ document.name }}</p>
                   </div>
@@ -399,7 +399,7 @@ export default {
               value: response.data.sectionscore[x],
             })
           }
-          console.log(response.data)
+          // console.log(response.data)
 
           this.product = response.data
           this.selected_image = arr_image.length > 0 ? arr_image[0] : null
@@ -415,7 +415,7 @@ export default {
 </script>
 
 <style lang="scss">
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .detail-product-nav{
     overflow-x: scroll;
   }
@@ -424,14 +424,18 @@ export default {
   }
   .container-selected-image{
     position: relative;
-    width: 80%;
+    width: 100%;
+    height: 15rem;
     display: inline-block;
   }
   .tab-content{
     padding: 3.1rem 0;
   }
+  // .container-image {
+  //   height: 12rem;
+  // }
 }
-@media only screen and (min-width: 960px) {
+@media only screen and (min-width: 720px) {
   .detail-product-nav{
     overflow-x: none;
   }
@@ -446,11 +450,15 @@ export default {
   }
   .container-selected-image{
     position: relative;
+    height: 20rem;
     width: 100%;
   }
   .tab-content{
     padding: 3.1rem 5rem;
   }
+  // .container-image {
+  //   height: 15rem;
+  // }
 }
 
 .detail-product-type{
@@ -517,14 +525,20 @@ export default {
 .container-image {
   position: relative;
   width: 100%; /* The size you want */
+  aspect-ratio: 4 / 3;
 }
-.container-image:after, .container-selected-image:after {
-  content: "";
-  display: block;
-  padding-bottom: 100%; /* The padding depends on the width, not on the height, so with a padding-bottom of 100% you will get a square */
+// .container-image:after {
+//   content: "";
+//   display: block;
+//   padding-bottom: 100%; /* The padding depends on the width, not on the height, so with a padding-bottom of 100% you will get a square */
+// }
+.container-selected-image img{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
 }
-
-.container-image img, .container-selected-image img {
+.container-image img {
   position: absolute; /* Take your picture out of the flow */
   top: 0;
   bottom: 0;

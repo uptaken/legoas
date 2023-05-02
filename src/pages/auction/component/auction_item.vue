@@ -2,7 +2,7 @@
   <div class="card w-100" style="border: none;">
     <div class="card-body p-0">
       <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-md-4">
           <vue-skeleton-loader
             width="100%"
             height="10rem"
@@ -12,7 +12,7 @@
             <img :src="data.image" class="" @load="onImageLoad()" v-show="is_image_loaded" style="" :style="{'objectFit': data.no_image ? 'cover' : 'cover'}"/>
           </div>
         </div>
-        <div class="col-8">
+        <div class="col-12 col-md-8 mt-3 mt-md-0">
           <p class="car-title">{{ data.title }}</p>
 
           <div>
@@ -71,6 +71,42 @@ export default {
 </script>
 
 <style lang="scss">
+// @media only screen and (max-width: 720px) {
+//   .container-image-auction{
+//     height: 15rem;
+//     width: 100%;
+//   }
+// }
+// @media only screen and (min-width: 720px) {
+//   .container-image-auction{
+//     height: 15rem;
+//     width: 100%;
+//   }
+// }
+.container-image-auction {
+  position: relative;
+  width: 100%; /* The size you want */
+  // padding-top: 100%;
+  aspect-ratio: 4 / 3;
+}
+.container-image-auction img {
+  position: absolute; /* Take your picture out of the flow */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; /* Make the picture taking the size of it's parent */
+  width: 100%; /* This if for the object-fit */
+  height: 100%; /* This if for the object-fit */
+  object-fit: cover; /* Equivalent of the background-size: cover; of a background-image */
+  object-position: center;
+  border-radius: 1rem;
+}
+.container-image-auction img{
+  height: 100%;
+  width: 100%;
+  border-radius: 1rem;
+
+}
 .car-title{
   font-family: poppins-bold;
   font-size: 1rem;

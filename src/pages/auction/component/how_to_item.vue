@@ -10,7 +10,7 @@
     </Transition>
 
     <div class="row mx-3" style="margin-top: 3.3rem;">
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-md-6">
         <table>
           <tr v-for="x in Math.ceil(arr.length / 2)" :key="'participantOdd' + x">
             <td style="vertical-align: top;" >
@@ -30,7 +30,7 @@
         </table>
       </div>
 
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-md-6">
         <table>
           <tr v-for="x in Math.floor(arr.length / 2)" :key="'participantEven' + x">
             <td style="vertical-align: top;">
