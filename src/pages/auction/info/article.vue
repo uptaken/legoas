@@ -82,8 +82,10 @@
           <img src="@/assets/image_logo.png"/>
         </div>
 
-        <div class="custom-pagination-container" v-show="arr_article.length > 0 && total_page > 1">
-          <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
+        <div class="custom-pagination-container" >
+          <div v-show="arr_article.length > 0 && total_page > 1">
+            <CustomPagination :total_page="total_page" :current_page="current_page" @next_action="next_action" @previous_action="previous_action" @select_page="select_page"/>
+          </div>
         </div>
           
       </div>

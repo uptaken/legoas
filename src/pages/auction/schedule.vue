@@ -276,6 +276,8 @@ export default {
                 arr.push({
                   title: category.nama,
                   id: category.kode,
+                  backcolor: category.backcolor + "1A",
+                  fontcolor: category.fontcolor,
                 })
               }
               group_auction.arr = arr

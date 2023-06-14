@@ -31,10 +31,10 @@
             </tr>
             <tr>
               <td v-for="(date, index) in arr_date" :key="'schedule' + index" style="height: 13rem;">
-                <div class="d-flex flex-column justify-content-between h-100">
+                <div class="d-flex flex-column justify-content-between h-100" style="{fontFamily: 'inter-regular', }">
                   {{ date.text }}
-                  <div style="max-height: 10rem; overflow-y: scroll;">
-                    <div v-for="(auction, index1) in date.arr_auction" :key="'auctionSchedule' + index1 + index" class="p-1 mt-2" @click="onClickCategory(index, index1)" style="cursor: pointer;" :style="{backgroundColor: auction.backcolor, color: auction.fontcolor, borderRadius: '.5rem', }">{{ auction.title_format }}</div>
+                  <div style="max-height: 10rem;">
+                    <div v-for="(auction, index1) in date.arr_auction" :key="'auctionSchedule' + index1 + index" class="p-1 mt-2" @click="onClickCategory(index, index1)" style="cursor: pointer;" :style="{backgroundColor: auction.backcolor, color: auction.fontcolor, borderRadius: '.3rem', fontFamily: 'inter-regular', lineHeight: '1', fontSize: '.8rem', }">{{ auction.title_format }}</div>
                   </div>
                 </div>
               </td>
@@ -141,7 +141,7 @@ export default {
 
 <style lang="scss">
 .month-week-title{
-  font-family: poppins-bold;
+  font-family: inter-bold;
   color: $gray17;
 }
 .schedule-auction-green-card{
@@ -157,7 +157,12 @@ export default {
 .custom-navigation-card.disabled .custom-navigation-arrow{
   color: $gray2;
 }
+.schedule-month-table td{
+  color: $gray19;
+}
 .schedule-month-table td *{
   border: none;
+  color: $gray19;
+  font-family: inter-regular;
 }
 </style>

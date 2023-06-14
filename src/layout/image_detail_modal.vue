@@ -34,29 +34,23 @@
 import Base from '@/utils/base'
 
 export default{
-  props: ['arr_image', 'selected_index', ],
+  props: ['selected_image', ],
   data(){
     return{
       base: null,
-      selected_image: "",
     }
   },
   watch: {
-    selected_index(val){
-      this.selected_image = this.arr_image[val]
-    },
-    arr_image(val){
-      this.selected_image = val[this.selected_index]
-    },
+    
   },
   created(){
     this.base = new Base()
     
   },
   methods: {
-    onSelectedImage(index){
-      this.$emit('onSelectedImage', index)
-    }
+    // onSelectedImage(index){
+    //   this.$emit('onSelectedImage', index)
+    // }
   }
 }
 </script>

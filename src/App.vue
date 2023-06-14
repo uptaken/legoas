@@ -162,8 +162,11 @@ html, body{
   font-family: poppins-regular;
   overflow-x: hidden;
 }
-table *{
-  border: inherit;
+// table *{
+//   border: inherit;
+// }
+table p{
+  margin: 0;
 }
 .form-control{
   height: 3rem;

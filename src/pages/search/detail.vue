@@ -17,9 +17,7 @@
               <div id="detail-product-image" :style="{height: detail_product_image_height > 0 ? (detail_product_image_height + 'px') : 'auto'}" class=" text-center">
                 <Transition name="detail-product-image">
                   <div class="container-selected-image">
-                    <a data-toggle="modal" data-target="#image_detail_modal">
-                      <img :src="selected_image" v-show="image_flag" style="cursor: pointer;"/>
-                    </a>
+                    <img :src="selected_image" v-show="image_flag" style="cursor: pointer;" @click="onClickImage(selected_image)"/>
                   </div>
                 </Transition>
               </div>
@@ -132,7 +130,7 @@
                 <div class="row">
                   <div class="col-12 col-md-5 d-block d-md-none" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
                     <!-- <p class="mb-0">{{ $t('inspection_result') }}</p> -->
-                    <img :src="product.urlCarInspectionResult" style="width: 100%;"/>
+                    <img :src="product.urlCarInspectionResult" style="width: 100%; cursor: pointer;" @click="onClickImage(product.urlCarInspectionResult)"/>
                   </div>
 
                   <div class="col-12" :class="{'col-md-7': product.urlCarInspectionResult != null && product.urlCarInspectionResult !== '', 'col-md-12': product.urlCarInspectionResult == null}" v-if="product.arr_section != null && product.arr_section.length > 0">
@@ -164,7 +162,7 @@
 
                   <div class="col-12 col-md-5 d-none d-md-block" v-if="product.urlCarInspectionResult != null && product.urlCarInspectionResult !== ''">
                     <!-- <p class="mb-0">{{ $t('inspection_result') }}</p> -->
-                    <img :src="product.urlCarInspectionResult" style="width: 100%;"/>
+                    <img :src="product.urlCarInspectionResult" style="width: 100%; cursor: pointer;" @click="onClickImage(product.urlCarInspectionResult)"/>
                   </div>
                   <!-- <div v-else>
                     <p class="mb-0 text-center">No Information</p>
@@ -195,7 +193,7 @@
         </Transition>
       </div>
     </div>
-    <ImageDetailModal :arr_image="product.arr_image" :selected_index="selected_image_index" @onSelectedImage="(index) => onSelectedImage(index)"/>
+    <ImageDetailModal :selected_image="selected_image_detail" @onSelectedImage="(index) => onSelectedImage(index)"/>
   </div>
 </template>
 
@@ -214,6 +212,7 @@ export default {
       arr_factor: [false, ],
       id: '',
       selected_image: "",
+      selected_image_detail: "",
       selected_image_index: -1,
       detail_product_image_height: 0,
       image_flag: false,
@@ -318,7 +317,8 @@ export default {
     this.get_product_detail()
   },
   methods: {
-    onClickImage(){
+    onClickImage(image){
+      this.selected_image_detail = image
       window.$('#image_detail_modal').modal('show')
       // window.open(this.selected_image, "_blank")
     },

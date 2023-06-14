@@ -18,17 +18,17 @@
           <div>
             <div class="d-flex align-items-center">
               <img src="@/assets/schedule_calendar.png" style="width: 1.1rem;"/>
-              <p class="ml-3 mb-0 ">{{ $t('auction_date') + " " + data.date.format('DD MMMM YYYY') }}</p>
+              <p class="ml-3 mb-0 auction-item-detail-info">{{ $t('auction_date') + " " + data.date.format('DD MMMM YYYY') }}</p>
             </div>
 
             <div class="d-flex align-items-center mt-1">
               <img src="@/assets/schedule_home.png" style="width: 1.1rem;"/>
-              <p class="ml-3 mb-0 ">{{ $t('open_house') + " " + data.open_house_date.format('DD MMMM YYYY') }}</p>
+              <p class="ml-3 mb-0 auction-item-detail-info">{{ $t('open_house') + " " + data.open_house_date.format('DD MMMM YYYY') }}</p>
             </div>
 
             <div class="d-flex align-items-center mt-1">
               <img src="@/assets/schedule_clock.png" style="width: 1.1rem;"/>
-              <p class="ml-3 mb-0 ">{{ data.start_time.format('HH:mm') + (data.end_time != null ? " - " + data.end_time : "") }}</p>
+              <p class="ml-3 mb-0 auction-item-detail-info">{{ data.start_time.format('HH:mm') + (data.end_time != null ? " - " + data.end_time : "") }}</p>
             </div>
           </div>
 
@@ -130,5 +130,8 @@ export default {
 }
 a p{
   text-decoration: none;
+}
+.auction-item-detail-info{
+  color: $gray18;
 }
 </style>

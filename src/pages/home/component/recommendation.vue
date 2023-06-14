@@ -17,7 +17,7 @@
           </div>
           <div>
             <VueSlickCarousel v-bind="slick_setting" ref="carousel">
-              <div v-for="(car, index) in arr_car" :key="index" class="px-1 px-md-0 h-100">
+              <div v-for="(car, index) in arr_car" :key="index" class="px-2 h-100">
                 <RecommendationItem :data="car" @onClick="toDetail(index)" :index="index" :total_data="arr_car.length" />
               </div>
             </VueSlickCarousel>

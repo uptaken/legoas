@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex flex-column align-items-center ">
     <div class="home-top w-100 pb-5 custom-navbar-padding-left ">
-      <div class="row mt-3 mt-md-0 mr-0 pl-0 pl-md-0">
+      <div class="row mt-5 mt-md-0 mr-0 pl-0 pl-md-0">
         <div class="col-12 col-md-6">
           <div class="d-flex flex-column justify-content-center h-100">
             <div id="banner-content" class="d-flex align-items-center" :style="{height: banner_content_height > 0 ? (banner_content_height + 'px') : 'auto'}">
