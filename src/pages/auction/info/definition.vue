@@ -44,7 +44,7 @@
         </div>
 
         <div class="w-100" style="margin-top: 5.6rem; margin-bottom: 16rem;">
-          <img src="@/assets/definition_bottom.png" width="100%"/>
+          <img src="@/assets/definition_bottom.jpg" width="100%"/>
         </div>
       </div>
     </div>
