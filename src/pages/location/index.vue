@@ -39,7 +39,11 @@
                     <p class="mb-0 info-title" v-show="flag.locationTitle5Flag">{{ $t('phone') }}</p>
                   </Transition>
                   <Transition name="location-content5">
-                    <p class="mb-0 mt-1 content-section" style="cursor: pointer;" @click="onClickPhone" v-show="flag.locationContent5Flag" v-html="phone"></p>
+                    <div v-show="flag.locationContent5Flag">
+                      <p class="mb-0 mt-1 content-section" style="cursor: pointer;" @click="onClickPhone"  v-html="phone"></p>
+                      <p class="mb-0 mt-1 content-section" v-html="call_only" v-show="call_only !== ''"></p>
+                      <p class="mb-0 mt-1 content-section" v-html="wa_only" v-show="wa_only !== ''"></p>
+                    </div>
                   </Transition>
                 </div>
               </div>
@@ -177,6 +181,8 @@ export default {
       phone: `021-12312-2312`,
       latitude: -7.2940871,
       longitude: 112.648735,
+      call_only: 'Call Only: 082211776223',
+      wa_only: 'WA Only: 081283228292',
       arr_image: [
         {
           id: "1",
@@ -312,6 +318,10 @@ export default {
               this.email = setting.value
             else if(setting.key === "phone")
               this.phone = setting.value
+            else if(setting.key === "wa_only")
+              this.wa_only = "WA Only: "+setting.value
+            else if(setting.key === "call_only")
+              this.call_only = "Call Only: "+setting.value
             else if(setting.key === "latitude")
               this.latitude = setting.value
             else if(setting.key === "longitude")

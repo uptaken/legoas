@@ -20,6 +20,8 @@
                 <font-awesome-icon icon="fa-solid fa-phone" />
                 <p style="cursor: pointer;" @click="onClickPhone" class="mb-0 ml-3 phone-number" v-html="phone"></p>
               </div>
+              <p class="mt-3 footer-content" v-html="call_only" v-show="call_only !== ''"></p>
+              <p class="mt-3 footer-content" v-html="wa_only" v-show="wa_only !== ''"></p>
             </div>
 
             <div class="col-6 col-md-2 d-flex flex-column mt-3 mt-md-0">
@@ -85,6 +87,8 @@ export default {
       arr_factor: [false, ],
       address: '',
       phone: '',
+      call_only: 'Call Only: 082211776223',
+      wa_only: 'WA Only: 081283228292',
     }
   },
   created(){
@@ -109,6 +113,10 @@ export default {
               this.address = setting.value
             else if(setting.key === "phone")
               this.phone = setting.value
+            else if(setting.key === "wa_only")
+              this.wa_only = "WA Only: "+setting.value
+            else if(setting.key === "call_only")
+              this.call_only = "Call Only: "+setting.value
           }
         }
         else

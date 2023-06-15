@@ -3,7 +3,7 @@
     <Transition name="how-to-title1">
       <div v-show="howToTitle1Flag">
         <div class="d-flex align-items-center">
-          <img src="@/assets/how_to_icon.png" style="width: 6rem;"/>
+          <img :src="image" style="width: 6rem;"/>
           <p class="mb-0 ml-2 section-title" v-html="title"></p>
         </div>
       </div>
@@ -57,7 +57,7 @@
 import Base from '@/utils/base';
 
 export default {
-  props: ["arr", "title", "howToTitle1Flag", ],
+  props: ["arr", "title", "howToTitle1Flag", "image",],
   components: {
   },
   data(){

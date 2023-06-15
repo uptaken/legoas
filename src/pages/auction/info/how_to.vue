@@ -33,7 +33,7 @@
       <div class="participant-container" id="participant-container">
         <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
           <div class="content-container text-left">
-            <HowToItem :title='`<label class="text-primary">` + $t("participant") + `</label> ` + $t("auction")' :arr="arr_participant" :howToTitle1Flag="flag.howToParticipantTitle1Flag"/>
+            <HowToItem :title='`<label class="text-primary">` + $t("participant") + `</label> ` + $t("auction")' :arr="arr_participant" :howToTitle1Flag="flag.howToParticipantTitle1Flag" :image="image_participant"/>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
       <div class="seller-container">
         <div class="custom-navbar-padding-right custom-navbar-padding-left text-center">
           <div class="content-container text-left">
-            <HowToItem :title='`<label class="text-primary">` + $t("seller") + `</label> ` + $t("product")' :arr="arr_seller" :howToTitle1Flag="flag.howToSellerTitle1Flag"/>
+            <HowToItem :title='`<label class="text-primary">` + $t("seller") + `</label> ` + $t("product")' :arr="arr_seller" :howToTitle1Flag="flag.howToSellerTitle1Flag" :image="image_seller"/>
           </div>
         </div>
       </div>
@@ -53,6 +53,8 @@
 import Base from '@/utils/base';
 import moment from 'moment';
 
+import HowToItem1 from '@/assets/how_to_icon.png'
+import HowToItem2 from '@/assets/how_to_icon_2.png'
 import HowToItem from '@/pages/auction/component/how_to_item.vue'
 // import { url } from 'inspector';
 
@@ -66,6 +68,8 @@ export default {
       scrollY: 0,
       arr_factor: [false, false, ],
       url_video: '',
+      image_participant: HowToItem1,
+      image_seller: HowToItem2,
       flag: {
         howToParticipantTitle1Flag: false,
         howToSellerTitle1Flag: false,
