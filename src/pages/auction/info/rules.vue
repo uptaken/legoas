@@ -13,7 +13,7 @@
       <div class="w-100" style="margin-top: 4.5rem; margin-bottom: 15rem;">
         <Transition name="rules-image">
           <div class="w-100" v-show="flag.rulesImageFlag">
-            <img src="@/assets/definition_bottom.jpg" width="100%"/>
+            <img src="@/assets/definition_bottom.webp" width="100%"/>
           </div>
         </Transition>
 
@@ -52,7 +52,7 @@
 import Base from '@/utils/base';
 import moment from 'moment';
 
-import Image from '@/assets/definition_bottom.jpg';
+import Image from '@/assets/definition_bottom.webp';
 import ImageCar from '@/assets/car.png';
 
 export default {

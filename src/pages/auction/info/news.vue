@@ -36,7 +36,7 @@
 import Base from '@/utils/base';
 import moment from 'moment';
 
-import Image from '@/assets/definition_bottom.jpg';
+import Image from '@/assets/definition_bottom.webp';
 import Image1 from '@/assets/news_table.png';
 
 export default {
