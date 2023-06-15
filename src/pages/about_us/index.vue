@@ -24,15 +24,15 @@
             <p class="mb-0 title-section" v-show="flag.aboutUsTitle2Flag" v-html="trust_title"></p>
           </Transition>
           <Transition name="about-us-content2" >
-            <p class="mb-0 mt-5 " id="trust-content" v-show="flag.aboutUsContent2Flag" v-html="trust_content"></p>
+            <p class="mb-0 mt-3 " id="trust-content" v-show="flag.aboutUsContent2Flag" v-html="trust_content"></p>
           </Transition>
 
           <Transition name="about-us-image2">
-            <div class="card trust-card" style="margin-top: 6.5rem;" v-show="flag.aboutUsImage2Flag">
-              <div class="card-body p-5">
+            <div class="card trust-card"  v-show="flag.aboutUsImage2Flag">
+              <div class="card-body p-0 p-md-5">
                 <div class="row">
                   <div class="col-6 col-md-3 d-flex align-items-center flex-column mt-3 mt-md-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
-                    <img :src="trust.image" style="width: 3rem; height: 3rem;"/>
+                    <img :src="trust.image" style="width: 6rem; height: 6rem;"/>
                     <div v-html="trust.title" class="mt-3 trust-list"></div>
                     
                   </div>
@@ -361,7 +361,12 @@ export default {
   width: 100%;
   border-radius: 1rem;
 }
-.trust-list{
+.trust-list > p:nth-child(1){
+  min-height: 100px;
   text-align: center;
+}
+.trust-list > p:nth-child(2){
+  text-align: justify;
+  text-align-last: center;
 }
 </style>

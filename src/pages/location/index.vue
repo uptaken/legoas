@@ -45,8 +45,8 @@
               </div>
             </div>
 
-            <div class="col-12 col-md-6 mt-5 mt-md-0">
-              <Transition name="location-content6">
+            <div class="col-12 col-md-6 mt-5 mt-md-0" style="min-height: 50vh;">
+              <!-- <Transition name="location-content6">
                 <div v-show="flag.locationContent6Flag">
                   <div class="d-flex justify-content-center">
                     <div class="position-relative" style="width: 12rem;">
@@ -65,6 +65,49 @@
                           animation="fade"
                           v-show="!arr_image[1].is_image_loaded"/>
                         <img :src="arr_image[1].image" @load="onImageLoad(1)" v-show="arr_image[1].is_image_loaded" width="100%"/>
+                      </div>
+                    </div>
+
+                    <div class="position-relative">
+                      <div v-if="arr_image[2] != null">
+                        <vue-skeleton-loader
+                          width="8rem"
+                          height="8rem"
+                          animation="fade"
+                          v-show="!arr_image[2].is_image_loaded"/>
+                        <img :src="arr_image[2].image" class="" @load="onImageLoad(2)" v-show="arr_image[2].is_image_loaded" style="width: 8rem; margin-left: 5rem;"/>
+                      </div>
+                      <div class="position-absolute bg-white rounded" style="top: 5rem;" v-if="arr_image[3] != null">
+                        <vue-skeleton-loader
+                          width="8rem"
+                          height="8rem"
+                          animation="fade"
+                          v-show="!arr_image[3].is_image_loaded"/>
+                        <img :src="arr_image[3].image" @load="onImageLoad(3)" v-show="arr_image[3].is_image_loaded" style="width: 8rem;"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Transition> -->
+              <Transition name="location-content6">
+                <div v-show="flag.locationContent6Flag" style="width: 100%; height: 100%;">
+                  <div class="d-flex justify-content-center position-relative" style="width: inherit; height: inherit;">
+                    <div class="" style="width: inherit;">
+                      <div v-if="arr_image[0] != null">
+                        <vue-skeleton-loader
+                          width="70%"
+                          style="position: absolute; aspect-ratio: 308/173; z-index: -1; right: 50%; top: 50%; transform: translate(70%, -75%);"
+                          animation="fade"
+                          v-show="!arr_image[0].is_image_loaded"/>
+                        <img :src="arr_image[0].image" @load="onImageLoad(0)" v-show="arr_image[0].is_image_loaded" style="position: absolute;width: 70%; z-index: -1; right: 50%; top: 50%; transform: translate(70%, -75%);"/>
+                      </div>
+                      <div style="" v-if="arr_image[1] != null">
+                        <vue-skeleton-loader
+                          width="70%"
+                          style="position: absolute; aspect-ratio: 300/170; left: 50%; width: 70%; bottom: 50%; transform: translate(-70%, 75%); border: 0.25rem solid white; border-radius: 0.25rem;"
+                          animation="fade"
+                          v-show="!arr_image[1].is_image_loaded"/>
+                        <img :src="arr_image[1].image" @load="onImageLoad(1)" v-show="arr_image[1].is_image_loaded" style="position: absolute; left: 50%; width: 70%; bottom: 50%; transform: translate(-70%, 75%); border: 0.25rem solid white; border-radius: 0.25rem;"/>
                       </div>
                     </div>
 
