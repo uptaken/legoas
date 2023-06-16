@@ -32,7 +32,7 @@
               <div class="card-body p-0 p-md-5">
                 <div class="row">
                   <div class="col-6 col-md-3 d-flex align-items-center flex-column mt-3 mt-md-0" v-for="(trust, index) in arr_trust" :key="'trust' + index">
-                    <img :src="trust.image" style="width: 6rem; height: 6rem;"/>
+                    <img :src="trust.image" style="width: 6rem;"/>
                     <div v-html="trust.title" class="mt-3 trust-list"></div>
                     
                   </div>
