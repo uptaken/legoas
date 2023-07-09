@@ -11,7 +11,7 @@ export default class Base{
   wait_time = 1500
   app_version = '0.2.0050'
 
-  host2 = "https://demo.legoas.co.id:8443"
+  host2 = "https://lelang.legoas.co.id:8443"
   url_api2 = this.host2 + "/api/portal"
   auth = "Basic ODUwMWRjNjRiOTEzNDcyZmE0Mjc0MTE5MTEzYjdjNGQ6TFNTLWRjYTU0ZDQ0ODFjZDRlYTU4NDAwYzk4NDM3N2EzMzk1"
 

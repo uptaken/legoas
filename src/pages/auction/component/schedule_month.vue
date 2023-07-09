@@ -33,7 +33,7 @@
               <td v-for="(date, index) in arr_date" :key="'schedule' + index" style="height: 13rem;">
                 <div class="d-flex flex-column justify-content-between h-100" style="{fontFamily: 'inter-regular', }">
                   {{ date.text }}
-                  <div style="max-height: 10rem;">
+                  <div style="max-height: 10rem; overflow-y: scroll;">
                     <div v-for="(auction, index1) in date.arr_auction" :key="'auctionSchedule' + index1 + index" class="p-1 mt-2" @click="onClickCategory(index, index1)" style="cursor: pointer;" :style="{backgroundColor: auction.backcolor, color: auction.fontcolor, borderRadius: '.3rem', fontFamily: 'inter-regular', lineHeight: '1', fontSize: '.8rem', }">{{ auction.title_format }}</div>
                   </div>
                 </div>
