@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export default class Base{
-  host = "https://legoas-api.quantumtri.com"
+  host = "https://legoasapi.legoas.co.id"
   // host = ""
   url_api = this.host + "/api"
   version = ""
