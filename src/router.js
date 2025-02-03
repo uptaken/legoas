@@ -17,6 +17,7 @@ import about_us from '@/pages/about_us/index'
 import location from '@/pages/location/index'
 import search from '@/pages/search/index'
 import product_detail from '@/pages/search/detail'
+import custom_detail from '@/pages/custom/detail'
 import sell from '@/pages/sell/index'
 
 Vue.use(Router)
@@ -110,6 +111,13 @@ var router = new Router({
     {
       path: '/product/detail',
       component: product_detail,
+      meta: {
+        requiresAuth: false
+      },
+    },
+    {
+      path: '/custom/:custom',
+      component: custom_detail,
       meta: {
         requiresAuth: false
       },

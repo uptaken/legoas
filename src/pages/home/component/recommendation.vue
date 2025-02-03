@@ -320,8 +320,8 @@ export default {
         else
           this.base.show_error(response.status_message)
       }
-      else
-        this.base.show_error(this.$t('server_error'))
+      // else
+      //   this.base.show_error(this.$t('server_error'))
     },
   }
 }

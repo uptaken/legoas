@@ -98,6 +98,8 @@ export default {
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
+		
+		console.log('testajdklajdlkjalksjdl')
   },
   methods: {
     handleScroll(){

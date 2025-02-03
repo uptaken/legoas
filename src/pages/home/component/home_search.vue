@@ -256,8 +256,8 @@ export default {
         else
           this.base.show_error(response.status_message)
       }
-      else
-        this.base.show_error(this.$t('server_error'))
+      // else
+      //   this.base.show_error(this.$t('server_error'))
     },
     async get_location(){
       var response = await this.base.request(this.base.url_api2 + "/ListLocation")
@@ -281,8 +281,8 @@ export default {
         else
           this.base.show_error(response.status_message)
       }
-      else
-        this.base.show_error(this.$t('server_error'))
+      // else
+      //   this.base.show_error(this.$t('server_error'))
     },
     async get_banner(){
       var response = await this.base.request(this.base.url_api + "/banner/all?is_publish=1")
@@ -302,8 +302,8 @@ export default {
         else
           this.base.show_error(response.message)
       }
-      else
-        this.base.show_error(this.$t('server_error'))
+      // else
+      //   this.base.show_error(this.$t('server_error'))
     },
     search_action(){
       // if(this.location_id === "")

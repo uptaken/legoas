@@ -17,9 +17,9 @@
           <li class="d-flex align-items-center nav-item">
             <a class="nav-link" :class="{'active': currentRoute === '/schedule'}" href="/schedule" >{{ $t("auction_schedule") }}</a>
           </li>
-          <li class="d-flex align-items-center nav-item dropdown nav-dropdown">
+          <li class="d-flex align-items-center nav-item dropdown nav-master-dropdown">
             <!-- <a class="nav-link" href="/definiton">{{ $t("auction_info") }}</a> -->
-            <div>
+            <div class="nav-dropdown">
               <a class="nav-link dropdown-toggle" 
                 :class="{'active': currentRoute === '/definiton' || currentRoute === '/how-to' || currentRoute === '/rules' || currentRoute === '/news' || currentRoute === '/article'}" 
                 
@@ -33,11 +33,69 @@
                 </div>
               </a>
               <div class="dropdown-menu">
+                <!-- <div class="dropright">
+                  <a class="dropdown-item dropdown-toggle" 
+                    href="#" 
+                    role="button" 
+                    data-toggle="dropdown" 
+                    aria-expanded="false">{{ $t("test") }}</a>
+
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" :class="{'active': currentRoute === '/definiton'}" href="/definiton" >{{ $t("auction_definition") }}</a>
+                    <a class="dropdown-item" :class="{'active': currentRoute === '/how-to'}" href="/how-to" >{{ $t("auction_how_to") }}</a>
+                    <a class="dropdown-item" :class="{'active': currentRoute === '/rules'}" href="/rules" >{{ $t("auction_rules") }}</a>
+                    <a class="dropdown-item" :class="{'active': currentRoute === '/news'}" href="/news" >{{ $t("auction_news") }}</a>
+                    <a class="dropdown-item" :class="{'active': currentRoute === '/article'}" href="/article" >{{ $t("article") }}</a>
+                  </div>
+                </div> -->
                 <a class="dropdown-item" :class="{'active': currentRoute === '/definiton'}" href="/definiton" >{{ $t("auction_definition") }}</a>
                 <a class="dropdown-item" :class="{'active': currentRoute === '/how-to'}" href="/how-to" >{{ $t("auction_how_to") }}</a>
                 <a class="dropdown-item" :class="{'active': currentRoute === '/rules'}" href="/rules" >{{ $t("auction_rules") }}</a>
                 <a class="dropdown-item" :class="{'active': currentRoute === '/news'}" href="/news" >{{ $t("auction_news") }}</a>
                 <a class="dropdown-item" :class="{'active': currentRoute === '/article'}" href="/article" >{{ $t("article") }}</a>
+              </div>
+            </div>
+          </li>
+          <li class="d-flex align-items-center nav-item dropdown nav-master-dropdown" v-for="(level1, index1) in arr_custom_navbar" :key="'level1' + index1">
+            <div v-if="level1.arr.length == 0">
+              <a class="nav-link" :class="{'active': currentRoute.includes('/custom*')}" @click="onRedirectLevel1(index1)" :href="'/custom/' + level1.id_frontend" >{{ level1.name }}</a>
+            </div>
+            <div v-else>
+              <div class="nav-dropdown" :id="'custom_level1' + index1">
+                <a class="nav-link dropdown-toggle" 
+                  :class="{'active': currentRoute.includes('/custom*')}"
+                  href="#" 
+                  @click="onLevel1Clicked(index1)"
+                  role="button" >
+                  <div class="d-flex align-items-center">
+                    {{ level1.name }}
+                    <font-awesome-icon icon="fa-solid fa-chevron-down" class="nav-arrow ml-2"/>
+                  </div>
+                </a>
+                <div class="dropdown-menu" :class="{'show': level1.is_show,}" :id="'custom_level1_menu' + index1">
+                  <div v-for="(level2, index2) in level1.arr" :key="'level2' + index2">
+                    <div v-if="level2.arr.length == 0">
+                      <a class="dropdown-item" :class="{'active': currentRoute.includes('/custom*')}" @click="onRedirectLevel2(index1, index2)" :href="'/custom/' + level2.id_frontend" >{{ level2.name }}</a>
+                    </div>
+                    <div v-else>
+                      <div class="dropright" :id="'custom_level2' + index1 + index2">
+                        <a class="dropdown-item dropdown-toggle" 
+                          href="#" 
+                          role="button"
+                          @click="onLevel2Clicked(index1, index2)" >
+                          <div class="d-flex align-items-center justify-content-between">
+                            {{ level2.name }}
+                            <font-awesome-icon icon="fa-solid fa-chevron-right" class="nav-arrow ml-2"/>
+                          </div>
+                        </a>
+
+                        <div class="dropdown-menu" :class="{'show': level2.is_show,}" :id="'custom_level2_menu' + index1 + index2">
+                          <a class="dropdown-item" v-for="(level3, index3) in level2.arr" :key="'level3' + index3" :class="{'active': currentRoute.includes('/custom*')}" @click="onRedirectLevel3(index1, index2, index3)" :href="'/custom/' + level3.id_frontend" >{{ level3.name }}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </li>
@@ -84,6 +142,7 @@ export default{
       currentRoute: '/',
       customClass: 'navbar-home-gray1',
       isNavbarToggle: false,
+      arr_custom_navbar: [],
     }
   },
   watch: {
@@ -113,12 +172,30 @@ export default{
       else{
         this.customClass = 'navbar-home-white'
       }
-    }
+    },
+    arr_custom_navbar(val){
+      for(let x in val){
+        if(val[x].is_show)
+          window.$('#custom_level1_menu' + x).addClass('show')
+        else
+          window.$('#custom_level1_menu' + x).removeClass('show')
+        for(let y in val[x].arr){
+          if(val[x].arr[y].is_show)
+            window.$('#custom_level2_menu' + y).addClass('show')
+          else{
+            console.log(window.$('#custom_level2_menu' + y))
+            window.$('#custom_level2_menu' + y).removeClass('show')
+          }
+        }
+      }
+    },
   },
   created(){
     this.base = new Base()
     this.currentRoute = this.$router.currentRoute.path
     this.customClass = this.currentRoute === '/' ? 'navbar-home-normal-gray1' : 'navbar-home-normal-white'
+
+    this.get_navbar()
   },
   methods: {
     onNavbarToggle(){
@@ -127,6 +204,72 @@ export default{
     logout(){
       localStorage.removeItem('token')
       location.href = "/auth/login"
+    },
+    onLevel1Clicked(index1){
+      // window.$('#custom_level1' + index1).dropdown('toggle')
+
+      var arr = JSON.parse(JSON.stringify(this.arr_custom_navbar))
+			for(let x in arr){
+				if(x != index1){
+					arr[x].is_show = false
+					for(let temp1 of arr[x].arr)
+						temp1.is_show = false
+				}
+			}
+			
+      arr[index1].is_show = !arr[index1].is_show
+      this.arr_custom_navbar = arr
+    },
+    onLevel2Clicked(index1, index2){
+      var arr = JSON.parse(JSON.stringify(this.arr_custom_navbar))
+			for(let x in arr[index1].arr){
+				if(x != index2)
+					arr[index1].arr[x].is_show = false
+			}
+      arr[index1].arr[index2].is_show = !arr[index1].arr[index2].is_show
+      this.arr_custom_navbar = arr
+    },
+    onRedirectLevel1(index1){
+      window.localStorage.setItem('custom_navbar_level1', JSON.stringify(this.arr_custom_navbar[index1]))
+      window.localStorage.setItem('custom_navbar_level2', JSON.stringify({}))
+      window.localStorage.setItem('custom_navbar_level3', JSON.stringify({}))
+    },
+    onRedirectLevel2(index1, index2){
+      window.localStorage.setItem('custom_navbar_level1', JSON.stringify(this.arr_custom_navbar[index1]))
+      window.localStorage.setItem('custom_navbar_level2', JSON.stringify(this.arr_custom_navbar[index1].arr[index2]))
+      window.localStorage.setItem('custom_navbar_level3', JSON.stringify({}))
+    },
+    onRedirectLevel3(index1, index2, index3){
+      window.localStorage.setItem('custom_navbar_level1', JSON.stringify(this.arr_custom_navbar[index1]))
+      window.localStorage.setItem('custom_navbar_level2', JSON.stringify(this.arr_custom_navbar[index1].arr[index2]))
+      window.localStorage.setItem('custom_navbar_level3', JSON.stringify(this.arr_custom_navbar[index1].arr[index2].arr[index3]))
+    },
+    async get_navbar(){
+      var response = await this.base.request(this.base.url_api + "/navbar/level1/all")
+
+      if(response != null){
+        if(response.status === "success"){
+          for(let level1 of response.data){
+            level1.id_frontend = level1.name.replace(' ', '_').toLowerCase()
+            level1.is_show = false
+            level1.arr = level1.navbar_level2
+            for(let level2 of level1.arr){
+              level2.id_frontend = level2.name.replace(' ', '_').toLowerCase()
+              level2.is_show = false
+              level2.arr = level2.navbar_level3
+              for(let level3 of level2.arr){
+                level3.id_frontend = level3.name.replace(' ', '_').toLowerCase()
+                level3.is_show = false
+              }
+            }
+          }
+          this.arr_custom_navbar = response.data
+        }
+        else
+          this.base.show_error(response.message)
+      }
+      // else
+      //   this.base.show_error(this.$t('server_error'))
     },
   }
 }
@@ -140,7 +283,7 @@ export default{
   }
 }
 @media only screen and (min-width: 960px) {
-  .nav-dropdown:hover .dropdown-menu{
+  .nav-master-dropdown:hover>.nav-dropdown>.dropdown-menu{
     display: block;
   }
   .nav-link{

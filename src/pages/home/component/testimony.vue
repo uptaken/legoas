@@ -132,8 +132,8 @@ export default {
         else
           this.base.show_error(response.message)
       }
-      else
-        this.base.show_error(this.$t('server_error'))
+      // else
+      //   this.base.show_error(this.$t('server_error'))
     },
   }
 }

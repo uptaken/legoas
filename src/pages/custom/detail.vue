@@ -3,30 +3,31 @@
     <div class="content-container text-left">
       <div class="position-relative" style="margin-top: 3.8rem;">
         <div class="d-flex">
-          <p class="mb-0 navigation text-primary mr-3" @click="onGoBack()" style="cursor: pointer;"><font-awesome-icon icon="fa-solid fa-chevron-left"/></p>
-          <p class="mb-0 navigation">{{ $t('article') }}</p>
-          <p class="mb-0 navigation">&nbsp;/&nbsp;</p>
-          <p class="mb-0 navigation navigation-now">{{ $t('detail_article') }}</p>
+          <p class="mb-0 navigation" :class="{'navigation-now': custom_navbar_level2.id == null}">{{ custom_navbar_level1.name }}</p>
+          <p class="mb-0 navigation" v-if="custom_navbar_level2.id != null">&nbsp;/&nbsp;</p>
+          <p class="mb-0 navigation" :class="{'navigation-now': custom_navbar_level3.id == null}" v-if="custom_navbar_level2.id != null">{{ custom_navbar_level2.name }}</p>
+          <p class="mb-0 navigation" v-if="custom_navbar_level3.id != null">&nbsp;/&nbsp;</p>
+          <p class="mb-0 navigation navigation-now" v-if="custom_navbar_level3.id != null">{{ custom_navbar_level3.name }}</p>
         </div>
-        <!-- <p class="mb-0 general-title">{{ $t('detail_article') }}</p> -->
+        <!-- <p class="mb-0 general-title">{{ custom_navbar_level3.id != null ? custom_navbar_level3.name : (custom_navbar_level2.id != null ? custom_navbar_level2.name : custom_navbar_level1.name) }}</p> -->
       </div>
 
       <div class="w-100" style="padding-top: 5.1rem; padding-bottom: 17.8rem;">
         <Transition name="news-title">
           <div class="" v-show="flag.newsTitleFlag">
+            <!-- <p class="mb-0 news-date">{{ $t('news') + " " + date.format('DD MMMM YYYY') }}</p> -->
             <p class="mb-0 news-title mt-3">{{ title }}</p>
-            <p class="mb-0 news-date">{{ $t('created_at') + " " + date.format('DD MMMM YYYY') }}</p>
           </div>
         </Transition>
 
         <Transition name="news-image">
           <div class="" style="margin-top: 3.6rem;" v-show="flag.newsImageFlag && image != null">
-            <img :src="image" width="100%" style="height: 20rem; object-fit: cover;" class="article-image"/>
+            <img :src="image" width="100%"/>
           </div>
         </Transition>
 
         <Transition name="news-content">
-          <div class="mx-0 m-md-5 article-content" style="margin-top: 4.5rem;" v-show="flag.newsContentFlag" v-html="content"></div>
+          <div class="mx-0 m-md-5" style="margin-top: 4.5rem;" v-show="flag.newsContentFlag" v-html="content"></div>
         </Transition>
       </div>
     </div>
@@ -99,6 +100,9 @@ export default {
           Selamat mencoba #LELANGBEBASRIBET
         </div>
       `,
+      custom_navbar_level1: {},
+      custom_navbar_level2: {},
+      custom_navbar_level3: {},
     }
   },
   watch: {
@@ -110,54 +114,42 @@ export default {
       this.manage_start_animation()
     },
   },
-  created(){
+  async created(){
     this.base = new Base()
     window.addEventListener('scroll', this.handleScroll)
     this.scrollY = 1
 
-    this.id = this.$route.query.id
-    // var article = window.localStorage.getItem('article')
-    // this.article = JSON.parse(article)
-    // this.image = this.article.image
-    // this.title = this.article.title
-    // this.content = this.article.content
-    // this.date = moment(this.article.date_format, "YYYY-MM-DD")
-    // this.arr_factor = [true,]
+    this.custom_navbar_level1 = JSON.parse(await window.localStorage.getItem('custom_navbar_level1'))
+    this.custom_navbar_level2 = JSON.parse(await window.localStorage.getItem('custom_navbar_level2'))
+    this.custom_navbar_level3 = JSON.parse(await window.localStorage.getItem('custom_navbar_level3'))
 
-    this.get_article()
+    this.get_content()
   },
   methods: {
-    onGoBack(){
-      window.history.go(-1)
-    },
     handleScroll(){
       this.scrollY = window.scrollY
     },
-    async get_article(){
-      this.isLoading = true
-
-      var response = await this.base.request(this.base.url_api + `/article?id=${this.$route.query.id}`)
+    manage_start_animation(){
+      this.flag.newsTitleFlag = this.base.check_start_animation(this.scrollY, this.flag.newsTitleFlag, this.arr_factor, 0)
+      this.flag.newsImageFlag = this.base.check_start_animation(this.scrollY, this.flag.newsImageFlag, this.arr_factor, 0)
+      this.flag.newsContentFlag = this.base.check_start_animation(this.scrollY, this.flag.newsContentFlag, this.arr_factor, 0)
+    },
+    async get_content(){
+      var response = await this.base.request(this.base.url_api + `/navbar-content?num_data=1&is_publish=1` + (this.custom_navbar_level2.id == null ? '&navbar_level1_id=' + this.custom_navbar_level1.id : (this.custom_navbar_level3.id == null ? '&navbar_level2_id=' + this.custom_navbar_level2.id : '&navbar_level3_id=' + this.custom_navbar_level3.id)))
       this.$set(this.arr_factor, 0, true)
-      this.isLoading = false
 
       if(response != null){
         if(response.status === "success"){
-          this.article = response.data
-          this.image = this.article.image
-          this.title = this.article.title
-          this.content = this.article.content
-          this.date = moment(this.article.date_format, "YYYY-MM-DD")
+          this.title = response.data.title
+          this.content = response.data.content
+          this.image = response.data.file_name != null ? this.base.host + "/media/navbar-content?file_name=" + response.data.file_name : null
+          this.date = moment(response.data.publish_at_format, 'YYYY-MM-DD')
         }
         else
           this.base.show_error(response.message)
       }
       else
         this.base.show_error(this.$t('server_error'))
-    },
-    manage_start_animation(){
-      this.flag.newsTitleFlag = this.base.check_start_animation(this.scrollY, this.flag.newsTitleFlag, this.arr_factor, 0)
-      this.flag.newsImageFlag = this.base.check_start_animation(this.scrollY, this.flag.newsImageFlag, this.arr_factor, 0)
-      this.flag.newsContentFlag = this.base.check_start_animation(this.scrollY, this.flag.newsContentFlag, this.arr_factor, 0)
     },
   }
 }
@@ -191,8 +183,5 @@ ol{
 .news-content-leave-to, .news-content-enter {
   transform: translateY(-10rem);
   opacity: 0;
-}
-.article-content figure{
-  overflow: scroll;
 }
 </style>

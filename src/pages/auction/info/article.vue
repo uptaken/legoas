@@ -277,10 +277,12 @@ export default {
         if(response.status === "success"){
           var arr = []
           for(let article of response.data){
-            var desc_display = article.content.substring(0, article.content.indexOf('</p>') + 4)
+            var title_display = article.title.length > 30 ? article.title.substring(0, 30) + "..." : article.title
+            var desc_display = article.content.replace(/<[^>]*>?/gm, '').length > 100 ? article.content.replace(/<[^>]*>?/gm, '').substring(0, 100) + "..." : article.content.replace(/<[^>]*>?/gm, '')
 
             article.image = this.base.host + "/media/article?file_name=" + article.file_name
             article.date = article.date_format !== '' ? moment(article.date_format, "YYYY-MM-DD") : ''
+            article.title = title_display
             article.description = desc_display
 
             if(article.is_primary == 1){
